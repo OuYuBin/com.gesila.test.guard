@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="Gesila"
+            id="org.springframework.ide.eclipse.gesila.metadata">
+      </category>
+      <view
+            category="org.springframework.ide.eclipse.gesila.metadata"
+            class="org.springframework.ide.eclipse.gesila.metadata.views.GesilaRequestMppingView"
+            icon="icons/gesila_request_mapping_obj.gif"
+            id="org.springframework.ide.eclipse.gesila.metadata.views.GesilaRequestMppingView"
+            name="Gasila@RequestMapping"
+            restorable="true">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="org.springframework.ide.eclipse.gesila.metadata.perspectives.GesilaPerspective"
+            icon="icons/gesila.png"
+            id="org.springframework.ide.eclipse.gesila.metadata.perspectives.GesilaPerspective"
+            name="Gesila">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            id="org.springframework.ide.eclipse.gesila.metadata.contribution1"
+            objectClass="org.eclipse.core.resources.IResource">
+         <menu
+               icon="icons/gesila.png"
+               id="org.springframework.ide.eclipse.gesila.metadata.menu"
+               label="Gesila Tools">
+            <separator
+                  name="gesilaGroup">
+            </separator>
+         </menu>
+         <visibility>
+            <and>
+               <or>
+                  <objectState
+                        name="contentTypeId"
+                        value="org.springframework.ide.eclipse.beans.ui.editor.beansConfig">
+                  </objectState>
+                  <objectState
+                        name="contentTypeId"
+                        value="com.springsource.sts.config.ui.beanConfigFile">
+                  </objectState>
+                  <objectClass
+                        name="org.eclipse.core.resources.IProject">
+                  </objectClass>
+               </or>
+               <objectState
+                     name="projectNature"
+                     value="org.springframework.ide.eclipse.core.springnature">
+               </objectState>
+            </and>
+         </visibility>
+         <action
+               class="org.springframework.ide.eclipse.gesila.metadata.actions.ShowGesilaRequestMappingsAction"
+               enablesFor="1"
+               icon="icons/gesila_request_mapping_obj.gif"
+               id="org.springframework.ide.eclipse.gesila.metadata.newAction"
+               label="Show Gasila RequestMapping"
+               menubarPath="org.springframework.ide.eclipse.gesila.metadata.menu/gesilaGroup">
+         </action>
+      </objectContribution>
+   </extension>
+
+</plugin>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd2ecore:XSD2EcoreMappingRoot xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsd2ecore="http://www.eclipse.org/emf/2002/XSD2Ecore" inputs="testGuard.ecore#/" outputs="TestGuardXML.xsd#/">
+  <nested inputs="testGuard.ecore#/" outputs="TestGuardXML.xsd#/">
+    <nested inputs="testGuard.ecore#//RequestType" outputs="TestGuardXML.xsd#//RequestType;XSDSimpleTypeDefinition">
+      <nested inputs="testGuard.ecore#//RequestType/LITERAL0" outputs="TestGuardXML.xsd#//RequestType;XSDSimpleTypeDefinition/XSDEnumerationFacet"/>
+    </nested>
+    <nested inputs="testGuard.ecore#//TestGuard" outputs="TestGuardXML.xsd#//TestGuard;XSDComplexTypeDefinition">
+      <nested inputs="testGuard.ecore#//TestGuard/Module" outputs="TestGuardXML.xsd#//TestGuard;XSDComplexTypeDefinition/XSDParticle/XSDModelGroup/XSDParticle"/>
+    </nested>
+    <nested inputs="testGuard.ecore#//TestGuard" outputs="TestGuardXML.xsd#//TestGuard;XSDElementDeclaration"/>
+    <nested inputs="testGuard.ecore#//TestGuardModule" outputs="TestGuardXML.xsd#//TestGuardModule;XSDComplexTypeDefinition=1">
+      <nested inputs="testGuard.ecore#//TestGuardModule/name" outputs="TestGuardXML.xsd#//TestGuardModule;XSDComplexTypeDefinition=1/XSDAttributeUse"/>
+      <nested inputs="testGuard.ecore#//TestGuardModule/Unit" outputs="TestGuardXML.xsd#//TestGuardModule;XSDComplexTypeDefinition=1/XSDParticle/XSDModelGroup/XSDParticle"/>
+    </nested>
+    <nested inputs="testGuard.ecore#//TestGuardModule" outputs="TestGuardXML.xsd#//TestGuardModule;XSDElementDeclaration=1"/>
+    <nested inputs="testGuard.ecore#//TestGuardUnit" outputs="TestGuardXML.xsd#//TestGuardUnit;XSDComplexTypeDefinition=2">
+      <nested inputs="testGuard.ecore#//TestGuardUnit/name" outputs="TestGuardXML.xsd#//TestGuardUnit;XSDComplexTypeDefinition=2/XSDAttributeUse"/>
+      <nested inputs="testGuard.ecore#//TestGuardUnit/url" outputs="TestGuardXML.xsd#//TestGuardUnit;XSDComplexTypeDefinition=2/XSDAttributeUse=1"/>
+      <nested inputs="testGuard.ecore#//TestGuardUnit/requestBody" outputs="TestGuardXML.xsd#//TestGuardUnit;XSDComplexTypeDefinition=2/XSDAttributeUse=2"/>
+    </nested>
+    <nested inputs="testGuard.ecore#//TestGuardUnit" outputs="TestGuardXML.xsd#//TestGuardUnit;XSDElementDeclaration=2"/>
+  </nested>
+</xsd2ecore:XSD2EcoreMappingRoot>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:testGuard="http://www.igesila.com/testGuard/0.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.igesila.com/testGuard/0.1">
+  <xsd:simpleType name="RequestType">
+    <xsd:restriction base="xsd:NCName">
+      <xsd:enumeration value="LITERAL0"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="TestGuard">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Module" type="testGuard:TestGuardModule"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="TestGuard" type="testGuard:TestGuard"/>
+  <xsd:complexType name="TestGuardModule">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Unit" type="testGuard:TestGuardUnit"/>
+    </xsd:sequence>
+    <xsd:attribute name="name" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:element name="TestGuardModule" type="testGuard:TestGuardModule"/>
+  <xsd:complexType name="TestGuardUnit">
+    <xsd:attribute name="name" type="xsd:string"/>
+    <xsd:attribute name="url" type="xsd:string"/>
+    <xsd:attribute name="requestBody" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:element name="TestGuardUnit" type="testGuard:TestGuardUnit"/>
+</xsd:schema>
