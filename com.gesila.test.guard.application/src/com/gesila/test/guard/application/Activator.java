@@ -75,10 +75,10 @@ public class Activator extends AbstractUIPlugin implements BundleActivator {
 			for (int j = i; j < size; j++) {
 				if (args[j] > args[i]) {
 					max = j;
+					int tmp = args[i];
+					args[i] = args[max];
+					args[max] = tmp;
 				}
-				int tmp = args[i];
-				args[i] = args[max];
-				args[max] = tmp;
 			}
 		}
 		return args;

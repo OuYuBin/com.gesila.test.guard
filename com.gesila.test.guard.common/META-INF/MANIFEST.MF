@@ -9,4 +9,5 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
-Export-Package: com.gesila.test.guard.common
+Export-Package: com.gesila.test.guard.common,
+ com.gesila.test.guard.common.part

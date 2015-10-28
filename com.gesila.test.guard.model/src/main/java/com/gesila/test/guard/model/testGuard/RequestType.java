@@ -19,29 +19,52 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum RequestType implements Enumerator {
 	/**
-	 * The '<em><b>LITERAL0</b></em>' literal object.
+	 * The '<em><b>POST</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #LITERAL0_VALUE
+	 * @see #POST_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	LITERAL0(0, "LITERAL0", "LITERAL0");
+	POST(0, "POST", "POST"), /**
+	 * The '<em><b>PUT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #PUT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	PUT(1, "PUT", "PUT");
 
 	/**
-	 * The '<em><b>LITERAL0</b></em>' literal value.
+	 * The '<em><b>POST</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>LITERAL0</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>POST</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #LITERAL0
+	 * @see #POST
 	 * @model
 	 * @generated
 	 * @ordered
 	 */
-	public static final int LITERAL0_VALUE = 0;
+	public static final int POST_VALUE = 0;
+
+	/**
+	 * The '<em><b>PUT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>PUT</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #PUT
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int PUT_VALUE = 1;
 
 	/**
 	 * An array of all the '<em><b>Request Type</b></em>' enumerators.
@@ -51,7 +74,8 @@ public enum RequestType implements Enumerator {
 	 */
 	private static final RequestType[] VALUES_ARRAY =
 		new RequestType[] {
-			LITERAL0,
+			POST,
+			PUT,
 		};
 
 	/**
@@ -108,7 +132,8 @@ public enum RequestType implements Enumerator {
 	 */
 	public static RequestType get(int value) {
 		switch (value) {
-			case LITERAL0_VALUE: return LITERAL0;
+			case POST_VALUE: return POST;
+			case PUT_VALUE: return PUT;
 		}
 		return null;
 	}
@@ -151,6 +176,7 @@ public enum RequestType implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getValue() {
 	  return value;
 	}
@@ -160,6 +186,7 @@ public enum RequestType implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 	  return name;
 	}
@@ -169,6 +196,7 @@ public enum RequestType implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLiteral() {
 	  return literal;
 	}

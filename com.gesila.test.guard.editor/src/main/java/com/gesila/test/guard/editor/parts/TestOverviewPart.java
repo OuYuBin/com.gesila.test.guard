@@ -197,13 +197,13 @@ public class TestOverviewPart {
 				Object object = selection.getFirstElement();
 				if (object instanceof EObject) {
 					String id = object.toString();
-//					List<MStackElement> elements = partStack.getChildren();
-//					for (MStackElement element : elements) {
-//						if (id.equals(element.getElementId())) {
-//							partService.showPart((MPart) element, PartState.ACTIVATE);
-//							return;
-//						}
-//					}
+					List<MStackElement> elements = partStack.getChildren();
+					for (MStackElement element : elements) {
+						if (id.equals(element.getElementId())) {
+							partService.showPart((MPart) element, PartState.ACTIVATE);
+							return;
+						}
+					}
 					part.setLabel(((EObject)object).toString());
 					part.setElementId(object.toString());
 					partStack.getChildren().add(part);

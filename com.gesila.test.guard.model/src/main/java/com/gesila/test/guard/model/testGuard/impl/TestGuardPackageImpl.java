@@ -118,6 +118,7 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getTestGuard() {
 		return testGuardEClass;
 	}
@@ -127,6 +128,7 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getTestGuard_Module() {
 		return (EReference)testGuardEClass.getEStructuralFeatures().get(0);
 	}
@@ -136,6 +138,7 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getTestGuardModule() {
 		return testGuardModuleEClass;
 	}
@@ -145,6 +148,7 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getTestGuardModule_Unit() {
 		return (EReference)testGuardModuleEClass.getEStructuralFeatures().get(0);
 	}
@@ -154,6 +158,7 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTestGuardModule_Name() {
 		return (EAttribute)testGuardModuleEClass.getEStructuralFeatures().get(1);
 	}
@@ -163,6 +168,7 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getTestGuardUnit() {
 		return testGuardUnitEClass;
 	}
@@ -172,6 +178,7 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTestGuardUnit_Name() {
 		return (EAttribute)testGuardUnitEClass.getEStructuralFeatures().get(0);
 	}
@@ -181,6 +188,7 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTestGuardUnit_Url() {
 		return (EAttribute)testGuardUnitEClass.getEStructuralFeatures().get(1);
 	}
@@ -190,6 +198,7 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTestGuardUnit_RequestBody() {
 		return (EAttribute)testGuardUnitEClass.getEStructuralFeatures().get(2);
 	}
@@ -199,6 +208,7 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getRequestType() {
 		return requestTypeEEnum;
 	}
@@ -208,6 +218,7 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TestGuardFactory getTestGuardFactory() {
 		return (TestGuardFactory)getEFactoryInstance();
 	}
@@ -291,7 +302,8 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 
 		// Initialize enums and add enum literals
 		initEEnum(requestTypeEEnum, RequestType.class, "RequestType");
-		addEEnumLiteral(requestTypeEEnum, RequestType.LITERAL0);
+		addEEnumLiteral(requestTypeEEnum, RequestType.POST);
+		addEEnumLiteral(requestTypeEEnum, RequestType.PUT);
 
 		// Create resource
 		createResource(eNS_URI);

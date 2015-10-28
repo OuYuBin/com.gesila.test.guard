@@ -16,6 +16,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="requestBody" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="RequestType">
-    <eLiterals name="LITERAL0"/>
+    <eLiterals name="POST" literal="POST"/>
+    <eLiterals name="PUT" value="1"/>
   </eClassifiers>
 </ecore:EPackage>

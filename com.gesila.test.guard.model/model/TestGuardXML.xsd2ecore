@@ -3,7 +3,8 @@
     xmlns:xsd2ecore="http://www.eclipse.org/emf/2002/XSD2Ecore" inputs="testGuard.ecore#/" outputs="TestGuardXML.xsd#/">
   <nested inputs="testGuard.ecore#/" outputs="TestGuardXML.xsd#/">
     <nested inputs="testGuard.ecore#//RequestType" outputs="TestGuardXML.xsd#//RequestType;XSDSimpleTypeDefinition">
-      <nested inputs="testGuard.ecore#//RequestType/LITERAL0" outputs="TestGuardXML.xsd#//RequestType;XSDSimpleTypeDefinition/XSDEnumerationFacet"/>
+      <nested inputs="testGuard.ecore#//RequestType/POST" outputs="TestGuardXML.xsd#//RequestType;XSDSimpleTypeDefinition/XSDEnumerationFacet"/>
+      <nested inputs="testGuard.ecore#//RequestType/PUT" outputs="TestGuardXML.xsd#//RequestType;XSDSimpleTypeDefinition/XSDEnumerationFacet=1"/>
     </nested>
     <nested inputs="testGuard.ecore#//TestGuard" outputs="TestGuardXML.xsd#//TestGuard;XSDComplexTypeDefinition">
       <nested inputs="testGuard.ecore#//TestGuard/Module" outputs="TestGuardXML.xsd#//TestGuard;XSDComplexTypeDefinition/XSDParticle/XSDModelGroup/XSDParticle"/>

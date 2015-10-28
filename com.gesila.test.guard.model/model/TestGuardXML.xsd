@@ -2,7 +2,8 @@
 <xsd:schema xmlns:testGuard="http://www.igesila.com/testGuard/0.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.igesila.com/testGuard/0.1">
   <xsd:simpleType name="RequestType">
     <xsd:restriction base="xsd:NCName">
-      <xsd:enumeration value="LITERAL0"/>
+      <xsd:enumeration value="POST"/>
+      <xsd:enumeration value="PUT"/>
     </xsd:restriction>
   </xsd:simpleType>
   <xsd:complexType name="TestGuard">

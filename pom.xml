@@ -71,5 +71,9 @@
   	<module>com.gesila.test.guard.ui</module>
   	<module>com.gesila.test.guard.http</module>
   	<module>com.gesila.test.guard.application</module>
+  	
+  	
+  	
+  	<module>org.springframework.ide.eclipse.gesila.metadata</module>
   </modules>
 </project>
