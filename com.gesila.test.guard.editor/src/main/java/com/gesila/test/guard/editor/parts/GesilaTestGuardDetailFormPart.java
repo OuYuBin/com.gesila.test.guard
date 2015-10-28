@@ -37,6 +37,7 @@ import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
@@ -108,6 +109,7 @@ public class GesilaTestGuardDetailFormPart {
 		form.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
 		IToolBarManager toolBarManager = form.getToolBarManager();
+		((ToolBarManager)toolBarManager).setStyle(SWT.HORIZONTAL);
 		createRequestTypeToolBar(toolBarManager);
 		toolBarManager.update(true);
 		//toolBarManager.add(new GesilaRequestTypeToolBarItem(toolBarManager));
