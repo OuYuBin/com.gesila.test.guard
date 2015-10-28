@@ -54,16 +54,16 @@ public class GesilaRequestTypeToolBarItem extends GesilaPartToolBarItem {
 				menu.setVisible(true);
 			}
 
-			@Override
-			public String getText() {
-				// TODO Auto-generated method stub
-				return "POST";
-			}
+//			@Override
+//			public String getText() {
+//				// TODO Auto-generated method stub
+//				return "POST";
+//			}
 
 			@Override
 			public ImageDescriptor getImageDescriptor() {
 				// TODO Auto-generated method stub
-				return ImageDescriptor.createFromImage(JFaceResources.getImage("popup_menu_image"));
+				return ImageDescriptor.createFromImage(JFaceResources.getImage("dialog_messasge_info_image"));
 			}
 			
 			
@@ -96,7 +96,7 @@ public class GesilaRequestTypeToolBarItem extends GesilaPartToolBarItem {
 		});
 
 		ActionContributionItem actionContributionItem = new ActionContributionItem(requestTypeAction);
-		actionContributionItem.setId("request type");
+		//actionContributionItem.setId("request type");
 		actionContributionItem.setMode(ActionContributionItem.MODE_FORCE_TEXT);
 		this.toolBarManager.add(actionContributionItem);
 	}

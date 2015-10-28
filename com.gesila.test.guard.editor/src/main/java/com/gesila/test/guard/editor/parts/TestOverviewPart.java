@@ -89,6 +89,8 @@ public class TestOverviewPart {
 		form.setText("Gesila Test Guard");
 		formToolkit.decorateFormHeading(form);
 		form.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+		
+		form.setHeadClient(formToolkit.createButton(form.getHead(), "This is the head client", SWT.PUSH));
 
 		Composite body = form.getBody();
 		layout = new GridLayout(1, false);
@@ -98,27 +100,27 @@ public class TestOverviewPart {
 		layout.marginHeight=0;
 		body.setLayout(layout);
 
-		final Section section = formToolkit.createSection(body, Section.TITLE_BAR | Section.TWISTIE|Section.EXPANDED);
-		section.clientVerticalSpacing = 0;
-		section.marginWidth = 0;
-		section.marginHeight = 0;
-		section.setText("Filter");
-		GridData gd = new GridData(GridData.FILL_BOTH);
-		gd.grabExcessHorizontalSpace = true;
-		section.setLayoutData(gd);
-
-		Composite searchSectionClient = formToolkit.createComposite(section, SWT.NONE);
-		layout = new GridLayout(1, false);
-		layout.horizontalSpacing = 0;
-		layout.verticalSpacing = 0;
-		layout.marginHeight = 0;
-		layout.marginWidth = 5;
-		searchSectionClient.setLayout(layout);
-		Text searchText = formToolkit.createText(searchSectionClient, "",
-				SWT.BORDER | SWT.SEARCH | SWT.ICON_SEARCH | SWT.CANCEL);
-		searchText.setMessage("搜索:Test");
-		searchText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		section.setClient(searchSectionClient);
+//		final Section section = formToolkit.createSection(body, Section.TITLE_BAR | Section.TWISTIE|Section.EXPANDED);
+//		section.clientVerticalSpacing = 0;
+//		section.marginWidth = 0;
+//		section.marginHeight = 0;
+//		section.setText("Filter");
+//		GridData gd = new GridData(GridData.FILL_BOTH);
+//		gd.grabExcessHorizontalSpace = true;
+//		section.setLayoutData(gd);
+//
+//		Composite searchSectionClient = formToolkit.createComposite(section, SWT.NONE);
+//		layout = new GridLayout(1, false);
+//		layout.horizontalSpacing = 0;
+//		layout.verticalSpacing = 0;
+//		layout.marginHeight = 0;
+//		layout.marginWidth = 5;
+//		searchSectionClient.setLayout(layout);
+//		Text searchText = formToolkit.createText(searchSectionClient, "",
+//				SWT.BORDER | SWT.SEARCH | SWT.ICON_SEARCH | SWT.CANCEL);
+//		searchText.setMessage("搜索:Test");
+//		searchText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+//		section.setClient(searchSectionClient);
 
 		Composite client = formToolkit.createComposite(parent, SWT.NONE);
 		layout = new GridLayout();
@@ -126,7 +128,7 @@ public class TestOverviewPart {
 		layout.marginTop = 0;
 		layout.marginHeight = 0;
 		client.setLayout(layout);
-		gd = new GridData(SWT.FILL, SWT.FILL, true, true);
+		GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
 		client.setLayoutData(gd);
 
 		Tree tree = formToolkit.createTree(client, SWT.FULL_SELECTION);
@@ -375,42 +377,42 @@ public class TestOverviewPart {
 	}
 
 	public void update(File file) {
-//		URI uri = URI.createFileURI(file.getAbsolutePath());
-//
-//		TestGuard testGuard = TestGuardFactory.eINSTANCE.createTestGuard();
-//
-//		TestGuardPackage.eINSTANCE.eClass();
-//
-//		TestGuardModule testGuardModule = TestGuardFactory.eINSTANCE.createTestGuardModule();
-//		testGuardModule.setName("nat");
-//
-//		TestGuardUnit testGuardUnit = TestGuardFactory.eINSTANCE.createTestGuardUnit();
-//		testGuardUnit.setName("Channel Stat");
-//		// testGuardUnit.setUrl("");
-//
-//		testGuardModule.getUnit().add(testGuardUnit);
-//		testGuard.getModule().add(testGuardModule);
-//
-//		// --注册扩展
-//		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
-//		Map<String, Object> m = reg.getExtensionToFactoryMap();
-//		m.put("xml", new XMIResourceFactoryImpl());
-//
-//		// --创建一个资源
-//		GesilaTestGuardResourceImpl gesilaTestGuardResourceImpl = new GesilaTestGuardResourceImpl(uri);
-//
-//		gesilaTestGuardResourceImpl.setEncoding("UTF-8");
-//
-//		// --写入模型至资源
-//		gesilaTestGuardResourceImpl.getContents().add(testGuard);
-//
-//		try {
-//			// --序列化资源
-//			gesilaTestGuardResourceImpl.save(Collections.EMPTY_MAP);
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		URI uri = URI.createFileURI(file.getAbsolutePath());
+
+		TestGuard testGuard = TestGuardFactory.eINSTANCE.createTestGuard();
+
+		TestGuardPackage.eINSTANCE.eClass();
+
+		TestGuardModule testGuardModule = TestGuardFactory.eINSTANCE.createTestGuardModule();
+		testGuardModule.setName("nat");
+
+		TestGuardUnit testGuardUnit = TestGuardFactory.eINSTANCE.createTestGuardUnit();
+		testGuardUnit.setName("Channel Stat");
+		// testGuardUnit.setUrl("");
+
+		testGuardModule.getUnit().add(testGuardUnit);
+		testGuard.getModule().add(testGuardModule);
+
+		// --注册扩展
+		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
+		Map<String, Object> m = reg.getExtensionToFactoryMap();
+		m.put("xml", new XMIResourceFactoryImpl());
+
+		// --创建一个资源
+		GesilaTestGuardResourceImpl gesilaTestGuardResourceImpl = new GesilaTestGuardResourceImpl(uri);
+
+		gesilaTestGuardResourceImpl.setEncoding("UTF-8");
+
+		// --写入模型至资源
+		gesilaTestGuardResourceImpl.getContents().add(testGuard);
+
+		try {
+			// --序列化资源
+			gesilaTestGuardResourceImpl.save(Collections.EMPTY_MAP);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		load(file);
 	}
 

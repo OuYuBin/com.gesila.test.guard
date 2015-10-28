@@ -16,12 +16,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -38,36 +35,21 @@ import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.ToolBarManager;
-import org.eclipse.jface.viewers.ILabelProviderListener;
-import org.eclipse.jface.viewers.ITableLabelProvider;
-import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CTabFolder;
-import org.eclipse.swt.custom.CTabItem;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.TreeColumn;
+import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.ui.forms.widgets.Form;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.gesila.test.guard.common.editor.part.GesilaRequestTypeToolBarItem;
-import com.gesila.test.guard.http.GesilaHttpClient;
-import com.gesila.test.guard.http.GesilaHttpClientUtil;
-import com.gesila.test.guard.http.GesilaHttpResponse;
-import com.gesila.test.guard.http.RequestType;
 import com.gesila.test.guard.model.testGuard.TestGuardUnit;
 
 public class GesilaTestGuardDetailFormPart {
@@ -98,7 +80,13 @@ public class GesilaTestGuardDetailFormPart {
 
 	@PostConstruct
 	public void createComposite(Composite parent) {
-		parent.setLayout(new GridLayout(1, false));
+		GridLayout layout = new GridLayout(1, false);
+		layout.horizontalSpacing = 0;
+		layout.verticalSpacing = 1;
+		layout.marginHeight = 0;
+		layout.marginWidth = 0;
+		parent.setLayout(layout);
+		//parent.setLayout(new GridLayout(1, false));
 
 		FormToolkit formToolkit = new FormToolkit(parent.getDisplay());
 		form = formToolkit.createForm(parent);
@@ -107,11 +95,17 @@ public class GesilaTestGuardDetailFormPart {
 			form.setText(((TestGuardUnit) eOwner).getName());
 		}
 		form.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		form.setHeadClient(formToolkit.createButton(form.getHead(), "This is the head client", SWT.PUSH));
 
 		IToolBarManager toolBarManager = form.getToolBarManager();
-		((ToolBarManager)toolBarManager).setStyle(SWT.HORIZONTAL);
+		//ToolBar toolBar=((ToolBarManager)toolBarManager).getControl();
+		((ToolBarManager)toolBarManager).setStyle(SWT.RIGHT );
+		((ToolBarManager)toolBarManager).getControl().redraw();
+		((ToolBarManager)toolBarManager).getControl().update();
+//		toolBarManager.get
 		createRequestTypeToolBar(toolBarManager);
 		toolBarManager.update(true);
+		((ToolBarManager)toolBarManager).getControl().pack(true);
 		//toolBarManager.add(new GesilaRequestTypeToolBarItem(toolBarManager));
 
 		// Label methodLabel = new Label(parent, SWT.NONE);
