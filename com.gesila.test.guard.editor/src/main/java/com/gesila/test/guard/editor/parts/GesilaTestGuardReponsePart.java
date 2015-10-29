@@ -31,6 +31,8 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.TreeColumn;
+import org.eclipse.ui.forms.widgets.Form;
+import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -47,8 +49,32 @@ public class GesilaTestGuardReponsePart {
 
 	@PostConstruct
 	public void createComposite(Composite parent) {
-		parent.setLayout(new GridLayout(1, false));
-		treeViewer = new TreeViewer(parent);
+		GridLayout layout = new GridLayout(1, false);
+		layout.horizontalSpacing = 0;
+		layout.verticalSpacing = 1;
+		layout.marginHeight = 0;
+		layout.marginWidth = 0;
+		parent.setLayout(layout);
+
+		FormToolkit formToolkit = new FormToolkit(parent.getDisplay());
+		Form form = formToolkit.createForm(parent);
+		form.setText("Reponse");
+		formToolkit.decorateFormHeading(form);
+		form.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+
+		Composite body = form.getBody();
+		body.setLayout(new GridLayout(1, false));
+
+		createResponseComposite(body);
+
+		// if (httpResponse != null) {
+		// Header[] headers = httpResponse.getAllHeaders();
+		// treeViewer.setInput(headers);
+		// }
+	}
+
+	private void createResponseComposite(Composite body) {
+		treeViewer = new TreeViewer(body);
 		treeViewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		TreeColumn column = new TreeColumn(treeViewer.getTree(), SWT.NONE);
 		column.setWidth(200);
@@ -143,10 +169,6 @@ public class GesilaTestGuardReponsePart {
 
 		});
 
-		// if (httpResponse != null) {
-		// Header[] headers = httpResponse.getAllHeaders();
-		// treeViewer.setInput(headers);
-		// }
 	}
 
 	@Inject

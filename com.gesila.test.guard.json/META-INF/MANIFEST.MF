@@ -9,3 +9,16 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: .,
+ libs/fastjson-1.2.7.jar
+Export-Package: com.alibaba.fastjson,
+ com.alibaba.fastjson.annotation,
+ com.alibaba.fastjson.asm,
+ com.alibaba.fastjson.codegen,
+ com.alibaba.fastjson.parser,
+ com.alibaba.fastjson.parser.deserializer,
+ com.alibaba.fastjson.serializer,
+ com.alibaba.fastjson.support.spring,
+ com.alibaba.fastjson.util,
+ com.gesila.test.guard.json,
+ com.gesila.test.guard.json.utils

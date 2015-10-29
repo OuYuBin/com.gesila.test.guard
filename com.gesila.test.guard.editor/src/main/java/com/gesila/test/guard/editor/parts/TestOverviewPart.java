@@ -146,17 +146,17 @@ public class TestOverviewPart {
 				// MPart part =
 				// partService.createPart("com.gesila.test.guard.application.partdescriptor.detail");
 				Object object = selection.getFirstElement();
-				if (object instanceof TestGuardUrlObject) {
-					// part.setLabel(((TestGuardUrlObject) object).getName());
-					// part.setElementId(object.getClass().toString());
-					String id = object.toString();
-					List<MStackElement> elements = partStack.getChildren();
-					for (MStackElement element : elements) {
-						if (id.equals(element.getElementId())) {
-							partService.showPart((MPart) element, PartState.VISIBLE);
-							return;
-						}
-					}
+//				if (object instanceof TestGuardUrlObject) {
+//					// part.setLabel(((TestGuardUrlObject) object).getName());
+//					// part.setElementId(object.getClass().toString());
+//					String id = object.toString();
+//					List<MStackElement> elements = partStack.getChildren();
+//					for (MStackElement element : elements) {
+//						if (id.equals(element.getElementId())) {
+//							partService.showPart((MPart) element, PartState.VISIBLE);
+//							return;
+//						}
+//					}
 					// partStack.getChildren().add(part);
 					// partService.showPart(part, PartState.ACTIVATE);
 

@@ -86,7 +86,7 @@ public class GesilaTestGuardDetailFormPart {
 
 	private String url;
 
-	private TestGuardUrlObject testGuardUrlObject;
+	//private TestGuardUrlObject testGuardUrlObject;
 
 	@Inject
 	private ESelectionService selectionService;
