@@ -60,19 +60,18 @@ public class Activator extends AbstractUIPlugin {
 	}
 	
 	protected void initializeImageRegistry(ImageRegistry registry) {
-		Bundle bundle = this.plugin.getBundle();
-		Map map = new HashMap();
-		map.put("TestGuardModule", "icons/module.gif");
-		map.put("TestGuardUrl", "icons/sample.png");
+		Bundle bundle = plugin.getBundle();
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("method", "icons/method.gif");
+		map.put("running", "icons/running.gif");
 
-		for (Iterator iter = map.entrySet().iterator(); iter.hasNext();) {
-			Map.Entry entry = (Entry) iter.next();
-			IPath path = new Path((String) entry.getValue());
+		for (Iterator<Entry<String, String>> iter = map.entrySet().iterator(); iter.hasNext();) {
+			Map.Entry<String, String> entry = (Entry<String, String>) iter.next();
+			IPath path = new Path(entry.getValue());
 			URL url = FileLocator.find(bundle, path, null);
 			ImageDescriptor desc = ImageDescriptor.createFromURL(url);
 			registry.put((String) entry.getKey(), desc);
 		}
-
 	}
 
 }

@@ -41,7 +41,7 @@ import com.gesila.test.guard.http.GesilaHttpResponse;
  * @author robin
  *
  */
-public class ReponsePart {
+public class GesilaTestGuardReponsePart {
 
 	private TreeViewer treeViewer;
 

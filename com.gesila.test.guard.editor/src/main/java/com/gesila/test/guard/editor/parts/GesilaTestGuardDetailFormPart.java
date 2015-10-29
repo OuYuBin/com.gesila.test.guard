@@ -16,9 +16,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -35,8 +37,17 @@ import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.ToolBarManager;
+import org.eclipse.jface.viewers.ILabelProviderListener;
+import org.eclipse.jface.viewers.ITableLabelProvider;
+import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -44,11 +55,17 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.swt.widgets.TreeColumn;
+import org.eclipse.ui.forms.widgets.ColumnLayout;
+import org.eclipse.ui.forms.widgets.ColumnLayoutData;
 import org.eclipse.ui.forms.widgets.Form;
 import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.forms.widgets.Section;
+import org.eclipse.ui.internal.forms.widgets.ColumnLayoutUtils;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.gesila.test.guard.common.editor.part.GesilaRequestToolBarItem;
 import com.gesila.test.guard.common.editor.part.GesilaRequestTypeToolBarItem;
 import com.gesila.test.guard.model.testGuard.TestGuardUnit;
 
@@ -78,6 +95,8 @@ public class GesilaTestGuardDetailFormPart {
 
 	private EObject eOwner;
 
+	private FormToolkit formToolkit;
+
 	@PostConstruct
 	public void createComposite(Composite parent) {
 		GridLayout layout = new GridLayout(1, false);
@@ -86,259 +105,225 @@ public class GesilaTestGuardDetailFormPart {
 		layout.marginHeight = 0;
 		layout.marginWidth = 0;
 		parent.setLayout(layout);
-		//parent.setLayout(new GridLayout(1, false));
 
-		FormToolkit formToolkit = new FormToolkit(parent.getDisplay());
+		formToolkit = new FormToolkit(parent.getDisplay());
 		form = formToolkit.createForm(parent);
 		formToolkit.decorateFormHeading(form);
 		if (eOwner != null) {
 			form.setText(((TestGuardUnit) eOwner).getName());
 		}
 		form.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		form.setHeadClient(formToolkit.createButton(form.getHead(), "This is the head client", SWT.PUSH));
+		Composite body = form.getBody();
+		layout = new GridLayout(1, false);
+		layout.horizontalSpacing = 0;
+		//layout.verticalSpacing = 0;
+		layout.marginWidth = 0;
+		body.setLayout(layout);
+		body.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		//ColumnLayout columnLayout = new ColumnLayout();
+		//columnLayout.minNumColumns = 1;
+		//columnLayout.maxNumColumns = 1;
+		//body.setLayout();
 
-		IToolBarManager toolBarManager = form.getToolBarManager();
-		//ToolBar toolBar=((ToolBarManager)toolBarManager).getControl();
-		((ToolBarManager)toolBarManager).setStyle(SWT.RIGHT );
-		((ToolBarManager)toolBarManager).getControl().redraw();
-		((ToolBarManager)toolBarManager).getControl().update();
-//		toolBarManager.get
+		createRequestSection(body);
+
+	}
+
+	private void createRequestSection(Composite body) {
+		Section section = formToolkit.createSection(body, Section.TITLE_BAR | Section.TWISTIE | Section.EXPANDED);
+		section.setText("Request");
+		section.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		Composite requestClient = formToolkit.createComposite(section, SWT.NONE);
+		requestClient.setLayout(new GridLayout());
+		// --URL操作区
+		createURLComposite(requestClient);
+		// --请求体区
+		createRequestBodyComposite(requestClient);
+		section.setClient(requestClient);
+
+	}
+
+	private void createURLComposite(Composite composite) {
+		Composite urlComposite = new Composite(composite, SWT.NONE | SWT.SHADOW_OUT);
+		urlComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+		urlComposite.setLayout(new GridLayout(4, false));
+
+		// --请求类型
+		ToolBar toolBar = new ToolBar(urlComposite, SWT.FLAT | SWT.RIGHT);
+		ToolBarManager toolBarManager = new ToolBarManager(toolBar);
 		createRequestTypeToolBar(toolBarManager);
 		toolBarManager.update(true);
-		((ToolBarManager)toolBarManager).getControl().pack(true);
-		//toolBarManager.add(new GesilaRequestTypeToolBarItem(toolBarManager));
+		toolBarManager.getControl().setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, true));
 
-		// Label methodLabel = new Label(parent, SWT.NONE);
-		// methodLabel.setText("Method:");
-		// methodLabel.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER,
-		// false, false));
+		// --url输入
+		StyledText urlText = new StyledText(urlComposite, SWT.BORDER | SWT.SINGLE);
+		// urlText.set
+		urlText.setText("http://www.qq.com");
+		urlText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
-		// combo = new Combo(parent, SWT.DROP_DOWN | SWT.READ_ONLY);
-		// String[] methods = { "GET", "POST" };
-		// combo.setItems(methods);
-		// combo.select(0);
-		// combo.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false,
-		// false));
-		//
-		// if (this.testGuardUrlObject != null) {
-		// // combo.setText(this.testGuardUrlObject.getRequestType().name());
-		// combo.select(Arrays.binarySearch(methods,
-		// this.testGuardUrlObject.getRequestType().name()));
-		// }
-		//
-		// Label urlLabel = new Label(parent, SWT.NONE);
-		// urlLabel.setText("Method:");
-		// urlLabel.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false,
-		// false));
-		//
-		// txtInput = new Text(parent, SWT.BORDER);
-		// txtInput.setMessage("输入url链接地址");
-		// // txtInput.addModifyListener(new ModifyListener() {
-		// // @Override
-		// // public void modifyText(ModifyEvent e) {
-		// // dirty.setDirty(true);
-		// // }
-		// // });
-		// if (this.testGuardUrlObject != null) {
-		// txtInput.setText(this.testGuardUrlObject.getUrl());
-		// }
-		// txtInput.setLayoutData(new GridData(GridData.FILL, SWT.CENTER, true,
-		// false));
-		// button = new Button(parent, SWT.BORDER);
-		// button.setText("Send");
-		// button.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_END));
-		// button.addSelectionListener(new SelectionListener() {
-		//
-		// @Override
-		// public void widgetSelected(SelectionEvent e) {
-		// GesilaHttpClient gesilaHttpClient = new
-		// GesilaHttpClient(txtInput.getText());
-		// if (bodyText.getText() != null) {
-		// gesilaHttpClient.setRequestJSON(bodyText.getText());
-		// }
-		// gesilaHttpClient.setRequestType(RequestType.valueOf(combo.getText()));
-		// HttpResponse response = (HttpResponse)
-		// GesilaHttpClientUtil.execute(gesilaHttpClient);
-		// GesilaHttpResponse gesilaHttpResponse = new
-		// GesilaHttpResponse(response);
-		// selectionService.setSelection(gesilaHttpResponse);
-		// }
-		//
-		// @Override
-		// public void widgetDefaultSelected(SelectionEvent e) {
-		//
-		// }
-		// });
-		// button.setLayoutData(new GridData(SWT.END, SWT.CENTER, false,
-		// false));
-		//
-		// Label bodyLabel = new Label(parent, SWT.NONE);
-		// bodyLabel.setText("Body:");
-		// bodyLabel.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER,
-		// false, false, 5, 1));
-		//
-		// CTabFolder bodyCTabFolder = new CTabFolder(parent, SWT.NONE);
-		// bodyCTabFolder.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,
-		// true, 5, 1));
-		// bodyCTabFolder.setSimple(true);
-		//
-		// CTabItem textTabItem = new CTabItem(bodyCTabFolder, SWT.NONE);
-		// textTabItem.setText("Text");
-		// textTabItem.setShowClose(false);
-		//
-		// bodyText = new Text(bodyCTabFolder, SWT.BORDER | SWT.WRAP);
-		// // bodyText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,
-		// true,
-		// // 5, 1));
+		// --请求动作
+		toolBar = new ToolBar(urlComposite, SWT.FLAT | SWT.RIGHT);
+		toolBarManager = new ToolBarManager(toolBar);
+		createRequestSendToolBar(toolBarManager);
+		toolBarManager.update(true);
+		toolBarManager.getControl().setLayoutData(new GridData(SWT.END, SWT.CENTER, false, true));
+
+	}
+
+	private void createRequestBodyComposite(Composite composite) {
+		// TODO Auto-generated method stub
+		Composite requestBodyComposite = new Composite(composite, SWT.NONE);
+		requestBodyComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+
+		requestBodyComposite.setLayout(new GridLayout());
+
+		CTabFolder bodyCTabFolder = new CTabFolder(requestBodyComposite, SWT.NONE);
+		bodyCTabFolder.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		bodyCTabFolder.setSimple(true);
+
+		// --textTabItem
+		CTabItem textTabItem = new CTabItem(bodyCTabFolder, SWT.NONE);
+		textTabItem.setText("Text");
+		textTabItem.setShowClose(false);
+
+		bodyText = new Text(bodyCTabFolder, SWT.BORDER | SWT.WRAP);
+		bodyText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		// if (this.testGuardUrlObject != null) {
 		// bodyText.setText(this.testGuardUrlObject.getRequestBody());
 		// }
-		// textTabItem.setControl(bodyText);
-		//
-		// CTabItem jsonCTabItem=new CTabItem(bodyCTabFolder, SWT.NONE);
-		// jsonCTabItem.setText("Json");
-		// jsonCTabItem.setShowClose(false);
-		//
-		//// Composite jsonComposite=new Composite(bodyCTabFolder,SWT.BORDER);
-		//// jsonComposite.setLayout(new GridLayout(1,false));
-		//// jsonComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,
-		// true));
-		// TreeViewer treeViewer=new TreeViewer(bodyCTabFolder,SWT.NONE);
-		// TreeColumn column = new TreeColumn(treeViewer.getTree(), SWT.NONE);
-		// column.setWidth(200);
-		// column.setText("Name");
-		//
-		// column = new TreeColumn(treeViewer.getTree(), SWT.NONE);
-		// column.setWidth(200);
-		// column.setText("Value");
-		// treeViewer.getControl().setLayoutData(new GridData(SWT.FILL,
-		// SWT.FILL, true, true));
-		// treeViewer.getTree().setHeaderVisible(true);
-		//
-		// treeViewer.setContentProvider(new ITreeContentProvider() {
-		//
-		// @Override
-		// public void inputChanged(Viewer viewer, Object oldInput, Object
-		// newInput) {
-		// // TODO Auto-generated method stub
-		//
-		// }
-		//
-		// @Override
-		// public void dispose() {
-		// // TODO Auto-generated method stub
-		//
-		// }
-		//
-		// @Override
-		// public boolean hasChildren(Object element) {
-		// // TODO Auto-generated method stub
-		// if (getChildren(element).length > 0) {
-		// return true;
-		// }
-		// return false;
-		// }
-		//
-		// @Override
-		// public Object getParent(Object element) {
-		// // TODO Auto-generated method stub
-		// return null;
-		// }
-		//
-		// @Override
-		// public Object[] getElements(Object inputElement) {
-		// // TODO Auto-generated method stub
-		// return (Object[]) ((List) inputElement).toArray(new Object[0]);
-		// }
-		//
-		// @Override
-		// public Object[] getChildren(Object parentElement) {
-		// // TODO Auto-generated method stub
-		// return ((ResponseObject)
-		// parentElement).getReponseObjects().toArray(new Object[0]);
-		// }
-		// });
-		// treeViewer.setLabelProvider(new ITableLabelProvider() {
-		//
-		// @Override
-		// public void removeListener(ILabelProviderListener listener) {
-		// // TODO Auto-generated method stub
-		//
-		// }
-		//
-		// @Override
-		// public boolean isLabelProperty(Object element, String property) {
-		// // TODO Auto-generated method stub
-		// return false;
-		// }
-		//
-		// @Override
-		// public void dispose() {
-		// // TODO Auto-generated method stub
-		//
-		// }
-		//
-		// @Override
-		// public void addListener(ILabelProviderListener listener) {
-		// // TODO Auto-generated method stub
-		//
-		// }
-		//
-		// @Override
-		// public String getColumnText(Object element, int columnIndex) {
-		// switch (columnIndex) {
-		// case 0:
-		// return ((ResponseObject) element).getName() == null ? "" :
-		// ((ResponseObject) element).getName();
-		// case 1:
-		// return ((ResponseObject) element).getValue() == null ? "" :
-		// ((ResponseObject) element).getValue();
-		// }
-		// return null;
-		// }
-		//
-		// @Override
-		// public Image getColumnImage(Object element, int columnIndex) {
-		// // TODO Auto-generated method stub
-		// return null;
-		// }
-		// });
-		//
-		//
-		// String requestBody=this.testGuardUrlObject.getRequestBody();
-		// JSONObject respJsonObject = null;
-		// char[] responseChars = requestBody.toCharArray();
-		// char firstChar = responseChars[0];
-		// if ('{' == firstChar) {
-		// respJsonObject = JSONObject.parseObject(requestBody);
-		// } else {
-		// Map map = new HashMap();
-		// map.put("name", requestBody);
-		// respJsonObject = new JSONObject(map);
-		// }
-		//
-		// List list = new ArrayList();
-		// createJSONObject(respJsonObject, list);
-		// treeViewer.setInput(list);
-		//
-		// jsonCTabItem.setControl(treeViewer.getControl());
-		//
-		//
-		// bodyCTabFolder.setSelection(0);
+		textTabItem.setControl(bodyText);
 
-		// tableViewer = new TableViewer(parent);`
-		//
-		// tableViewer.add("Sample item 1");
-		// tableViewer.add("Sample item 2");
-		// tableViewer.add("Sample item 3");
-		// tableViewer.add("Sample item 4");
-		// tableViewer.add("Sample item 5");
-		// tableViewer.getTable().setLayoutData(new
-		// GridData(GridData.FILL_BOTH));
+		// --jsonTabItem
+		CTabItem jsonCTabItem = new CTabItem(bodyCTabFolder, SWT.NONE);
+		jsonCTabItem.setText("Json");
+		jsonCTabItem.setShowClose(false);
+
+		Composite jsonComposite = new Composite(bodyCTabFolder, SWT.BORDER);
+		jsonComposite.setLayout(new GridLayout(1, false));
+		jsonComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		TreeViewer treeViewer = new TreeViewer(bodyCTabFolder, SWT.NONE);
+		TreeColumn column = new TreeColumn(treeViewer.getTree(), SWT.NONE);
+		column.setWidth(200);
+		column.setText("Name");
+
+		column = new TreeColumn(treeViewer.getTree(), SWT.NONE);
+		column.setWidth(200);
+		column.setText("Value");
+		treeViewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		treeViewer.getTree().setHeaderVisible(true);
+
+		treeViewer.setContentProvider(new ITreeContentProvider() {
+
+			@Override
+			public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void dispose() {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public boolean hasChildren(Object element) {
+				// TODO Auto-generated method stub
+				if (getChildren(element).length > 0) {
+					return true;
+				}
+				return false;
+			}
+
+			@Override
+			public Object getParent(Object element) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public Object[] getElements(Object inputElement) {
+				// TODO Auto-generated method stubcreateHeadClinet
+				return (Object[]) ((List) inputElement).toArray(new Object[0]);
+			}
+
+			@Override
+			public Object[] getChildren(Object parentElement) {
+				// TODO Auto-generated method stub
+				return ((ResponseObject) parentElement).getReponseObjects().toArray(new Object[0]);
+			}
+		});
+		treeViewer.setLabelProvider(new ITableLabelProvider() {
+
+			@Override
+			public void removeListener(ILabelProviderListener listener) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public boolean isLabelProperty(Object element, String property) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public void dispose() {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void addListener(ILabelProviderListener listener) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public String getColumnText(Object element, int columnIndex) {
+				switch (columnIndex) {
+				case 0:
+					return ((ResponseObject) element).getName() == null ? "" : ((ResponseObject) element).getName();
+				case 1:
+					return ((ResponseObject) element).getValue() == null ? "" : ((ResponseObject) element).getValue();
+				}
+				return null;
+			}
+
+			@Override
+			public Image getColumnImage(Object element, int columnIndex) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+		});
+
+//		String requestBody = this.testGuardUrlObject.getRequestBody();
+//		JSONObject respJsonObject = null;
+//		char[] responseChars = requestBody.toCharArray();
+//		char firstChar = responseChars[0];
+//		if ('{' == firstChar) {
+//			respJsonObject = JSONObject.parseObject(requestBody);
+//		} else {
+//			Map map = new HashMap();
+//			map.put("name", requestBody);
+//			respJsonObject = new JSONObject(map);
+//		}
+
+		List list = new ArrayList();
+		//createJSONObject(respJsonObject, list);
+		treeViewer.setInput(list);
+
+		jsonCTabItem.setControl(treeViewer.getControl());
+
+		bodyCTabFolder.setSelection(0);
+	}
+
+	private GesilaRequestToolBarItem createRequestSendToolBar(IToolBarManager toolBarManager) {
+		return new GesilaRequestToolBarItem(toolBarManager);
 	}
 
 	private GesilaRequestTypeToolBarItem createRequestTypeToolBar(IToolBarManager toolBarManager) {
-		return new GesilaRequestTypeToolBarItem(toolBarManager); 
+		return new GesilaRequestTypeToolBarItem(toolBarManager);
 	}
 
 	private void createJSONObject(JSONObject respJsonObject, List list) {

@@ -36,6 +36,9 @@
         <children xsi:type="menu:HandledToolItem" xmi:id="_ntcptXRoEeWEmrSzHZwf8g" iconURI="platform:/plugin/com.gesila.test.guard.application/icons/save_edit.png" command="_ntcCpnRoEeWEmrSzHZwf8g"/>
       </children>
     </trimBars>
+    <trimBars xmi:id="_oGE7MH4jEeWlfsEiH1VoiQ" elementId="com.gesila.test.guard.application.trimbar.0" side="Bottom">
+      <children xsi:type="menu:ToolControl" xmi:id="_p2BO0H4jEeWlfsEiH1VoiQ" elementId="com.gesila.test.guard.application.toolcontrol.0" contributionURI="bundleclass://com.gesila.test.guard.editor/com.gesila.test.guard.editor.parts.GesilaTestGuardStatusPart"/>
+    </trimBars>
   </children>
   <handlers xmi:id="_ntcCoHRoEeWEmrSzHZwf8g" elementId="com.gesila.test.guard.application.handler.quitCommand" contributionURI="bundleclass://com.gesila.test.guard.application/com.gesila.test.guard.application.handlers.QuitHandler" command="_ntbbnHRoEeWEmrSzHZwf8g"/>
   <handlers xmi:id="_ntcCpHRoEeWEmrSzHZwf8g" elementId="com.gesila.test.guard.application.handler.openCommand" contributionURI="bundleclass://com.gesila.test.guard.ui/com.gesila.test.guard.ui.handlers.OpenTestGuardHandler" command="_ntcCo3RoEeWEmrSzHZwf8g"/>

@@ -83,52 +83,52 @@ public class TestOverviewPart {
 		layout.marginHeight = 0;
 		layout.marginWidth = 0;
 		parent.setLayout(layout);
-		
+
 		FormToolkit formToolkit = new FormToolkit(parent.getDisplay());
 		Form form = formToolkit.createForm(parent);
 		form.setText("Gesila Test Guard");
 		formToolkit.decorateFormHeading(form);
 		form.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-		
-		form.setHeadClient(formToolkit.createButton(form.getHead(), "This is the head client", SWT.PUSH));
+
+		//form.setHeadClient(formToolkit.createButton(form.getHead(), "This is the head client", SWT.PUSH));
 
 		Composite body = form.getBody();
 		layout = new GridLayout(1, false);
 		layout.horizontalSpacing = 0;
-		layout.verticalSpacing = 0;
+		//layout.verticalSpacing = 0;
 		layout.marginWidth = 0;
-		layout.marginHeight=0;
+		//layout.marginHeight = 0;
 		body.setLayout(layout);
 
-//		final Section section = formToolkit.createSection(body, Section.TITLE_BAR | Section.TWISTIE|Section.EXPANDED);
-//		section.clientVerticalSpacing = 0;
-//		section.marginWidth = 0;
-//		section.marginHeight = 0;
-//		section.setText("Filter");
-//		GridData gd = new GridData(GridData.FILL_BOTH);
-//		gd.grabExcessHorizontalSpace = true;
-//		section.setLayoutData(gd);
-//
-//		Composite searchSectionClient = formToolkit.createComposite(section, SWT.NONE);
-//		layout = new GridLayout(1, false);
-//		layout.horizontalSpacing = 0;
-//		layout.verticalSpacing = 0;
-//		layout.marginHeight = 0;
-//		layout.marginWidth = 5;
-//		searchSectionClient.setLayout(layout);
-//		Text searchText = formToolkit.createText(searchSectionClient, "",
-//				SWT.BORDER | SWT.SEARCH | SWT.ICON_SEARCH | SWT.CANCEL);
-//		searchText.setMessage("搜索:Test");
-//		searchText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-//		section.setClient(searchSectionClient);
+		final Section section = formToolkit.createSection(body, Section.TITLE_BAR | Section.TWISTIE | Section.EXPANDED);
+		section.clientVerticalSpacing = 0;
+		section.marginWidth = 0;
+		//section.marginHeight = 0;
+		section.setText("Filter");
+		GridData gd = new GridData(GridData.FILL_BOTH);
+		gd.grabExcessHorizontalSpace = true;
+		section.setLayoutData(gd);
+
+		Composite searchSectionClient = formToolkit.createComposite(section, SWT.NONE);
+		layout = new GridLayout(1, false);
+		layout.horizontalSpacing = 0;
+		layout.verticalSpacing = 0;
+		//layout.marginHeight = 0;
+		//layout.marginWidth = 5;
+		searchSectionClient.setLayout(layout);
+		Text searchText = formToolkit.createText(searchSectionClient, "",
+				SWT.BORDER | SWT.SEARCH | SWT.ICON_SEARCH | SWT.CANCEL);
+		searchText.setMessage("搜索:Test");
+		searchText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		section.setClient(searchSectionClient);
 
 		Composite client = formToolkit.createComposite(parent, SWT.NONE);
 		layout = new GridLayout();
 		layout.marginWidth = 5;
 		layout.marginTop = 0;
-		layout.marginHeight = 0;
+		//layout.marginHeight = 0;
 		client.setLayout(layout);
-		GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
+		gd = new GridData(SWT.FILL, SWT.FILL, true, true);
 		client.setLayoutData(gd);
 
 		Tree tree = formToolkit.createTree(client, SWT.FULL_SELECTION);
@@ -190,7 +190,7 @@ public class TestOverviewPart {
 			@Override
 			public void doubleClick(DoubleClickEvent event) {
 				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
-				//selectionService.setSelection(selection.getFirstElement());
+				// selectionService.setSelection(selection.getFirstElement());
 				MPartStack partStack = (MPartStack) modelService
 						.find("com.gesila.test.guard.application.partstack.detail", application);
 				MPart part = partService.createPart("com.gesila.test.guard.application.partdescriptor.detail");
@@ -206,7 +206,7 @@ public class TestOverviewPart {
 							return;
 						}
 					}
-					part.setLabel(((EObject)object).toString());
+					part.setLabel(((EObject) object).toString());
 					part.setElementId(object.toString());
 					partStack.getChildren().add(part);
 					partService.showPart(part, PartState.ACTIVATE);

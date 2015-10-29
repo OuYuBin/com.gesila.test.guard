@@ -1,5 +1,7 @@
 package com.gesila.test.guard.common.editor.part;
 
+import java.rmi.activation.ActivateFailedException;
+
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
@@ -21,6 +23,7 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Widget;
 
+import com.gesila.test.guard.common.Activator;
 import com.gesila.test.guard.common.part.GesilaPartToolBarItem;
 import com.gesila.test.guard.model.testGuard.TestGuardPackage;
 
@@ -54,16 +57,14 @@ public class GesilaRequestTypeToolBarItem extends GesilaPartToolBarItem {
 				menu.setVisible(true);
 			}
 
-//			@Override
-//			public String getText() {
-//				// TODO Auto-generated method stub
-//				return "POST";
-//			}
+			@Override
+			public String getText() {
+				return "POST";
+			}
 
 			@Override
 			public ImageDescriptor getImageDescriptor() {
-				// TODO Auto-generated method stub
-				return ImageDescriptor.createFromImage(JFaceResources.getImage("dialog_messasge_info_image"));
+				return Activator.getDefault().getImageRegistry().getDescriptor("method");
 			}
 			
 			
