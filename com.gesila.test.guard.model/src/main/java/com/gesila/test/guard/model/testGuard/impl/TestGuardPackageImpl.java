@@ -2,7 +2,7 @@
  */
 package com.gesila.test.guard.model.testGuard.impl;
 
-import com.gesila.test.guard.model.testGuard.RequestType;
+import com.gesila.test.guard.model.testGuard.RequestMethod;
 import com.gesila.test.guard.model.testGuard.TestGuard;
 import com.gesila.test.guard.model.testGuard.TestGuardFactory;
 import com.gesila.test.guard.model.testGuard.TestGuardModule;
@@ -50,7 +50,7 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EEnum requestTypeEEnum = null;
+	private EEnum requestMethodEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -209,8 +209,18 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 	 * @generated
 	 */
 	@Override
-	public EEnum getRequestType() {
-		return requestTypeEEnum;
+	public EAttribute getTestGuardUnit_RequestMethod() {
+		return (EAttribute)testGuardUnitEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EEnum getRequestMethod() {
+		return requestMethodEEnum;
 	}
 
 	/**
@@ -253,9 +263,10 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 		createEAttribute(testGuardUnitEClass, TEST_GUARD_UNIT__NAME);
 		createEAttribute(testGuardUnitEClass, TEST_GUARD_UNIT__URL);
 		createEAttribute(testGuardUnitEClass, TEST_GUARD_UNIT__REQUEST_BODY);
+		createEAttribute(testGuardUnitEClass, TEST_GUARD_UNIT__REQUEST_METHOD);
 
 		// Create enums
-		requestTypeEEnum = createEEnum(REQUEST_TYPE);
+		requestMethodEEnum = createEEnum(REQUEST_METHOD);
 	}
 
 	/**
@@ -299,11 +310,12 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 		initEAttribute(getTestGuardUnit_Name(), ecorePackage.getEString(), "name", null, 0, 1, TestGuardUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTestGuardUnit_Url(), ecorePackage.getEString(), "url", null, 0, 1, TestGuardUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTestGuardUnit_RequestBody(), ecorePackage.getEString(), "requestBody", null, 0, 1, TestGuardUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTestGuardUnit_RequestMethod(), this.getRequestMethod(), "requestMethod", null, 0, 1, TestGuardUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
-		initEEnum(requestTypeEEnum, RequestType.class, "RequestType");
-		addEEnumLiteral(requestTypeEEnum, RequestType.POST);
-		addEEnumLiteral(requestTypeEEnum, RequestType.PUT);
+		initEEnum(requestMethodEEnum, RequestMethod.class, "RequestMethod");
+		addEEnumLiteral(requestMethodEEnum, RequestMethod.POST);
+		addEEnumLiteral(requestMethodEEnum, RequestMethod.PUT);
 
 		// Create resource
 		createResource(eNS_URI);

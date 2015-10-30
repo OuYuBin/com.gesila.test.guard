@@ -178,13 +178,22 @@ public interface TestGuardPackage extends EPackage {
 	int TEST_GUARD_UNIT__REQUEST_BODY = 2;
 
 	/**
+	 * The feature id for the '<em><b>Request Method</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEST_GUARD_UNIT__REQUEST_METHOD = 3;
+
+	/**
 	 * The number of structural features of the '<em>Unit</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TEST_GUARD_UNIT_FEATURE_COUNT = 3;
+	int TEST_GUARD_UNIT_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of operations of the '<em>Unit</em>' class.
@@ -196,15 +205,14 @@ public interface TestGuardPackage extends EPackage {
 	int TEST_GUARD_UNIT_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link com.gesila.test.guard.model.testGuard.RequestType <em>Request Type</em>}' enum.
+	 * The meta object id for the '{@link com.gesila.test.guard.model.testGuard.RequestMethod <em>Request Method</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see com.gesila.test.guard.model.testGuard.RequestType
-	 * @see com.gesila.test.guard.model.testGuard.impl.TestGuardPackageImpl#getRequestType()
+	 * @see com.gesila.test.guard.model.testGuard.RequestMethod
+	 * @see com.gesila.test.guard.model.testGuard.impl.TestGuardPackageImpl#getRequestMethod()
 	 * @generated
 	 */
-	int REQUEST_TYPE = 3;
-
+	int REQUEST_METHOD = 3;
 
 	/**
 	 * Returns the meta object for class '{@link com.gesila.test.guard.model.testGuard.TestGuard <em>Test Guard</em>}'.
@@ -303,14 +311,25 @@ public interface TestGuardPackage extends EPackage {
 	EAttribute getTestGuardUnit_RequestBody();
 
 	/**
-	 * Returns the meta object for enum '{@link com.gesila.test.guard.model.testGuard.RequestType <em>Request Type</em>}'.
+	 * Returns the meta object for the attribute '{@link com.gesila.test.guard.model.testGuard.TestGuardUnit#getRequestMethod <em>Request Method</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for enum '<em>Request Type</em>'.
-	 * @see com.gesila.test.guard.model.testGuard.RequestType
+	 * @return the meta object for the attribute '<em>Request Method</em>'.
+	 * @see com.gesila.test.guard.model.testGuard.TestGuardUnit#getRequestMethod()
+	 * @see #getTestGuardUnit()
 	 * @generated
 	 */
-	EEnum getRequestType();
+	EAttribute getTestGuardUnit_RequestMethod();
+
+	/**
+	 * Returns the meta object for enum '{@link com.gesila.test.guard.model.testGuard.RequestMethod <em>Request Method</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Request Method</em>'.
+	 * @see com.gesila.test.guard.model.testGuard.RequestMethod
+	 * @generated
+	 */
+	EEnum getRequestMethod();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -414,14 +433,22 @@ public interface TestGuardPackage extends EPackage {
 		EAttribute TEST_GUARD_UNIT__REQUEST_BODY = eINSTANCE.getTestGuardUnit_RequestBody();
 
 		/**
-		 * The meta object literal for the '{@link com.gesila.test.guard.model.testGuard.RequestType <em>Request Type</em>}' enum.
+		 * The meta object literal for the '<em><b>Request Method</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see com.gesila.test.guard.model.testGuard.RequestType
-		 * @see com.gesila.test.guard.model.testGuard.impl.TestGuardPackageImpl#getRequestType()
 		 * @generated
 		 */
-		EEnum REQUEST_TYPE = eINSTANCE.getRequestType();
+		EAttribute TEST_GUARD_UNIT__REQUEST_METHOD = eINSTANCE.getTestGuardUnit_RequestMethod();
+
+		/**
+		 * The meta object literal for the '{@link com.gesila.test.guard.model.testGuard.RequestMethod <em>Request Method</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.gesila.test.guard.model.testGuard.RequestMethod
+		 * @see com.gesila.test.guard.model.testGuard.impl.TestGuardPackageImpl#getRequestMethod()
+		 * @generated
+		 */
+		EEnum REQUEST_METHOD = eINSTANCE.getRequestMethod();
 
 	}
 

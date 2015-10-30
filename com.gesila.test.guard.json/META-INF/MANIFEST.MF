@@ -21,4 +21,5 @@ Export-Package: com.alibaba.fastjson,
  com.alibaba.fastjson.support.spring,
  com.alibaba.fastjson.util,
  com.gesila.test.guard.json,
+ com.gesila.test.guard.json.model,
  com.gesila.test.guard.json.utils

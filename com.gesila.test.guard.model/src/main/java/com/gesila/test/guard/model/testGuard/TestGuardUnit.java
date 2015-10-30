@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link com.gesila.test.guard.model.testGuard.TestGuardUnit#getName <em>Name</em>}</li>
  *   <li>{@link com.gesila.test.guard.model.testGuard.TestGuardUnit#getUrl <em>Url</em>}</li>
  *   <li>{@link com.gesila.test.guard.model.testGuard.TestGuardUnit#getRequestBody <em>Request Body</em>}</li>
+ *   <li>{@link com.gesila.test.guard.model.testGuard.TestGuardUnit#getRequestMethod <em>Request Method</em>}</li>
  * </ul>
  *
  * @see com.gesila.test.guard.model.testGuard.TestGuardPackage#getTestGuardUnit()
@@ -100,5 +101,34 @@ public interface TestGuardUnit extends EObject {
 	 * @generated
 	 */
 	void setRequestBody(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Request Method</b></em>' attribute.
+	 * The literals are from the enumeration {@link com.gesila.test.guard.model.testGuard.RequestMethod}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Request Method</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Request Method</em>' attribute.
+	 * @see com.gesila.test.guard.model.testGuard.RequestMethod
+	 * @see #setRequestMethod(RequestMethod)
+	 * @see com.gesila.test.guard.model.testGuard.TestGuardPackage#getTestGuardUnit_RequestMethod()
+	 * @model
+	 * @generated
+	 */
+	RequestMethod getRequestMethod();
+
+	/**
+	 * Sets the value of the '{@link com.gesila.test.guard.model.testGuard.TestGuardUnit#getRequestMethod <em>Request Method</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Request Method</em>' attribute.
+	 * @see com.gesila.test.guard.model.testGuard.RequestMethod
+	 * @see #getRequestMethod()
+	 * @generated
+	 */
+	void setRequestMethod(RequestMethod value);
 
 } // TestGuardUnit

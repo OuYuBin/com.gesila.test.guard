@@ -4,6 +4,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
+import com.gesila.test.guard.model.testGuard.RequestMethod;
+
 /**
  * 
  * 
@@ -16,19 +18,19 @@ public class GesilaHttpClient implements IGesilaHttpClient {
 
 	private Object url;
 
-	private RequestType requestType;
+	private RequestMethod requestMethod;
 
 	private String requestJSON;
 
 	private CloseableHttpClient httpClient = HttpClients.createDefault();
 
 	public GesilaHttpClient(Object url) {
-		this(url, RequestType.GET);
+		this(url, RequestMethod.POST);
 	}
 
-	public GesilaHttpClient(Object url, RequestType requestType) {
+	public GesilaHttpClient(Object url, RequestMethod requestMethod) {
 		this.url = url;
-		this.requestType = requestType;
+		this.requestMethod = requestMethod;
 	}
 
 	public HttpClient getHttpClient() {
@@ -43,12 +45,12 @@ public class GesilaHttpClient implements IGesilaHttpClient {
 		this.url = url;
 	}
 
-	public RequestType getRequestType() {
-		return requestType;
+	public RequestMethod getRequestMethod() {
+		return requestMethod;
 	}
 
-	public void setRequestType(RequestType requestType) {
-		this.requestType = requestType;
+	public void setRequestMethod(RequestMethod requestMethod) {
+		this.requestMethod = requestMethod;
 	}
 
 	public String getRequestJSON() {

@@ -1,5 +1,7 @@
 package com.gesila.test.guard.common.editor.part;
 
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IAction;
@@ -10,6 +12,9 @@ import org.eclipse.swt.SWT;
 
 import com.gesila.test.guard.common.Activator;
 import com.gesila.test.guard.common.part.GesilaPartToolBarItem;
+import com.gesila.test.guard.http.GesilaHttpClient;
+import com.gesila.test.guard.model.testGuard.RequestMethod;
+import com.gesila.test.guard.model.testGuard.TestGuardUnit;
 
 /**
  * 
@@ -18,8 +23,8 @@ import com.gesila.test.guard.common.part.GesilaPartToolBarItem;
  */
 public class GesilaRequestToolBarItem extends GesilaPartToolBarItem {
 
-	public GesilaRequestToolBarItem(IToolBarManager toolBarManager) {
-		super(toolBarManager);
+	public GesilaRequestToolBarItem(IToolBarManager toolBarManager,IAdaptable adapter) {
+		super(toolBarManager,adapter);
 	}
 
 	@Override
@@ -41,6 +46,15 @@ public class GesilaRequestToolBarItem extends GesilaPartToolBarItem {
 				// menu.setLocation(point.x, point.y);
 				// }
 				// menu.setVisible(true);
+				EObject eObject=adapter.getAdapter(EObject.class);
+				if(eObject!=null&&eObject instanceof TestGuardUnit){
+					TestGuardUnit testGuardUnit=(TestGuardUnit)eObject;
+					GesilaHttpClient gesilaHttpClient=new GesilaHttpClient(testGuardUnit.getUrl());
+					String requestBody=((TestGuardUnit)eObject).getRequestBody();
+					RequestMethod requestMethod=((TestGuardUnit)eObject).getRequestMethod();
+					gesilaHttpClient.setRequestMethod(requestMethod);
+					
+				}
 			}
 
 			@Override
