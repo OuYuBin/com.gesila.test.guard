@@ -59,7 +59,7 @@ import com.gesila.test.guard.model.testGuard.TestGuardUnit;
  * @author robin
  *
  */
-public class TestOverviewPart {
+public class GesilaTestGuardOverviewPart {
 
 	@Inject
 	private ESelectionService selectionService;
@@ -182,7 +182,7 @@ public class TestOverviewPart {
 					// partStack.getChildren().add(part);
 					// partService.showPart(part, PartState.ACTIVATE);
 
-				}
+				//}
 			}
 		});
 		treeViewer.addDoubleClickListener(new IDoubleClickListener() {
