@@ -1,5 +1,7 @@
 package com.gesila.test.guard.http;
 
+import com.gesila.test.guard.model.testGuard.RequestMethod;
+
 /**
  * 
  * @author robin
@@ -13,13 +15,13 @@ public class GesilaHttpClientUtil {
 	}
 
 	private static IGesilaHttpExecute createExectue(IGesilaHttpClient gesilaHttpClient) {
-		RequestType requestType = gesilaHttpClient.getRequestType();
+		RequestMethod requestType = gesilaHttpClient.getRequestMethod();
 		IGesilaHttpExecute httpExectue = null;
 		switch (requestType) {
 		case POST:
 			httpExectue = new GesilaPostHttpExecute(gesilaHttpClient);
 			break;
-		case GET:
+		case PUT:
 			httpExectue=new GesilaGetHttpExecute(gesilaHttpClient);
 			break;
 		}

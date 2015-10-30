@@ -4,19 +4,15 @@
     <children xsi:type="advanced:PerspectiveStack" xmi:id="_ntcCs3RoEeWEmrSzHZwf8g">
       <children xsi:type="advanced:Perspective" xmi:id="_ntcCtHRoEeWEmrSzHZwf8g">
         <children xsi:type="basic:PartSashContainer" xmi:id="_qFimAHS2EeWCNZzHFAUjIA" elementId="com.gesila.test.guard.application.partsashcontainer.0" horizontal="true">
-          <children xsi:type="basic:PartSashContainer" xmi:id="_yXkGkHS2EeWCNZzHFAUjIA" elementId="com.gesila.test.guard.application.partsashcontainer.1" containerData="6000">
+          <children xsi:type="basic:PartSashContainer" xmi:id="_yXkGkHS2EeWCNZzHFAUjIA" elementId="com.gesila.test.guard.application.partsashcontainer.1" containerData="7500">
             <children xsi:type="basic:PartStack" xmi:id="_SJws4HS3EeWCNZzHFAUjIA" elementId="com.gesila.test.guard.application.partstack.0">
-              <children xsi:type="basic:Part" xmi:id="_09zJAHS2EeWCNZzHFAUjIA" elementId="com.gesila.test.guard.application.part.testoverview" contributionURI="bundleclass://com.gesila.test.guard.editor/com.gesila.test.guard.editor.parts.GesilaTestGuardOverviewPart" label="Overview">
-                <toolbar xmi:id="_3wQkAH5CEeWRwvPx9wHbtA" elementId="com.gesila.test.guard.application.toolbar.1"/>
-              </children>
+              <children xsi:type="basic:Part" xmi:id="_09zJAHS2EeWCNZzHFAUjIA" elementId="com.gesila.test.guard.application.part.testoverview" contributionURI="bundleclass://com.gesila.test.guard.editor/com.gesila.test.guard.editor.parts.TestOverviewPart" label="Overview"/>
             </children>
           </children>
-          <children xsi:type="basic:PartSashContainer" xmi:id="_ntcCtXRoEeWEmrSzHZwf8g" elementId="com.gesila.test.guard.application.partsashcontainer.2" containerData="">
-            <children xsi:type="basic:PartStack" xmi:id="_ntcpsHRoEeWEmrSzHZwf8g" elementId="com.gesila.test.guard.application.partstack.detail" containerData="10000">
-              <children xsi:type="basic:Part" xmi:id="_i34tUH5KEeWx3qjc6vYX1Q" elementId="com.gesila.test.guard.application.part.d" label="dashboard"/>
-            </children>
+          <children xsi:type="basic:PartSashContainer" xmi:id="_ntcCtXRoEeWEmrSzHZwf8g">
+            <children xsi:type="basic:PartStack" xmi:id="_ntcpsHRoEeWEmrSzHZwf8g" elementId="com.gesila.test.guard.application.partstack.detail"/>
           </children>
-          <children xsi:type="basic:PartSashContainer" xmi:id="_9ZKO4HV-EeWj5dz7GVvoMg" elementId="com.gesila.test.guard.application.partsashcontainer.2" containerData="7800">
+          <children xsi:type="basic:PartSashContainer" xmi:id="_9ZKO4HV-EeWj5dz7GVvoMg" elementId="com.gesila.test.guard.application.partsashcontainer.2" containerData="7500">
             <children xsi:type="basic:PartStack" xmi:id="_9-MOkHV-EeWj5dz7GVvoMg" elementId="com.gesila.test.guard.application.partstack.reponse">
               <children xsi:type="basic:Part" xmi:id="_AxFM8HV_EeWj5dz7GVvoMg" elementId="com.gesila.test.guard.application.part.reponse" contributionURI="bundleclass://com.gesila.test.guard.editor/com.gesila.test.guard.editor.parts.GesilaTestGuardReponsePart" label="Response">
                 <toolbar xmi:id="_RcuhAH4pEeWlfsEiH1VoiQ" elementId="com.gesila.test.guard.application.toolbar.0"/>
@@ -60,7 +56,7 @@
     <children xmi:id="_ntbbmnRoEeWEmrSzHZwf8g" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
     <children xmi:id="_ntbbm3RoEeWEmrSzHZwf8g" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
   </rootContext>
-  <descriptors xmi:id="_qn8Y8HU5EeWj5dz7GVvoMg" elementId="com.gesila.test.guard.application.partdescriptor.detail" allowMultiple="true" closeable="true" dirtyable="true" contributionURI="bundleclass://com.gesila.test.guard.editor/com.gesila.test.guard.editor.parts.GesilaTestGuardDetailFormPart"/>
+  <descriptors xmi:id="_qn8Y8HU5EeWj5dz7GVvoMg" elementId="com.gesila.test.guard.application.partdescriptor.detail" closeable="true" dirtyable="true" contributionURI="bundleclass://com.gesila.test.guard.editor/com.gesila.test.guard.editor.parts.GesilaTestGuardDetailFormPart"/>
   <commands xmi:id="_ntbbnHRoEeWEmrSzHZwf8g" elementId="org.eclipse.ui.file.exit" commandName="quitCommand"/>
   <commands xmi:id="_ntcCo3RoEeWEmrSzHZwf8g" elementId="com.gesila.test.guard.application.open" commandName="openCommand"/>
   <commands xmi:id="_ntcCpnRoEeWEmrSzHZwf8g" elementId="org.eclipse.ui.file.save" commandName="saveCommand"/>

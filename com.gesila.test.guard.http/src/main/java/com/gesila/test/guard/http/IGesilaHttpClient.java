@@ -2,6 +2,8 @@ package com.gesila.test.guard.http;
 
 import org.apache.http.client.HttpClient;
 
+import com.gesila.test.guard.model.testGuard.RequestMethod;
+
 /**
  * 
  * @author robin
@@ -13,7 +15,7 @@ public interface IGesilaHttpClient {
 
 	public HttpClient getHttpClient();
 	
-	public RequestType getRequestType();
+	public RequestMethod getRequestMethod();
 	
 	public String getRequestJSON();
 

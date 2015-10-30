@@ -7,11 +7,12 @@
     providerRootExtendsClass="" editPluginID="com.gesila.test.guard.model.edit" optimizedHasChildren="true"
     tableProviders="true" colorProviders="true" fontProviders="true" classNamePattern=""
     operationReflection="true" importOrganizing="true" styleProviders="true" cleanup="true">
-  <foreignModel>model/testGuard.ecore</foreignModel>
+  <foreignModel>testGuard.ecore</foreignModel>
   <genPackages prefix="TestGuard" basePackage="com.gesila.test.guard.model" resource="XML"
       disposableProviderFactory="true" fileExtensions="gtg" ecorePackage="testGuard.ecore#/">
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="testGuard.ecore#//RequestType">
-      <genEnumLiterals ecoreEnumLiteral="testGuard.ecore#//RequestType/LITERAL0"/>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="testGuard.ecore#//RequestMethod">
+      <genEnumLiterals ecoreEnumLiteral="testGuard.ecore#//RequestMethod/POST"/>
+      <genEnumLiterals ecoreEnumLiteral="testGuard.ecore#//RequestMethod/PUT"/>
     </genEnums>
     <genClasses ecoreClass="testGuard.ecore#//TestGuard">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference testGuard.ecore#//TestGuard/Module"/>
@@ -24,6 +25,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testGuard.ecore#//TestGuardUnit/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testGuard.ecore#//TestGuardUnit/url"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testGuard.ecore#//TestGuardUnit/requestBody"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testGuard.ecore#//TestGuardUnit/requestMethod"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

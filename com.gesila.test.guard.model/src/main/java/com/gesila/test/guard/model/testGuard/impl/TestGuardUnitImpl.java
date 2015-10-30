@@ -2,6 +2,7 @@
  */
 package com.gesila.test.guard.model.testGuard.impl;
 
+import com.gesila.test.guard.model.testGuard.RequestMethod;
 import com.gesila.test.guard.model.testGuard.TestGuardPackage;
 import com.gesila.test.guard.model.testGuard.TestGuardUnit;
 
@@ -23,6 +24,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link com.gesila.test.guard.model.testGuard.impl.TestGuardUnitImpl#getName <em>Name</em>}</li>
  *   <li>{@link com.gesila.test.guard.model.testGuard.impl.TestGuardUnitImpl#getUrl <em>Url</em>}</li>
  *   <li>{@link com.gesila.test.guard.model.testGuard.impl.TestGuardUnitImpl#getRequestBody <em>Request Body</em>}</li>
+ *   <li>{@link com.gesila.test.guard.model.testGuard.impl.TestGuardUnitImpl#getRequestMethod <em>Request Method</em>}</li>
  * </ul>
  *
  * @generated
@@ -89,6 +91,26 @@ public class TestGuardUnitImpl extends MinimalEObjectImpl.Container implements T
 	protected String requestBody = REQUEST_BODY_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getRequestMethod() <em>Request Method</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRequestMethod()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final RequestMethod REQUEST_METHOD_EDEFAULT = RequestMethod.POST;
+
+	/**
+	 * The cached value of the '{@link #getRequestMethod() <em>Request Method</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRequestMethod()
+	 * @generated
+	 * @ordered
+	 */
+	protected RequestMethod requestMethod = REQUEST_METHOD_EDEFAULT;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -112,6 +134,7 @@ public class TestGuardUnitImpl extends MinimalEObjectImpl.Container implements T
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -121,6 +144,7 @@ public class TestGuardUnitImpl extends MinimalEObjectImpl.Container implements T
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -133,6 +157,7 @@ public class TestGuardUnitImpl extends MinimalEObjectImpl.Container implements T
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getUrl() {
 		return url;
 	}
@@ -142,6 +167,7 @@ public class TestGuardUnitImpl extends MinimalEObjectImpl.Container implements T
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setUrl(String newUrl) {
 		String oldUrl = url;
 		url = newUrl;
@@ -154,6 +180,7 @@ public class TestGuardUnitImpl extends MinimalEObjectImpl.Container implements T
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getRequestBody() {
 		return requestBody;
 	}
@@ -163,11 +190,35 @@ public class TestGuardUnitImpl extends MinimalEObjectImpl.Container implements T
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRequestBody(String newRequestBody) {
 		String oldRequestBody = requestBody;
 		requestBody = newRequestBody;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, TestGuardPackage.TEST_GUARD_UNIT__REQUEST_BODY, oldRequestBody, requestBody));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public RequestMethod getRequestMethod() {
+		return requestMethod;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setRequestMethod(RequestMethod newRequestMethod) {
+		RequestMethod oldRequestMethod = requestMethod;
+		requestMethod = newRequestMethod == null ? REQUEST_METHOD_EDEFAULT : newRequestMethod;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TestGuardPackage.TEST_GUARD_UNIT__REQUEST_METHOD, oldRequestMethod, requestMethod));
 	}
 
 	/**
@@ -184,6 +235,8 @@ public class TestGuardUnitImpl extends MinimalEObjectImpl.Container implements T
 				return getUrl();
 			case TestGuardPackage.TEST_GUARD_UNIT__REQUEST_BODY:
 				return getRequestBody();
+			case TestGuardPackage.TEST_GUARD_UNIT__REQUEST_METHOD:
+				return getRequestMethod();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -204,6 +257,9 @@ public class TestGuardUnitImpl extends MinimalEObjectImpl.Container implements T
 				return;
 			case TestGuardPackage.TEST_GUARD_UNIT__REQUEST_BODY:
 				setRequestBody((String)newValue);
+				return;
+			case TestGuardPackage.TEST_GUARD_UNIT__REQUEST_METHOD:
+				setRequestMethod((RequestMethod)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -226,6 +282,9 @@ public class TestGuardUnitImpl extends MinimalEObjectImpl.Container implements T
 			case TestGuardPackage.TEST_GUARD_UNIT__REQUEST_BODY:
 				setRequestBody(REQUEST_BODY_EDEFAULT);
 				return;
+			case TestGuardPackage.TEST_GUARD_UNIT__REQUEST_METHOD:
+				setRequestMethod(REQUEST_METHOD_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -244,6 +303,8 @@ public class TestGuardUnitImpl extends MinimalEObjectImpl.Container implements T
 				return URL_EDEFAULT == null ? url != null : !URL_EDEFAULT.equals(url);
 			case TestGuardPackage.TEST_GUARD_UNIT__REQUEST_BODY:
 				return REQUEST_BODY_EDEFAULT == null ? requestBody != null : !REQUEST_BODY_EDEFAULT.equals(requestBody);
+			case TestGuardPackage.TEST_GUARD_UNIT__REQUEST_METHOD:
+				return requestMethod != REQUEST_METHOD_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -264,6 +325,8 @@ public class TestGuardUnitImpl extends MinimalEObjectImpl.Container implements T
 		result.append(url);
 		result.append(", requestBody: ");
 		result.append(requestBody);
+		result.append(", requestMethod: ");
+		result.append(requestMethod);
 		result.append(')');
 		return result.toString();
 	}

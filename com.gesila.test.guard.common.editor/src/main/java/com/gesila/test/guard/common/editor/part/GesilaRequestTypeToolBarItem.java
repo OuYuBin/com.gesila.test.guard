@@ -2,6 +2,7 @@ package com.gesila.test.guard.common.editor.part;
 
 import java.rmi.activation.ActivateFailedException;
 
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
@@ -34,8 +35,8 @@ import com.gesila.test.guard.model.testGuard.TestGuardPackage;
  */
 public class GesilaRequestTypeToolBarItem extends GesilaPartToolBarItem {
 
-	public GesilaRequestTypeToolBarItem(IToolBarManager toolBarManager) {
-		super(toolBarManager);
+	public GesilaRequestTypeToolBarItem(IToolBarManager toolBarManager,IAdaptable adapter) {
+		super(toolBarManager,adapter);
 	}
 
 	@Override
@@ -81,7 +82,7 @@ public class GesilaRequestTypeToolBarItem extends GesilaPartToolBarItem {
 			@Override
 			public Menu getMenu(Control parent) {
 				Menu menu = new Menu(parent);
-				EEnum eEnum = TestGuardPackage.eINSTANCE.getRequestType();
+				EEnum eEnum = TestGuardPackage.eINSTANCE.getRequestMethod();
 				EList<EEnumLiteral> eList = eEnum.getELiterals();
 				for (EEnumLiteral literal : eList) {
 					MenuItem menuItem = new MenuItem(menu, SWT.RADIO);

@@ -8,7 +8,8 @@ Bundle-Vendor: GESILA
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  com.gesila.test.guard.common;bundle-version="1.0.0",
- com.gesila.test.guard.model;bundle-version="1.0.0"
+ com.gesila.test.guard.model;bundle-version="1.0.0",
+ com.gesila.test.guard.http;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Export-Package: com.gesila.test.guard.common.editor,

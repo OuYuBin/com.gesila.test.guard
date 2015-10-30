@@ -73,8 +73,8 @@ public class TestGuardFactoryImpl extends EFactoryImpl implements TestGuardFacto
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-			case TestGuardPackage.REQUEST_TYPE:
-				return createRequestTypeFromString(eDataType, initialValue);
+			case TestGuardPackage.REQUEST_METHOD:
+				return createRequestMethodFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -88,8 +88,8 @@ public class TestGuardFactoryImpl extends EFactoryImpl implements TestGuardFacto
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
-			case TestGuardPackage.REQUEST_TYPE:
-				return convertRequestTypeToString(eDataType, instanceValue);
+			case TestGuardPackage.REQUEST_METHOD:
+				return convertRequestMethodToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -100,6 +100,7 @@ public class TestGuardFactoryImpl extends EFactoryImpl implements TestGuardFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TestGuard createTestGuard() {
 		TestGuardImpl testGuard = new TestGuardImpl();
 		return testGuard;
@@ -110,6 +111,7 @@ public class TestGuardFactoryImpl extends EFactoryImpl implements TestGuardFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TestGuardModule createTestGuardModule() {
 		TestGuardModuleImpl testGuardModule = new TestGuardModuleImpl();
 		return testGuardModule;
@@ -120,6 +122,7 @@ public class TestGuardFactoryImpl extends EFactoryImpl implements TestGuardFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TestGuardUnit createTestGuardUnit() {
 		TestGuardUnitImpl testGuardUnit = new TestGuardUnitImpl();
 		return testGuardUnit;
@@ -130,8 +133,8 @@ public class TestGuardFactoryImpl extends EFactoryImpl implements TestGuardFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public RequestType createRequestTypeFromString(EDataType eDataType, String initialValue) {
-		RequestType result = RequestType.get(initialValue);
+	public RequestMethod createRequestMethodFromString(EDataType eDataType, String initialValue) {
+		RequestMethod result = RequestMethod.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		return result;
 	}
@@ -141,7 +144,7 @@ public class TestGuardFactoryImpl extends EFactoryImpl implements TestGuardFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertRequestTypeToString(EDataType eDataType, Object instanceValue) {
+	public String convertRequestMethodToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
@@ -150,6 +153,7 @@ public class TestGuardFactoryImpl extends EFactoryImpl implements TestGuardFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TestGuardPackage getTestGuardPackage() {
 		return (TestGuardPackage)getEPackage();
 	}

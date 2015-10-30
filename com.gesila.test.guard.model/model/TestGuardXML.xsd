@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <xsd:schema xmlns:testGuard="http://www.igesila.com/testGuard/0.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.igesila.com/testGuard/0.1">
-  <xsd:simpleType name="RequestType">
+  <xsd:simpleType name="RequestMethod">
     <xsd:restriction base="xsd:NCName">
       <xsd:enumeration value="POST"/>
       <xsd:enumeration value="PUT"/>
@@ -23,6 +23,7 @@
     <xsd:attribute name="name" type="xsd:string"/>
     <xsd:attribute name="url" type="xsd:string"/>
     <xsd:attribute name="requestBody" type="xsd:string"/>
+    <xsd:attribute name="requestMethod" type="testGuard:RequestMethod"/>
   </xsd:complexType>
   <xsd:element name="TestGuardUnit" type="testGuard:TestGuardUnit"/>
 </xsd:schema>

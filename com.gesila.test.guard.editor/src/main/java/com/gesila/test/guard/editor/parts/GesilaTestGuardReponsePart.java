@@ -5,21 +5,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.inject.Named;
 
-import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.eclipse.e4.core.di.annotations.Optional;
-import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
@@ -36,7 +29,6 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.gesila.test.guard.http.GesilaHttpResponse;
 
 /**
  * 
@@ -171,51 +163,51 @@ public class GesilaTestGuardReponsePart {
 
 	}
 
-	@Inject
-	public void setSelection(
-			@Optional @Named(IServiceConstants.ACTIVE_SELECTION) GesilaHttpResponse gesilaHttpResponse) {
-		if (gesilaHttpResponse != null) {
-			update(gesilaHttpResponse);
-		}
+//	@Inject
+//	public void setSelection(
+//			@Optional @Named(IServiceConstants.ACTIVE_SELECTION) GesilaHttpResponse gesilaHttpResponse) {
+//		if (gesilaHttpResponse != null) {
+//			update(gesilaHttpResponse);
+//		}
+//
+//	}
 
-	}
-
-	private void update(GesilaHttpResponse gesilaHttpResponse) {
-		HttpResponse httpResponse = gesilaHttpResponse.getHttpResponse();
-		String strResponse = gesilaHttpResponse.getStrResponse();
-		String response = null;
-
-		if (strResponse != null) {
-			response = strResponse;
-
-		} else if (httpResponse != null) {
-			Header[] headers = httpResponse.getAllHeaders();
-			HttpEntity httpEntity = httpResponse.getEntity();
-			response = getResponseJSON(httpResponse);
-			gesilaHttpResponse.setStrResponse(response);
-		}
-
-		JSONObject respJsonObject = null;
-		char[] responseChars = response.toCharArray();
-		char firstChar = responseChars[0];
-		if ('{' == firstChar) {
-			respJsonObject = JSONObject.parseObject(response);
-		} else {
-			Map map = new HashMap();
-			map.put("name", response);
-			respJsonObject = new JSONObject(map);
-		}
-		List list = new ArrayList();
-		createJSONObject(respJsonObject, list);
-		System.out.println(list);
-		if (!list.isEmpty()) {
-			treeViewer.setInput(list);
-			treeViewer.refresh(true);
-			treeViewer.expandToLevel(3);
-
-		}
-
-	}
+//	private void update(GesilaHttpResponse gesilaHttpResponse) {
+//		HttpResponse httpResponse = gesilaHttpResponse.getHttpResponse();
+//		String strResponse = gesilaHttpResponse.getStrResponse();
+//		String response = null;
+//
+//		if (strResponse != null) {
+//			response = strResponse;
+//
+//		} else if (httpResponse != null) {
+//			Header[] headers = httpResponse.getAllHeaders();
+//			HttpEntity httpEntity = httpResponse.getEntity();
+//			response = getResponseJSON(httpResponse);
+//			gesilaHttpResponse.setStrResponse(response);
+//		}
+//
+//		JSONObject respJsonObject = null;
+//		char[] responseChars = response.toCharArray();
+//		char firstChar = responseChars[0];
+//		if ('{' == firstChar) {
+//			respJsonObject = JSONObject.parseObject(response);
+//		} else {
+//			Map map = new HashMap();
+//			map.put("name", response);
+//			respJsonObject = new JSONObject(map);
+//		}
+//		List list = new ArrayList();
+//		createJSONObject(respJsonObject, list);
+//		System.out.println(list);
+//		if (!list.isEmpty()) {
+//			treeViewer.setInput(list);
+//			treeViewer.refresh(true);
+//			treeViewer.expandToLevel(3);
+//
+//		}
+//
+//	}
 
 	private void createJSONObject(JSONObject respJsonObject, List list) {
 
