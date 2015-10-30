@@ -182,7 +182,7 @@ public class TestOverviewPart {
 					// partStack.getChildren().add(part);
 					// partService.showPart(part, PartState.ACTIVATE);
 
-				}
+				//}
 			}
 		});
 		treeViewer.addDoubleClickListener(new IDoubleClickListener() {
