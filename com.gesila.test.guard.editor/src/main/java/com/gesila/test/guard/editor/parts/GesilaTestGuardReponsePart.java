@@ -5,14 +5,20 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
 import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.inject.Named;
 
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.eclipse.e4.core.di.annotations.Optional;
+import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
@@ -23,12 +29,19 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.ui.forms.widgets.Form;
 import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.forms.widgets.Section;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.gesila.test.guard.http.GesilaHttpResponse;
+import com.gesila.test.guard.json.model.GesilaJSONObject;
+import com.gesila.test.guard.json.utils.JSONUtils;
+import com.gesila.test.guard.model.testGuard.TestGuardUnit;
 
 /**
  * 
@@ -52,22 +65,55 @@ public class GesilaTestGuardReponsePart {
 		Form form = formToolkit.createForm(parent);
 		form.setText("Reponse");
 		formToolkit.decorateFormHeading(form);
-		form.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		form.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 
 		Composite body = form.getBody();
-		body.setLayout(new GridLayout(1, false));
+		layout = new GridLayout(1, false);
+		layout.horizontalSpacing = 0;
+		//layout.verticalSpacing = 0;
+		layout.marginWidth = 0;
+		body.setLayout(layout);
+		
+		final Section section = formToolkit.createSection(body, Section.TITLE_BAR | Section.TWISTIE | Section.EXPANDED);
+		section.clientVerticalSpacing = 0;
+		section.marginWidth = 0;
+		//section.marginHeight = 0;
+		section.setText("Filter");
+		GridData gd = new GridData(SWT.FILL,SWT.TOP,true,false);
+		section.setLayoutData(gd);
+		
+		Composite searchSectionClient = formToolkit.createComposite(section, SWT.NONE);
+		layout = new GridLayout(1, false);
+		layout.horizontalSpacing = 0;
+		layout.verticalSpacing = 0;
+		//layout.marginHeight = 0;
+		//layout.marginWidth = 5;
+		searchSectionClient.setLayout(layout);
+		Text searchText = formToolkit.createText(searchSectionClient, "",
+				SWT.BORDER | SWT.SEARCH | SWT.ICON_SEARCH | SWT.CANCEL);
+		searchText.setMessage("搜索:Test");
+		searchText.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
+		section.setClient(searchSectionClient);
+		
+		Composite client = formToolkit.createComposite(parent, SWT.NONE);
+		layout = new GridLayout();
+		layout.marginWidth = 5;
+		layout.marginTop = 0;
+		//layout.marginHeight = 0;
+		client.setLayout(layout);
+		gd = new GridData(SWT.FILL, SWT.FILL, true, true);
+		client.setLayoutData(gd);
 
-		createResponseComposite(body);
+		createResponseComposite(client);
 
-		// if (httpResponse != null) {
-		// Header[] headers = httpResponse.getAllHeaders();
-		// treeViewer.setInput(headers);
-		// }
 	}
 
-	private void createResponseComposite(Composite body) {
-		treeViewer = new TreeViewer(body);
-		treeViewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+	private void createResponseComposite(Composite client) {
+		treeViewer = new TreeViewer(client,SWT.MULTI|SWT.BORDER|SWT.FULL_SELECTION);
+		Tree tree=treeViewer.getTree();
+		tree.setHeaderVisible(true);
+		tree.setLinesVisible(true);
+		tree.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		TreeColumn column = new TreeColumn(treeViewer.getTree(), SWT.NONE);
 		column.setWidth(200);
 		column.setText("Name");
@@ -75,7 +121,6 @@ public class GesilaTestGuardReponsePart {
 		column = new TreeColumn(treeViewer.getTree(), SWT.NONE);
 		column.setWidth(200);
 		column.setText("Value");
-		treeViewer.getTree().setHeaderVisible(true);
 
 		treeViewer.setContentProvider(new ITreeContentProvider() {
 
@@ -112,7 +157,7 @@ public class GesilaTestGuardReponsePart {
 
 			@Override
 			public Object[] getChildren(Object parentElement) {
-				return ((ResponseObject) parentElement).getReponseObjects().toArray(new Object[0]);
+				return ((GesilaJSONObject) parentElement).getGesilaJSONObjects().toArray(new Object[0]);
 				// return null;
 			}
 		});
@@ -152,9 +197,9 @@ public class GesilaTestGuardReponsePart {
 			public String getColumnText(Object element, int columnIndex) {
 				switch (columnIndex) {
 				case 0:
-					return ((ResponseObject) element).getName() == null ? "" : ((ResponseObject) element).getName();
+					return ((GesilaJSONObject) element).getName() == null ? "" : ((GesilaJSONObject) element).getName();
 				case 1:
-					return ((ResponseObject) element).getValue() == null ? "" : ((ResponseObject) element).getValue();
+					return ((GesilaJSONObject) element).getValue() == null ? "" : ((GesilaJSONObject) element).getValue();
 				}
 				return null;
 			}
@@ -163,94 +208,45 @@ public class GesilaTestGuardReponsePart {
 
 	}
 
-//	@Inject
-//	public void setSelection(
-//			@Optional @Named(IServiceConstants.ACTIVE_SELECTION) GesilaHttpResponse gesilaHttpResponse) {
-//		if (gesilaHttpResponse != null) {
-//			update(gesilaHttpResponse);
-//		}
-//
-//	}
-
-//	private void update(GesilaHttpResponse gesilaHttpResponse) {
-//		HttpResponse httpResponse = gesilaHttpResponse.getHttpResponse();
-//		String strResponse = gesilaHttpResponse.getStrResponse();
-//		String response = null;
-//
-//		if (strResponse != null) {
-//			response = strResponse;
-//
-//		} else if (httpResponse != null) {
-//			Header[] headers = httpResponse.getAllHeaders();
-//			HttpEntity httpEntity = httpResponse.getEntity();
-//			response = getResponseJSON(httpResponse);
-//			gesilaHttpResponse.setStrResponse(response);
-//		}
-//
-//		JSONObject respJsonObject = null;
-//		char[] responseChars = response.toCharArray();
-//		char firstChar = responseChars[0];
-//		if ('{' == firstChar) {
-//			respJsonObject = JSONObject.parseObject(response);
-//		} else {
-//			Map map = new HashMap();
-//			map.put("name", response);
-//			respJsonObject = new JSONObject(map);
-//		}
-//		List list = new ArrayList();
-//		createJSONObject(respJsonObject, list);
-//		System.out.println(list);
-//		if (!list.isEmpty()) {
-//			treeViewer.setInput(list);
-//			treeViewer.refresh(true);
-//			treeViewer.expandToLevel(3);
-//
-//		}
-//
-//	}
-
-	private void createJSONObject(JSONObject respJsonObject, List list) {
-
-		Iterator<String> iter = respJsonObject.keySet().iterator();
-		while (iter.hasNext()) {
-			// --key
-			String key = iter.next();
-			ResponseObject responseObject = new ResponseObject();
-			responseObject.setName(key);
-			String value = respJsonObject.getString(key);
-			char fchar = 0;
-			if (!"".equals(value)) {
-				char[] chars = value.toCharArray();
-				fchar = chars[0];
-			}
-			if ('{' == fchar) {
-				createJSONObject(JSONObject.parseObject(value), list);
-			} else if ('[' == fchar) {
-				JSONArray jsonArray = JSONObject.parseArray(value);
-				ListIterator<Object> listIter = jsonArray.listIterator();
-				ArrayList tmpList = new ArrayList();
-				while (listIter.hasNext()) {
-					ArrayList arrayList = new ArrayList();
-					Object object = listIter.next();
-					// --创建虚拟节点对象
-					ResponseObject parentReponseObject = new ResponseObject();
-					createJSONObject((JSONObject) object, arrayList);
-					parentReponseObject.setReponseObjects(arrayList);
-					tmpList.add(parentReponseObject);
-				}
-				responseObject.setReponseObjects(tmpList);
-				list.add(responseObject);
-			} else {
-				responseObject.setValue(value);
-				list.add(responseObject);
-			}
+	@Inject
+	public void setSelection(
+			@Optional @Named(IServiceConstants.ACTIVE_SELECTION) GesilaHttpResponse gesilaHttpResponse) {
+		if (gesilaHttpResponse != null) {
+			update(gesilaHttpResponse);
 		}
+
+	}
+
+	private void update(GesilaHttpResponse gesilaHttpResponse) {
+		HttpResponse httpResponse = gesilaHttpResponse.getHttpResponse();
+		String strResponse = gesilaHttpResponse.getStrResponse();
+		String response = null;
+
+		if (strResponse != null) {
+			response = strResponse;
+
+		} else if (httpResponse != null) {
+			Header[] headers = httpResponse.getAllHeaders();
+			HttpEntity httpEntity = httpResponse.getEntity();
+			response = getResponseJSON(httpResponse);
+			gesilaHttpResponse.setStrResponse(response);
+		}
+
+		List list = new ArrayList();
+		JSONObject jsonObject = JSONUtils.createJSONObject(response);
+		JSONUtils.createGesilaJSONObject(jsonObject, list);
+		if (!list.isEmpty()) {
+			treeViewer.setInput(list);
+			treeViewer.refresh(true);
+			treeViewer.expandToLevel(3);
+
+		}
+
 	}
 
 	private String getResponseJSON(HttpResponse httpResponse) {
 		HttpEntity httpEntity = httpResponse.getEntity();
 		InputStream inputStream;
-		JSONObject respJsonObject = null;
 		try {
 			if (httpEntity.isStreaming()) {
 				inputStream = httpEntity.getContent();
@@ -266,19 +262,8 @@ public class GesilaTestGuardReponsePart {
 				bufferReader.close();
 				return stringBuffer.toString();
 			}
-			// --判断是否为json字符串
-			// char[] responseChars = stringBuffer.toString().toCharArray();
-			// char firstChar = responseChars[0];
-			// if ('{' == firstChar) {
-			// respJsonObject = JSONObject.parseObject(stringBuffer.toString());
-			// } else {
-			// Map map = new HashMap();
-			// map.put("name", stringBuffer.toString());
-			// respJsonObject = new JSONObject(map);
-			// }
 
 		} catch (IllegalStateException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;

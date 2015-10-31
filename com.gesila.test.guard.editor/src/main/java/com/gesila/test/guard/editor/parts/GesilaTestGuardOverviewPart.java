@@ -377,42 +377,42 @@ public class GesilaTestGuardOverviewPart {
 	}
 
 	public void update(File file) {
-		URI uri = URI.createFileURI(file.getAbsolutePath());
-
-		TestGuard testGuard = TestGuardFactory.eINSTANCE.createTestGuard();
-
-		TestGuardPackage.eINSTANCE.eClass();
-
-		TestGuardModule testGuardModule = TestGuardFactory.eINSTANCE.createTestGuardModule();
-		testGuardModule.setName("nat");
-
-		TestGuardUnit testGuardUnit = TestGuardFactory.eINSTANCE.createTestGuardUnit();
-		testGuardUnit.setName("Channel Stat");
-		// testGuardUnit.setUrl("");
-
-		testGuardModule.getUnit().add(testGuardUnit);
-		testGuard.getModule().add(testGuardModule);
-
-		// --注册扩展
-		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
-		Map<String, Object> m = reg.getExtensionToFactoryMap();
-		m.put("xml", new XMIResourceFactoryImpl());
-
-		// --创建一个资源
-		GesilaTestGuardResourceImpl gesilaTestGuardResourceImpl = new GesilaTestGuardResourceImpl(uri);
-
-		gesilaTestGuardResourceImpl.setEncoding("UTF-8");
-
-		// --写入模型至资源
-		gesilaTestGuardResourceImpl.getContents().add(testGuard);
-
-		try {
-			// --序列化资源
-			gesilaTestGuardResourceImpl.save(Collections.EMPTY_MAP);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		URI uri = URI.createFileURI(file.getAbsolutePath());
+//
+//		TestGuard testGuard = TestGuardFactory.eINSTANCE.createTestGuard();
+//
+//		TestGuardPackage.eINSTANCE.eClass();
+//
+//		TestGuardModule testGuardModule = TestGuardFactory.eINSTANCE.createTestGuardModule();
+//		testGuardModule.setName("nat");
+//
+//		TestGuardUnit testGuardUnit = TestGuardFactory.eINSTANCE.createTestGuardUnit();
+//		testGuardUnit.setName("Channel Stat");
+//		// testGuardUnit.setUrl("");
+//
+//		testGuardModule.getUnit().add(testGuardUnit);
+//		testGuard.getModule().add(testGuardModule);
+//
+//		// --注册扩展
+//		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
+//		Map<String, Object> m = reg.getExtensionToFactoryMap();
+//		m.put("xml", new XMIResourceFactoryImpl());
+//
+//		// --创建一个资源
+//		GesilaTestGuardResourceImpl gesilaTestGuardResourceImpl = new GesilaTestGuardResourceImpl(uri);
+//
+//		gesilaTestGuardResourceImpl.setEncoding("UTF-8");
+//
+//		// --写入模型至资源
+//		gesilaTestGuardResourceImpl.getContents().add(testGuard);
+//
+//		try {
+//			// --序列化资源
+//			gesilaTestGuardResourceImpl.save(Collections.EMPTY_MAP);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		load(file);
 	}
 

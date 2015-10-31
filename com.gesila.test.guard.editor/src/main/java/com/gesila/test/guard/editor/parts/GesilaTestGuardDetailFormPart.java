@@ -32,10 +32,13 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
-import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.TreeColumn;
@@ -101,7 +104,10 @@ public class GesilaTestGuardDetailFormPart implements IAdaptable {
 		section.setText("Request");
 		section.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		Composite requestClient = formToolkit.createComposite(section, SWT.NONE);
-		requestClient.setLayout(new GridLayout());
+		GridLayout gridLayout = new GridLayout();
+		gridLayout.verticalSpacing = 1;
+		gridLayout.marginWidth = 1;
+		requestClient.setLayout(gridLayout);
 		// --URL操作区
 		createURLComposite(requestClient);
 		// --请求体区
@@ -113,7 +119,7 @@ public class GesilaTestGuardDetailFormPart implements IAdaptable {
 	private void createURLComposite(Composite composite) {
 		Composite urlComposite = new Composite(composite, SWT.NONE | SWT.SHADOW_OUT);
 		urlComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-		urlComposite.setLayout(new GridLayout(4, false));
+		urlComposite.setLayout(new GridLayout(3, false));
 
 		// --请求类型
 		ToolBar toolBar = new ToolBar(urlComposite, SWT.FLAT | SWT.RIGHT);
@@ -131,6 +137,7 @@ public class GesilaTestGuardDetailFormPart implements IAdaptable {
 
 		// --请求动作
 		toolBar = new ToolBar(urlComposite, SWT.FLAT | SWT.RIGHT);
+		toolBar.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_YELLOW));
 		toolBarManager = new ToolBarManager(toolBar);
 		createRequestSendToolBar(toolBarManager);
 		toolBarManager.update(true);
@@ -158,6 +165,14 @@ public class GesilaTestGuardDetailFormPart implements IAdaptable {
 			String requestBody = ((TestGuardUnit) eOwner).getRequestBody();
 			bodyText.setText(requestBody);
 		}
+		bodyText.addModifyListener(new ModifyListener() {
+
+			@Override
+			public void modifyText(ModifyEvent e) {
+				((TestGuardUnit) eOwner).setRequestBody(bodyText.getText());
+
+			}
+		});
 		textTabItem.setControl(bodyText);
 
 		// --JSON格式列表模式
@@ -199,15 +214,16 @@ public class GesilaTestGuardDetailFormPart implements IAdaptable {
 	 */
 	@Inject
 	public void setSelection(@Optional @Named(IServiceConstants.ACTIVE_SELECTION) EObject eOwner) {
-		this.eOwner = eOwner;
+		if (eOwner != null)
+			this.eOwner = eOwner;
 	}
 
 	private GesilaRequestToolBarItem createRequestSendToolBar(IToolBarManager toolBarManager) {
-		return new GesilaRequestToolBarItem(toolBarManager,this);
+		return new GesilaRequestToolBarItem(toolBarManager, this);
 	}
 
 	private GesilaRequestTypeToolBarItem createRequestTypeToolBar(IToolBarManager toolBarManager) {
-		return new GesilaRequestTypeToolBarItem(toolBarManager,this);
+		return new GesilaRequestTypeToolBarItem(toolBarManager, this);
 	}
 
 	@Focus
@@ -225,6 +241,8 @@ public class GesilaTestGuardDetailFormPart implements IAdaptable {
 	public <T> T getAdapter(Class<T> adapter) {
 		if (adapter == EObject.class) {
 			return (T) eOwner;
+		} else if (adapter == ESelectionService.class) {
+			return (T) selectionService;
 		}
 		return null;
 	}
