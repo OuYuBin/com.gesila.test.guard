@@ -19,9 +19,9 @@ public class SaveHandler {
 
 	@CanExecute
 	public boolean canExecute(EPartService partService) {
-		if (partService != null) {
-			return !partService.getDirtyParts().isEmpty();
-		}
+//		if (partService != null) {
+//			return !partService.getDirtyParts().isEmpty();
+//		}
 		return false;
 	}
 
