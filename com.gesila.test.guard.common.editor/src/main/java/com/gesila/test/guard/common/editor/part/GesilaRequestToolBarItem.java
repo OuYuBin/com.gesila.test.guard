@@ -32,7 +32,7 @@ public class GesilaRequestToolBarItem extends GesilaPartToolBarItem {
 
 	@Override
 	public void createControl() {
-		IAction requestTypeAction = new Action("Send", IAction.AS_PUSH_BUTTON | SWT.FocusIn) {
+		IAction requestTypeAction = new Action("SEND", IAction.AS_PUSH_BUTTON | SWT.FocusIn) {
 
 			@Override
 			public void run() {

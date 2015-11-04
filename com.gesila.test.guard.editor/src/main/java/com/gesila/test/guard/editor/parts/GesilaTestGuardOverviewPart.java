@@ -47,7 +47,9 @@ import com.gesila.test.guard.edit.providers.GesilaAdapterFactoryContentProvider;
 import com.gesila.test.guard.edit.providers.GesilaAdapterFactoryStyleLabelProvider;
 import com.gesila.test.guard.edit.providers.GesilaDecoratingStyleCellLabelProvider;
 import com.gesila.test.guard.edit.providers.GesilaTestGuardItemProviderAdapterFactory;
+import com.gesila.test.guard.edit.providers.SysConfigLabelDecorator;
 import com.gesila.test.guard.edit.xml.GesilaTestGuardResourceImpl;
+import com.gesila.test.guard.editor.parts.providers.GesilaTestGuardDecoratingStyledCellLabelProvider;
 import com.gesila.test.guard.model.testGuard.TestGuard;
 import com.gesila.test.guard.model.testGuard.TestGuardFactory;
 import com.gesila.test.guard.model.testGuard.TestGuardModule;
@@ -90,20 +92,21 @@ public class GesilaTestGuardOverviewPart {
 		formToolkit.decorateFormHeading(form);
 		form.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 
-		//form.setHeadClient(formToolkit.createButton(form.getHead(), "This is the head client", SWT.PUSH));
+		// form.setHeadClient(formToolkit.createButton(form.getHead(), "This is
+		// the head client", SWT.PUSH));
 
 		Composite body = form.getBody();
 		layout = new GridLayout(1, false);
 		layout.horizontalSpacing = 0;
-		//layout.verticalSpacing = 0;
+		// layout.verticalSpacing = 0;
 		layout.marginWidth = 0;
-		//layout.marginHeight = 0;
+		// layout.marginHeight = 0;
 		body.setLayout(layout);
 
 		final Section section = formToolkit.createSection(body, Section.TITLE_BAR | Section.TWISTIE | Section.EXPANDED);
 		section.clientVerticalSpacing = 0;
 		section.marginWidth = 0;
-		//section.marginHeight = 0;
+		// section.marginHeight = 0;
 		section.setText("Filter");
 		GridData gd = new GridData(GridData.FILL_BOTH);
 		gd.grabExcessHorizontalSpace = true;
@@ -113,8 +116,8 @@ public class GesilaTestGuardOverviewPart {
 		layout = new GridLayout(1, false);
 		layout.horizontalSpacing = 0;
 		layout.verticalSpacing = 0;
-		//layout.marginHeight = 0;
-		//layout.marginWidth = 5;
+		// layout.marginHeight = 0;
+		// layout.marginWidth = 5;
 		searchSectionClient.setLayout(layout);
 		Text searchText = formToolkit.createText(searchSectionClient, "",
 				SWT.BORDER | SWT.SEARCH | SWT.ICON_SEARCH | SWT.CANCEL);
@@ -126,7 +129,7 @@ public class GesilaTestGuardOverviewPart {
 		layout = new GridLayout();
 		layout.marginWidth = 5;
 		layout.marginTop = 0;
-		//layout.marginHeight = 0;
+		// layout.marginHeight = 0;
 		client.setLayout(layout);
 		gd = new GridData(SWT.FILL, SWT.FILL, true, true);
 		client.setLayoutData(gd);
@@ -146,43 +149,43 @@ public class GesilaTestGuardOverviewPart {
 				// MPart part =
 				// partService.createPart("com.gesila.test.guard.application.partdescriptor.detail");
 				Object object = selection.getFirstElement();
-//				if (object instanceof TestGuardUrlObject) {
-//					// part.setLabel(((TestGuardUrlObject) object).getName());
-//					// part.setElementId(object.getClass().toString());
-//					String id = object.toString();
-//					List<MStackElement> elements = partStack.getChildren();
-//					for (MStackElement element : elements) {
-//						if (id.equals(element.getElementId())) {
-//							partService.showPart((MPart) element, PartState.VISIBLE);
-//							return;
-//						}
-//					}
-					// partStack.getChildren().add(part);
-					// partService.showPart(part, PartState.ACTIVATE);
+				// if (object instanceof TestGuardUrlObject) {
+				// // part.setLabel(((TestGuardUrlObject) object).getName());
+				// // part.setElementId(object.getClass().toString());
+				// String id = object.toString();
+				// List<MStackElement> elements = partStack.getChildren();
+				// for (MStackElement element : elements) {
+				// if (id.equals(element.getElementId())) {
+				// partService.showPart((MPart) element, PartState.VISIBLE);
+				// return;
+				// }
+				// }
+				// partStack.getChildren().add(part);
+				// partService.showPart(part, PartState.ACTIVATE);
 
-					// part.setLabel((String) selection.getFirstElement());
-					// part.setElementId((String) selection.getFirstElement());
-					// String id = (String) selection.getFirstElement();
-					//
-					// List<MStackElement> elements = partStack.getChildren();
-					// for (MStackElement element : elements) {
-					// if (id.equals(element.getElementId())) {
-					// partService.showPart((MPart) element, PartState.VISIBLE);
-					// return;
-					// }
-					// }
-					// }
+				// part.setLabel((String) selection.getFirstElement());
+				// part.setElementId((String) selection.getFirstElement());
+				// String id = (String) selection.getFirstElement();
+				//
+				// List<MStackElement> elements = partStack.getChildren();
+				// for (MStackElement element : elements) {
+				// if (id.equals(element.getElementId())) {
+				// partService.showPart((MPart) element, PartState.VISIBLE);
+				// return;
+				// }
+				// }
+				// }
 
-					// MPart mPart =
-					// modelService.createModelElement(MPart.class);
-					// mPart.setLabel("Test");
-					// mPart.setElementId("newid");
-					// mPart.setContributionURI(
-					// "bundleclass://com.gesila.test.guard.application/com.gesila.test.guard.application.parts.SamplePart");
-					// partStack.getChildren().add(part);
-					// partService.showPart(part, PartState.ACTIVATE);
+				// MPart mPart =
+				// modelService.createModelElement(MPart.class);
+				// mPart.setLabel("Test");
+				// mPart.setElementId("newid");
+				// mPart.setContributionURI(
+				// "bundleclass://com.gesila.test.guard.application/com.gesila.test.guard.application.parts.SamplePart");
+				// partStack.getChildren().add(part);
+				// partService.showPart(part, PartState.ACTIVATE);
 
-				//}
+				// }
 			}
 		});
 		treeViewer.addDoubleClickListener(new IDoubleClickListener() {
@@ -200,14 +203,15 @@ public class GesilaTestGuardOverviewPart {
 				if (object instanceof EObject) {
 					String id = object.toString();
 					List<MStackElement> elements = partStack.getChildren();
-					for (MStackElement element : elements) {
-						if (id.equals(element.getElementId())) {
-							partService.showPart((MPart) element, PartState.ACTIVATE);
-							return;
-						}
-					}
+					// for (MStackElement element : elements) {
+					// if (id.equals(element.getElementId())) {
+					// partService.showPart((MPart) element,
+					// PartState.ACTIVATE);
+					// return;
+					// }
+					// }
 					part.setLabel(((EObject) object).toString());
-					part.setElementId(object.toString());
+					part.setElementId("com.gesila.test.guard.application.partdescriptor.detail");
 					partStack.getChildren().add(part);
 					partService.showPart(part, PartState.ACTIVATE);
 				}
@@ -216,14 +220,14 @@ public class GesilaTestGuardOverviewPart {
 		});
 
 		treeViewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-
+		SysConfigLabelDecorator sysConfigLabelDecorator=new SysConfigLabelDecorator();
 		GesilaTestGuardItemProviderAdapterFactory testGuardAdapterFactory = new GesilaTestGuardItemProviderAdapterFactory();
 		treeViewer
 				.setContentProvider(new GesilaAdapterFactoryContentProvider((AdapterFactory) testGuardAdapterFactory));
 		GesilaAdapterFactoryStyleLabelProvider gesilaAdapterFactoryStyleLabelProvider = new GesilaAdapterFactoryStyleLabelProvider(
 				(AdapterFactory) testGuardAdapterFactory, treeViewer);
-		treeViewer.setLabelProvider(
-				new GesilaDecoratingStyleCellLabelProvider(gesilaAdapterFactoryStyleLabelProvider, null, null));
+		treeViewer.setLabelProvider(new GesilaTestGuardDecoratingStyledCellLabelProvider(
+				gesilaAdapterFactoryStyleLabelProvider, sysConfigLabelDecorator, null));
 
 		// treeViewer.setContentProvider(new ITreeContentProvider() {
 		//
@@ -377,42 +381,45 @@ public class GesilaTestGuardOverviewPart {
 	}
 
 	public void update(File file) {
-//		URI uri = URI.createFileURI(file.getAbsolutePath());
-//
-//		TestGuard testGuard = TestGuardFactory.eINSTANCE.createTestGuard();
-//
-//		TestGuardPackage.eINSTANCE.eClass();
-//
-//		TestGuardModule testGuardModule = TestGuardFactory.eINSTANCE.createTestGuardModule();
-//		testGuardModule.setName("nat");
-//
-//		TestGuardUnit testGuardUnit = TestGuardFactory.eINSTANCE.createTestGuardUnit();
-//		testGuardUnit.setName("Channel Stat");
-//		// testGuardUnit.setUrl("");
-//
-//		testGuardModule.getUnit().add(testGuardUnit);
-//		testGuard.getModule().add(testGuardModule);
-//
-//		// --注册扩展
-//		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
-//		Map<String, Object> m = reg.getExtensionToFactoryMap();
-//		m.put("xml", new XMIResourceFactoryImpl());
-//
-//		// --创建一个资源
-//		GesilaTestGuardResourceImpl gesilaTestGuardResourceImpl = new GesilaTestGuardResourceImpl(uri);
-//
-//		gesilaTestGuardResourceImpl.setEncoding("UTF-8");
-//
-//		// --写入模型至资源
-//		gesilaTestGuardResourceImpl.getContents().add(testGuard);
-//
-//		try {
-//			// --序列化资源
-//			gesilaTestGuardResourceImpl.save(Collections.EMPTY_MAP);
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		// URI uri = URI.createFileURI(file.getAbsolutePath());
+		//
+		// TestGuard testGuard = TestGuardFactory.eINSTANCE.createTestGuard();
+		//
+		// TestGuardPackage.eINSTANCE.eClass();
+		//
+		// TestGuardModule testGuardModule =
+		// TestGuardFactory.eINSTANCE.createTestGuardModule();
+		// testGuardModule.setName("nat");
+		//
+		// TestGuardUnit testGuardUnit =
+		// TestGuardFactory.eINSTANCE.createTestGuardUnit();
+		// testGuardUnit.setName("Channel Stat");
+		// // testGuardUnit.setUrl("");
+		//
+		// testGuardModule.getUnit().add(testGuardUnit);
+		// testGuard.getModule().add(testGuardModule);
+		//
+		// // --注册扩展
+		// Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
+		// Map<String, Object> m = reg.getExtensionToFactoryMap();
+		// m.put("xml", new XMIResourceFactoryImpl());
+		//
+		// // --创建一个资源
+		// GesilaTestGuardResourceImpl gesilaTestGuardResourceImpl = new
+		// GesilaTestGuardResourceImpl(uri);
+		//
+		// gesilaTestGuardResourceImpl.setEncoding("UTF-8");
+		//
+		// // --写入模型至资源
+		// gesilaTestGuardResourceImpl.getContents().add(testGuard);
+		//
+		// try {
+		// // --序列化资源
+		// gesilaTestGuardResourceImpl.save(Collections.EMPTY_MAP);
+		// } catch (IOException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
 		load(file);
 	}
 

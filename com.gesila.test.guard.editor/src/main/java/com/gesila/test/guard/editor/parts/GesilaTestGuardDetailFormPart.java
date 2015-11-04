@@ -11,7 +11,9 @@
  *******************************************************************************/
 package com.gesila.test.guard.editor.parts;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -19,13 +21,17 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.di.Focus;
 import org.eclipse.e4.ui.di.Persist;
 import org.eclipse.e4.ui.model.application.ui.MDirtyable;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.viewers.TreeViewer;
@@ -49,6 +55,7 @@ import org.eclipse.ui.forms.widgets.Section;
 import com.alibaba.fastjson.JSONObject;
 import com.gesila.test.guard.common.editor.part.GesilaRequestToolBarItem;
 import com.gesila.test.guard.common.editor.part.GesilaRequestTypeToolBarItem;
+import com.gesila.test.guard.edit.xml.GesilaTestGuardResourceImpl;
 import com.gesila.test.guard.editor.parts.providers.GesilaTestGuardRequestBodyContentProvider;
 import com.gesila.test.guard.editor.parts.providers.GesilaTestGuardRequestBodyLableProvider;
 import com.gesila.test.guard.json.model.GesilaJSONObject;
@@ -59,7 +66,7 @@ public class GesilaTestGuardDetailFormPart implements IAdaptable {
 	private Text bodyText;
 
 	@Inject
-	private MDirtyable dirty;
+	private MDirtyable dirtyable;
 
 	@Inject
 	private ESelectionService selectionService;
@@ -69,6 +76,8 @@ public class GesilaTestGuardDetailFormPart implements IAdaptable {
 	private EObject eOwner;
 
 	private FormToolkit formToolkit;
+
+	private boolean commitChanges = false;
 
 	@PostConstruct
 	public void createComposite(Composite parent) {
@@ -96,6 +105,8 @@ public class GesilaTestGuardDetailFormPart implements IAdaptable {
 
 		// --请求单元
 		createRequestSection(body);
+
+		commitChanges = true;
 
 	}
 
@@ -129,15 +140,28 @@ public class GesilaTestGuardDetailFormPart implements IAdaptable {
 		toolBarManager.getControl().setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, true));
 
 		// --url输入
-		Text text = new Text(urlComposite, SWT.BORDER | SWT.SINGLE);
+		Text urlText = new Text(urlComposite,SWT.BORDER | SWT.SINGLE);
 		if (eOwner != null) {
-			text.setText(((TestGuardUnit) eOwner).getUrl());
+			urlText.setText(((TestGuardUnit) eOwner).getUrl());
 		}
-		text.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		urlText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		urlText.addModifyListener(new ModifyListener() {
+
+			@Override
+			public void modifyText(ModifyEvent e) {
+				if (commitChanges) {
+					Text source = (Text) e.getSource();
+					((TestGuardUnit) eOwner).setUrl(source.getText());
+					setDirty(true);
+				}
+			}
+		});
 
 		// --请求动作
 		toolBar = new ToolBar(urlComposite, SWT.FLAT | SWT.RIGHT);
-		toolBar.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_YELLOW));
+		toolBar.setBackground(new Color(null, 228,58,72));
+		toolBar.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
+		toolBar.setBackgroundMode(SWT.INHERIT_FORCE);
 		toolBarManager = new ToolBarManager(toolBar);
 		createRequestSendToolBar(toolBarManager);
 		toolBarManager.update(true);
@@ -169,7 +193,10 @@ public class GesilaTestGuardDetailFormPart implements IAdaptable {
 
 			@Override
 			public void modifyText(ModifyEvent e) {
-				((TestGuardUnit) eOwner).setRequestBody(bodyText.getText());
+				if (commitChanges) {
+					((TestGuardUnit) eOwner).setRequestBody(bodyText.getText());
+					setDirty(true);
+				}
 
 			}
 		});
@@ -207,6 +234,23 @@ public class GesilaTestGuardDetailFormPart implements IAdaptable {
 		bodyCTabFolder.setSelection(0);
 	}
 
+	@Persist
+	public void doSave(@Optional IProgressMonitor progressMonitor) throws IOException {
+		// URI uri = URI.createFileURI(file.getAbsolutePath());
+		// --创建一个资源
+		// GesilaTestGuardResourceImpl gesilaTestGuardResourceImpl = new
+		// GesilaTestGuardResourceImpl(uri);
+		// gesilaTestGuardResourceImpl.setEncoding("UTF-8");
+		// gesilaTestGuardResourceImpl.save(Collections.EMPTY_MAP);
+
+		Resource resource = eOwner.eResource();
+		if (resource != null) {
+			resource.save(Collections.EMPTY_MAP);
+		}
+		dirtyable.setDirty(false);
+
+	}
+
 	/**
 	 * 选择提供响应注入
 	 * 
@@ -231,9 +275,13 @@ public class GesilaTestGuardDetailFormPart implements IAdaptable {
 		form.getBody().setFocus();
 	}
 
+	void setDirty(boolean dirty) {
+		dirtyable.setDirty(dirty);
+	}
+
 	@Persist
 	public void save() {
-		dirty.setDirty(false);
+		setDirty(false);
 	}
 
 	@SuppressWarnings("unchecked")

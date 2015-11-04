@@ -2,9 +2,8 @@
  */
 package com.gesila.test.guard.model.testGuard.provider;
 
-
 import com.gesila.test.guard.model.edit.TestGuardEditPlugin;
-
+import com.gesila.test.guard.model.testGuard.RequestMethod;
 import com.gesila.test.guard.model.testGuard.TestGuardPackage;
 import com.gesila.test.guard.model.testGuard.TestGuardUnit;
 
@@ -33,31 +32,23 @@ import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.StyledString;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+import org.eclipse.swt.graphics.Image;
 
 /**
- * This is the item provider adapter for a {@link com.gesila.test.guard.model.testGuard.TestGuardUnit} object.
- * <!-- begin-user-doc -->
- * <!-- end-user-doc -->
+ * This is the item provider adapter for a
+ * {@link com.gesila.test.guard.model.testGuard.TestGuardUnit} object. <!--
+ * begin-user-doc --> <!-- end-user-doc -->
+ * 
  * @generated
  */
-public class TestGuardUnitItemProvider 
-	extends ItemProviderAdapter
-	implements
-		IEditingDomainItemProvider,
-		IStructuredItemContentProvider,
-		ITreeItemContentProvider,
-		IItemLabelProvider,
-		IItemPropertySource,
-		ITableItemLabelProvider,
-		ITableItemColorProvider,
-		ITableItemFontProvider,
-		IItemColorProvider,
-		IItemFontProvider,
-		IItemStyledLabelProvider {
+public class TestGuardUnitItemProvider extends ItemProviderAdapter
+		implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider,
+		IItemLabelProvider, IItemPropertySource, ITableItemLabelProvider, ITableItemColorProvider,
+		ITableItemFontProvider, IItemColorProvider, IItemFontProvider, IItemStyledLabelProvider {
 	/**
-	 * This constructs an instance from a factory and a notifier.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * This constructs an instance from a factory and a notifier. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public TestGuardUnitItemProvider(AdapterFactory adapterFactory) {
@@ -65,9 +56,9 @@ public class TestGuardUnitItemProvider
 	}
 
 	/**
-	 * This returns the property descriptors for the adapted class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * This returns the property descriptors for the adapted class. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -83,74 +74,56 @@ public class TestGuardUnitItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * This adds a property descriptor for the Name feature. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected void addNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_TestGuardUnit_name_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TestGuardUnit_name_feature", "_UI_TestGuardUnit_type"),
-				 TestGuardPackage.Literals.TEST_GUARD_UNIT__NAME,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_TestGuardUnit_name_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_TestGuardUnit_name_feature",
+								"_UI_TestGuardUnit_type"),
+						TestGuardPackage.Literals.TEST_GUARD_UNIT__NAME, true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
-	 * This adds a property descriptor for the Url feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * This adds a property descriptor for the Url feature. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected void addUrlPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_TestGuardUnit_url_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TestGuardUnit_url_feature", "_UI_TestGuardUnit_type"),
-				 TestGuardPackage.Literals.TEST_GUARD_UNIT__URL,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_TestGuardUnit_url_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_TestGuardUnit_url_feature",
+								"_UI_TestGuardUnit_type"),
+						TestGuardPackage.Literals.TEST_GUARD_UNIT__URL, true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
-	 * This adds a property descriptor for the Request Body feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * This adds a property descriptor for the Request Body feature. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected void addRequestBodyPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_TestGuardUnit_requestBody_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TestGuardUnit_requestBody_feature", "_UI_TestGuardUnit_type"),
-				 TestGuardPackage.Literals.TEST_GUARD_UNIT__REQUEST_BODY,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_TestGuardUnit_requestBody_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_TestGuardUnit_requestBody_feature",
+								"_UI_TestGuardUnit_type"),
+						TestGuardPackage.Literals.TEST_GUARD_UNIT__REQUEST_BODY, true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -159,50 +132,61 @@ public class TestGuardUnitItemProvider
 	}
 
 	/**
-	 * This returns TestGuardUnit.gif.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
+	 * This returns TestGuardUnit.gif. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
+	 * 
+	 * @generated NOT
 	 */
 	@Override
 	public Object getImage(Object object) {
+		RequestMethod requestMethod = ((TestGuardUnit) object).getRequestMethod();
+		Image image = null;
+		switch (requestMethod) {
+		case POST:
+			image = com.gesila.test.guard.common.Activator.getDefault().getImageRegistry().get("postUrl");
+			break;
+		case PUT:
+			image = com.gesila.test.guard.common.Activator.getDefault().getImageRegistry().get("putUrl");
+			break;
+		}
+		if (image != null)
+			return image;
 		return overlayImage(object, getResourceLocator().getImage("full/obj16/TestGuardUnit"));
 	}
 
 	/**
-	 * This returns the label text for the adapted class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * This returns the label text for the adapted class. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public String getText(Object object) {
-		return ((StyledString)getStyledText(object)).getString();
+		return ((StyledString) getStyledText(object)).getString();
 	}
-	
+
 	/**
-	 * This returns the label styled text for the adapted class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
+	 * This returns the label styled text for the adapted class. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated NOT
 	 */
 	@Override
 	public Object getStyledText(Object object) {
-		String label = ((TestGuardUnit)object).getName();
-    	StyledString styledLabel = new StyledString();
-		if (label == null || label.length() == 0) {
-			styledLabel.append(getString("_UI_TestGuardUnit_type"), StyledString.Style.QUALIFIER_STYLER); 
-		} else {
-			styledLabel.append(getString("_UI_TestGuardUnit_type"), StyledString.Style.QUALIFIER_STYLER).append(" " + label);
-		}
-		return styledLabel;
-	}	
+		RequestMethod requestMethod = ((TestGuardUnit) object).getRequestMethod();
+		String url = ((TestGuardUnit) object).getUrl();
+		org.eclipse.jface.viewers.StyledString styledString = new org.eclipse.jface.viewers.StyledString("test");
+		styledString.append(requestMethod.getLiteral(), org.eclipse.jface.viewers.StyledString.DECORATIONS_STYLER);
+		styledString.append(" - " + url, org.eclipse.jface.viewers.StyledString.DECORATIONS_STYLER);
+		return styledString;
+	}
 
 	/**
-	 * This handles model notifications by calling {@link #updateChildren} to update any cached
-	 * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * This handles model notifications by calling {@link #updateChildren} to
+	 * update any cached children and by creating a viewer notification, which
+	 * it passes to {@link #fireNotifyChanged}. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -210,20 +194,20 @@ public class TestGuardUnitItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(TestGuardUnit.class)) {
-			case TestGuardPackage.TEST_GUARD_UNIT__NAME:
-			case TestGuardPackage.TEST_GUARD_UNIT__URL:
-			case TestGuardPackage.TEST_GUARD_UNIT__REQUEST_BODY:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
+		case TestGuardPackage.TEST_GUARD_UNIT__NAME:
+		case TestGuardPackage.TEST_GUARD_UNIT__URL:
+		case TestGuardPackage.TEST_GUARD_UNIT__REQUEST_BODY:
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+			return;
 		}
 		super.notifyChanged(notification);
 	}
 
 	/**
-	 * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children
-	 * that can be created under this object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s
+	 * describing the children that can be created under this object. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -232,9 +216,9 @@ public class TestGuardUnitItemProvider
 	}
 
 	/**
-	 * Return the resource locator for this item provider's resources.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Return the resource locator for this item provider's resources. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
