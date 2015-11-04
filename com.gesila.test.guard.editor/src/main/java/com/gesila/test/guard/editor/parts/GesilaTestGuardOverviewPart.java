@@ -219,13 +219,13 @@ public class GesilaTestGuardOverviewPart {
 			}
 		});
 
-		treeViewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		SysConfigLabelDecorator sysConfigLabelDecorator=new SysConfigLabelDecorator();
+		SysConfigLabelDecorator sysConfigLabelDecorator = new SysConfigLabelDecorator();
 		GesilaTestGuardItemProviderAdapterFactory testGuardAdapterFactory = new GesilaTestGuardItemProviderAdapterFactory();
 		treeViewer
 				.setContentProvider(new GesilaAdapterFactoryContentProvider((AdapterFactory) testGuardAdapterFactory));
+
 		GesilaAdapterFactoryStyleLabelProvider gesilaAdapterFactoryStyleLabelProvider = new GesilaAdapterFactoryStyleLabelProvider(
-				(AdapterFactory) testGuardAdapterFactory, treeViewer);
+				testGuardAdapterFactory, treeViewer);
 		treeViewer.setLabelProvider(new GesilaTestGuardDecoratingStyledCellLabelProvider(
 				gesilaAdapterFactoryStyleLabelProvider, sysConfigLabelDecorator, null));
 
