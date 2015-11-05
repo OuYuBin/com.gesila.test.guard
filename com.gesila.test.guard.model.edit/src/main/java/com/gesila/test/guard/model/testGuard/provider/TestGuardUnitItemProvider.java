@@ -2,6 +2,7 @@
  */
 package com.gesila.test.guard.model.testGuard.provider;
 
+import com.gesila.test.guard.common.font.GesilaTestGuardFont;
 import com.gesila.test.guard.model.edit.TestGuardEditPlugin;
 import com.gesila.test.guard.model.testGuard.RequestMethod;
 import com.gesila.test.guard.model.testGuard.TestGuardPackage;
@@ -173,22 +174,6 @@ public class TestGuardUnitItemProvider extends ItemProviderAdapter
 	}
 
 	/**
-	 * @generated NOT
-	 */
-	Styler requestMethodDecorationStyler = new Styler() {
-		public void applyStyles(TextStyle textStyle) {
-			FontData[] fontData=JFaceResources.getFontRegistry().getFontData(JFaceResources.DEFAULT_FONT);
-			FontData fd = fontData[0];
-			fd.setStyle(SWT.BOLD);
-			int height=fd.getHeight();
-			fd.setHeight(height/2);
-			Font font=new Font(null,fd);
-			textStyle.font=font;
-			textStyle.foreground = new Color(null, 24,122, 204);
-		}
-	};
-
-	/**
 	 * This returns the label styled text for the adapted class. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -199,6 +184,7 @@ public class TestGuardUnitItemProvider extends ItemProviderAdapter
 		RequestMethod requestMethod = ((TestGuardUnit) object).getRequestMethod();
 		String url = ((TestGuardUnit) object).getUrl();
 		org.eclipse.jface.viewers.StyledString styledString = new org.eclipse.jface.viewers.StyledString();
+		Styler requestMethodDecorationStyler=GesilaTestGuardFont.getInstance().getRequestMethodDecorationStyler();
 		styledString.append(requestMethod.getLiteral(), requestMethodDecorationStyler);
 		styledString.append("  " + url, org.eclipse.jface.viewers.StyledString.DECORATIONS_STYLER);
 		return styledString;

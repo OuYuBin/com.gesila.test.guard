@@ -10,4 +10,5 @@ Require-Bundle: org.eclipse.ui,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Export-Package: com.gesila.test.guard.common,
+ com.gesila.test.guard.common.font,
  com.gesila.test.guard.common.part
