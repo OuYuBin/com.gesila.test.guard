@@ -40,7 +40,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.gesila.test.guard.http.GesilaHttpResponse;
 import com.gesila.test.guard.json.model.GesilaJSONObject;
-import com.gesila.test.guard.json.utils.JSONUtils;
+import com.gesila.test.guard.json.utils.GesilaJSONUtils;
 import com.gesila.test.guard.model.testGuard.TestGuardUnit;
 
 /**
@@ -126,13 +126,11 @@ public class GesilaTestGuardReponsePart {
 
 			@Override
 			public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void dispose() {
-				// TODO Auto-generated method stub
 
 			}
 
@@ -146,7 +144,6 @@ public class GesilaTestGuardReponsePart {
 
 			@Override
 			public Object getParent(Object element) {
-				// TODO Auto-generated method stub
 				return null;
 			}
 
@@ -158,38 +155,32 @@ public class GesilaTestGuardReponsePart {
 			@Override
 			public Object[] getChildren(Object parentElement) {
 				return ((GesilaJSONObject) parentElement).getGesilaJSONObjects().toArray(new Object[0]);
-				// return null;
 			}
 		});
 		treeViewer.setLabelProvider(new ITableLabelProvider() {
 
 			@Override
 			public void addListener(ILabelProviderListener listener) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void dispose() {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public boolean isLabelProperty(Object element, String property) {
-				// TODO Auto-generated method stub
 				return false;
 			}
 
 			@Override
 			public void removeListener(ILabelProviderListener listener) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public Image getColumnImage(Object element, int columnIndex) {
-				// TODO Auto-generated method stub
 				return null;
 			}
 
@@ -233,8 +224,8 @@ public class GesilaTestGuardReponsePart {
 		}
 
 		List list = new ArrayList();
-		JSONObject jsonObject = JSONUtils.createJSONObject(response);
-		JSONUtils.createGesilaJSONObject(jsonObject, list);
+		JSONObject jsonObject = GesilaJSONUtils.createJSONObject(response);
+		GesilaJSONUtils.createGesilaJSONObject(jsonObject, list);
 		if (!list.isEmpty()) {
 			treeViewer.setInput(list);
 			treeViewer.refresh(true);

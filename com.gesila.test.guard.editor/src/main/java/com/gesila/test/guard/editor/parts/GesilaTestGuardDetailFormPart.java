@@ -43,6 +43,9 @@ import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseMoveListener;
+import org.eclipse.swt.events.MouseTrackListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -50,6 +53,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.ui.forms.widgets.Form;
@@ -64,7 +68,7 @@ import com.gesila.test.guard.edit.xml.GesilaTestGuardResourceImpl;
 import com.gesila.test.guard.editor.parts.providers.GesilaTestGuardRequestBodyContentProvider;
 import com.gesila.test.guard.editor.parts.providers.GesilaTestGuardRequestBodyLableProvider;
 import com.gesila.test.guard.json.model.GesilaJSONObject;
-import com.gesila.test.guard.json.utils.JSONUtils;
+import com.gesila.test.guard.json.utils.GesilaJSONUtils;
 import com.gesila.test.guard.model.testGuard.TestGuardUnit;
 
 public class GesilaTestGuardDetailFormPart implements IAdaptable {
@@ -136,6 +140,7 @@ public class GesilaTestGuardDetailFormPart implements IAdaptable {
 		Composite urlComposite = new Composite(composite, SWT.NONE | SWT.SHADOW_OUT);
 		urlComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 		urlComposite.setLayout(new GridLayout(3, false));
+		urlComposite.setBackground(new Color(null, 144, 210, 255));
 
 		// --请求类型
 		ToolBar toolBar = new ToolBar(urlComposite, SWT.FLAT | SWT.RIGHT);
@@ -164,9 +169,7 @@ public class GesilaTestGuardDetailFormPart implements IAdaptable {
 
 		// --请求动作
 		toolBar = new ToolBar(urlComposite, SWT.FLAT | SWT.RIGHT);
-		toolBar.setBackground(new Color(null, 228, 58, 72));
-		toolBar.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
-		toolBar.setBackgroundMode(SWT.INHERIT_FORCE);
+		//toolBar.setBackground(new Color(null, 228, 58, 72));
 		toolBarManager = new ToolBarManager(toolBar);
 		createRequestSendToolBar(toolBarManager);
 		toolBarManager.update(true);
@@ -232,13 +235,26 @@ public class GesilaTestGuardDetailFormPart implements IAdaptable {
 
 			@Override
 			protected void setValue(Object element, Object value) {
-				
+				if (element instanceof GesilaJSONObject) {
+					Object oldValue = ((GesilaJSONObject) element).getValue();
+					if (!value.equals(oldValue)) {
+						JSONObject jsonObject = GesilaJSONUtils
+								.createJSONObject(((TestGuardUnit) eOwner).getRequestBody());
+						String name = ((GesilaJSONObject) element).getName();
+						if (jsonObject.containsKey(name)) {
+							jsonObject.put(name, value);
+						}
+						((TestGuardUnit) eOwner).setRequestBody(GesilaJSONUtils.createGesilaJSONOString(jsonObject));
+						((GesilaJSONObject) element).setValue((String) value);
+						treeViewer.refresh(((GesilaJSONObject) element));
+					}
+				}
 			}
 
 			@Override
 			protected Object getValue(Object element) {
-				if(element instanceof GesilaJSONObject){
-					return ((GesilaJSONObject)element).getValue();
+				if (element instanceof GesilaJSONObject) {
+					return ((GesilaJSONObject) element).getValue();
 				}
 				return null;
 			}
@@ -259,8 +275,8 @@ public class GesilaTestGuardDetailFormPart implements IAdaptable {
 		List<GesilaJSONObject> list = new ArrayList<GesilaJSONObject>();
 		if (eOwner != null) {
 			String requestBody = ((TestGuardUnit) eOwner).getRequestBody();
-			JSONObject jsonObject = JSONUtils.createJSONObject(requestBody);
-			JSONUtils.createGesilaJSONObject(jsonObject, list);
+			JSONObject jsonObject = GesilaJSONUtils.createJSONObject(requestBody);
+			GesilaJSONUtils.createGesilaJSONObject(jsonObject, list);
 			treeViewer.setInput(list);
 		}
 		jsonCTabItem.setControl(treeViewer.getControl());

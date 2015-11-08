@@ -28,7 +28,7 @@ public final class GesilaTestGuardFont {
 				requestMethodFontData.setHeight(height / 2);
 				Font requestFont = new Font(null, requestMethodFontData);
 				textStyle.font = requestFont;
-				textStyle.foreground = new Color(null, 170, 213, 242);
+				textStyle.foreground = new Color(null, 0, 0, 255);
 			}
 		};
 		
@@ -41,7 +41,7 @@ public final class GesilaTestGuardFont {
 				requestMethodFontData.setHeight(height / 2);
 				Font requestFont = new Font(null, requestMethodFontData);
 				textStyle.font = requestFont;
-				textStyle.foreground = new Color(null, 251, 153, 151);
+				textStyle.foreground = new Color(null, 220, 20, 60);
 			}
 		};
 	}

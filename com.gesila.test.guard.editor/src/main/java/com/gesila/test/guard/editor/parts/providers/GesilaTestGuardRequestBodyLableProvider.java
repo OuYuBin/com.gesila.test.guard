@@ -1,5 +1,7 @@
 package com.gesila.test.guard.editor.parts.providers;
 
+import org.eclipse.emf.edit.EMFEditPlugin;
+import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.swt.graphics.Image;
@@ -36,6 +38,15 @@ public class GesilaTestGuardRequestBodyLableProvider implements ITableLabelProvi
 
 	@Override
 	public Image getColumnImage(Object element, int columnIndex) {
+		switch (columnIndex) {
+		case 1:
+			String image = "full/obj16/GenericValue";
+			String name = ((GesilaJSONObject) element).getName();
+			if (name.equals("_ApplicationId") || name.equals("_ApplicationKey")) {
+				image = "full/obj16/IntegralValue.gif";
+			}
+			return ExtendedImageRegistry.getInstance().getImage(EMFEditPlugin.INSTANCE.getImage(image));
+		}
 		return null;
 	}
 

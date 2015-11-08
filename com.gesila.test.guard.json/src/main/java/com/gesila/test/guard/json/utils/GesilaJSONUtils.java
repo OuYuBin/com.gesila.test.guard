@@ -16,7 +16,7 @@ import com.gesila.test.guard.json.model.GesilaJSONObject;
  * @author robin
  *
  */
-public class JSONUtils {
+public class GesilaJSONUtils {
 
 	/**
 	 * 
@@ -81,5 +81,9 @@ public class JSONUtils {
 				}
 			}
 		}
+	}
+
+	public static String createGesilaJSONOString(JSONObject jsonObject) {
+		return JSONObject.toJSONString(jsonObject);
 	}
 }
