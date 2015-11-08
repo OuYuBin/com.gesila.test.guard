@@ -34,7 +34,10 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.ToolBarManager;
+import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.TreeViewerColumn;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
@@ -47,6 +50,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.ui.forms.widgets.Form;
 import org.eclipse.ui.forms.widgets.FormToolkit;
@@ -55,6 +59,7 @@ import org.eclipse.ui.forms.widgets.Section;
 import com.alibaba.fastjson.JSONObject;
 import com.gesila.test.guard.common.editor.part.GesilaRequestToolBarItem;
 import com.gesila.test.guard.common.editor.part.GesilaRequestTypeToolBarItem;
+import com.gesila.test.guard.common.editor.part.support.GesilaTextCellEditor;
 import com.gesila.test.guard.edit.xml.GesilaTestGuardResourceImpl;
 import com.gesila.test.guard.editor.parts.providers.GesilaTestGuardRequestBodyContentProvider;
 import com.gesila.test.guard.editor.parts.providers.GesilaTestGuardRequestBodyLableProvider;
@@ -140,7 +145,7 @@ public class GesilaTestGuardDetailFormPart implements IAdaptable {
 		toolBarManager.getControl().setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, true));
 
 		// --url输入
-		Text urlText = new Text(urlComposite,SWT.BORDER | SWT.SINGLE);
+		Text urlText = new Text(urlComposite, SWT.BORDER | SWT.SINGLE);
 		if (eOwner != null) {
 			urlText.setText(((TestGuardUnit) eOwner).getUrl());
 		}
@@ -159,7 +164,7 @@ public class GesilaTestGuardDetailFormPart implements IAdaptable {
 
 		// --请求动作
 		toolBar = new ToolBar(urlComposite, SWT.FLAT | SWT.RIGHT);
-		toolBar.setBackground(new Color(null, 228,58,72));
+		toolBar.setBackground(new Color(null, 228, 58, 72));
 		toolBar.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
 		toolBar.setBackgroundMode(SWT.INHERIT_FORCE);
 		toolBarManager = new ToolBarManager(toolBar);
@@ -211,15 +216,43 @@ public class GesilaTestGuardDetailFormPart implements IAdaptable {
 		jsonComposite.setLayout(new GridLayout(1, false));
 		jsonComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		TreeViewer treeViewer = new TreeViewer(bodyCTabFolder, SWT.BORDER);
+		Tree tree = treeViewer.getTree();
+		tree.setHeaderVisible(true);
+		tree.setLinesVisible(true);
+		tree.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		TreeColumn column = new TreeColumn(treeViewer.getTree(), SWT.NONE);
 		column.setWidth(200);
 		column.setText("Name");
 
-		column = new TreeColumn(treeViewer.getTree(), SWT.NONE);
-		column.setWidth(200);
-		column.setText("Value");
-		treeViewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		treeViewer.getTree().setHeaderVisible(true);
+		TreeViewerColumn valueColumn = new TreeViewerColumn(treeViewer, SWT.NONE);
+		valueColumn.getColumn().setWidth(200);
+		valueColumn.getColumn().setText("Value");
+
+		valueColumn.setEditingSupport(new EditingSupport(treeViewer) {
+
+			@Override
+			protected void setValue(Object element, Object value) {
+				
+			}
+
+			@Override
+			protected Object getValue(Object element) {
+				if(element instanceof GesilaJSONObject){
+					return ((GesilaJSONObject)element).getValue();
+				}
+				return null;
+			}
+
+			@Override
+			protected CellEditor getCellEditor(Object element) {
+				return new GesilaTextCellEditor(tree);
+			}
+
+			@Override
+			protected boolean canEdit(Object element) {
+				return true;
+			}
+		});
 		treeViewer.setContentProvider(new GesilaTestGuardRequestBodyContentProvider());
 		treeViewer.setLabelProvider(new GesilaTestGuardRequestBodyLableProvider());
 
