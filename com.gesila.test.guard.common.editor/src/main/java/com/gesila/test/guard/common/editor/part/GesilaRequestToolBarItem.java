@@ -50,6 +50,7 @@ public class GesilaRequestToolBarItem extends GesilaPartToolBarItem {
 				// }
 				// menu.setVisible(true);
 				EObject eObject = adapter.getAdapter(EObject.class);
+ 
 				if (eObject != null && eObject instanceof TestGuardUnit) {
 					TestGuardUnit testGuardUnit = (TestGuardUnit) eObject;
 					GesilaHttpClient gesilaHttpClient = new GesilaHttpClient(testGuardUnit.getUrl());
