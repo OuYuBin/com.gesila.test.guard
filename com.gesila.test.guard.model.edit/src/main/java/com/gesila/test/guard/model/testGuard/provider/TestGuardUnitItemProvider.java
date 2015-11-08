@@ -184,9 +184,18 @@ public class TestGuardUnitItemProvider extends ItemProviderAdapter
 		RequestMethod requestMethod = ((TestGuardUnit) object).getRequestMethod();
 		String url = ((TestGuardUnit) object).getUrl();
 		org.eclipse.jface.viewers.StyledString styledString = new org.eclipse.jface.viewers.StyledString();
-		Styler requestMethodDecorationStyler=GesilaTestGuardFont.getInstance().getRequestMethodDecorationStyler();
-		styledString.append(requestMethod.getLiteral(), requestMethodDecorationStyler);
-		styledString.append("  " + url, org.eclipse.jface.viewers.StyledString.DECORATIONS_STYLER);
+		Styler style = null;
+		switch (requestMethod) {
+		case POST:
+			style = GesilaTestGuardFont.getInstance().getRequestPostMethodDecorationStyler();
+			break;
+		case PUT:
+			style = GesilaTestGuardFont.getInstance().getRequestPutMethodDecorationStyler();
+			break;
+		}
+		styledString.append(requestMethod.getLiteral(),
+				style != null ? style : org.eclipse.jface.viewers.StyledString.COUNTER_STYLER);
+		styledString.append(" " + url, org.eclipse.jface.viewers.StyledString.DECORATIONS_STYLER);
 		return styledString;
 	}
 

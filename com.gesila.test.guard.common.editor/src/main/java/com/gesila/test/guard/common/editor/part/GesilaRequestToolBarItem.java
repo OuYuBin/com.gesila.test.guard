@@ -32,7 +32,7 @@ public class GesilaRequestToolBarItem extends GesilaPartToolBarItem {
 
 	@Override
 	public void createControl() {
-		IAction requestTypeAction = new Action("SEND", IAction.AS_PUSH_BUTTON | SWT.FocusIn) {
+		IAction requestTypeAction = new Action("SEND", IAction.AS_UNSPECIFIED ) {
 
 			@Override
 			public void run() {
@@ -75,6 +75,7 @@ public class GesilaRequestToolBarItem extends GesilaPartToolBarItem {
 		requestTypeAction.setId("RequestSend");
 
 		ActionContributionItem actionContributionItem = new ActionContributionItem(requestTypeAction);
+		actionContributionItem.setUseColorIconsInToolbars(true);
 		actionContributionItem.setMode(ActionContributionItem.MODE_FORCE_TEXT);
 		this.toolBarManager.add(actionContributionItem);
 	}
