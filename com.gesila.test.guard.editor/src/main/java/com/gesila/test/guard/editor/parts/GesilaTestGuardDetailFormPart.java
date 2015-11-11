@@ -46,6 +46,9 @@ import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.MouseTrackListener;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -85,6 +88,8 @@ public class GesilaTestGuardDetailFormPart implements IAdaptable {
 	private EObject eOwner;
 
 	private FormToolkit formToolkit;
+	
+	private TreeViewer treeViewer;
 
 	private boolean commitChanges = false;
 
@@ -185,6 +190,28 @@ public class GesilaTestGuardDetailFormPart implements IAdaptable {
 		CTabFolder bodyCTabFolder = new CTabFolder(requestBodyComposite, SWT.NONE);
 		bodyCTabFolder.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		bodyCTabFolder.setSimple(true);
+		bodyCTabFolder.addSelectionListener(new SelectionAdapter() {
+
+			@Override
+			public void widgetSelected(SelectionEvent event) {
+				CTabFolder bodyCTabFolder=(CTabFolder) event.getSource();
+				CTabItem cTabItem=bodyCTabFolder.getSelection();
+				String itemText=cTabItem.getText();
+				if(itemText.equals("Text")){
+					String requestBody = ((TestGuardUnit) eOwner).getRequestBody();
+					bodyText.setText(requestBody);
+				}else if(itemText.equals("Json")){
+					List<GesilaJSONObject> list = new ArrayList<GesilaJSONObject>();
+					String requestBody = ((TestGuardUnit) eOwner).getRequestBody();
+					if(requestBody!=null){
+					JSONObject jsonObject = GesilaJSONUtils.createJSONObject(requestBody);
+					GesilaJSONUtils.createGesilaJSONObject(jsonObject, list);
+					}
+					treeViewer.setInput(list);
+				}
+			}
+			
+		});
 
 		// --文本模式
 		CTabItem textTabItem = new CTabItem(bodyCTabFolder, SWT.NONE);
@@ -218,7 +245,7 @@ public class GesilaTestGuardDetailFormPart implements IAdaptable {
 		Composite jsonComposite = new Composite(bodyCTabFolder, SWT.BORDER);
 		jsonComposite.setLayout(new GridLayout(1, false));
 		jsonComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		TreeViewer treeViewer = new TreeViewer(bodyCTabFolder, SWT.BORDER);
+		treeViewer = new TreeViewer(bodyCTabFolder, SWT.BORDER);
 		Tree tree = treeViewer.getTree();
 		tree.setHeaderVisible(true);
 		tree.setLinesVisible(true);
@@ -247,6 +274,7 @@ public class GesilaTestGuardDetailFormPart implements IAdaptable {
 						((TestGuardUnit) eOwner).setRequestBody(GesilaJSONUtils.createGesilaJSONOString(jsonObject));
 						((GesilaJSONObject) element).setValue((String) value);
 						treeViewer.refresh(((GesilaJSONObject) element));
+						setDirty(true);
 					}
 				}
 			}

@@ -63,17 +63,4 @@
 			</plugin>
 		</plugins>
 	</build>
-  <modules>
-  	<module>com.gesila.test.guard.common</module>
-  	<module>com.gesila.test.guard.edit</module>
-  	<module>com.gesila.test.guard.editor</module>
-  	<module>com.gesila.test.guard.model</module>
-  	<module>com.gesila.test.guard.ui</module>
-  	<module>com.gesila.test.guard.http</module>
-  	<module>com.gesila.test.guard.application</module>
-  	
-  	
-  	
-  	<module>org.springframework.ide.eclipse.gesila.metadata</module>
-  </modules>
 </project>

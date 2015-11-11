@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="com.gesila.test.guard.feature"
+      label="Feature"
+      version="1.0.0.qualifier"
+      provider-name="GESILA">
+
+   <description url="http://www.example.com/description">
+      [Enter Feature Description here.]
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <requires>
+      <import plugin="org.eclipse.core.runtime" version="3.11.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.jface" version="3.11.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.e4.ui.workbench"/>
+      <import plugin="org.eclipse.e4.core.di" version="1.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.e4.ui.model.workbench"/>
+      <import plugin="org.eclipse.e4.ui.services"/>
+      <import plugin="org.eclipse.e4.core.contexts"/>
+      <import plugin="org.eclipse.e4.ui.di"/>
+      <import plugin="org.eclipse.osgi"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="com.gesila.test.guard.common" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="com.gesila.test.guard.model" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="com.gesila.test.guard.http" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.apache.httpcomponents.httpcore"/>
+      <import plugin="org.eclipse.emf" version="2.6.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.edit" version="2.11.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.edit.ui" version="2.11.0" match="greaterOrEqual"/>
+      <import plugin="com.gesila.test.guard.model.edit" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.e4.ui.di" version="1.1.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.e4.core.contexts" version="1.4.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.e4.ui.model.workbench" version="1.1.100" match="greaterOrEqual"/>
+      <import plugin="com.gesila.test.guard.edit" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.common"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.apache.httpcomponents.httpclient" version="4.3.6" match="greaterOrEqual"/>
+      <import plugin="org.apache.httpcomponents.httpcore" version="4.3.3" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui.forms" version="3.6.200" match="greaterOrEqual"/>
+      <import plugin="com.gesila.test.guard.common.editor" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="com.gesila.test.guard.json" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.ecore.xmi"/>
+      <import plugin="org.eclipse.ui.workbench" version="3.107.0" match="greaterOrEqual"/>
+   </requires>
+
+   <plugin
+         id="com.gesila.test.guard.application"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.gesila.test.guard.common"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.gesila.test.guard.common.editor"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.gesila.test.guard.edit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.gesila.test.guard.editor"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.gesila.test.guard.http"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.gesila.test.guard.json"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.gesila.test.guard.model"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.gesila.test.guard.model.edit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.gesila.test.guard.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>
