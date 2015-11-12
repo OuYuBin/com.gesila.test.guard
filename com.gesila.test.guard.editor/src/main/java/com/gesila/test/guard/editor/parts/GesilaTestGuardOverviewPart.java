@@ -193,23 +193,21 @@ public class GesilaTestGuardOverviewPart {
 			@Override
 			public void doubleClick(DoubleClickEvent event) {
 				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
-				// selectionService.setSelection(selection.getFirstElement());
+				selectionService.setSelection(selection.getFirstElement());
 				MPartStack partStack = (MPartStack) modelService
 						.find("com.gesila.test.guard.application.partstack.detail", application);
 				MPart part = partService.createPart("com.gesila.test.guard.application.partdescriptor.detail");
-				System.out.println(part.getObject());
 
 				Object object = selection.getFirstElement();
 				if (object instanceof EObject) {
-					String id = object.toString();
+					String label = object.toString();
 					List<MStackElement> elements = partStack.getChildren();
-					// for (MStackElement element : elements) {
-					// if (id.equals(element.getElementId())) {
-					// partService.showPart((MPart) element,
-					// PartState.ACTIVATE);
-					// return;
-					// }
-					// }
+					for (MStackElement element : elements) {
+						if (label.equals(((MPart) element).getLabel())) {
+							partService.showPart((MPart) element, PartState.VISIBLE);
+							return;
+						}
+					}
 					part.setLabel(((EObject) object).toString());
 					part.setElementId("com.gesila.test.guard.application.partdescriptor.detail");
 					partStack.getChildren().add(part);
