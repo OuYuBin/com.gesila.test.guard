@@ -58,7 +58,7 @@
     <children xmi:id="_ntbbmnRoEeWEmrSzHZwf8g" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
     <children xmi:id="_ntbbm3RoEeWEmrSzHZwf8g" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
   </rootContext>
-  <descriptors xmi:id="_qn8Y8HU5EeWj5dz7GVvoMg" elementId="com.gesila.test.guard.application.partdescriptor.detail" iconURI="platform:/plugin/com.gesila.test.guard.application/icons/http_request.gif" closeable="true" dirtyable="true" contributionURI="bundleclass://com.gesila.test.guard.editor/com.gesila.test.guard.editor.parts.GesilaTestGuardDetailFormPart"/>
+  <descriptors xmi:id="_qn8Y8HU5EeWj5dz7GVvoMg" elementId="com.gesila.test.guard.application.partdescriptor.detail" iconURI="platform:/plugin/com.gesila.test.guard.application/icons/http_request.gif" allowMultiple="true" closeable="true" dirtyable="true" contributionURI="bundleclass://com.gesila.test.guard.editor/com.gesila.test.guard.editor.parts.GesilaTestGuardDetailFormPart"/>
   <commands xmi:id="_ntbbnHRoEeWEmrSzHZwf8g" elementId="org.eclipse.ui.file.exit" commandName="quitCommand"/>
   <commands xmi:id="_ntcCo3RoEeWEmrSzHZwf8g" elementId="com.gesila.test.guard.application.open" commandName="openCommand"/>
   <commands xmi:id="_ntcCpnRoEeWEmrSzHZwf8g" elementId="org.eclipse.ui.file.save" commandName="saveCommand"/>

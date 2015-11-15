@@ -196,20 +196,20 @@ public class GesilaTestGuardOverviewPart {
 				selectionService.setSelection(selection.getFirstElement());
 				MPartStack partStack = (MPartStack) modelService
 						.find("com.gesila.test.guard.application.partstack.detail", application);
-				MPart part = partService.createPart("com.gesila.test.guard.application.partdescriptor.detail");
 
 				Object object = selection.getFirstElement();
 				if (object instanceof EObject) {
-					String label = object.toString();
+					String label = ((TestGuardUnit) object).getName();
 					List<MStackElement> elements = partStack.getChildren();
 					for (MStackElement element : elements) {
 						if (label.equals(((MPart) element).getLabel())) {
-							partService.showPart((MPart) element, PartState.VISIBLE);
+							partService.showPart((MPart) element, PartState.ACTIVATE);
 							return;
 						}
 					}
-					part.setLabel(((EObject) object).toString());
-					part.setElementId("com.gesila.test.guard.application.partdescriptor.detail");
+					MPart part = partService.createPart("com.gesila.test.guard.application.partdescriptor.detail");
+					part.setLabel(label);
+					part.setElementId(label);
 					partStack.getChildren().add(part);
 					partService.showPart(part, PartState.ACTIVATE);
 				}
