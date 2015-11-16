@@ -88,7 +88,7 @@ public class GesilaTestGuardDetailFormPart implements IAdaptable {
 	private EObject eOwner;
 
 	private FormToolkit formToolkit;
-	
+
 	private TreeViewer treeViewer;
 
 	private boolean commitChanges = false;
@@ -166,6 +166,8 @@ public class GesilaTestGuardDetailFormPart implements IAdaptable {
 			public void modifyText(ModifyEvent e) {
 				if (commitChanges) {
 					Text source = (Text) e.getSource();
+					System.out.println(eOwner);
+					System.out.println(this);
 					((TestGuardUnit) eOwner).setUrl(source.getText());
 					setDirty(true);
 				}
@@ -174,7 +176,7 @@ public class GesilaTestGuardDetailFormPart implements IAdaptable {
 
 		// --请求动作
 		toolBar = new ToolBar(urlComposite, SWT.FLAT | SWT.RIGHT);
-		//toolBar.setBackground(new Color(null, 228, 58, 72));
+		// toolBar.setBackground(new Color(null, 228, 58, 72));
 		toolBarManager = new ToolBarManager(toolBar);
 		createRequestSendToolBar(toolBarManager);
 		toolBarManager.update(true);
@@ -194,23 +196,23 @@ public class GesilaTestGuardDetailFormPart implements IAdaptable {
 
 			@Override
 			public void widgetSelected(SelectionEvent event) {
-				CTabFolder bodyCTabFolder=(CTabFolder) event.getSource();
-				CTabItem cTabItem=bodyCTabFolder.getSelection();
-				String itemText=cTabItem.getText();
-				if(itemText.equals("Text")){
+				CTabFolder bodyCTabFolder = (CTabFolder) event.getSource();
+				CTabItem cTabItem = bodyCTabFolder.getSelection();
+				String itemText = cTabItem.getText();
+				if (itemText.equals("Text")) {
 					String requestBody = ((TestGuardUnit) eOwner).getRequestBody();
 					bodyText.setText(requestBody);
-				}else if(itemText.equals("Json")){
+				} else if (itemText.equals("Json")) {
 					List<GesilaJSONObject> list = new ArrayList<GesilaJSONObject>();
 					String requestBody = ((TestGuardUnit) eOwner).getRequestBody();
-					if(requestBody!=null){
-					JSONObject jsonObject = GesilaJSONUtils.createJSONObject(requestBody);
-					GesilaJSONUtils.createGesilaJSONObject(jsonObject, list);
+					if (requestBody != null) {
+						JSONObject jsonObject = GesilaJSONUtils.createJSONObject(requestBody);
+						GesilaJSONUtils.createGesilaJSONObject(jsonObject, list);
 					}
 					treeViewer.setInput(list);
 				}
 			}
-			
+
 		});
 
 		// --文本模式
@@ -335,7 +337,8 @@ public class GesilaTestGuardDetailFormPart implements IAdaptable {
 	 */
 	@Inject
 	public void setSelection(@Optional @Named(IServiceConstants.ACTIVE_SELECTION) EObject eOwner) {
-		if (eOwner != null)
+		// --检测当前part是否已经持有eOwner
+		if (eOwner != null && this.eOwner == null)
 			this.eOwner = eOwner;
 	}
 
