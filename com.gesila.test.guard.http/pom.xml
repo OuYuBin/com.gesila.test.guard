@@ -7,4 +7,5 @@
   	<artifactId>com.gesila.test.guard</artifactId>
   	<version>0.0.1-SNAPSHOT</version>
   </parent>
+  <version>1.0.0-SNAPSHOT</version>
 </project>

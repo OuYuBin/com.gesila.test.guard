@@ -8,4 +8,5 @@
   	<version>0.0.1-SNAPSHOT</version>
   	<relativePath>..</relativePath>
   </parent>
+  <version>1.0.0-SNAPSHOT</version>
 </project>

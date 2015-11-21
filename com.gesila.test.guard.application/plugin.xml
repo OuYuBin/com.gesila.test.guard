@@ -5,15 +5,11 @@
          id="product"
          point="org.eclipse.core.runtime.products">
       <product
-            name="com.gesila.test.guard.application"
+            name="Gesila Test Guard"
             application="org.eclipse.e4.ui.workbench.swt.E4Application">
          <property
-               name="applicationCSS"
-               value="platform:/plugin/com.gesila.test.guard.application/css/testguard.css">
-         </property>
-         <property
                name="appName"
-               value="com.gesila.test.guard.application">
+               value="Gesila Test Guard">
          </property>
       </product>
    </extension>
