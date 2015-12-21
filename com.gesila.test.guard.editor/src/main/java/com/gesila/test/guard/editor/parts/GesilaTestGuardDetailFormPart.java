@@ -32,15 +32,22 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IMenuCreator;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.ToolBarManager;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.TreeViewerColumn;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.events.HelpListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.MouseEvent;
@@ -54,6 +61,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
@@ -64,10 +72,12 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
 import com.alibaba.fastjson.JSONObject;
+import com.gesila.test.guard.common.Activator;
 import com.gesila.test.guard.common.editor.part.GesilaRequestToolBarItem;
 import com.gesila.test.guard.common.editor.part.GesilaRequestTypeToolBarItem;
 import com.gesila.test.guard.common.editor.part.support.GesilaTextCellEditor;
 import com.gesila.test.guard.edit.xml.GesilaTestGuardResourceImpl;
+import com.gesila.test.guard.editor.dialog.GuardEditDialog;
 import com.gesila.test.guard.editor.parts.providers.GesilaTestGuardRequestBodyContentProvider;
 import com.gesila.test.guard.editor.parts.providers.GesilaTestGuardRequestBodyLableProvider;
 import com.gesila.test.guard.json.model.GesilaJSONObject;
@@ -109,6 +119,8 @@ public class GesilaTestGuardDetailFormPart implements IAdaptable {
 			form.setText(((TestGuardUnit) eOwner).getName());
 		}
 		form.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		createFormToolBar(form);
+
 		Composite body = form.getBody();
 		layout = new GridLayout(1, false);
 		layout.horizontalSpacing = 0;
@@ -121,6 +133,25 @@ public class GesilaTestGuardDetailFormPart implements IAdaptable {
 		createRequestSection(body);
 
 		commitChanges = true;
+
+	}
+
+	private void createFormToolBar(Form form) {
+		ToolBarManager toolBarManager = (ToolBarManager) form.getToolBarManager();
+		toolBarManager.add(new Action(null, Activator.getDefault().getImageRegistry().getDescriptor("edit")) {
+
+			public void run() {
+				GuardEditDialog duardEditDialog = new GuardEditDialog(Display.getCurrent().getActiveShell());
+				duardEditDialog.create();
+				if (duardEditDialog.open() == Window.OK) {
+					String testGuardName = duardEditDialog.getGuardName();
+					((TestGuardUnit) eOwner).setName(testGuardName);
+					GesilaTestGuardDetailFormPart.this.treeViewer.refresh();
+					setDirty(true);
+				}
+			}
+		});
+		toolBarManager.update(true);
 
 	}
 
@@ -310,7 +341,7 @@ public class GesilaTestGuardDetailFormPart implements IAdaptable {
 			treeViewer.setInput(list);
 		}
 		jsonCTabItem.setControl(treeViewer.getControl());
-		bodyCTabFolder.setSelection(0);
+		bodyCTabFolder.setSelection(1);
 	}
 
 	@Persist

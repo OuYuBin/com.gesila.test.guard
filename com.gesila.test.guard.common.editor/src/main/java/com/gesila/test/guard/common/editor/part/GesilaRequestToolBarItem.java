@@ -32,7 +32,7 @@ public class GesilaRequestToolBarItem extends GesilaPartToolBarItem {
 
 	@Override
 	public void createControl() {
-		IAction requestTypeAction = new Action("SEND", IAction.AS_UNSPECIFIED ) {
+		IAction requestTypeAction = new Action("SEND", IAction.AS_UNSPECIFIED) {
 
 			@Override
 			public void run() {
@@ -50,16 +50,26 @@ public class GesilaRequestToolBarItem extends GesilaPartToolBarItem {
 				// }
 				// menu.setVisible(true);
 				EObject eObject = adapter.getAdapter(EObject.class);
- 
+
 				if (eObject != null && eObject instanceof TestGuardUnit) {
 					TestGuardUnit testGuardUnit = (TestGuardUnit) eObject;
-					GesilaHttpClient gesilaHttpClient = new GesilaHttpClient(testGuardUnit.getUrl());
-					String requestBody = ((TestGuardUnit) eObject).getRequestBody();
-					// RequestMethod requestMethod = ((TestGuardUnit)
-					// eObject).getRequestMethod();
-					gesilaHttpClient.setRequestMethod(RequestMethod.POST);
-					gesilaHttpClient.setRequestJSON(requestBody);
-					HttpResponse response = (HttpResponse) GesilaHttpClientUtil.execute(gesilaHttpClient);
+					String url = testGuardUnit.getUrl();
+					int i = 1;
+					if (url.equals("http://localhost:8080/cloud-support/v1/classes/product")) {
+						i = 10;
+					}
+					int j = 0;
+					HttpResponse response = null;
+					while (j < i) {
+						GesilaHttpClient gesilaHttpClient = new GesilaHttpClient(testGuardUnit.getUrl());
+						String requestBody = ((TestGuardUnit) eObject).getRequestBody();
+						// RequestMethod requestMethod = ((TestGuardUnit)
+						// eObject).getRequestMethod();
+						gesilaHttpClient.setRequestMethod(RequestMethod.POST);
+						gesilaHttpClient.setRequestJSON(requestBody);
+						response = (HttpResponse) GesilaHttpClientUtil.execute(gesilaHttpClient);
+						j++;
+					}
 					GesilaHttpResponse gesilaHttpResponse = new GesilaHttpResponse(response);
 					ESelectionService selectionService = adapter.getAdapter(ESelectionService.class);
 					selectionService.setSelection(gesilaHttpResponse);

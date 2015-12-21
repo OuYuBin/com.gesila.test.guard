@@ -15,6 +15,8 @@ public final class GesilaTestGuardFont {
 	private Styler requestPostMethodDecorationStyler;
 	
 	private Styler requestPutMethodDecorationStyler;
+	
+	private Styler requestGetMethodDecorationStyler;
 
 	private FontData defaultFontData;
 
@@ -44,6 +46,19 @@ public final class GesilaTestGuardFont {
 				textStyle.foreground = new Color(null, 220, 20, 60);
 			}
 		};
+		
+		requestGetMethodDecorationStyler = new Styler() {
+			public void applyStyles(TextStyle textStyle) {
+				FontData fontData = GesilaTestGuardFont.this.getDefaultFontData();
+				FontData requestMethodFontData = new FontData();
+				requestMethodFontData.setStyle(SWT.BOLD);
+				int height = fontData.getHeight();
+				requestMethodFontData.setHeight(height / 2);
+				Font requestFont = new Font(null, requestMethodFontData);
+				textStyle.font = requestFont;
+				textStyle.foreground = new Color(null, 0, 0, 255);
+			}
+		};
 	}
 
 	public static synchronized GesilaTestGuardFont getInstance() {
@@ -67,6 +82,10 @@ public final class GesilaTestGuardFont {
 
 	public Styler getRequestPutMethodDecorationStyler() {
 		return requestPutMethodDecorationStyler;
+	}
+	
+	public Styler getRequestGetMethodDecorationStyler() {
+		return requestGetMethodDecorationStyler;
 	}
 
 }

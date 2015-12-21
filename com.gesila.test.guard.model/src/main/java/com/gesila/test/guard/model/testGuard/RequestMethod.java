@@ -36,7 +36,23 @@ public enum RequestMethod implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	PUT(1, "PUT", "PUT");
+	PUT(1, "PUT", "PUT"), /**
+	 * The '<em><b>GET</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #GET_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	GET(2, "GET", "GET"), /**
+	 * The '<em><b>DELETE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DELETE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	DELETE(3, "DELETE", "DELETE");
 
 	/**
 	 * The '<em><b>POST</b></em>' literal value.
@@ -69,6 +85,36 @@ public enum RequestMethod implements Enumerator {
 	public static final int PUT_VALUE = 1;
 
 	/**
+	 * The '<em><b>GET</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>GET</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #GET
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int GET_VALUE = 2;
+
+	/**
+	 * The '<em><b>DELETE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>DELETE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #DELETE
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DELETE_VALUE = 3;
+
+	/**
 	 * An array of all the '<em><b>Request Method</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -78,6 +124,8 @@ public enum RequestMethod implements Enumerator {
 		new RequestMethod[] {
 			POST,
 			PUT,
+			GET,
+			DELETE,
 		};
 
 	/**
@@ -136,6 +184,8 @@ public enum RequestMethod implements Enumerator {
 		switch (value) {
 			case POST_VALUE: return POST;
 			case PUT_VALUE: return PUT;
+			case GET_VALUE: return GET;
+			case DELETE_VALUE: return DELETE;
 		}
 		return null;
 	}

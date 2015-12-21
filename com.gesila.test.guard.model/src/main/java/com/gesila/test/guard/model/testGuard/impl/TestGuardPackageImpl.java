@@ -316,6 +316,8 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 		initEEnum(requestMethodEEnum, RequestMethod.class, "RequestMethod");
 		addEEnumLiteral(requestMethodEEnum, RequestMethod.POST);
 		addEEnumLiteral(requestMethodEEnum, RequestMethod.PUT);
+		addEEnumLiteral(requestMethodEEnum, RequestMethod.GET);
+		addEEnumLiteral(requestMethodEEnum, RequestMethod.DELETE);
 
 		// Create resource
 		createResource(eNS_URI);

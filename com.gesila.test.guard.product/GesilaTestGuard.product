@@ -3,6 +3,7 @@
 
 <product name="com.gesila.test.guard.product" uid="GesilaTestGuard" id="com.gesila.test.guard.application.product" application="org.eclipse.e4.ui.workbench.swt.E4Application" version="1.0.0.qualifier" useFeatures="true" includeLaunchers="true">
 
+
    <configIni use="default">
    </configIni>
 
@@ -19,6 +20,7 @@
          <bmp/>
       </win>
    </launcher>
+
 
    <vm>
    </vm>
@@ -48,6 +50,7 @@
    </preferencesInfo>
 
    <cssInfo>
+      <file path="/com.gesila.test.guard.application/css/testguard.css"/>
    </cssInfo>
 
 </product>
