@@ -4,6 +4,8 @@
     <xsd:restriction base="xsd:NCName">
       <xsd:enumeration value="POST"/>
       <xsd:enumeration value="PUT"/>
+      <xsd:enumeration value="GET"/>
+      <xsd:enumeration value="DELETE"/>
     </xsd:restriction>
   </xsd:simpleType>
   <xsd:complexType name="TestGuard">

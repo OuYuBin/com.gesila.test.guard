@@ -18,6 +18,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="RequestMethod">
     <eLiterals name="POST" literal="POST"/>
-    <eLiterals name="PUT" value="1"/>
+    <eLiterals name="PUT" value="1" literal="PUT"/>
+    <eLiterals name="GET" value="2" literal="GET"/>
+    <eLiterals name="DELETE" value="3" literal="DELETE"/>
   </eClassifiers>
 </ecore:EPackage>

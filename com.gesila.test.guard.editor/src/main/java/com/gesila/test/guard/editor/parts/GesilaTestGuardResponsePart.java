@@ -5,10 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -19,10 +16,15 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.services.IServiceConstants;
+import org.eclipse.emf.edit.EMFEditPlugin;
+import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
+import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.TreeViewerColumn;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
@@ -36,19 +38,18 @@ import org.eclipse.ui.forms.widgets.Form;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.gesila.test.guard.common.editor.part.support.GesilaTextCellEditor;
 import com.gesila.test.guard.http.GesilaHttpResponse;
 import com.gesila.test.guard.json.model.GesilaJSONObject;
 import com.gesila.test.guard.json.utils.GesilaJSONUtils;
-import com.gesila.test.guard.model.testGuard.TestGuardUnit;
 
 /**
  * 
  * @author robin
  *
  */
-public class GesilaTestGuardReponsePart {
+public class GesilaTestGuardResponsePart {
 
 	private TreeViewer treeViewer;
 
@@ -63,43 +64,43 @@ public class GesilaTestGuardReponsePart {
 
 		FormToolkit formToolkit = new FormToolkit(parent.getDisplay());
 		Form form = formToolkit.createForm(parent);
-		form.setText("Reponse");
+		form.setText("Response");
 		formToolkit.decorateFormHeading(form);
 		form.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 
 		Composite body = form.getBody();
 		layout = new GridLayout(1, false);
 		layout.horizontalSpacing = 0;
-		//layout.verticalSpacing = 0;
+		// layout.verticalSpacing = 0;
 		layout.marginWidth = 0;
 		body.setLayout(layout);
-		
+
 		final Section section = formToolkit.createSection(body, Section.TITLE_BAR | Section.TWISTIE | Section.EXPANDED);
 		section.clientVerticalSpacing = 0;
 		section.marginWidth = 0;
-		//section.marginHeight = 0;
+		// section.marginHeight = 0;
 		section.setText("Filter");
-		GridData gd = new GridData(SWT.FILL,SWT.TOP,true,false);
+		GridData gd = new GridData(SWT.FILL, SWT.TOP, true, false);
 		section.setLayoutData(gd);
-		
+
 		Composite searchSectionClient = formToolkit.createComposite(section, SWT.NONE);
 		layout = new GridLayout(1, false);
 		layout.horizontalSpacing = 0;
 		layout.verticalSpacing = 0;
-		//layout.marginHeight = 0;
-		//layout.marginWidth = 5;
+		// layout.marginHeight = 0;
+		// layout.marginWidth = 5;
 		searchSectionClient.setLayout(layout);
 		Text searchText = formToolkit.createText(searchSectionClient, "",
 				SWT.BORDER | SWT.SEARCH | SWT.ICON_SEARCH | SWT.CANCEL);
-		searchText.setMessage("搜索:Test");
+		searchText.setMessage("搜索:");
 		searchText.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
 		section.setClient(searchSectionClient);
-		
+
 		Composite client = formToolkit.createComposite(parent, SWT.NONE);
 		layout = new GridLayout();
 		layout.marginWidth = 5;
 		layout.marginTop = 0;
-		//layout.marginHeight = 0;
+		// layout.marginHeight = 0;
 		client.setLayout(layout);
 		gd = new GridData(SWT.FILL, SWT.FILL, true, true);
 		client.setLayoutData(gd);
@@ -109,8 +110,8 @@ public class GesilaTestGuardReponsePart {
 	}
 
 	private void createResponseComposite(Composite client) {
-		treeViewer = new TreeViewer(client,SWT.MULTI|SWT.BORDER|SWT.FULL_SELECTION);
-		Tree tree=treeViewer.getTree();
+		treeViewer = new TreeViewer(client, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION);
+		Tree tree = treeViewer.getTree();
 		tree.setHeaderVisible(true);
 		tree.setLinesVisible(true);
 		tree.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
@@ -118,9 +119,35 @@ public class GesilaTestGuardReponsePart {
 		column.setWidth(200);
 		column.setText("Name");
 
-		column = new TreeColumn(treeViewer.getTree(), SWT.NONE);
-		column.setWidth(200);
-		column.setText("Value");
+		TreeViewerColumn valueColumn = new TreeViewerColumn(treeViewer, SWT.NONE);
+		valueColumn.getColumn().setWidth(200);
+		valueColumn.getColumn().setText("Value");
+
+		valueColumn.setEditingSupport(new EditingSupport(treeViewer) {
+
+			@Override
+			protected void setValue(Object element, Object value) {
+
+			}
+
+			@Override
+			protected Object getValue(Object element) {
+				if (element instanceof GesilaJSONObject) {
+					return ((GesilaJSONObject) element).getValue();
+				}
+				return null;
+			}
+
+			@Override
+			protected CellEditor getCellEditor(Object element) {
+				return new GesilaTextCellEditor(tree);
+			}
+
+			@Override
+			protected boolean canEdit(Object element) {
+				return true;
+			}
+		});
 
 		treeViewer.setContentProvider(new ITreeContentProvider() {
 
@@ -181,6 +208,15 @@ public class GesilaTestGuardReponsePart {
 
 			@Override
 			public Image getColumnImage(Object element, int columnIndex) {
+				switch (columnIndex) {
+				case 1:
+					String image = "full/obj16/GenericValue";
+					String name = ((GesilaJSONObject) element).getName();
+					if(name==null){
+						return null;
+					}
+					return ExtendedImageRegistry.getInstance().getImage(EMFEditPlugin.INSTANCE.getImage(image));
+				}
 				return null;
 			}
 
@@ -190,7 +226,8 @@ public class GesilaTestGuardReponsePart {
 				case 0:
 					return ((GesilaJSONObject) element).getName() == null ? "" : ((GesilaJSONObject) element).getName();
 				case 1:
-					return ((GesilaJSONObject) element).getValue() == null ? "" : ((GesilaJSONObject) element).getValue();
+					return ((GesilaJSONObject) element).getValue() == null ? ""
+							: ((GesilaJSONObject) element).getValue();
 				}
 				return null;
 			}

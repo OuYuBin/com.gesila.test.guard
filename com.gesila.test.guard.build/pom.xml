@@ -9,17 +9,19 @@
   	<relativePath>../com.gesila.test.guard/pom.xml</relativePath>
   </parent>
   <modules>
+  	
+  	<module>../com.gesila.test.guard.product</module>
+  	
+  	<module>../com.gesila.test.guard.feature</module>
   	<module>../com.gesila.test.guard.application</module>
   	<module>../com.gesila.test.guard.common</module>
   	<module>../com.gesila.test.guard.common.editor</module>
   	<module>../com.gesila.test.guard.edit</module>
   	<module>../com.gesila.test.guard.editor</module>
   	<module>../com.gesila.test.guard.http</module>
+  	<module>../com.gesila.test.guard.json</module>
   	<module>../com.gesila.test.guard.model</module>
   	<module>../com.gesila.test.guard.model.edit</module>
   	<module>../com.gesila.test.guard.ui</module>
-  	<module>../com.gesila.test.guard.json</module>
-  	<module>../com.gesila.test.guard.product</module>
-  	<module>../com.gesila.test.guard.feature</module>
   </modules>
 </project>
