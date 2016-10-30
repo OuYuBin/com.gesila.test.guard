@@ -55,70 +55,70 @@
          id="com.gesila.test.guard.application"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="1.0.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="com.gesila.test.guard.common"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="1.0.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="com.gesila.test.guard.common.editor"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="1.0.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="com.gesila.test.guard.edit"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="1.0.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="com.gesila.test.guard.editor"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="1.0.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="com.gesila.test.guard.http"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="1.0.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="com.gesila.test.guard.json"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="1.0.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="com.gesila.test.guard.model"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="1.0.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="com.gesila.test.guard.model.edit"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="1.0.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="com.gesila.test.guard.ui"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="1.0.0.qualifier"
          unpack="false"/>
 
 </feature>
