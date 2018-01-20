@@ -3,7 +3,6 @@
 
 <product name="com.gesila.test.guard.product" uid="GesilaTestGuard" id="com.gesila.test.guard.application.product" application="org.eclipse.e4.ui.workbench.swt.E4Application" version="1.0.0.qualifier" useFeatures="true" includeLaunchers="true">
 
-
    <configIni use="default">
    </configIni>
 
@@ -21,7 +20,6 @@
       </win>
    </launcher>
 
-
    <vm>
    </vm>
 
@@ -30,7 +28,7 @@
 
    <features>
       <feature id="com.gesila.test.guard.feature" version="1.0.0.qualifier"/>
-      <feature id="org.eclipse.e4.rcp" version="1.4.0.v20150903-1804"/>
+      <feature id="org.eclipse.e4.rcp"/>
       <feature id="org.eclipse.emf.ecore"/>
       <feature id="org.eclipse.emf.common"/>
    </features>

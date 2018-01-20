@@ -2,11 +2,18 @@
 <application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_ntbbkHRoEeWEmrSzHZwf8g" elementId="org.eclipse.e4.ide.application" bindingContexts="_ntbbmXRoEeWEmrSzHZwf8g">
   <children xsi:type="basic:TrimmedWindow" xmi:id="_ntbbkXRoEeWEmrSzHZwf8g" label="com.gesila.test.guard.application" width="500" height="400">
     <children xsi:type="advanced:PerspectiveStack" xmi:id="_ntcCs3RoEeWEmrSzHZwf8g">
-      <children xsi:type="advanced:Perspective" xmi:id="_ntcCtHRoEeWEmrSzHZwf8g">
+      <children xsi:type="advanced:Perspective" xmi:id="_ntcCtHRoEeWEmrSzHZwf8g" elementId="id.testguard" selectedElement="_qFimAHS2EeWCNZzHFAUjIA" label="Test Guard">
         <children xsi:type="basic:PartSashContainer" xmi:id="_qFimAHS2EeWCNZzHFAUjIA" elementId="com.gesila.test.guard.application.partsashcontainer.0" horizontal="true">
           <children xsi:type="basic:PartSashContainer" xmi:id="_yXkGkHS2EeWCNZzHFAUjIA" elementId="com.gesila.test.guard.application.partsashcontainer.1" containerData="5500">
             <children xsi:type="basic:PartStack" xmi:id="_SJws4HS3EeWCNZzHFAUjIA" elementId="com.gesila.test.guard.application.partstack.0">
               <children xsi:type="basic:Part" xmi:id="_09zJAHS2EeWCNZzHFAUjIA" elementId="com.gesila.test.guard.application.part.testoverview" contributionURI="bundleclass://com.gesila.test.guard.editor/com.gesila.test.guard.editor.parts.GesilaTestGuardOverviewPart" label="Overview"/>
+              <children xsi:type="basic:Part" xmi:id="_XNxb8P22EeeZ8bP2Z19Uxg" elementId="com.example.test" contributionURI="bundleclass://cn.robin.test.guard.navigator.ui/org.eclipse.ui.navigator.CommonNavigator" label="My Common Navigator" iconURI="platform:/plugin/cn.robin.test.guard.navigator.ui/icons/sample.gif" closeable="true">
+                <tags>View</tags>
+                <menus xmi:id="_XNxb8f22EeeZ8bP2Z19Uxg" elementId="com.example.test">
+                  <tags>ViewMenu</tags>
+                </menus>
+                <toolbar xmi:id="_XNxb8v22EeeZ8bP2Z19Uxg" elementId="com.example.test"/>
+              </children>
             </children>
           </children>
           <children xsi:type="basic:PartSashContainer" xmi:id="_ntcCtXRoEeWEmrSzHZwf8g">
@@ -39,6 +46,10 @@
         <children xsi:type="menu:HandledToolItem" xmi:id="_ntcptHRoEeWEmrSzHZwf8g" iconURI="platform:/plugin/com.gesila.test.guard.application/icons/sample.png" command="_ntcCo3RoEeWEmrSzHZwf8g"/>
         <children xsi:type="menu:HandledToolItem" xmi:id="_ntcptXRoEeWEmrSzHZwf8g" iconURI="platform:/plugin/com.gesila.test.guard.application/icons/save_edit.png" command="_ntcCpnRoEeWEmrSzHZwf8g"/>
       </children>
+      <children xsi:type="menu:ToolControl" xmi:id="_HYWwgP24EeeZ8bP2Z19Uxg" elementId="com.gesila.test.guard.application.toolcontrol.1" contributionURI="bundleclass://cn.robin.test.guard.navigator.ui/cn.robin.test.guard.navigator.ui.SpacerControl">
+        <tags>stretch</tags>
+      </children>
+      <children xsi:type="menu:ToolControl" xmi:id="_fkngMP24EeeZ8bP2Z19Uxg" elementId="com.gesila.test.guard.application.toolcontrol.2" contributionURI="bundleclass://cn.robin.test.guard.navigator.ui/cn.robin.test.guard.navigator.ui.ComboControl"/>
     </trimBars>
     <trimBars xmi:id="_oGE7MH4jEeWlfsEiH1VoiQ" elementId="com.gesila.test.guard.application.trimbar.0" side="Bottom">
       <children xsi:type="menu:ToolControl" xmi:id="_p2BO0H4jEeWlfsEiH1VoiQ" elementId="com.gesila.test.guard.application.toolcontrol.0" contributionURI="bundleclass://com.gesila.test.guard.editor/com.gesila.test.guard.editor.parts.GesilaTestGuardStatusPart"/>
