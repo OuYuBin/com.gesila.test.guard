@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            class="com.gesila.test.guard.navigator.ui.views.GesilaTestGuardCommonNavigator"
+            icon="icons/eclipse16.gif"
+            id="com.gesila.test.guard.navigator.ui.views.GesilaTestGuardCommonNavigator"
+            name="Gesila Test Guard Navigator"
+            restorable="true">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.navigator.viewer">
+      <viewer
+            viewerId="com.gesila.test.guard.navigator.ui.viewer2">
+      </viewer>
+      <viewerContentBinding
+            viewerId="com.gesila.test.guard.navigator.ui.viewerContentBinding1">
+      </viewerContentBinding>
+      <viewerActionBinding
+            viewerId="com.gesila.test.guard.navigator.ui.viewerActionBinding1">
+      </viewerActionBinding>
+   </extension>
+   <extension
+         point="org.eclipse.ui.navigator.navigatorContent">
+      <navigatorContent
+            id="com.gesila.test.guard.navigator.ui.navigatorContent1"
+            name="name">
+      </navigatorContent>
+   </extension>
+
+</plugin>
