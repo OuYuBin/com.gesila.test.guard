@@ -9,7 +9,8 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="3.11.1",org.e
  kbench,org.eclipse.e4.ui.services,org.eclipse.e4.core.contexts,org.ec
  lipse.e4.ui.di,net.jeeeyul.eclipse.themes;bundle-version="2.3.0",net.
  jeeeyul.eclipse.themes.ui;bundle-version="2.3.0",cn.robin.test.guard.
- navigator.ui;bundle-version=1.0.0
+ navigator.ui;bundle-version=1.0.0,com.gesila.test.guard.navigator.ui;
+ bundle-version=1.0.0
 Bundle-ManifestVersion: 2
 Bundle-Activator: com.gesila.test.guard.application.Activator
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
