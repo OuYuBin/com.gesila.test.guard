@@ -6,11 +6,7 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: com.gesila.test.guard.project.Activator
 Bundle-Vendor: GESILA
 Require-Bundle: org.eclipse.ui,
-<<<<<<< HEAD
- org.eclipse.core.runtime
-=======
  org.eclipse.core.runtime,
  org.eclipse.core.resources
->>>>>>> branch 'master' of https://github.com/OuYuBin/com.gesila.test.guard.git
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy

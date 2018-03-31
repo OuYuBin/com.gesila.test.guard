@@ -13,15 +13,6 @@
    </extension>
    <extension
          point="org.eclipse.ui.navigator.viewer">
-      <viewer
-            viewerId="com.gesila.test.guard.navigator.ui.viewer2">
-      </viewer>
-      <viewerContentBinding
-            viewerId="com.gesila.test.guard.navigator.ui.viewerContentBinding1">
-      </viewerContentBinding>
-      <viewerActionBinding
-            viewerId="com.gesila.test.guard.navigator.ui.viewerActionBinding1">
-      </viewerActionBinding>
    </extension>
    <extension
          point="org.eclipse.ui.navigator.navigatorContent">

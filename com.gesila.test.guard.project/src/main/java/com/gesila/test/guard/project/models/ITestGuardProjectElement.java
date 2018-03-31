@@ -9,10 +9,5 @@ import org.eclipse.core.runtime.IAdaptable;
  */
 public interface ITestGuardProjectElement extends IAdaptable{
 
-	@Override
-	default <T> T getAdapter(Class<T> adapter) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 }
