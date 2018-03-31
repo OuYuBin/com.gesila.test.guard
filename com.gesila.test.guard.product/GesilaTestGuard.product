@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="com.gesila.test.guard.product" uid="GesilaTestGuard" id="com.gesila.test.guard.application.product" application="org.eclipse.e4.ui.workbench.swt.E4Application" version="1.0.0.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="com.gesila.test.guard.product" uid="GesilaTestGuard" id="com.gesila.test.guard.application.e3.product" application="com.gesila.test.guard.application.e3.application" version="1.0.0.qualifier" useFeatures="true" includeLaunchers="true">
+
 
    <configIni use="default">
    </configIni>
@@ -13,12 +14,14 @@
 
    <windowImages/>
 
+
    <launcher>
       <solaris/>
       <win useIco="false">
          <bmp/>
       </win>
    </launcher>
+
 
    <vm>
    </vm>
@@ -34,7 +37,6 @@
    </features>
 
    <configurations>
-      <plugin id="com.gesila.test.guard.demo" autoStart="false" startLevel="0" />
       <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="3" />
@@ -48,7 +50,6 @@
    </preferencesInfo>
 
    <cssInfo>
-      <file path="/com.gesila.test.guard.application/css/testguard.css"/>
    </cssInfo>
 
 </product>

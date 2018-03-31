@@ -6,7 +6,7 @@
          point="org.eclipse.core.runtime.products">
       <product
             name="com.gesila.test.guard.product"
-            application="org.eclipse.e4.ui.workbench.swt.E4Application">
+            application="com.gesila.test.guard.application.e3.application">
          <property
                name="appName"
                value="com.gesila.test.guard.product">
