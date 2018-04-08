@@ -82,11 +82,12 @@
                policy="InvokeAlwaysRegardlessOfSuppressedExt"
                suppressedExtensionId="org.eclipse.ui.navigator.resourceContent">
          </override>
+         <commonWizard
+               type="new"
+               wizardId="com.gesila.test.guard.navigator.ui.wizards.GesilaTestGuardNewProjectWizard">
+            <enablement></enablement>
+         </commonWizard>
       </navigatorContent>
-      <commonWizard
-            type="new"
-            wizardId="com.gesila.test.guard.navigator.ui.wizards.GesilaTestGuardNewProjectWizard">
-      </commonWizard>
    </extension>
    <extension
          point="org.eclipse.ui.newWizards">

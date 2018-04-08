@@ -18,6 +18,10 @@ public class Perspective implements IPerspectiveFactory {
 
 		layout.addView("com.gesila.test.guard.navigator.ui.views.GesilaTestGuardCommonNavigator", IPageLayout.LEFT,
 				0.25f, editorArea);
+		
+		layout.addView("com.gesila.test.guard.ui.views.ServerView", IPageLayout.RIGHT,
+				0.70f, editorArea);
+
 
 		// IFolderLayout folder = layout.createFolder("messages",
 		// IPageLayout.TOP, 0.5f, editorArea);

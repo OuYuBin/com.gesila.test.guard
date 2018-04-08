@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Ui
-Bundle-SymbolicName: com.gesila.test.guard.ui
+Bundle-SymbolicName: com.gesila.test.guard.ui;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: com.gesila.test.guard.ui.Activator
 Bundle-Vendor: GESILA
