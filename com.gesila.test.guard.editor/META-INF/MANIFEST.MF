@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Editor
-Bundle-SymbolicName: com.gesila.test.guard.editor
+Bundle-SymbolicName: com.gesila.test.guard.editor;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: com.gesila.test.guard.editor.Activator
 Bundle-Vendor: GESILA
@@ -29,4 +29,5 @@ Require-Bundle: org.eclipse.ui,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Export-Package: com.gesila.test.guard.editor,
+ com.gesila.test.guard.editor.input,
  com.gesila.test.guard.editor.parts

@@ -22,12 +22,15 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.IActionBars;
+import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbenchActionConstants;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.DrillDownAdapter;
 import org.eclipse.ui.part.ViewPart;
 
+import com.gesila.test.guard.editor.input.GesilaTestGuardEditorInput;
 import com.gesila.test.guard.ui.models.GesilaTestGuardEntry;
 import com.gesila.test.guard.ui.models.GesilaTestGuardGroup;
 import com.gesila.test.guard.ui.models.GesilaTestGuardRoot;
@@ -254,6 +257,19 @@ public class ServerView extends ViewPart {
 		// PlatformUI.getWorkbench().getHelpSystem().setHelp(viewer.getControl(),
 		// "com.gesila.test.guard.ui.viewer");
 		getSite().setSelectionProvider(viewer);
+		viewer.addDoubleClickListener(new IDoubleClickListener() {
+			
+			@Override
+			public void doubleClick(DoubleClickEvent event) {
+				ISelection selection=event.getSelection();
+				GesilaTestGuardEditorInput gesilaTestGuardEditorInput=new GesilaTestGuardEditorInput();
+				try {
+					ServerView.this.getViewSite().getPage().openEditor(gesilaTestGuardEditorInput, "com.gesila.test.guard.editor.GesilaTestGuardEditor");
+				} catch (PartInitException e) {
+					e.printStackTrace();
+				}
+			}
+		});
 		// makeActions();
 		// hookContextMenu();
 		// hookDoubleClickAction();
