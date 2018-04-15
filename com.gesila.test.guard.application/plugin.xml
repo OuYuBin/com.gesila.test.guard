@@ -13,7 +13,7 @@
          </property>
          <property
                name="applicationCSS"
-               value="platform:/plugin/com.gesila.test.guard.application/css/default.css">
+               value="platform:/plugin/com.gesila.test.guard.application/css/testguard.css">
          </property>
       </product>
    </extension>

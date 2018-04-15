@@ -1,4 +1,4 @@
-package com.gesila.test.guard.ui;
+package com.gesila.test.guard.layout;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -9,7 +9,7 @@ import org.osgi.framework.BundleContext;
 public class Activator extends AbstractUIPlugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "com.gesila.test.guard.ui"; //$NON-NLS-1$
+	public static final String PLUGIN_ID = "com.gesila.test.guard.layout"; //$NON-NLS-1$
 
 	// The shared instance
 	private static Activator plugin;
@@ -45,16 +45,6 @@ public class Activator extends AbstractUIPlugin {
 	 */
 	public static Activator getDefault() {
 		return plugin;
-	}
-	
-	public static void main(String[] args) {
-		int i=255;
-		byte[] bytes=new byte[1];
-		bytes[0]=(byte) (i);
-		System.out.println(bytes);
-		
-		int j=bytes[0]&0xFF;
-		System.out.println(j);
 	}
 
 }
