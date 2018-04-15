@@ -6,13 +6,8 @@
         <children xsi:type="basic:PartSashContainer" xmi:id="_qFimAHS2EeWCNZzHFAUjIA" elementId="com.gesila.test.guard.application.partsashcontainer.0" horizontal="true">
           <children xsi:type="basic:PartSashContainer" xmi:id="_yXkGkHS2EeWCNZzHFAUjIA" elementId="com.gesila.test.guard.application.partsashcontainer.1" containerData="5500">
             <children xsi:type="basic:PartStack" xmi:id="_SJws4HS3EeWCNZzHFAUjIA" elementId="com.gesila.test.guard.application.partstack.0">
-              <children xsi:type="basic:Part" xmi:id="_09zJAHS2EeWCNZzHFAUjIA" elementId="com.gesila.test.guard.application.part.testoverview" contributionURI="bundleclass://com.gesila.test.guard.editor/com.gesila.test.guard.editor.parts.GesilaTestGuardOverviewPart" label="Overview"/>
-              <children xsi:type="basic:Part" xmi:id="_XNxb8P22EeeZ8bP2Z19Uxg" elementId="com.example.test" contributionURI="bundleclass://cn.robin.test.guard.navigator.ui/org.eclipse.ui.navigator.CommonNavigator" label="My Common Navigator" iconURI="platform:/plugin/cn.robin.test.guard.navigator.ui/icons/sample.gif" closeable="true">
-                <tags>View</tags>
-                <menus xmi:id="_XNxb8f22EeeZ8bP2Z19Uxg" elementId="com.example.test">
-                  <tags>ViewMenu</tags>
-                </menus>
-                <toolbar xmi:id="_XNxb8v22EeeZ8bP2Z19Uxg" elementId="com.example.test"/>
+              <children xsi:type="basic:Part" xmi:id="_09zJAHS2EeWCNZzHFAUjIA" elementId="com.gesila.test.guard.application.part.testoverview" contributionURI="bundleclass://com.gesila.test.guard.navigator.ui/com.gesila.test.guard.navigator.ui.views.GesilaTestGuardCommonNavigator" label="Overview" iconURI="platform:/plugin/com.gesila.test.guard.application/icons/gesila.png">
+                <toolbar xmi:id="_vmZfgC9BEeieubmokFZu-A" elementId="com.gesila.test.guard.application.toolbar.1"/>
               </children>
             </children>
           </children>
