@@ -17,7 +17,7 @@ public class GesilaLayoutTest {
 		Shell shell=new Shell(display,SWT.NO_TRIM);
 		shell.setSize(300,300);
 		shell.open();
-		GesilaLayout gesilaLayout=new GesilaLayout();
+		GesilaColumnLayout gesilaLayout=new GesilaColumnLayout();
 		shell.setLayout(gesilaLayout);
 		for(int i=0;i<5;i++){
 			Button button=new Button(shell,SWT.BUTTON1);

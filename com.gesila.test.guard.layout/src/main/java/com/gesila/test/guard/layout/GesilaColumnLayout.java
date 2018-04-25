@@ -13,7 +13,7 @@ import org.eclipse.swt.widgets.Layout;
  * @author robin
  *
  */
-public class GesilaLayout extends Layout {
+public class GesilaColumnLayout extends Layout {
 
 	Point[] sizes;
 	int maxWidth;
