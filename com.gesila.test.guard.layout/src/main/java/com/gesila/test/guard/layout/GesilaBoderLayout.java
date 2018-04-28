@@ -6,6 +6,7 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Layout;
+import org.eclipse.swt.widgets.Shell;
 
 /**
  * 
@@ -42,7 +43,23 @@ public class GesilaBoderLayout extends Layout {
 		if (controls[GesilaBorderData.WEST] != null) {
 			controls[GesilaBorderData.WEST].setBounds(rectangle.x, rectangle.y + sizes[GesilaBorderData.NORTH].y,
 					sizes[GesilaBorderData.WEST].x,
-					rectangle.height - sizes[GesilaBorderData.NORTH].y - sizes[GesilaBorderData.SOURTH].y);
+					rectangle.height - sizes[GesilaBorderData.NORTH].y - sizes[GesilaBorderData.SOUTH].y);
+		}
+		if (controls[GesilaBorderData.SOUTH] != null) {
+			controls[GesilaBorderData.SOUTH].setBounds(rectangle.x,
+					rectangle.y + rectangle.height - sizes[GesilaBorderData.SOUTH].y, rectangle.width,
+					sizes[GesilaBorderData.SOUTH].y);
+		}
+		if (controls[GesilaBorderData.EAST] != null) {
+			controls[GesilaBorderData.EAST].setBounds(rectangle.x + rectangle.width - sizes[GesilaBorderData.EAST].x,
+					rectangle.y + sizes[GesilaBorderData.NORTH].y, sizes[GesilaBorderData.EAST].x,
+					rectangle.height - sizes[GesilaBorderData.NORTH].y - sizes[GesilaBorderData.NORTH].y);
+		}
+		if (controls[GesilaBorderData.CENTER] != null) {
+			controls[GesilaBorderData.CENTER].setBounds(rectangle.x + sizes[GesilaBorderData.WEST].x,
+					rectangle.y + sizes[GesilaBorderData.NORTH].y,
+					rectangle.width - sizes[GesilaBorderData.WEST].x - sizes[GesilaBorderData.EAST].x,
+					rectangle.height - sizes[GesilaBorderData.SOUTH].y - sizes[GesilaBorderData.NORTH].y);
 		}
 
 	}
@@ -67,6 +84,7 @@ public class GesilaBoderLayout extends Layout {
 				sizes[i] = new Point(0, 0);
 			else
 				sizes[i] = control.computeSize(SWT.DEFAULT, SWT.DEFAULT, true);
+			i++;
 		}
 
 		width = Math.max(width, sizes[GesilaBorderData.NORTH].x);
@@ -74,10 +92,16 @@ public class GesilaBoderLayout extends Layout {
 		width = Math.max(width,
 				sizes[GesilaBorderData.WEST].x + sizes[GesilaBorderData.CENTER].x + sizes[GesilaBorderData.EAST].x);
 
-		width = Math.max(width, sizes[GesilaBorderData.SOURTH].x);
+		width = Math.max(width, sizes[GesilaBorderData.SOUTH].x);
 
 		height = Math.max(Math.max(sizes[GesilaBorderData.WEST].y, sizes[GesilaBorderData.EAST].y),
-				sizes[GesilaBorderData.NORTH].y + sizes[GesilaBorderData.CENTER].y + sizes[GesilaBorderData.SOURTH].y);
+				sizes[GesilaBorderData.NORTH].y + sizes[GesilaBorderData.CENTER].y + sizes[GesilaBorderData.SOUTH].y);
 	}
+	
+	public static void main(String[] args) {
+		Shell shell=new Shell();
+	}
+	
+	
 
 }
