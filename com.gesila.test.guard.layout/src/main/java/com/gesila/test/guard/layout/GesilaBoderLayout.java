@@ -23,9 +23,23 @@ public class GesilaBoderLayout extends Layout {
 
 	private int height;
 
+	/**
+	 * 计算通过各子控件大小计算高度与宽度大小
+	 * 
+	 */
 	@Override
 	protected Point computeSize(Composite composite, int wHint, int hHint, boolean flushCache) {
-		return null;
+		if(sizes==null||flushCache==true) {
+			initialize(composite.getChildren());
+		}
+		int w=wHint;
+		int h=hHint;
+		if(w==wHint)
+			w=width;
+		if(h==hHint)
+			h=height;
+		return new Point(w, h);
+		
 	}
 
 	@Override
@@ -64,6 +78,10 @@ public class GesilaBoderLayout extends Layout {
 
 	}
 
+	/**
+	 * 初始化计算合适的容器高度及宽度
+	 * @param children
+	 */
 	private void initialize(Control[] children) {
 		for (Control child : children) {
 			Object layoutData = child.getLayoutData();

@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Project
-Bundle-SymbolicName: com.gesila.test.guard.project
+Bundle-SymbolicName: com.gesila.test.guard.project;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: com.gesila.test.guard.project.Activator
 Bundle-Vendor: GESILA
@@ -12,4 +12,5 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Export-Package: com.gesila.test.guard.project,
  com.gesila.test.guard.project.models,
- com.gesila.test.guard.project.models.impl
+ com.gesila.test.guard.project.models.impl,
+ com.gesila.test.guard.project.nature

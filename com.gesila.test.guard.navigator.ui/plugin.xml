@@ -4,10 +4,10 @@
    <extension
          point="org.eclipse.ui.views">
       <view
-            class="org.eclipse.ui.navigator.CommonNavigator"
+            class="com.gesila.test.guard.navigator.ui.views.GesilaTestGuardCommonNavigator"
             icon="icons/eclipse16.gif"
             id="com.gesila.test.guard.navigator.ui.views.GesilaTestGuardCommonNavigator"
-            name="TestGuard Explorer"
+            name="Gesila TestGuard Explorer"
             restorable="true">
       </view>
    </extension>
@@ -42,12 +42,21 @@
             </contentExtension>
          </includes>
       </viewerContentBinding>
+      <viewerContentBinding
+            viewerId="com.gesila.test.guard.navigator.ui.views.GesilaTestGuardCommonNavigator">
+         <includes>
+            <contentExtension
+                  pattern="com.gesila.test.guard.navigator.ui.navigatorContent">
+            </contentExtension>
+         </includes>
+      </viewerContentBinding>
    </extension>
    <extension
          point="org.eclipse.ui.navigator.navigatorContent">
       <navigatorContent
+            contentProvider="com.gesila.test.guard.navigator.ui.views.providers.GesilaTestGuardTreeContentProvider"
             id="com.gesila.test.guard.navigator.ui.navigatorContent"
-            name="Test Guard Content"
+            name="TestGuard Navigator Content"
             priority="higher">
          <triggerPoints>
             <instanceof
