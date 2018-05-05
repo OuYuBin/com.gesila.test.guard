@@ -1,5 +1,8 @@
 package com.gesila.test.guard.application.e3;
 
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
@@ -18,6 +21,14 @@ public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
     @Override
 	public String getInitialWindowPerspectiveId() {
 		return Perspective.ID;
-	} 
+	}
+
+	@Override
+	public IAdaptable getDefaultPageInput() {
+		IWorkspace workspace=ResourcesPlugin.getWorkspace();
+		return workspace.getRoot();
+	}
+    
+    
 	
 }

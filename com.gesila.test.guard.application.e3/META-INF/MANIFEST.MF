@@ -7,6 +7,7 @@ Bundle-Activator: com.gesila.test.guard.application.e3.Activator
 Bundle-Vendor: GESILA
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.eclipse.e4.ui.workbench.addons.swt;bundle-version="1.2.101"
+ org.eclipse.e4.ui.workbench.addons.swt;bundle-version="1.2.101",
+ org.eclipse.core.resources
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy

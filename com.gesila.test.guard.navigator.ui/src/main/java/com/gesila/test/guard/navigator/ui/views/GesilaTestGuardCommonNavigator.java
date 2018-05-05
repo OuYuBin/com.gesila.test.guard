@@ -9,6 +9,12 @@ import org.eclipse.ui.navigator.CommonNavigator;
  *
  */
 public class GesilaTestGuardCommonNavigator extends CommonNavigator {
+	
+	
+	public GesilaTestGuardCommonNavigator(){
+		super();
+	}
+	
 
 	@Override
 	public void createPartControl(Composite parent) {
@@ -19,7 +25,6 @@ public class GesilaTestGuardCommonNavigator extends CommonNavigator {
 	@Override
 	public void setFocus() {
 		super.setFocus();
-
 	}
 
 }

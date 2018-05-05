@@ -42,20 +42,14 @@
             </contentExtension>
          </includes>
       </viewerContentBinding>
-      <viewerContentBinding
-            viewerId="com.gesila.test.guard.navigator.ui.views.GesilaTestGuardCommonNavigator">
-         <includes>
-            <contentExtension
-                  pattern="com.gesila.test.guard.navigator.ui.navigatorContent">
-            </contentExtension>
-         </includes>
-      </viewerContentBinding>
    </extension>
    <extension
          point="org.eclipse.ui.navigator.navigatorContent">
       <navigatorContent
             contentProvider="com.gesila.test.guard.navigator.ui.views.providers.GesilaTestGuardTreeContentProvider"
+            icon="icons/eclipse16.gif"
             id="com.gesila.test.guard.navigator.ui.navigatorContent"
+            labelProvider="com.gesila.test.guard.navigator.ui.views.providers.GesilaTestGuardTreeLabelProvider"
             name="TestGuard Navigator Content"
             priority="higher">
          <triggerPoints>
@@ -64,11 +58,9 @@
             </instanceof>
          </triggerPoints>
          <possibleChildren>
-            <or>
-               <instanceof
-                     value="org.eclipse.core.resources.IResource">
-               </instanceof>
-            </or>
+            <instanceof
+                  value="org.eclipse.core.resources.IResource">
+            </instanceof>
          </possibleChildren>
          <actionProvider
                class="com.gesila.test.guard.navigator.ui.views.providers.GesilaTestGuardCommonActionProvider"

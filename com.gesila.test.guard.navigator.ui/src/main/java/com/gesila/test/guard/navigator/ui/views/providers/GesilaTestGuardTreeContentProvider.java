@@ -1,6 +1,8 @@
 package com.gesila.test.guard.navigator.ui.views.providers;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.eclipse.core.internal.resources.Project;
 import org.eclipse.core.resources.IProject;
@@ -25,22 +27,25 @@ public class GesilaTestGuardTreeContentProvider implements ITreeContentProvider 
 
 	@Override
 	public Object[] getChildren(Object parentElement) {
-		if(parentElement instanceof IWorkspaceRoot) {
-			IProject[] projects=((IWorkspaceRoot)parentElement).getProjects();
-			for(IProject project:projects) {
-				try {
-					if(project.getNature(GesilaTestGuardProjectNature.ID) != null) {
-						
-					}
-				} catch (CoreException e) {
-					e.printStackTrace();
-				}
-				
-			}
+		if (parentElement instanceof IWorkspaceRoot) {
+			return createGesilaTestGuardProjects(parentElement).toArray(new Object[0]);
 		}
 		return null;
-//		if()
-		//return null;
+	}
+
+	private List<IProject> createGesilaTestGuardProjects(Object parentElement) {
+		IProject[] projects = ((IWorkspaceRoot) parentElement).getProjects();
+		List<IProject> gesilaTestGuardProjects = new ArrayList<IProject>();
+		for (IProject project : projects) {
+			try {
+				if (project.getNature(GesilaTestGuardProjectNature.ID) != null) {
+					gesilaTestGuardProjects.add(project);
+				}
+			} catch (CoreException e) {
+				e.printStackTrace();
+			}
+		}
+		return gesilaTestGuardProjects;
 	}
 
 	@Override
@@ -52,7 +57,7 @@ public class GesilaTestGuardTreeContentProvider implements ITreeContentProvider 
 	@Override
 	public boolean hasChildren(Object element) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 }
