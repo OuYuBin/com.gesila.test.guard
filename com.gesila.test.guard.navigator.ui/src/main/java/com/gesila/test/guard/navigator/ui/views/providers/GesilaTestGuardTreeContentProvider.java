@@ -11,6 +11,7 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 
+import com.gesila.test.guard.project.models.impl.TestGuardProject;
 import com.gesila.test.guard.project.nature.GesilaTestGuardProjectNature;
 
 /**
@@ -33,13 +34,13 @@ public class GesilaTestGuardTreeContentProvider implements ITreeContentProvider 
 		return null;
 	}
 
-	private List<IProject> createGesilaTestGuardProjects(Object parentElement) {
+	private List<TestGuardProject> createGesilaTestGuardProjects(Object parentElement) {
 		IProject[] projects = ((IWorkspaceRoot) parentElement).getProjects();
-		List<IProject> gesilaTestGuardProjects = new ArrayList<IProject>();
+		List<TestGuardProject> gesilaTestGuardProjects = new ArrayList<TestGuardProject>();
 		for (IProject project : projects) {
 			try {
 				if (project.getNature(GesilaTestGuardProjectNature.ID) != null) {
-					gesilaTestGuardProjects.add(project);
+					gesilaTestGuardProjects.add(new TestGuardProject(project));
 				}
 			} catch (CoreException e) {
 				e.printStackTrace();
