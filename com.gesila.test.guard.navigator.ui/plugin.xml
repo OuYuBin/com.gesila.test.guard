@@ -5,7 +5,7 @@
          point="org.eclipse.ui.views">
       <view
             class="com.gesila.test.guard.navigator.ui.views.GesilaTestGuardCommonNavigator"
-            icon="icons/eclipse16.gif"
+            icon="icons/testguardexplorer.png"
             id="com.gesila.test.guard.navigator.ui.views.GesilaTestGuardCommonNavigator"
             name="Gesila TestGuard Explorer"
             restorable="true">
@@ -47,7 +47,7 @@
          point="org.eclipse.ui.navigator.navigatorContent">
       <navigatorContent
             contentProvider="com.gesila.test.guard.navigator.ui.views.providers.GesilaTestGuardTreeContentProvider"
-            icon="icons/eclipse16.gif"
+            icon="icons/testguard.png"
             id="com.gesila.test.guard.navigator.ui.navigatorContent"
             labelProvider="com.gesila.test.guard.navigator.ui.views.providers.GesilaTestGuardTreeLabelProvider"
             name="TestGuard Navigator Content"
@@ -88,13 +88,16 @@
                wizardId="com.gesila.test.guard.navigator.ui.wizards.GesilaTestGuardNewProjectWizard">
             <enablement></enablement>
          </commonWizard>
+         <actionProvider
+               class="com.gesila.test.guard.navigator.ui.CommonActionProvider1">
+         </actionProvider>
       </navigatorContent>
    </extension>
    <extension
          point="org.eclipse.ui.newWizards">
       <wizard
             class="com.gesila.test.guard.navigator.ui.wizards.GesilaTestGuardNewProjectWizard"
-            icon="icons/eclipse16.gif"
+            icon="icons/project.png"
             id="com.gesila.test.guard.navigator.ui.wizards.GesilaTestGuardNewProjectWizard"
             name="TestGuard Project"
             project="true">
