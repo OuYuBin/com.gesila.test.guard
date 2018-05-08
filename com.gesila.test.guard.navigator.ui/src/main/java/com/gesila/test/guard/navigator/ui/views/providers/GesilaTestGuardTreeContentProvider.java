@@ -48,7 +48,7 @@ public class GesilaTestGuardTreeContentProvider
 		if (parentElement instanceof IWorkspaceRoot) {
 			return createGesilaTestGuardProjects(parentElement).toArray(new Object[0]);
 		}
-		return null;
+		return new Object[0];
 	}
 
 	private List<TestGuardProject> createGesilaTestGuardProjects(Object parentElement) {
@@ -73,7 +73,7 @@ public class GesilaTestGuardTreeContentProvider
 
 	@Override
 	public boolean hasChildren(Object element) {
-		return true;
+		return getChildren(element).length>0;
 	}
 
 	@Override
