@@ -1,16 +1,19 @@
 package com.gesila.test.guard.navigator.ui.views.providers;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import org.eclipse.core.internal.resources.Project;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jface.viewers.TreePath;
+import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.swt.widgets.Display;
 
+import com.gesila.test.guard.navigator.ui.views.manager.GesilaTestGuardModelElementManager;
+import com.gesila.test.guard.navigator.ui.views.manager.IGesilaTestGuardModelElementChangeListener;
 import com.gesila.test.guard.project.models.impl.TestGuardProject;
 import com.gesila.test.guard.project.nature.GesilaTestGuardProjectNature;
 
@@ -19,7 +22,21 @@ import com.gesila.test.guard.project.nature.GesilaTestGuardProjectNature;
  * @author robin
  *
  */
-public class GesilaTestGuardTreeContentProvider implements ITreeContentProvider {
+public class GesilaTestGuardTreeContentProvider
+		implements ITreeContentProvider, IGesilaTestGuardModelElementChangeListener {
+
+	private Viewer viewer;
+
+	@Override
+	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+		this.viewer = viewer;
+		if (oldInput == null && newInput != null) {
+			GesilaTestGuardModelElementManager.getInstance().addGesilaTestGuardModelElementListener(this);
+		} else if (oldInput != null && newInput == null) {
+			GesilaTestGuardModelElementManager.getInstance().removeGesilaTestGuardModelElementListener(this);
+		}
+
+	}
 
 	@Override
 	public Object[] getElements(Object inputElement) {
@@ -51,14 +68,26 @@ public class GesilaTestGuardTreeContentProvider implements ITreeContentProvider 
 
 	@Override
 	public Object getParent(Object element) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean hasChildren(Object element) {
-		// TODO Auto-generated method stub
 		return true;
+	}
+
+	@Override
+	public void testGuardModelElementChange() {
+		Display.getDefault().asyncExec(new Runnable() {
+
+			@Override
+			public void run() {
+				TreePath[] treePaths = ((TreeViewer) viewer).getExpandedTreePaths();
+				viewer.refresh();
+				((TreeViewer) viewer).setExpandedElements(treePaths);
+			}
+		});
+
 	}
 
 }

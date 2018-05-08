@@ -74,7 +74,7 @@
                      </count>
                   </adapt>
                   <instanceof
-                        value="org.eclipse.core.resources.IResource">
+                        value="com.gesila.test.guard.project.models.ITestGuardProjectElement">
                   </instanceof>
                </or>
             </enablement>
@@ -88,9 +88,6 @@
                wizardId="com.gesila.test.guard.navigator.ui.wizards.GesilaTestGuardNewProjectWizard">
             <enablement></enablement>
          </commonWizard>
-         <actionProvider
-               class="com.gesila.test.guard.navigator.ui.CommonActionProvider1">
-         </actionProvider>
       </navigatorContent>
    </extension>
    <extension
@@ -116,6 +113,14 @@
                   checkEnabled="true">
             </visibleWhen>
          </command>
+         <command
+               commandId="com.gesila.test.guard.navigator.ui.views.handlers.GesilaTestGuardNewRequestHandler"
+               icon="icons/wsi_logfile_obj 3.gif"
+               style="push">
+            <visibleWhen
+                  checkEnabled="true">
+            </visibleWhen>
+         </command>
       </menuContribution>
    </extension>
    <extension
@@ -123,6 +128,10 @@
       <command
             id="com.gesila.test.guard.navigator.ui.views.handlers.GesilaTestGuardNewGroupHandler"
             name="TestGuard Group">
+      </command>
+      <command
+            id="com.gesila.test.guard.navigator.ui.views.handlers.GesilaTestGuardNewRequestHandler"
+            name="TestGuard Request">
       </command>
    </extension>
    <extension
@@ -145,7 +154,32 @@
                   <iterate
                         ifEmpty="true">
                      <instanceof
-                           value="org.eclipse.core.internal.resources.Project">
+                           value="com.gesila.test.guard.project.models.impl.TestGuardProject">
+                     </instanceof>
+                  </iterate>
+               </with>
+            </and>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="com.gesila.test.guard.navigator.ui.views.handlers.GesilaTestGuardNewRequestHandler"
+            commandId="com.gesila.test.guard.navigator.ui.views.handlers.GesilaTestGuardNewRequestHandler">
+         <enabledWhen>
+            <and>
+               <not>
+                  <adapt
+                        type="java.util.Collection">
+                     <count
+                           value="0">
+                     </count>
+                  </adapt>
+               </not>
+               <with
+                     variable="selection">
+                  <iterate
+                        ifEmpty="true">
+                     <instanceof
+                           value="com.gesila.test.guard.project.models.impl.TestGuardProject">
                      </instanceof>
                   </iterate>
                </with>
