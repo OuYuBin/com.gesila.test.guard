@@ -23,6 +23,8 @@ public class GesilaTestGuardCommonActionProvider extends CommonActionProvider {
 	WizardActionGroup newWizardActionGroup;
 	
 	ActionFactory.IWorkbenchAction showDlgAction;
+	
+	private static final String NEW_MENU_NAME="test.guard.new.menu";
 
 	public GesilaTestGuardCommonActionProvider() {
 		super();
@@ -42,9 +44,10 @@ public class GesilaTestGuardCommonActionProvider extends CommonActionProvider {
 	@Override
 	public void fillContextMenu(IMenuManager menu) {
 		super.fillContextMenu(menu);
-		IMenuManager subMenu = new MenuManager("New", null);
+		IMenuManager subMenu = new MenuManager("New", NEW_MENU_NAME);
 		newWizardActionGroup.setContext(getContext());
 		newWizardActionGroup.fillContextMenu(subMenu);
+		subMenu.add(new Separator(ICommonMenuConstants.GROUP_ADDITIONS));
 		subMenu.add(new Separator());
 		subMenu.add(showDlgAction);
 		menu.insertAfter(ICommonMenuConstants.GROUP_NEW, subMenu);
