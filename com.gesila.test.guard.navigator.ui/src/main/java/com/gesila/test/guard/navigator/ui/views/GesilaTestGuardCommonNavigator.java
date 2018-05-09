@@ -1,10 +1,15 @@
 package com.gesila.test.guard.navigator.ui.views;
 
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.forms.widgets.Form;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.navigator.CommonNavigator;
+import org.eclipse.swt.graphics.Color;
 
 /**
  * 
@@ -21,11 +26,27 @@ public class GesilaTestGuardCommonNavigator extends CommonNavigator {
 
 	@Override
 	public void createPartControl(Composite parent) {
-		FormToolkit formToolkit=new FormToolkit(Display.getDefault());
+		GridLayout gridLayout = new GridLayout(1, false);
+		gridLayout.marginWidth = 0;
+		gridLayout.marginHeight = 0;
+		gridLayout.verticalSpacing = 1;
+		gridLayout.horizontalSpacing = 0;
+		parent.setLayout(gridLayout);
+		
+		
+		FormToolkit formToolkit=new FormToolkit(Display.getCurrent());
 		Form form=formToolkit.createForm(parent);
 		form.setText("Gesila TestGuard Navigator");
 		formToolkit.decorateFormHeading(form);
-		super.createPartControl(form.getBody());
+		
+		form.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		Composite body=form.getBody();
+		body.setBackground(new Color(Display.getDefault(), 185, 214, 238));
+		body.setLayout(new FillLayout());
+		
+		super.createPartControl(body);
+		
+		//super.createPartControl(parent);
 	}
 
 	@Override
