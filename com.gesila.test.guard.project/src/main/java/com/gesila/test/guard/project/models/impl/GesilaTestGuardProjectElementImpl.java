@@ -22,4 +22,10 @@ public class GesilaTestGuardProjectElementImpl extends AbstractGesilaTestGuardPr
 	public void setParent(IGesilaTestGuardProjectContainerElement parent) {
 		this.parent = parent;
 	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

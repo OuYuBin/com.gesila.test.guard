@@ -27,4 +27,10 @@ public class GesilaTestGuardGroup implements IGesilaTestGuardProjectContainerEle
 		return null;
 	}
 
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

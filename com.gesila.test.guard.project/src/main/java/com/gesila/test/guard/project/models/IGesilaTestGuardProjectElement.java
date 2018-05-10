@@ -11,4 +11,6 @@ public interface IGesilaTestGuardProjectElement extends IAdaptable{
 
 	public IGesilaTestGuardProjectContainerElement getParent();
 	
+	public String getName();
+	
 }

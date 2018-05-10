@@ -31,10 +31,34 @@ public class GesilaTestGuardProject extends AbstractGesilaTestGuardProjectElemen
 
 	@Override
 	public List<IGesilaTestGuardProjectElement> getElements() {
-		if (elements.isEmpty())
+		if (elements.isEmpty()) {
 			createElements();
-
+		}
+		syncElements();
 		return elements;
+	}
+
+	private void syncElements() {
+		File parentFile = project.getLocation().toFile();
+		List<IGesilaTestGuardProjectElement> addElements = new ArrayList<IGesilaTestGuardProjectElement>();
+		for (File file : parentFile.listFiles()) {
+			boolean addElement = true;
+			String name = file.getName();
+			if (file.isFile() && !name.equals(".project")) {
+				for (IGesilaTestGuardProjectElement element : elements) {
+					if (name.equals(element.getName())) {
+						addElement = false;
+						break;
+					}
+				}
+				if (addElement) {
+					GesilaTestGuard gesilaTestGuard = new GesilaTestGuard(this);
+					gesilaTestGuard.setName(name);
+					addElements.add(gesilaTestGuard);
+				}
+			}
+		}
+		elements.addAll(addElements);
 	}
 
 	public <T> T getAdapter(Class<T> adapter) {
