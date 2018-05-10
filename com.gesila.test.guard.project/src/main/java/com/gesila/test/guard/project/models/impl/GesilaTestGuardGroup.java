@@ -6,10 +6,10 @@ import java.util.List;
  * @author robin
  */
 
-import com.gesila.test.guard.project.models.ITestGuardProjectContainerElement;
-import com.gesila.test.guard.project.models.ITestGuardProjectElement;
+import com.gesila.test.guard.project.models.IGesilaTestGuardProjectContainerElement;
+import com.gesila.test.guard.project.models.IGesilaTestGuardProjectElement;
 
-public class GesilaTestGuardGroup implements ITestGuardProjectContainerElement {
+public class GesilaTestGuardGroup implements IGesilaTestGuardProjectContainerElement {
 
 	@Override
 	public <T> T getAdapter(Class<T> adapter) {
@@ -17,7 +17,7 @@ public class GesilaTestGuardGroup implements ITestGuardProjectContainerElement {
 	}
 
 	@Override
-	public List<ITestGuardProjectElement> getElements() {
+	public List<IGesilaTestGuardProjectElement> getElements() {
 		return null;
 	}
 

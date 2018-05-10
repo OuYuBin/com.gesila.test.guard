@@ -2,8 +2,6 @@
  */
 package com.gesila.test.guard.model.testGuard;
 
-import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -15,7 +13,10 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link com.gesila.test.guard.model.testGuard.TestGuard#getModule <em>Module</em>}</li>
+ *   <li>{@link com.gesila.test.guard.model.testGuard.TestGuard#getName <em>Name</em>}</li>
+ *   <li>{@link com.gesila.test.guard.model.testGuard.TestGuard#getUrl <em>Url</em>}</li>
+ *   <li>{@link com.gesila.test.guard.model.testGuard.TestGuard#getRequestBody <em>Request Body</em>}</li>
+ *   <li>{@link com.gesila.test.guard.model.testGuard.TestGuard#getRequestMethod <em>Request Method</em>}</li>
  * </ul>
  *
  * @see com.gesila.test.guard.model.testGuard.TestGuardPackage#getTestGuard()
@@ -24,19 +25,110 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface TestGuard extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Module</b></em>' containment reference list.
-	 * The list contents are of type {@link com.gesila.test.guard.model.testGuard.TestGuardModule}.
+	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Module</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Name</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Module</em>' containment reference list.
-	 * @see com.gesila.test.guard.model.testGuard.TestGuardPackage#getTestGuard_Module()
-	 * @model containment="true"
+	 * @return the value of the '<em>Name</em>' attribute.
+	 * @see #setName(String)
+	 * @see com.gesila.test.guard.model.testGuard.TestGuardPackage#getTestGuard_Name()
+	 * @model
 	 * @generated
 	 */
-	EList<TestGuardModule> getModule();
+	String getName();
+
+	/**
+	 * Sets the value of the '{@link com.gesila.test.guard.model.testGuard.TestGuard#getName <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Name</em>' attribute.
+	 * @see #getName()
+	 * @generated
+	 */
+	void setName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Url</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Url</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Url</em>' attribute.
+	 * @see #setUrl(String)
+	 * @see com.gesila.test.guard.model.testGuard.TestGuardPackage#getTestGuard_Url()
+	 * @model
+	 * @generated
+	 */
+	String getUrl();
+
+	/**
+	 * Sets the value of the '{@link com.gesila.test.guard.model.testGuard.TestGuard#getUrl <em>Url</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Url</em>' attribute.
+	 * @see #getUrl()
+	 * @generated
+	 */
+	void setUrl(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Request Body</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Request Body</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Request Body</em>' attribute.
+	 * @see #setRequestBody(String)
+	 * @see com.gesila.test.guard.model.testGuard.TestGuardPackage#getTestGuard_RequestBody()
+	 * @model
+	 * @generated
+	 */
+	String getRequestBody();
+
+	/**
+	 * Sets the value of the '{@link com.gesila.test.guard.model.testGuard.TestGuard#getRequestBody <em>Request Body</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Request Body</em>' attribute.
+	 * @see #getRequestBody()
+	 * @generated
+	 */
+	void setRequestBody(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Request Method</b></em>' attribute.
+	 * The literals are from the enumeration {@link com.gesila.test.guard.model.testGuard.RequestMethod}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Request Method</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Request Method</em>' attribute.
+	 * @see com.gesila.test.guard.model.testGuard.RequestMethod
+	 * @see #setRequestMethod(RequestMethod)
+	 * @see com.gesila.test.guard.model.testGuard.TestGuardPackage#getTestGuard_RequestMethod()
+	 * @model
+	 * @generated
+	 */
+	RequestMethod getRequestMethod();
+
+	/**
+	 * Sets the value of the '{@link com.gesila.test.guard.model.testGuard.TestGuard#getRequestMethod <em>Request Method</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Request Method</em>' attribute.
+	 * @see com.gesila.test.guard.model.testGuard.RequestMethod
+	 * @see #getRequestMethod()
+	 * @generated
+	 */
+	void setRequestMethod(RequestMethod value);
 
 } // TestGuard

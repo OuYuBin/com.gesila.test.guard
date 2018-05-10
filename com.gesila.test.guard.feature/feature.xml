@@ -40,12 +40,13 @@
       <import plugin="org.eclipse.emf.ecore.xmi"/>
       <import plugin="org.eclipse.ui.workbench" version="3.107.0" match="greaterOrEqual"/>
       <import plugin="com.gesila.test.guard.editor"/>
+      <import plugin="org.eclipse.e4.ui.workbench.addons.swt" version="1.2.101" match="greaterOrEqual"/>
       <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.eclipse.ui.navigator"/>
       <import plugin="org.eclipse.ui.ide" version="3.12.3" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.e4.ui.workbench.addons.swt" version="1.2.101" match="greaterOrEqual"/>
       <import plugin="com.gesila.test.guard.project" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui.navigator.resources"/>
+      <import plugin="org.eclipse.ui.themes"/>
    </requires>
 
    <plugin

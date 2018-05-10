@@ -14,7 +14,8 @@ import org.eclipse.swt.widgets.Display;
 
 import com.gesila.test.guard.navigator.ui.views.manager.GesilaTestGuardModelElementManager;
 import com.gesila.test.guard.navigator.ui.views.manager.IGesilaTestGuardModelElementChangeListener;
-import com.gesila.test.guard.project.models.impl.TestGuardProject;
+import com.gesila.test.guard.project.models.IGesilaTestGuardProjectContainerElement;
+import com.gesila.test.guard.project.models.impl.GesilaTestGuardProject;
 import com.gesila.test.guard.project.nature.GesilaTestGuardProjectNature;
 
 /**
@@ -47,17 +48,19 @@ public class GesilaTestGuardTreeContentProvider
 	public Object[] getChildren(Object parentElement) {
 		if (parentElement instanceof IWorkspaceRoot) {
 			return createGesilaTestGuardProjects(parentElement).toArray(new Object[0]);
+		} else if (parentElement instanceof IGesilaTestGuardProjectContainerElement) {
+			return ((IGesilaTestGuardProjectContainerElement) parentElement).getElements().toArray(new Object[0]);
 		}
 		return new Object[0];
 	}
 
-	private List<TestGuardProject> createGesilaTestGuardProjects(Object parentElement) {
+	private List<GesilaTestGuardProject> createGesilaTestGuardProjects(Object parentElement) {
 		IProject[] projects = ((IWorkspaceRoot) parentElement).getProjects();
-		List<TestGuardProject> gesilaTestGuardProjects = new ArrayList<TestGuardProject>();
+		List<GesilaTestGuardProject> gesilaTestGuardProjects = new ArrayList<GesilaTestGuardProject>();
 		for (IProject project : projects) {
 			try {
 				if (project.getNature(GesilaTestGuardProjectNature.ID) != null) {
-					gesilaTestGuardProjects.add(new TestGuardProject(project));
+					gesilaTestGuardProjects.add(new GesilaTestGuardProject(project));
 				}
 			} catch (CoreException e) {
 				e.printStackTrace();
@@ -73,7 +76,7 @@ public class GesilaTestGuardTreeContentProvider
 
 	@Override
 	public boolean hasChildren(Object element) {
-		return getChildren(element).length>0;
+		return getChildren(element).length > 0;
 	}
 
 	@Override

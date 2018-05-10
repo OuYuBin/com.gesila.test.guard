@@ -74,7 +74,7 @@
                      </count>
                   </adapt>
                   <instanceof
-                        value="com.gesila.test.guard.project.models.ITestGuardProjectElement">
+                        value="com.gesila.test.guard.project.models.IGesilaTestGuardProject">
                   </instanceof>
                </or>
             </enablement>
@@ -115,7 +115,7 @@
          </command>
          <command
                commandId="com.gesila.test.guard.navigator.ui.views.handlers.GesilaTestGuardNewRequestHandler"
-               icon="icons/wsi_logfile_obj 3.gif"
+               icon="icons/testguard.gif"
                style="push">
             <visibleWhen
                   checkEnabled="true">
@@ -154,7 +154,7 @@
                   <iterate
                         ifEmpty="true">
                      <instanceof
-                           value="com.gesila.test.guard.project.models.impl.TestGuardProject">
+                           value="com.gesila.test.guard.project.models.IGesilaTestGuardProject">
                      </instanceof>
                   </iterate>
                </with>
@@ -179,7 +179,7 @@
                   <iterate
                         ifEmpty="true">
                      <instanceof
-                           value="com.gesila.test.guard.project.models.impl.TestGuardProject">
+                           value="com.gesila.test.guard.project.models.IGesilaTestGuardProject">
                      </instanceof>
                   </iterate>
                </with>

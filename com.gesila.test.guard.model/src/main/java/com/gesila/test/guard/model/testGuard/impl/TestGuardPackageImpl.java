@@ -129,8 +129,38 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 	 * @generated
 	 */
 	@Override
-	public EReference getTestGuard_Module() {
-		return (EReference)testGuardEClass.getEStructuralFeatures().get(0);
+	public EAttribute getTestGuard_Name() {
+		return (EAttribute)testGuardEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getTestGuard_Url() {
+		return (EAttribute)testGuardEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getTestGuard_RequestBody() {
+		return (EAttribute)testGuardEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getTestGuard_RequestMethod() {
+		return (EAttribute)testGuardEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -253,7 +283,10 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 
 		// Create classes and their features
 		testGuardEClass = createEClass(TEST_GUARD);
-		createEReference(testGuardEClass, TEST_GUARD__MODULE);
+		createEAttribute(testGuardEClass, TEST_GUARD__NAME);
+		createEAttribute(testGuardEClass, TEST_GUARD__URL);
+		createEAttribute(testGuardEClass, TEST_GUARD__REQUEST_BODY);
+		createEAttribute(testGuardEClass, TEST_GUARD__REQUEST_METHOD);
 
 		testGuardModuleEClass = createEClass(TEST_GUARD_MODULE);
 		createEReference(testGuardModuleEClass, TEST_GUARD_MODULE__UNIT);
@@ -300,7 +333,10 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(testGuardEClass, TestGuard.class, "TestGuard", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTestGuard_Module(), this.getTestGuardModule(), null, "Module", null, 0, -1, TestGuard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTestGuard_Name(), ecorePackage.getEString(), "name", null, 0, 1, TestGuard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTestGuard_Url(), ecorePackage.getEString(), "url", null, 0, 1, TestGuard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTestGuard_RequestBody(), ecorePackage.getEString(), "requestBody", null, 0, 1, TestGuard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTestGuard_RequestMethod(), this.getRequestMethod(), "requestMethod", null, 0, 1, TestGuard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(testGuardModuleEClass, TestGuardModule.class, "TestGuardModule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTestGuardModule_Unit(), this.getTestGuardUnit(), null, "Unit", null, 0, -1, TestGuardModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

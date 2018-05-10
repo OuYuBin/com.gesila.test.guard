@@ -7,7 +7,7 @@ import org.eclipse.core.runtime.IAdaptable;
  * @author robin
  *
  */
-public interface ITestGuardProjectElement extends IAdaptable{
+public interface IGesilaTestGuardProjectElement extends IAdaptable{
 
 	
 }

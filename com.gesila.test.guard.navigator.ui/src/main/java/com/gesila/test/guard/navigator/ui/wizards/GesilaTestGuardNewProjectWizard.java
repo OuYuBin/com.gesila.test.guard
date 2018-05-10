@@ -44,7 +44,7 @@ public class GesilaTestGuardNewProjectWizard extends Wizard implements INewWizar
 	private IProject newProject;
 
 	public GesilaTestGuardNewProjectWizard() {
-
+		
 	}
 
 	@Override

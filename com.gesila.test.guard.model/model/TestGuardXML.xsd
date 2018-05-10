@@ -9,9 +9,10 @@
     </xsd:restriction>
   </xsd:simpleType>
   <xsd:complexType name="TestGuard">
-    <xsd:sequence>
-      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Module" type="testGuard:TestGuardModule"/>
-    </xsd:sequence>
+    <xsd:attribute name="name" type="xsd:string"/>
+    <xsd:attribute name="url" type="xsd:string"/>
+    <xsd:attribute name="requestBody" type="xsd:string"/>
+    <xsd:attribute name="requestMethod" type="testGuard:RequestMethod"/>
   </xsd:complexType>
   <xsd:element name="TestGuard" type="testGuard:TestGuard"/>
   <xsd:complexType name="TestGuardModule">

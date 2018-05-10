@@ -68,13 +68,40 @@ public interface TestGuardPackage extends EPackage {
 	int TEST_GUARD = 0;
 
 	/**
-	 * The feature id for the '<em><b>Module</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TEST_GUARD__MODULE = 0;
+	int TEST_GUARD__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Url</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEST_GUARD__URL = 1;
+
+	/**
+	 * The feature id for the '<em><b>Request Body</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEST_GUARD__REQUEST_BODY = 2;
+
+	/**
+	 * The feature id for the '<em><b>Request Method</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEST_GUARD__REQUEST_METHOD = 3;
 
 	/**
 	 * The number of structural features of the '<em>Test Guard</em>' class.
@@ -83,7 +110,7 @@ public interface TestGuardPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TEST_GUARD_FEATURE_COUNT = 1;
+	int TEST_GUARD_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of operations of the '<em>Test Guard</em>' class.
@@ -225,15 +252,48 @@ public interface TestGuardPackage extends EPackage {
 	EClass getTestGuard();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link com.gesila.test.guard.model.testGuard.TestGuard#getModule <em>Module</em>}'.
+	 * Returns the meta object for the attribute '{@link com.gesila.test.guard.model.testGuard.TestGuard#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Module</em>'.
-	 * @see com.gesila.test.guard.model.testGuard.TestGuard#getModule()
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see com.gesila.test.guard.model.testGuard.TestGuard#getName()
 	 * @see #getTestGuard()
 	 * @generated
 	 */
-	EReference getTestGuard_Module();
+	EAttribute getTestGuard_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.gesila.test.guard.model.testGuard.TestGuard#getUrl <em>Url</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Url</em>'.
+	 * @see com.gesila.test.guard.model.testGuard.TestGuard#getUrl()
+	 * @see #getTestGuard()
+	 * @generated
+	 */
+	EAttribute getTestGuard_Url();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.gesila.test.guard.model.testGuard.TestGuard#getRequestBody <em>Request Body</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Request Body</em>'.
+	 * @see com.gesila.test.guard.model.testGuard.TestGuard#getRequestBody()
+	 * @see #getTestGuard()
+	 * @generated
+	 */
+	EAttribute getTestGuard_RequestBody();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.gesila.test.guard.model.testGuard.TestGuard#getRequestMethod <em>Request Method</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Request Method</em>'.
+	 * @see com.gesila.test.guard.model.testGuard.TestGuard#getRequestMethod()
+	 * @see #getTestGuard()
+	 * @generated
+	 */
+	EAttribute getTestGuard_RequestMethod();
 
 	/**
 	 * Returns the meta object for class '{@link com.gesila.test.guard.model.testGuard.TestGuardModule <em>Module</em>}'.
@@ -365,12 +425,36 @@ public interface TestGuardPackage extends EPackage {
 		EClass TEST_GUARD = eINSTANCE.getTestGuard();
 
 		/**
-		 * The meta object literal for the '<em><b>Module</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference TEST_GUARD__MODULE = eINSTANCE.getTestGuard_Module();
+		EAttribute TEST_GUARD__NAME = eINSTANCE.getTestGuard_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Url</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TEST_GUARD__URL = eINSTANCE.getTestGuard_Url();
+
+		/**
+		 * The meta object literal for the '<em><b>Request Body</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TEST_GUARD__REQUEST_BODY = eINSTANCE.getTestGuard_RequestBody();
+
+		/**
+		 * The meta object literal for the '<em><b>Request Method</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TEST_GUARD__REQUEST_METHOD = eINSTANCE.getTestGuard_RequestMethod();
 
 		/**
 		 * The meta object literal for the '{@link com.gesila.test.guard.model.testGuard.impl.TestGuardModuleImpl <em>Module</em>}' class.

@@ -1,5 +1,6 @@
 package com.gesila.test.guard.navigator.ui.views;
 
+import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
@@ -36,7 +37,9 @@ public class GesilaTestGuardCommonNavigator extends CommonNavigator {
 		
 		FormToolkit formToolkit=new FormToolkit(Display.getCurrent());
 		Form form=formToolkit.createForm(parent);
-		form.setText("Gesila TestGuard Navigator");
+		//form.setText("Gesila TestGuard Navigator");
+		IToolBarManager toolBarManager=form.getToolBarManager();
+		//toolBarManager.add
 		formToolkit.decorateFormHeading(form);
 		
 		form.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
