@@ -9,5 +9,6 @@ import org.eclipse.core.runtime.IAdaptable;
  */
 public interface IGesilaTestGuardProjectElement extends IAdaptable{
 
+	public IGesilaTestGuardProjectContainerElement getParent();
 	
 }

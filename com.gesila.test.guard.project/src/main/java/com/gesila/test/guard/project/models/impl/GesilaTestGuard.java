@@ -1,20 +1,20 @@
 package com.gesila.test.guard.project.models.impl;
 
-import com.gesila.test.guard.project.models.IGesilaTestGuardProjectElement;
+import com.gesila.test.guard.project.models.IGesilaTestGuardProjectContainerElement;
 
 /**
  * 
  * @author robin
  *
  */
-public class GesilaTestGuard extends GesilaTestGuardProjectElementImpl implements IGesilaTestGuardProjectElement {
+public class GesilaTestGuard extends GesilaTestGuardProjectElementImpl {
 
 	private String name;
 
 	private String url;
 
-	public GesilaTestGuard() {
-		super();
+	public GesilaTestGuard(IGesilaTestGuardProjectContainerElement parent) {
+		super(parent);
 	}
 
 	public String getName() {

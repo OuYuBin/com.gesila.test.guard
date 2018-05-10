@@ -7,6 +7,7 @@ import java.util.List;
 import org.eclipse.core.resources.IProject;
 
 import com.gesila.test.guard.project.models.IGesilaTestGuardProject;
+import com.gesila.test.guard.project.models.IGesilaTestGuardProjectContainerElement;
 import com.gesila.test.guard.project.models.IGesilaTestGuardProjectElement;
 
 /**
@@ -16,7 +17,7 @@ import com.gesila.test.guard.project.models.IGesilaTestGuardProjectElement;
  */
 public class GesilaTestGuardProject extends AbstractGesilaTestGuardProjectElement implements IGesilaTestGuardProject {
 
-	IProject project;
+	private IProject project;
 
 	private List<IGesilaTestGuardProjectElement> elements = new ArrayList<IGesilaTestGuardProjectElement>();
 
@@ -50,12 +51,17 @@ public class GesilaTestGuardProject extends AbstractGesilaTestGuardProjectElemen
 		for (File file : parentFile.listFiles()) {
 			String name = file.getName();
 			if (file.isFile() && !name.equals(".project")) {
-				GesilaTestGuard gesilaTestGuard = new GesilaTestGuard();
+				GesilaTestGuard gesilaTestGuard = new GesilaTestGuard(this);
 				gesilaTestGuard.setName(name);
 				elements.add(gesilaTestGuard);
 			}
 		}
 
+	}
+
+	@Override
+	public IGesilaTestGuardProjectContainerElement getParent() {
+		return null;
 	}
 
 }

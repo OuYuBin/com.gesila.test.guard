@@ -15,6 +15,7 @@ import org.eclipse.swt.widgets.Display;
 import com.gesila.test.guard.navigator.ui.views.manager.GesilaTestGuardModelElementManager;
 import com.gesila.test.guard.navigator.ui.views.manager.IGesilaTestGuardModelElementChangeListener;
 import com.gesila.test.guard.project.models.IGesilaTestGuardProjectContainerElement;
+import com.gesila.test.guard.project.models.IGesilaTestGuardProjectElement;
 import com.gesila.test.guard.project.models.impl.GesilaTestGuardProject;
 import com.gesila.test.guard.project.nature.GesilaTestGuardProjectNature;
 
@@ -71,6 +72,8 @@ public class GesilaTestGuardTreeContentProvider
 
 	@Override
 	public Object getParent(Object element) {
+		if(element instanceof IGesilaTestGuardProjectElement)
+			return ((IGesilaTestGuardProjectElement)element).getParent();
 		return null;
 	}
 

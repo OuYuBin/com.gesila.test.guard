@@ -1,12 +1,9 @@
 package com.gesila.test.guard.project.models.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
 
 import com.gesila.test.guard.project.models.IGesilaTestGuardProject;
+import com.gesila.test.guard.project.models.IGesilaTestGuardProjectContainerElement;
 import com.gesila.test.guard.project.models.IGesilaTestGuardProjectElement;
 
 /**
@@ -14,7 +11,7 @@ import com.gesila.test.guard.project.models.IGesilaTestGuardProjectElement;
  * @author robin
  *
  */
-public class AbstractGesilaTestGuardProjectElement implements IGesilaTestGuardProjectElement{
+public abstract class AbstractGesilaTestGuardProjectElement implements IGesilaTestGuardProjectElement{
 
 	@Override
 	public <T> T getAdapter(Class<T> adapter) {
@@ -32,4 +29,5 @@ public class AbstractGesilaTestGuardProjectElement implements IGesilaTestGuardPr
 		return object;
 	}
 
+	public abstract IGesilaTestGuardProjectContainerElement getParent();
 }

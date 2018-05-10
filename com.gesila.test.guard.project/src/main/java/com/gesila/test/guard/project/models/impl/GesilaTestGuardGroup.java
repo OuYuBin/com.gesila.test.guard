@@ -21,4 +21,10 @@ public class GesilaTestGuardGroup implements IGesilaTestGuardProjectContainerEle
 		return null;
 	}
 
+	@Override
+	public IGesilaTestGuardProjectContainerElement getParent() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

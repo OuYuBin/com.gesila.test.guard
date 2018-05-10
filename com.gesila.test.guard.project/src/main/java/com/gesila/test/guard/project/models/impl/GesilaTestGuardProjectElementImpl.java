@@ -1,6 +1,6 @@
 package com.gesila.test.guard.project.models.impl;
 
-import com.gesila.test.guard.project.models.IGesilaTestGuardProjectElement;
+import com.gesila.test.guard.project.models.IGesilaTestGuardProjectContainerElement;
 
 /**
  * 
@@ -9,5 +9,17 @@ import com.gesila.test.guard.project.models.IGesilaTestGuardProjectElement;
  */
 public class GesilaTestGuardProjectElementImpl extends AbstractGesilaTestGuardProjectElement{
 
+	private IGesilaTestGuardProjectContainerElement parent;
+	
+	public GesilaTestGuardProjectElementImpl(IGesilaTestGuardProjectContainerElement parent){
+		this.parent=parent;
+	}
 
+	public IGesilaTestGuardProjectContainerElement getParent() {
+		return parent;
+	}
+
+	public void setParent(IGesilaTestGuardProjectContainerElement parent) {
+		this.parent = parent;
+	}
 }

@@ -1,6 +1,5 @@
 package com.gesila.test.guard.navigator.ui.views.providers;
 
-import org.eclipse.core.resources.IProject;
 /**
  * @author robin
  */
@@ -55,7 +54,6 @@ public class GesilaTestGuardTreeLabelProvider implements ILabelProvider {
 
 	@Override
 	public String getText(Object element) {
-		// TODO Auto-generated method stub
 		if (GesilaTestGuardProject.class.isInstance(element)) {
 			return ((GesilaTestGuardProject) element).getName();
 		} else if (GesilaTestGuard.class.isInstance(element)) {
