@@ -32,7 +32,7 @@ public class GesilaTestGuardFormPage extends FormPage {
 		super.createFormContent(managedForm);
 		FormToolkit formToolkit = managedForm.getToolkit();
 		ScrolledForm scrolledForm = managedForm.getForm();
-		scrolledForm.setText("");
+		scrolledForm.setText("Request");
 		Form form = scrolledForm.getForm();
 		formToolkit.decorateFormHeading(form);
 
@@ -61,7 +61,8 @@ public class GesilaTestGuardFormPage extends FormPage {
 		methodLabel.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
 
 		Combo combo = new Combo(requestComposite, SWT.BORDER);
-		combo.setItems("Get", "Post");
+		combo.setItems("GET", "POST","PUT","DELETE");
+		combo.select(0);
 		combo.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
 
 		Label addressLabel = formToolkit.createLabel(requestComposite, "Address", SWT.NONE);

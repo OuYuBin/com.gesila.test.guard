@@ -10,6 +10,13 @@
             name="TestGuard Viewer"
             restorable="true">
       </view>
+      <view
+            class="com.gesila.test.guard.ui.views.GsilaTestGuardResponseViewPart"
+            icon="icons/response.png"
+            id="com.gesila.test.guard.ui.views.GsilaTestGuardResponseViewPart"
+            name="TestGuard Response"
+            restorable="true">
+      </view>
    </extension>
 
 </plugin>
