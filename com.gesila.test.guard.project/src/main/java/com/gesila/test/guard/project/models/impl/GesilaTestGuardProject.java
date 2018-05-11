@@ -40,6 +40,27 @@ public class GesilaTestGuardProject extends AbstractGesilaTestGuardProjectElemen
 
 	private void syncElements() {
 		File parentFile = project.getLocation().toFile();
+		
+//		List<IGesilaTestGuardProjectElement> removeElements=new ArrayList<IGesilaTestGuardProjectElement>();
+//		for(File file:parentFile.listFiles()){
+//			boolean removeElement=true;
+//			String name = file.getName();
+//			if (file.isFile() && !name.equals(".project")) {
+//				for (IGesilaTestGuardProjectElement element : elements) {
+//					if (name.equals(element.getName())) {
+//						removeElement = false;
+//						break;
+//					}
+//				}
+//				if (removeElement) {
+//					GesilaTestGuard gesilaTestGuard = new GesilaTestGuard(this);
+//					gesilaTestGuard.setName(name);
+//					removeElements.add(gesilaTestGuard);
+//				}
+//			}
+//		}
+//		elements.removeAll(removeElements);
+		
 		List<IGesilaTestGuardProjectElement> addElements = new ArrayList<IGesilaTestGuardProjectElement>();
 		for (File file : parentFile.listFiles()) {
 			boolean addElement = true;

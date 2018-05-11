@@ -12,10 +12,16 @@ import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.ide.undo.CreateFileOperation;
 import org.eclipse.ui.ide.undo.WorkspaceUndoUtil;
+import org.eclipse.ui.internal.ide.DialogUtil;
 import org.eclipse.ui.internal.ide.IDEWorkbenchMessages;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
+import org.eclipse.ui.internal.wizards.newresource.ResourceMessages;
 
 import com.gesila.test.guard.navigator.ui.wizards.models.GesilaTestGuardRequest;
 import com.gesila.test.guard.navigator.ui.wizards.pages.GesilaTestGuardNewRequestWizardPage;
@@ -40,7 +46,8 @@ public class GesilaTestGuardNewRequestWizard extends Wizard implements IWizard {
 
 	@Override
 	public void addPages() {
-		gesilaTestGuardNewRequestWizardPage = new GesilaTestGuardNewRequestWizardPage("newRequestWizardPage",selection);
+		gesilaTestGuardNewRequestWizardPage = new GesilaTestGuardNewRequestWizardPage("newRequestWizardPage",
+				selection);
 		addPage(gesilaTestGuardNewRequestWizardPage);
 	}
 
@@ -52,8 +59,21 @@ public class GesilaTestGuardNewRequestWizard extends Wizard implements IWizard {
 
 	@Override
 	public boolean performFinish() {
-		IFile file=gesilaTestGuardNewRequestWizardPage.createNewRequest();
-		
+		IFile file = gesilaTestGuardNewRequestWizardPage.createNewRequest();
+
+		IWorkbenchWindow workbenchWindow = getWorkbench().getActiveWorkbenchWindow();
+		try {
+			if (workbenchWindow != null) {
+				IWorkbenchPage page = workbenchWindow.getActivePage();
+				if (page != null) {
+					IDE.openEditor(page, file, true);
+				}
+			}
+		} catch (PartInitException e) {
+			DialogUtil.openError(workbenchWindow.getShell(), ResourceMessages.FileResource_errorMessage, e.getMessage(),
+					e);
+		}
+
 		return true;
 	}
 
@@ -63,5 +83,9 @@ public class GesilaTestGuardNewRequestWizard extends Wizard implements IWizard {
 
 	public void setGesilaTestGuardRequest(GesilaTestGuardRequest gesilaTestGuardRequest) {
 		this.gesilaTestGuardRequest = gesilaTestGuardRequest;
+	}
+
+	public IWorkbench getWorkbench() {
+		return workbench;
 	}
 }

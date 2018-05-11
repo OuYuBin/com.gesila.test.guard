@@ -32,6 +32,9 @@
             <contentExtension
                   pattern="com.gesila.test.guard.navigator.ui.views.providers.GesilaTestGuardCommonActionProvider">
             </contentExtension>
+            <actionExtension
+                  pattern="com.gesila.test.guard.navigator.ui.views.providers.GesilaTestGuardOpenActionProvider">
+            </actionExtension>
          </includes>
       </viewerActionBinding>
       <viewerContentBinding
@@ -88,6 +91,15 @@
                wizardId="com.gesila.test.guard.navigator.ui.wizards.GesilaTestGuardNewProjectWizard">
             <enablement></enablement>
          </commonWizard>
+         <actionProvider
+               class="com.gesila.test.guard.navigator.ui.views.providers.GesilaTestGuardOpenActionProvider"
+               id="com.gesila.test.guard.navigator.ui.views.providers.GesilaTestGuardOpenActionProvider">
+            <enablement>
+               <instanceof
+                     value="com.gesila.test.guard.project.models.impl.GesilaTestGuard">
+               </instanceof>
+            </enablement>
+         </actionProvider>
       </navigatorContent>
    </extension>
    <extension

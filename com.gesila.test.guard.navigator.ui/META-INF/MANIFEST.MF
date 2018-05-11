@@ -12,6 +12,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.resources,
  com.gesila.test.guard.project;bundle-version="1.0.0",
  org.eclipse.ui.navigator.resources,
- org.eclipse.ui.forms
+ org.eclipse.ui.forms,
+ org.eclipse.ui.workbench,
+ org.eclipse.core.filesystem
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy

@@ -25,6 +25,11 @@ public abstract class AbstractGesilaTestGuardProjectElement implements IGesilaTe
 		Object object=null;
 		if(this instanceof IGesilaTestGuardProject){
 			object=((IGesilaTestGuardProject)this).getProject().getFullPath();
+		}else if(this instanceof IGesilaTestGuardProjectElement){
+			object=((IGesilaTestGuardProjectElement)this).getParent().getAdapter(IPath.class);
+			if(object!=null){
+				object=((IPath)object).append(getName());
+			}
 		}
 		return object;
 	}

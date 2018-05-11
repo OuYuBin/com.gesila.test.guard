@@ -33,4 +33,11 @@ public class GesilaTestGuard extends GesilaTestGuardProjectElementImpl {
 		this.url = url;
 	}
 
+	@Override
+	public <T> T getAdapter(Class<T> adapter) {
+		return super.getAdapter(adapter);
+	}
+	
+	
+
 }
