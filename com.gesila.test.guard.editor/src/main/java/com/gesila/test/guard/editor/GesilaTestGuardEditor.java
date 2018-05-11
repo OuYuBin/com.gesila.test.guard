@@ -2,6 +2,7 @@ package com.gesila.test.guard.editor;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.EventObject;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -12,6 +13,11 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.command.BasicCommandStack;
+import org.eclipse.emf.common.command.CommandStack;
+import org.eclipse.emf.common.command.CommandStackListener;
+import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
+import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -30,8 +36,15 @@ import org.eclipse.ui.part.EditorPart;
 
 import com.gesila.test.guard.editor.pages.GesilaTestGuardFormPage;
 
+/**
+ * d
+ * @author robin
+ *
+ */
 public class GesilaTestGuardEditor extends FormEditor {
 
+	EditingDomain editingDomain;
+	
 	@Override
 	protected void createPages() {
 		super.createPages();
@@ -60,6 +73,20 @@ public class GesilaTestGuardEditor extends FormEditor {
 		// TODO Auto-generated method stub
 		setSite(site);
 		setInput(input);
+		initializedEditingDomain();
+	}
+
+	private void initializedEditingDomain() {
+		CommandStack commandStack=new BasicCommandStack();
+		commandStack.addCommandStackListener(new CommandStackListener() {
+			
+			@Override
+			public void commandStackChanged(EventObject event) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		editingDomain=new AdapterFactoryEditingDomain(null, commandStack);
 	}
 
 	@Override
@@ -150,12 +177,20 @@ public class GesilaTestGuardEditor extends FormEditor {
 
 	@Override
 	protected void addPages() {
+		
+		createModel();
+		
 		GesilaTestGuardFormPage gesilaTestGuardFormPage=new GesilaTestGuardFormPage(this, "GesilaTestGuardPage", "Gesila TestGuard");
 		try {
 			addPage(gesilaTestGuardFormPage);
 		} catch (PartInitException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private void createModel() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
