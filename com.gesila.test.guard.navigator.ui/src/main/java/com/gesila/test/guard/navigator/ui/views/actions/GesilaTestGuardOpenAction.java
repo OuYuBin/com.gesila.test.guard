@@ -39,7 +39,7 @@ public class GesilaTestGuardOpenAction extends SelectionListenerAction {
 				IPath path = ((GesilaTestGuard) object).getAdapter(IPath.class);
 				IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
 				if (file.exists()) {
-					IFileStore fileStore = EFS.getLocalFileSystem().getStore(path);
+					IFileStore fileStore = EFS.getLocalFileSystem().getStore(file.getLocationURI());
 					IEditorInput editorInput = new FileStoreEditorInput(fileStore);
 					workbenchWindow.getActivePage().openEditor(editorInput,
 							"com.gesila.test.guard.editor.GesilaTestGuardEditor");

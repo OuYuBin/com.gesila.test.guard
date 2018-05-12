@@ -48,8 +48,6 @@ public class GesilaTestGuardCommonNavigator extends CommonNavigator {
 		body.setLayout(new FillLayout());
 		
 		super.createPartControl(body);
-		
-		//super.createPartControl(parent);
 	}
 
 	@Override
