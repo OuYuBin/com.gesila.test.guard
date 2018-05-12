@@ -100,6 +100,7 @@ public class GesilaTestGuardFormPage extends FormPage {
 
 		Text urlText = formToolkit.createText(requestComposite, null, SWT.BORDER);
 		urlText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		urlText.setText(testGuard.getUrl());
 
 		Button button = formToolkit.createButton(requestComposite, "Send", SWT.BUTTON1);
 		button.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));
