@@ -30,7 +30,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.DrillDownAdapter;
 import org.eclipse.ui.part.ViewPart;
 
-import com.gesila.test.guard.editor.input.GesilaTestGuardEditorInput;
+//import com.gesila.test.guard.editor.input.GesilaTestGuardEditorInput;
 import com.gesila.test.guard.ui.models.GesilaTestGuardEntry;
 import com.gesila.test.guard.ui.models.GesilaTestGuardGroup;
 import com.gesila.test.guard.ui.models.GesilaTestGuardRoot;
@@ -262,12 +262,12 @@ public class ServerView extends ViewPart {
 			@Override
 			public void doubleClick(DoubleClickEvent event) {
 				ISelection selection=event.getSelection();
-				GesilaTestGuardEditorInput gesilaTestGuardEditorInput=new GesilaTestGuardEditorInput();
-				try {
-					ServerView.this.getViewSite().getPage().openEditor(gesilaTestGuardEditorInput, "com.gesila.test.guard.editor.GesilaTestGuardEditor");
-				} catch (PartInitException e) {
-					e.printStackTrace();
-				}
+//				GesilaTestGuardEditorInput gesilaTestGuardEditorInput=new GesilaTestGuardEditorInput();
+//				try {
+//					ServerView.this.getViewSite().getPage().openEditor(gesilaTestGuardEditorInput, "com.gesila.test.guard.editor.GesilaTestGuardEditor");
+//				} catch (PartInitException e) {
+//					e.printStackTrace();
+//				}
 			}
 		});
 		// makeActions();

@@ -99,7 +99,7 @@ public class GesilaTestGuardNewRequestWizardPage extends WizardPage {
 	public IFile createNewRequest() {
 		String name = gesilaTestGuardRequest.getName();
 		Object object = ((IStructuredSelection) selection).getFirstElement();
-		IPath path = ((IAdaptable) object).getAdapter(IPath.class).append(name);
+		IPath path = ((IAdaptable) object).getAdapter(IPath.class).append(name+".gtg");
 		IFile newFileHandle = createFileHandle(path);
 		// final InputStream initialContents = getInitialContents(newFileHandle);
 

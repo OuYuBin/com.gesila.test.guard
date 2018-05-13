@@ -57,7 +57,8 @@ public class GesilaTestGuardTreeLabelProvider implements ILabelProvider {
 		if (GesilaTestGuardProject.class.isInstance(element)) {
 			return ((GesilaTestGuardProject) element).getName();
 		} else if (GesilaTestGuard.class.isInstance(element)) {
-			return ((GesilaTestGuard) element).getName();
+			int i = ((GesilaTestGuard) element).getName().lastIndexOf('.');
+			return ((GesilaTestGuard) element).getName().substring(0, i);
 		}
 		return element.toString();
 	}

@@ -1,8 +1,18 @@
 package com.gesila.test.guard.editor.pages;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.HttpClients;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.viewers.CellEditor;
@@ -12,6 +22,8 @@ import org.eclipse.jface.viewers.TreeViewerColumn;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -23,6 +35,8 @@ import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
+import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.FormPage;
@@ -40,6 +54,7 @@ import com.gesila.test.guard.json.model.GesilaJSONObject;
 import com.gesila.test.guard.json.utils.GesilaJSONUtils;
 import com.gesila.test.guard.model.testGuard.TestGuard;
 import com.gesila.test.guard.model.testGuard.TestGuardUnit;
+import com.gesila.test.guard.ui.views.IGesilaTestGuardViewPart;
 
 /**
  * 
@@ -100,9 +115,50 @@ public class GesilaTestGuardFormPage extends FormPage {
 
 		Text urlText = formToolkit.createText(requestComposite, null, SWT.BORDER);
 		urlText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		urlText.setText(testGuard.getUrl());
 
 		Button button = formToolkit.createButton(requestComposite, "Send", SWT.BUTTON1);
 		button.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));
+		
+		button.addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				 try {
+				 HttpClient httpClient = HttpClients.createDefault();
+				 String url = urlText.getText();
+				 HttpPost httpPost = new HttpPost(url);
+				 httpPost.setEntity(new StringEntity("{\"_method\":\"GET\"}"));
+				 HttpResponse response = httpClient.execute(httpPost);
+				 HttpEntity entity = response.getEntity();
+				 ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+				 byte[] data = new byte[4096];
+				 int count = -1;
+				 while ((count = entity.getContent().read(data, 0, 4096)) != -1)
+				 outStream.write(data, 0, count);
+				
+				 data = null;
+				 IViewPart viewPart=PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView("com.gesila.test.guard.ui.views.GsilaTestGuardResponseViewPart");
+				 if(viewPart instanceof IGesilaTestGuardViewPart) {
+					 ((IGesilaTestGuardViewPart)viewPart).refresh();
+				 }
+				 
+				 //responseText.setText(new String(outStream.toByteArray(), "UTF-8"));
+				 } catch (ClientProtocolException e1) {
+				 e1.printStackTrace();
+				 } catch (IOException e1) {
+				 e1.printStackTrace();
+				 }
+				
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
 
 		section.setClient(requestComposite);
 		

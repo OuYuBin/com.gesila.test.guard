@@ -6,6 +6,7 @@
       <editor
             class="com.gesila.test.guard.editor.GesilaTestGuardEditor"
             default="false"
+            extensions="gtg"
             icon="icons/testguard.gif"
             id="com.gesila.test.guard.editor.GesilaTestGuardEditor"
             name="TestGuard">

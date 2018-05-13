@@ -3,6 +3,7 @@ package com.gesila.test.guard.project.models.impl;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.eclipse.core.resources.IProject;
 
@@ -40,42 +41,47 @@ public class GesilaTestGuardProject extends AbstractGesilaTestGuardProjectElemen
 
 	private void syncElements() {
 		File parentFile = project.getLocation().toFile();
-		
-//		List<IGesilaTestGuardProjectElement> removeElements=new ArrayList<IGesilaTestGuardProjectElement>();
-//		for(File file:parentFile.listFiles()){
-//			boolean removeElement=true;
-//			String name = file.getName();
-//			if (file.isFile() && !name.equals(".project")) {
-//				for (IGesilaTestGuardProjectElement element : elements) {
-//					if (name.equals(element.getName())) {
-//						removeElement = false;
-//						break;
-//					}
-//				}
-//				if (removeElement) {
-//					GesilaTestGuard gesilaTestGuard = new GesilaTestGuard(this);
-//					gesilaTestGuard.setName(name);
-//					removeElements.add(gesilaTestGuard);
-//				}
-//			}
-//		}
-//		elements.removeAll(removeElements);
-		
+
+		// List<IGesilaTestGuardProjectElement> removeElements=new
+		// ArrayList<IGesilaTestGuardProjectElement>();
+		// for(File file:parentFile.listFiles()){
+		// boolean removeElement=true;
+		// String name = file.getName();
+		// if (file.isFile() && !name.equals(".project")) {
+		// for (IGesilaTestGuardProjectElement element : elements) {
+		// if (name.equals(element.getName())) {
+		// removeElement = false;
+		// break;
+		// }
+		// }
+		// if (removeElement) {
+		// GesilaTestGuard gesilaTestGuard = new GesilaTestGuard(this);
+		// gesilaTestGuard.setName(name);
+		// removeElements.add(gesilaTestGuard);
+		// }
+		// }
+		// }
+		// elements.removeAll(removeElements);
+
 		List<IGesilaTestGuardProjectElement> addElements = new ArrayList<IGesilaTestGuardProjectElement>();
 		for (File file : parentFile.listFiles()) {
 			boolean addElement = true;
-			String name = file.getName();
-			if (file.isFile() && !name.equals(".project")) {
-				for (IGesilaTestGuardProjectElement element : elements) {
-					if (name.equals(element.getName())) {
-						addElement = false;
-						break;
+			String fileName = file.getName();
+			int i = fileName.lastIndexOf('.');
+			if (i > 0 && i < fileName.length() - 1) {
+				String desiredExtension = fileName.substring(i + 1).toLowerCase(Locale.ENGLISH);
+				if (file.isFile() && desiredExtension.equals("gtg")) {
+					for (IGesilaTestGuardProjectElement element : elements) {
+						if (fileName.equals(element.getName())) {
+							addElement = false;
+							break;
+						}
 					}
-				}
-				if (addElement) {
-					GesilaTestGuard gesilaTestGuard = new GesilaTestGuard(this);
-					gesilaTestGuard.setName(name);
-					addElements.add(gesilaTestGuard);
+					if (addElement) {
+						GesilaTestGuard gesilaTestGuard = new GesilaTestGuard(this);
+						gesilaTestGuard.setName(fileName);
+						addElements.add(gesilaTestGuard);
+					}
 				}
 			}
 		}
@@ -94,11 +100,15 @@ public class GesilaTestGuardProject extends AbstractGesilaTestGuardProjectElemen
 	private void createElements() {
 		File parentFile = project.getLocation().toFile();
 		for (File file : parentFile.listFiles()) {
-			String name = file.getName();
-			if (file.isFile() && !name.equals(".project")) {
-				GesilaTestGuard gesilaTestGuard = new GesilaTestGuard(this);
-				gesilaTestGuard.setName(name);
-				elements.add(gesilaTestGuard);
+			String fileName = file.getName();
+			int i = fileName.lastIndexOf('.');
+			if (i > 0 && i < fileName.length() - 1) {
+				String desiredExtension = fileName.substring(i + 1).toLowerCase(Locale.ENGLISH);
+				if (file.isFile() && desiredExtension.equals("gtg")) {
+					GesilaTestGuard gesilaTestGuard = new GesilaTestGuard(this);
+					gesilaTestGuard.setName(fileName);
+					elements.add(gesilaTestGuard);
+				}
 			}
 		}
 
