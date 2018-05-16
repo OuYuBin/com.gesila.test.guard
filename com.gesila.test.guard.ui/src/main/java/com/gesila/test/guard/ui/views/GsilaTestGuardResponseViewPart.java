@@ -60,7 +60,7 @@ public class GsilaTestGuardResponseViewPart extends ViewPart implements IGesilaT
 //		gridData.heightHint = SWT.DEFAULT;
 //		text.setLayoutData(gridData);
 
-		TreeViewer treeViewer = new TreeViewer(body, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION);
+		TreeViewer treeViewer = new TreeViewer(body, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION|SWT.V_SCROLL);
 		Tree tree = treeViewer.getTree();
 		tree.setHeaderVisible(true);
 		tree.setLinesVisible(true);
