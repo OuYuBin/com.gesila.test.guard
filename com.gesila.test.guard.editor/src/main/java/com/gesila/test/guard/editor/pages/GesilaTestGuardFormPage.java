@@ -194,6 +194,8 @@ public class GesilaTestGuardFormPage extends FormPage {
 		createTextTab(tabFolder);
 
 		createJSONTab(tabFolder);
+		
+		createParamstab(tabFolder);
 		tabFolder.setSelection(0);
 
 		// Text bodyText = new Text(requestBodyComposite, SWT.BORDER | SWT.WRAP |
@@ -205,6 +207,12 @@ public class GesilaTestGuardFormPage extends FormPage {
 
 		bodySection.setClient(requestBodyComposite);
 
+	}
+
+	private void createParamstab(CTabFolder tabFolder) {
+		CTabItem tabItem = new CTabItem(tabFolder, SWT.BORDER);
+		tabItem.setImage(Activator.getDefault().getImageRegistry().get("params"));
+		tabItem.setText("Params");
 	}
 
 	private void createJSONTab(CTabFolder tabFolder) {

@@ -33,7 +33,6 @@ public class GesilaTestGuardOpenAction extends SelectionListenerAction {
 		super.run();
 		try {
 			IStructuredSelection selection = getStructuredSelection();
-			System.out.println("+++++++++++++++++++"+selection);
 			Object object = selection.getFirstElement();
 			if (object instanceof GesilaTestGuard) {
 				IPath path = ((GesilaTestGuard) object).getAdapter(IPath.class);

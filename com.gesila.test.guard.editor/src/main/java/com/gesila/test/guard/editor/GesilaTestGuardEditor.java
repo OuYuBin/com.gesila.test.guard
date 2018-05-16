@@ -54,9 +54,10 @@ public class GesilaTestGuardEditor extends FormEditor {
 
 	@Override
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
-		// TODO Auto-generated method stub
+		super.init(site, input);
 		setSite(site);
 		setInput(input);
+		setPartName(input.getName());
 		initializedEditingDomain();
 	}
 
@@ -86,6 +87,8 @@ public class GesilaTestGuardEditor extends FormEditor {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	
 
 	// @Override
 	// public void createPartControl(Composite parent) {
@@ -157,6 +160,11 @@ public class GesilaTestGuardEditor extends FormEditor {
 	// });
 	//
 	// }
+
+	@Override
+	protected void setPartName(String partName) {
+		super.setPartName(partName);
+	}
 
 	@Override
 	public void setFocus() {
