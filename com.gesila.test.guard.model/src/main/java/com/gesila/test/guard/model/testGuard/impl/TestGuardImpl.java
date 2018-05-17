@@ -2,11 +2,14 @@
  */
 package com.gesila.test.guard.model.testGuard.impl;
 
+import com.gesila.test.guard.model.testGuard.Headers;
 import com.gesila.test.guard.model.testGuard.RequestMethod;
 import com.gesila.test.guard.model.testGuard.TestGuard;
 import com.gesila.test.guard.model.testGuard.TestGuardPackage;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
@@ -22,6 +25,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link com.gesila.test.guard.model.testGuard.impl.TestGuardImpl#getUrl <em>Url</em>}</li>
  *   <li>{@link com.gesila.test.guard.model.testGuard.impl.TestGuardImpl#getRequestBody <em>Request Body</em>}</li>
  *   <li>{@link com.gesila.test.guard.model.testGuard.impl.TestGuardImpl#getRequestMethod <em>Request Method</em>}</li>
+ *   <li>{@link com.gesila.test.guard.model.testGuard.impl.TestGuardImpl#getHeaders <em>Headers</em>}</li>
  * </ul>
  *
  * @generated
@@ -99,6 +103,15 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 	 * @ordered
 	 */
 	protected RequestMethod requestMethod = REQUEST_METHOD_EDEFAULT;
+	/**
+	 * The cached value of the '{@link #getHeaders() <em>Headers</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getHeaders()
+	 * @generated
+	 * @ordered
+	 */
+	protected Headers headers;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -216,6 +229,65 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 	 * @generated
 	 */
 	@Override
+	public Headers getHeaders() {
+		return headers;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetHeaders(Headers newHeaders, NotificationChain msgs) {
+		Headers oldHeaders = headers;
+		headers = newHeaders;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TestGuardPackage.TEST_GUARD__HEADERS, oldHeaders, newHeaders);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setHeaders(Headers newHeaders) {
+		if (newHeaders != headers) {
+			NotificationChain msgs = null;
+			if (headers != null)
+				msgs = ((InternalEObject)headers).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TestGuardPackage.TEST_GUARD__HEADERS, null, msgs);
+			if (newHeaders != null)
+				msgs = ((InternalEObject)newHeaders).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TestGuardPackage.TEST_GUARD__HEADERS, null, msgs);
+			msgs = basicSetHeaders(newHeaders, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TestGuardPackage.TEST_GUARD__HEADERS, newHeaders, newHeaders));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case TestGuardPackage.TEST_GUARD__HEADERS:
+				return basicSetHeaders(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case TestGuardPackage.TEST_GUARD__NAME:
@@ -226,6 +298,8 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 				return getRequestBody();
 			case TestGuardPackage.TEST_GUARD__REQUEST_METHOD:
 				return getRequestMethod();
+			case TestGuardPackage.TEST_GUARD__HEADERS:
+				return getHeaders();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -251,6 +325,9 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 			case TestGuardPackage.TEST_GUARD__REQUEST_METHOD:
 				setRequestMethod((RequestMethod)newValue);
 				return;
+			case TestGuardPackage.TEST_GUARD__HEADERS:
+				setHeaders((Headers)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -275,6 +352,9 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 			case TestGuardPackage.TEST_GUARD__REQUEST_METHOD:
 				setRequestMethod(REQUEST_METHOD_EDEFAULT);
 				return;
+			case TestGuardPackage.TEST_GUARD__HEADERS:
+				setHeaders((Headers)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -295,6 +375,8 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 				return REQUEST_BODY_EDEFAULT == null ? requestBody != null : !REQUEST_BODY_EDEFAULT.equals(requestBody);
 			case TestGuardPackage.TEST_GUARD__REQUEST_METHOD:
 				return requestMethod != REQUEST_METHOD_EDEFAULT;
+			case TestGuardPackage.TEST_GUARD__HEADERS:
+				return headers != null;
 		}
 		return super.eIsSet(featureID);
 	}

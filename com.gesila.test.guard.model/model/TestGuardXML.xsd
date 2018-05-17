@@ -9,6 +9,9 @@
     </xsd:restriction>
   </xsd:simpleType>
   <xsd:complexType name="TestGuard">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Headers" type="testGuard:Headers"/>
+    </xsd:sequence>
     <xsd:attribute name="name" type="xsd:string"/>
     <xsd:attribute name="url" type="xsd:string"/>
     <xsd:attribute name="requestBody" type="xsd:string"/>
@@ -29,4 +32,15 @@
     <xsd:attribute name="requestMethod" type="testGuard:RequestMethod"/>
   </xsd:complexType>
   <xsd:element name="TestGuardUnit" type="testGuard:TestGuardUnit"/>
+  <xsd:complexType name="Headers">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Header" type="testGuard:Header"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="Headers" type="testGuard:Headers"/>
+  <xsd:complexType name="Header">
+    <xsd:attribute name="name" type="xsd:string"/>
+    <xsd:attribute name="value" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:element name="Header" type="testGuard:Header"/>
 </xsd:schema>

@@ -25,7 +25,6 @@ public class GesilaTestGuardProjectElementImpl extends AbstractGesilaTestGuardPr
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

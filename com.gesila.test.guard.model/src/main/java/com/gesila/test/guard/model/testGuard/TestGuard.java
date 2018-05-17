@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link com.gesila.test.guard.model.testGuard.TestGuard#getUrl <em>Url</em>}</li>
  *   <li>{@link com.gesila.test.guard.model.testGuard.TestGuard#getRequestBody <em>Request Body</em>}</li>
  *   <li>{@link com.gesila.test.guard.model.testGuard.TestGuard#getRequestMethod <em>Request Method</em>}</li>
+ *   <li>{@link com.gesila.test.guard.model.testGuard.TestGuard#getHeaders <em>Headers</em>}</li>
  * </ul>
  *
  * @see com.gesila.test.guard.model.testGuard.TestGuardPackage#getTestGuard()
@@ -130,5 +131,31 @@ public interface TestGuard extends EObject {
 	 * @generated
 	 */
 	void setRequestMethod(RequestMethod value);
+
+	/**
+	 * Returns the value of the '<em><b>Headers</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Headers</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Headers</em>' containment reference.
+	 * @see #setHeaders(Headers)
+	 * @see com.gesila.test.guard.model.testGuard.TestGuardPackage#getTestGuard_Headers()
+	 * @model containment="true"
+	 * @generated
+	 */
+	Headers getHeaders();
+
+	/**
+	 * Sets the value of the '{@link com.gesila.test.guard.model.testGuard.TestGuard#getHeaders <em>Headers</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Headers</em>' containment reference.
+	 * @see #getHeaders()
+	 * @generated
+	 */
+	void setHeaders(Headers value);
 
 } // TestGuard

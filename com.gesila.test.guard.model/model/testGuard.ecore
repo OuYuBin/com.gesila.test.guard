@@ -6,6 +6,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="url" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="requestBody" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="requestMethod" eType="#//RequestMethod"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Headers" eType="#//Headers"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TestGuardModule">
     <eStructuralFeatures xsi:type="ecore:EReference" name="Unit" upperBound="-1" eType="#//TestGuardUnit"
@@ -23,5 +25,13 @@
     <eLiterals name="PUT" value="1" literal="PUT"/>
     <eLiterals name="GET" value="2" literal="GET"/>
     <eLiterals name="DELETE" value="3" literal="DELETE"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Headers">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Header" upperBound="-1"
+        eType="#//Header" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Header">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
 </ecore:EPackage>

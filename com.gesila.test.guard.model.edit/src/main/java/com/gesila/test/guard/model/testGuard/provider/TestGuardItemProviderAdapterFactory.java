@@ -153,6 +153,52 @@ public class TestGuardItemProviderAdapterFactory extends TestGuardAdapterFactory
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link com.gesila.test.guard.model.testGuard.Headers} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected HeadersItemProvider headersItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link com.gesila.test.guard.model.testGuard.Headers}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createHeadersAdapter() {
+		if (headersItemProvider == null) {
+			headersItemProvider = new HeadersItemProvider(this);
+		}
+
+		return headersItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link com.gesila.test.guard.model.testGuard.Header} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected HeaderItemProvider headerItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link com.gesila.test.guard.model.testGuard.Header}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createHeaderAdapter() {
+		if (headerItemProvider == null) {
+			headerItemProvider = new HeaderItemProvider(this);
+		}
+
+		return headerItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -254,6 +300,8 @@ public class TestGuardItemProviderAdapterFactory extends TestGuardAdapterFactory
 		if (testGuardItemProvider != null) testGuardItemProvider.dispose();
 		if (testGuardModuleItemProvider != null) testGuardModuleItemProvider.dispose();
 		if (testGuardUnitItemProvider != null) testGuardUnitItemProvider.dispose();
+		if (headersItemProvider != null) headersItemProvider.dispose();
+		if (headerItemProvider != null) headerItemProvider.dispose();
 	}
 
 }

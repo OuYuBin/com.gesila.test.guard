@@ -104,13 +104,22 @@ public interface TestGuardPackage extends EPackage {
 	int TEST_GUARD__REQUEST_METHOD = 3;
 
 	/**
+	 * The feature id for the '<em><b>Headers</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEST_GUARD__HEADERS = 4;
+
+	/**
 	 * The number of structural features of the '<em>Test Guard</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TEST_GUARD_FEATURE_COUNT = 4;
+	int TEST_GUARD_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Test Guard</em>' class.
@@ -232,6 +241,89 @@ public interface TestGuardPackage extends EPackage {
 	int TEST_GUARD_UNIT_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link com.gesila.test.guard.model.testGuard.impl.HeadersImpl <em>Headers</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.gesila.test.guard.model.testGuard.impl.HeadersImpl
+	 * @see com.gesila.test.guard.model.testGuard.impl.TestGuardPackageImpl#getHeaders()
+	 * @generated
+	 */
+	int HEADERS = 3;
+
+	/**
+	 * The feature id for the '<em><b>Header</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HEADERS__HEADER = 0;
+
+	/**
+	 * The number of structural features of the '<em>Headers</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HEADERS_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Headers</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HEADERS_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link com.gesila.test.guard.model.testGuard.impl.HeaderImpl <em>Header</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.gesila.test.guard.model.testGuard.impl.HeaderImpl
+	 * @see com.gesila.test.guard.model.testGuard.impl.TestGuardPackageImpl#getHeader()
+	 * @generated
+	 */
+	int HEADER = 4;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HEADER__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HEADER__VALUE = 1;
+
+	/**
+	 * The number of structural features of the '<em>Header</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HEADER_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Header</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HEADER_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link com.gesila.test.guard.model.testGuard.RequestMethod <em>Request Method</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -239,7 +331,7 @@ public interface TestGuardPackage extends EPackage {
 	 * @see com.gesila.test.guard.model.testGuard.impl.TestGuardPackageImpl#getRequestMethod()
 	 * @generated
 	 */
-	int REQUEST_METHOD = 3;
+	int REQUEST_METHOD = 5;
 
 	/**
 	 * Returns the meta object for class '{@link com.gesila.test.guard.model.testGuard.TestGuard <em>Test Guard</em>}'.
@@ -294,6 +386,17 @@ public interface TestGuardPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getTestGuard_RequestMethod();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link com.gesila.test.guard.model.testGuard.TestGuard#getHeaders <em>Headers</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Headers</em>'.
+	 * @see com.gesila.test.guard.model.testGuard.TestGuard#getHeaders()
+	 * @see #getTestGuard()
+	 * @generated
+	 */
+	EReference getTestGuard_Headers();
 
 	/**
 	 * Returns the meta object for class '{@link com.gesila.test.guard.model.testGuard.TestGuardModule <em>Module</em>}'.
@@ -382,6 +485,59 @@ public interface TestGuardPackage extends EPackage {
 	EAttribute getTestGuardUnit_RequestMethod();
 
 	/**
+	 * Returns the meta object for class '{@link com.gesila.test.guard.model.testGuard.Headers <em>Headers</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Headers</em>'.
+	 * @see com.gesila.test.guard.model.testGuard.Headers
+	 * @generated
+	 */
+	EClass getHeaders();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link com.gesila.test.guard.model.testGuard.Headers#getHeader <em>Header</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Header</em>'.
+	 * @see com.gesila.test.guard.model.testGuard.Headers#getHeader()
+	 * @see #getHeaders()
+	 * @generated
+	 */
+	EReference getHeaders_Header();
+
+	/**
+	 * Returns the meta object for class '{@link com.gesila.test.guard.model.testGuard.Header <em>Header</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Header</em>'.
+	 * @see com.gesila.test.guard.model.testGuard.Header
+	 * @generated
+	 */
+	EClass getHeader();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.gesila.test.guard.model.testGuard.Header#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see com.gesila.test.guard.model.testGuard.Header#getName()
+	 * @see #getHeader()
+	 * @generated
+	 */
+	EAttribute getHeader_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.gesila.test.guard.model.testGuard.Header#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see com.gesila.test.guard.model.testGuard.Header#getValue()
+	 * @see #getHeader()
+	 * @generated
+	 */
+	EAttribute getHeader_Value();
+
+	/**
 	 * Returns the meta object for enum '{@link com.gesila.test.guard.model.testGuard.RequestMethod <em>Request Method</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -457,6 +613,14 @@ public interface TestGuardPackage extends EPackage {
 		EAttribute TEST_GUARD__REQUEST_METHOD = eINSTANCE.getTestGuard_RequestMethod();
 
 		/**
+		 * The meta object literal for the '<em><b>Headers</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TEST_GUARD__HEADERS = eINSTANCE.getTestGuard_Headers();
+
+		/**
 		 * The meta object literal for the '{@link com.gesila.test.guard.model.testGuard.impl.TestGuardModuleImpl <em>Module</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -523,6 +687,50 @@ public interface TestGuardPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute TEST_GUARD_UNIT__REQUEST_METHOD = eINSTANCE.getTestGuardUnit_RequestMethod();
+
+		/**
+		 * The meta object literal for the '{@link com.gesila.test.guard.model.testGuard.impl.HeadersImpl <em>Headers</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.gesila.test.guard.model.testGuard.impl.HeadersImpl
+		 * @see com.gesila.test.guard.model.testGuard.impl.TestGuardPackageImpl#getHeaders()
+		 * @generated
+		 */
+		EClass HEADERS = eINSTANCE.getHeaders();
+
+		/**
+		 * The meta object literal for the '<em><b>Header</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference HEADERS__HEADER = eINSTANCE.getHeaders_Header();
+
+		/**
+		 * The meta object literal for the '{@link com.gesila.test.guard.model.testGuard.impl.HeaderImpl <em>Header</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.gesila.test.guard.model.testGuard.impl.HeaderImpl
+		 * @see com.gesila.test.guard.model.testGuard.impl.TestGuardPackageImpl#getHeader()
+		 * @generated
+		 */
+		EClass HEADER = eINSTANCE.getHeader();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute HEADER__NAME = eINSTANCE.getHeader_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute HEADER__VALUE = eINSTANCE.getHeader_Value();
 
 		/**
 		 * The meta object literal for the '{@link com.gesila.test.guard.model.testGuard.RequestMethod <em>Request Method</em>}' enum.

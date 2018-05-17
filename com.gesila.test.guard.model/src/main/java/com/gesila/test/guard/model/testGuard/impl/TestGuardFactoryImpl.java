@@ -60,6 +60,8 @@ public class TestGuardFactoryImpl extends EFactoryImpl implements TestGuardFacto
 			case TestGuardPackage.TEST_GUARD: return createTestGuard();
 			case TestGuardPackage.TEST_GUARD_MODULE: return createTestGuardModule();
 			case TestGuardPackage.TEST_GUARD_UNIT: return createTestGuardUnit();
+			case TestGuardPackage.HEADERS: return createHeaders();
+			case TestGuardPackage.HEADER: return createHeader();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -126,6 +128,28 @@ public class TestGuardFactoryImpl extends EFactoryImpl implements TestGuardFacto
 	public TestGuardUnit createTestGuardUnit() {
 		TestGuardUnitImpl testGuardUnit = new TestGuardUnitImpl();
 		return testGuardUnit;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Headers createHeaders() {
+		HeadersImpl headers = new HeadersImpl();
+		return headers;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Header createHeader() {
+		HeaderImpl header = new HeaderImpl();
+		return header;
 	}
 
 	/**

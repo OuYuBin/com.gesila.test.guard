@@ -80,6 +80,14 @@ public class TestGuardAdapterFactory extends AdapterFactoryImpl {
 				return createTestGuardUnitAdapter();
 			}
 			@Override
+			public Adapter caseHeaders(Headers object) {
+				return createHeadersAdapter();
+			}
+			@Override
+			public Adapter caseHeader(Header object) {
+				return createHeaderAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -138,6 +146,34 @@ public class TestGuardAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createTestGuardUnitAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link com.gesila.test.guard.model.testGuard.Headers <em>Headers</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see com.gesila.test.guard.model.testGuard.Headers
+	 * @generated
+	 */
+	public Adapter createHeadersAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link com.gesila.test.guard.model.testGuard.Header <em>Header</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see com.gesila.test.guard.model.testGuard.Header
+	 * @generated
+	 */
+	public Adapter createHeaderAdapter() {
 		return null;
 	}
 

@@ -35,6 +35,8 @@ import org.eclipse.ui.ide.undo.WorkspaceUndoUtil;
 import org.eclipse.ui.internal.ide.IDEWorkbenchMessages;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 
+import com.gesila.test.guard.model.testGuard.Header;
+import com.gesila.test.guard.model.testGuard.Headers;
 import com.gesila.test.guard.model.testGuard.TestGuard;
 import com.gesila.test.guard.model.testGuard.TestGuardFactory;
 import com.gesila.test.guard.navigator.ui.wizards.GesilaTestGuardNewRequestWizard;
@@ -149,6 +151,12 @@ public class GesilaTestGuardNewRequestWizardPage extends WizardPage {
 		TestGuard testGuard = TestGuardFactory.eINSTANCE.createTestGuard();
 		testGuard.setName(gesilaTestGuardRequest.getName());
 		testGuard.setUrl(gesilaTestGuardRequest.getUrl());
+		Headers headers=TestGuardFactory.eINSTANCE.createHeaders();
+		Header header=TestGuardFactory.eINSTANCE.createHeader();
+		header.setName("Content-Type");
+		header.setValue("application/json");
+		headers.getHeader().add(header);
+		testGuard.setHeaders(headers);
 		return testGuard;
 	}
 

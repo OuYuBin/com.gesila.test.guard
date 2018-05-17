@@ -5,8 +5,7 @@ package com.gesila.test.guard.model.testGuard.provider;
 
 import com.gesila.test.guard.model.edit.TestGuardEditPlugin;
 
-import com.gesila.test.guard.model.testGuard.TestGuard;
-import com.gesila.test.guard.model.testGuard.TestGuardFactory;
+import com.gesila.test.guard.model.testGuard.Header;
 import com.gesila.test.guard.model.testGuard.TestGuardPackage;
 
 import java.util.Collection;
@@ -16,7 +15,7 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
-import org.eclipse.emf.ecore.EStructuralFeature;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemColorProvider;
@@ -36,12 +35,12 @@ import org.eclipse.emf.edit.provider.StyledString;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link com.gesila.test.guard.model.testGuard.TestGuard} object.
+ * This is the item provider adapter for a {@link com.gesila.test.guard.model.testGuard.Header} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class TestGuardItemProvider 
+public class HeaderItemProvider 
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -61,7 +60,7 @@ public class TestGuardItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TestGuardItemProvider(AdapterFactory adapterFactory) {
+	public HeaderItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -77,9 +76,7 @@ public class TestGuardItemProvider
 			super.getPropertyDescriptors(object);
 
 			addNamePropertyDescriptor(object);
-			addUrlPropertyDescriptor(object);
-			addRequestBodyPropertyDescriptor(object);
-			addRequestMethodPropertyDescriptor(object);
+			addValuePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -95,9 +92,9 @@ public class TestGuardItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_TestGuard_name_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TestGuard_name_feature", "_UI_TestGuard_type"),
-				 TestGuardPackage.Literals.TEST_GUARD__NAME,
+				 getString("_UI_Header_name_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Header_name_feature", "_UI_Header_type"),
+				 TestGuardPackage.Literals.HEADER__NAME,
 				 true,
 				 false,
 				 false,
@@ -107,99 +104,25 @@ public class TestGuardItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Url feature.
+	 * This adds a property descriptor for the Value feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addUrlPropertyDescriptor(Object object) {
+	protected void addValuePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_TestGuard_url_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TestGuard_url_feature", "_UI_TestGuard_type"),
-				 TestGuardPackage.Literals.TEST_GUARD__URL,
+				 getString("_UI_Header_value_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Header_value_feature", "_UI_Header_type"),
+				 TestGuardPackage.Literals.HEADER__VALUE,
 				 true,
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Request Body feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addRequestBodyPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_TestGuard_requestBody_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TestGuard_requestBody_feature", "_UI_TestGuard_type"),
-				 TestGuardPackage.Literals.TEST_GUARD__REQUEST_BODY,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Request Method feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addRequestMethodPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_TestGuard_requestMethod_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TestGuard_requestMethod_feature", "_UI_TestGuard_type"),
-				 TestGuardPackage.Literals.TEST_GUARD__REQUEST_METHOD,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures.add(TestGuardPackage.Literals.TEST_GUARD__HEADERS);
-		}
-		return childrenFeatures;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EStructuralFeature getChildFeature(Object object, Object child) {
-		// Check the type of the specified child object and return the proper feature to use for
-		// adding (see {@link AddCommand}) it as a child.
-
-		return super.getChildFeature(object, child);
 	}
 
 	/**
@@ -213,14 +136,14 @@ public class TestGuardItemProvider
 	}
 
 	/**
-	 * This returns TestGuard.gif.
+	 * This returns Header.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/TestGuard"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Header"));
 	}
 
 	/**
@@ -242,12 +165,12 @@ public class TestGuardItemProvider
 	 */
 	@Override
 	public Object getStyledText(Object object) {
-		String label = ((TestGuard)object).getName();
+		String label = ((Header)object).getName();
     	StyledString styledLabel = new StyledString();
 		if (label == null || label.length() == 0) {
-			styledLabel.append(getString("_UI_TestGuard_type"), StyledString.Style.QUALIFIER_STYLER); 
+			styledLabel.append(getString("_UI_Header_type"), StyledString.Style.QUALIFIER_STYLER); 
 		} else {
-			styledLabel.append(getString("_UI_TestGuard_type"), StyledString.Style.QUALIFIER_STYLER).append(" " + label);
+			styledLabel.append(getString("_UI_Header_type"), StyledString.Style.QUALIFIER_STYLER).append(" " + label);
 		}
 		return styledLabel;
 	}	
@@ -263,15 +186,10 @@ public class TestGuardItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(TestGuard.class)) {
-			case TestGuardPackage.TEST_GUARD__NAME:
-			case TestGuardPackage.TEST_GUARD__URL:
-			case TestGuardPackage.TEST_GUARD__REQUEST_BODY:
-			case TestGuardPackage.TEST_GUARD__REQUEST_METHOD:
+		switch (notification.getFeatureID(Header.class)) {
+			case TestGuardPackage.HEADER__NAME:
+			case TestGuardPackage.HEADER__VALUE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-			case TestGuardPackage.TEST_GUARD__HEADERS:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
 		super.notifyChanged(notification);
@@ -287,11 +205,6 @@ public class TestGuardItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(TestGuardPackage.Literals.TEST_GUARD__HEADERS,
-				 TestGuardFactory.eINSTANCE.createHeaders()));
 	}
 
 	/**
