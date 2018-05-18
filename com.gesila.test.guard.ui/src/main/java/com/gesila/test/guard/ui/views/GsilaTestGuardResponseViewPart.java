@@ -1,5 +1,6 @@
 package com.gesila.test.guard.ui.views;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.edit.EMFEditPlugin;
@@ -24,16 +25,20 @@ import org.eclipse.ui.forms.widgets.Form;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.part.ViewPart;
 
+import com.alibaba.fastjson.JSONObject;
 import com.gesila.test.guard.json.model.GesilaJSONObject;
+import com.gesila.test.guard.json.utils.GesilaJSONUtils;
 
 /**
  * 
  * @author robin
  *
  */
-public class GsilaTestGuardResponseViewPart extends ViewPart implements IGesilaTestGuardViewPart{
-	
-	public static final String ID="com.gesila.test.guard.ui.views.GsilaTestGuardResponseViewPart";
+public class GsilaTestGuardResponseViewPart extends ViewPart implements IGesilaTestGuardViewPart {
+
+	public static final String ID = "com.gesila.test.guard.ui.views.GsilaTestGuardResponseViewPart";
+
+	private TreeViewer treeViewer;
 
 	public GsilaTestGuardResponseViewPart() {
 		// TODO Auto-generated constructor stub
@@ -42,25 +47,25 @@ public class GsilaTestGuardResponseViewPart extends ViewPart implements IGesilaT
 	@Override
 	public void createPartControl(Composite parent) {
 
-		
-		FormToolkit formToolkit=new FormToolkit(Display.getCurrent());
-		Form form=formToolkit.createForm(parent);
+		FormToolkit formToolkit = new FormToolkit(Display.getCurrent());
+		Form form = formToolkit.createForm(parent);
 		form.setText("Response");
 		formToolkit.decorateFormHeading(form);
-		Composite body=form.getBody();
+		Composite body = form.getBody();
 		GridLayout gridLayout = new GridLayout(1, false);
 		gridLayout.marginWidth = 0;
 		gridLayout.marginHeight = 0;
 		gridLayout.verticalSpacing = 1;
 		gridLayout.horizontalSpacing = 0;
 		body.setLayout(gridLayout);
-//		Text text=formToolkit.createText(body, null, SWT.BORDER|SWT.MULTI|SWT.WRAP);
-//		GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
-//		gridData.widthHint = SWT.DEFAULT;
-//		gridData.heightHint = SWT.DEFAULT;
-//		text.setLayoutData(gridData);
+		// Text text=formToolkit.createText(body, null,
+		// SWT.BORDER|SWT.MULTI|SWT.WRAP);
+		// GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
+		// gridData.widthHint = SWT.DEFAULT;
+		// gridData.heightHint = SWT.DEFAULT;
+		// text.setLayoutData(gridData);
 
-		TreeViewer treeViewer = new TreeViewer(body, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION|SWT.V_SCROLL);
+		treeViewer = new TreeViewer(body, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION | SWT.V_SCROLL);
 		Tree tree = treeViewer.getTree();
 		tree.setHeaderVisible(true);
 		tree.setLinesVisible(true);
@@ -90,7 +95,7 @@ public class GsilaTestGuardResponseViewPart extends ViewPart implements IGesilaT
 
 			@Override
 			protected CellEditor getCellEditor(Object element) {
-				//return new GesilaTextCellEditor(tree);
+				// return new GesilaTextCellEditor(tree);
 				return null;
 			}
 
@@ -159,16 +164,19 @@ public class GsilaTestGuardResponseViewPart extends ViewPart implements IGesilaT
 
 			@Override
 			public Image getColumnImage(Object element, int columnIndex) {
+				if(((GesilaJSONObject) element).getValue()==null||"".equals(((GesilaJSONObject) element).getValue())){
+					return null;
+				}
+				String image = "full/obj16/GenericValue";
 				switch (columnIndex) {
 				case 1:
-					String image = "full/obj16/GenericValue";
 					String name = ((GesilaJSONObject) element).getName();
-					if(name==null){
-						return null;
+					if (name.equals("_ApplicationId") || name.equals("_ApplicationKey")) {
+						image = "full/obj16/IntegralValue.gif";
 					}
-					return ExtendedImageRegistry.getInstance().getImage(EMFEditPlugin.INSTANCE.getImage(image));
+					break;
 				}
-				return null;
+				return ExtendedImageRegistry.getInstance().getImage(EMFEditPlugin.INSTANCE.getImage(image));
 			}
 
 			@Override
@@ -185,8 +193,6 @@ public class GsilaTestGuardResponseViewPart extends ViewPart implements IGesilaT
 
 		});
 
-	
-		
 	}
 
 	@Override
@@ -196,8 +202,16 @@ public class GsilaTestGuardResponseViewPart extends ViewPart implements IGesilaT
 	}
 
 	@Override
-	public void refresh() {
-		
+	public void refresh(Object object) {
+		List list = new ArrayList();
+		JSONObject jsonObject = GesilaJSONUtils.createJSONObject((String) object);
+		GesilaJSONUtils.createGesilaJSONObject(jsonObject, list);
+		if (!list.isEmpty()) {
+			treeViewer.setInput(list);
+			treeViewer.refresh(true);
+			treeViewer.expandToLevel(3);
+
+		}
 	}
 
 }

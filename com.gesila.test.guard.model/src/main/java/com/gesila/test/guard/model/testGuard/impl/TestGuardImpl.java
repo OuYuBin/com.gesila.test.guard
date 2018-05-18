@@ -3,6 +3,7 @@
 package com.gesila.test.guard.model.testGuard.impl;
 
 import com.gesila.test.guard.model.testGuard.Headers;
+import com.gesila.test.guard.model.testGuard.RequestBody;
 import com.gesila.test.guard.model.testGuard.RequestMethod;
 import com.gesila.test.guard.model.testGuard.TestGuard;
 import com.gesila.test.guard.model.testGuard.TestGuardPackage;
@@ -23,9 +24,9 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <ul>
  *   <li>{@link com.gesila.test.guard.model.testGuard.impl.TestGuardImpl#getName <em>Name</em>}</li>
  *   <li>{@link com.gesila.test.guard.model.testGuard.impl.TestGuardImpl#getUrl <em>Url</em>}</li>
- *   <li>{@link com.gesila.test.guard.model.testGuard.impl.TestGuardImpl#getRequestBody <em>Request Body</em>}</li>
  *   <li>{@link com.gesila.test.guard.model.testGuard.impl.TestGuardImpl#getRequestMethod <em>Request Method</em>}</li>
  *   <li>{@link com.gesila.test.guard.model.testGuard.impl.TestGuardImpl#getHeaders <em>Headers</em>}</li>
+ *   <li>{@link com.gesila.test.guard.model.testGuard.impl.TestGuardImpl#getRequestBody <em>Request Body</em>}</li>
  * </ul>
  *
  * @generated
@@ -68,24 +69,6 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 	 */
 	protected String url = URL_EDEFAULT;
 	/**
-	 * The default value of the '{@link #getRequestBody() <em>Request Body</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getRequestBody()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String REQUEST_BODY_EDEFAULT = null;
-	/**
-	 * The cached value of the '{@link #getRequestBody() <em>Request Body</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getRequestBody()
-	 * @generated
-	 * @ordered
-	 */
-	protected String requestBody = REQUEST_BODY_EDEFAULT;
-	/**
 	 * The default value of the '{@link #getRequestMethod() <em>Request Method</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -112,6 +95,15 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 	 * @ordered
 	 */
 	protected Headers headers;
+	/**
+	 * The cached value of the '{@link #getRequestBody() <em>Request Body</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRequestBody()
+	 * @generated
+	 * @ordered
+	 */
+	protected RequestBody requestBody;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -183,7 +175,15 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 	 * @generated
 	 */
 	@Override
-	public String getRequestBody() {
+	public RequestBody getRequestBody() {
+		if (requestBody != null && requestBody.eIsProxy()) {
+			InternalEObject oldRequestBody = (InternalEObject)requestBody;
+			requestBody = (RequestBody)eResolveProxy(oldRequestBody);
+			if (requestBody != oldRequestBody) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TestGuardPackage.TEST_GUARD__REQUEST_BODY, oldRequestBody, requestBody));
+			}
+		}
 		return requestBody;
 	}
 
@@ -192,9 +192,17 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	public void setRequestBody(String newRequestBody) {
-		String oldRequestBody = requestBody;
+	public RequestBody basicGetRequestBody() {
+		return requestBody;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setRequestBody(RequestBody newRequestBody) {
+		RequestBody oldRequestBody = requestBody;
 		requestBody = newRequestBody;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, TestGuardPackage.TEST_GUARD__REQUEST_BODY, oldRequestBody, requestBody));
@@ -294,12 +302,13 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 				return getName();
 			case TestGuardPackage.TEST_GUARD__URL:
 				return getUrl();
-			case TestGuardPackage.TEST_GUARD__REQUEST_BODY:
-				return getRequestBody();
 			case TestGuardPackage.TEST_GUARD__REQUEST_METHOD:
 				return getRequestMethod();
 			case TestGuardPackage.TEST_GUARD__HEADERS:
 				return getHeaders();
+			case TestGuardPackage.TEST_GUARD__REQUEST_BODY:
+				if (resolve) return getRequestBody();
+				return basicGetRequestBody();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -319,14 +328,14 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 			case TestGuardPackage.TEST_GUARD__URL:
 				setUrl((String)newValue);
 				return;
-			case TestGuardPackage.TEST_GUARD__REQUEST_BODY:
-				setRequestBody((String)newValue);
-				return;
 			case TestGuardPackage.TEST_GUARD__REQUEST_METHOD:
 				setRequestMethod((RequestMethod)newValue);
 				return;
 			case TestGuardPackage.TEST_GUARD__HEADERS:
 				setHeaders((Headers)newValue);
+				return;
+			case TestGuardPackage.TEST_GUARD__REQUEST_BODY:
+				setRequestBody((RequestBody)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -346,14 +355,14 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 			case TestGuardPackage.TEST_GUARD__URL:
 				setUrl(URL_EDEFAULT);
 				return;
-			case TestGuardPackage.TEST_GUARD__REQUEST_BODY:
-				setRequestBody(REQUEST_BODY_EDEFAULT);
-				return;
 			case TestGuardPackage.TEST_GUARD__REQUEST_METHOD:
 				setRequestMethod(REQUEST_METHOD_EDEFAULT);
 				return;
 			case TestGuardPackage.TEST_GUARD__HEADERS:
 				setHeaders((Headers)null);
+				return;
+			case TestGuardPackage.TEST_GUARD__REQUEST_BODY:
+				setRequestBody((RequestBody)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -371,12 +380,12 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case TestGuardPackage.TEST_GUARD__URL:
 				return URL_EDEFAULT == null ? url != null : !URL_EDEFAULT.equals(url);
-			case TestGuardPackage.TEST_GUARD__REQUEST_BODY:
-				return REQUEST_BODY_EDEFAULT == null ? requestBody != null : !REQUEST_BODY_EDEFAULT.equals(requestBody);
 			case TestGuardPackage.TEST_GUARD__REQUEST_METHOD:
 				return requestMethod != REQUEST_METHOD_EDEFAULT;
 			case TestGuardPackage.TEST_GUARD__HEADERS:
 				return headers != null;
+			case TestGuardPackage.TEST_GUARD__REQUEST_BODY:
+				return requestBody != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -395,8 +404,6 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 		result.append(name);
 		result.append(", url: ");
 		result.append(url);
-		result.append(", requestBody: ");
-		result.append(requestBody);
 		result.append(", requestMethod: ");
 		result.append(requestMethod);
 		result.append(')');

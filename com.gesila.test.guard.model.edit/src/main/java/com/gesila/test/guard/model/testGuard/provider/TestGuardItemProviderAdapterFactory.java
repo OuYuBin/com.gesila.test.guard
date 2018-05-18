@@ -199,6 +199,29 @@ public class TestGuardItemProviderAdapterFactory extends TestGuardAdapterFactory
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link com.gesila.test.guard.model.testGuard.RequestBody} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected RequestBodyItemProvider requestBodyItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link com.gesila.test.guard.model.testGuard.RequestBody}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createRequestBodyAdapter() {
+		if (requestBodyItemProvider == null) {
+			requestBodyItemProvider = new RequestBodyItemProvider(this);
+		}
+
+		return requestBodyItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -302,6 +325,7 @@ public class TestGuardItemProviderAdapterFactory extends TestGuardAdapterFactory
 		if (testGuardUnitItemProvider != null) testGuardUnitItemProvider.dispose();
 		if (headersItemProvider != null) headersItemProvider.dispose();
 		if (headerItemProvider != null) headerItemProvider.dispose();
+		if (requestBodyItemProvider != null) requestBodyItemProvider.dispose();
 	}
 
 }

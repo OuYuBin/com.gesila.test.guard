@@ -19,7 +19,19 @@ public class GesilaJSONObject {
 	public void addResponseObject(GesilaJSONObject gesilaJSONObject) {
 		gesilaJSONObjects.add(gesilaJSONObject);
 	}
+	
+	public GesilaJSONObject(){
 
+	}
+
+	/**
+	 * 序号
+	 * @param id
+	 */
+	public GesilaJSONObject(String id){
+		this.name=id;
+	}
+	
 	public List<GesilaJSONObject> getGesilaJSONObjects() {
 		return gesilaJSONObjects;
 	}

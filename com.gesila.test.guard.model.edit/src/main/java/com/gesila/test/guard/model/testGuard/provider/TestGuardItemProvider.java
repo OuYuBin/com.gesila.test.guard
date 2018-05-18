@@ -78,8 +78,8 @@ public class TestGuardItemProvider
 
 			addNamePropertyDescriptor(object);
 			addUrlPropertyDescriptor(object);
-			addRequestBodyPropertyDescriptor(object);
 			addRequestMethodPropertyDescriptor(object);
+			addRequestBodyPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -145,7 +145,7 @@ public class TestGuardItemProvider
 				 true,
 				 false,
 				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
 				 null,
 				 null));
 	}
@@ -266,8 +266,8 @@ public class TestGuardItemProvider
 		switch (notification.getFeatureID(TestGuard.class)) {
 			case TestGuardPackage.TEST_GUARD__NAME:
 			case TestGuardPackage.TEST_GUARD__URL:
-			case TestGuardPackage.TEST_GUARD__REQUEST_BODY:
 			case TestGuardPackage.TEST_GUARD__REQUEST_METHOD:
+			case TestGuardPackage.TEST_GUARD__REQUEST_BODY:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case TestGuardPackage.TEST_GUARD__HEADERS:

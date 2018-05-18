@@ -4,6 +4,7 @@ package com.gesila.test.guard.model.testGuard.impl;
 
 import com.gesila.test.guard.model.testGuard.Header;
 import com.gesila.test.guard.model.testGuard.Headers;
+import com.gesila.test.guard.model.testGuard.RequestBody;
 import com.gesila.test.guard.model.testGuard.RequestMethod;
 import com.gesila.test.guard.model.testGuard.TestGuard;
 import com.gesila.test.guard.model.testGuard.TestGuardFactory;
@@ -60,6 +61,13 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 	 * @generated
 	 */
 	private EClass headerEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass requestBodyEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -165,8 +173,8 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 	 * @generated
 	 */
 	@Override
-	public EAttribute getTestGuard_RequestBody() {
-		return (EAttribute)testGuardEClass.getEStructuralFeatures().get(2);
+	public EReference getTestGuard_RequestBody() {
+		return (EReference)testGuardEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -176,7 +184,7 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 	 */
 	@Override
 	public EAttribute getTestGuard_RequestMethod() {
-		return (EAttribute)testGuardEClass.getEStructuralFeatures().get(3);
+		return (EAttribute)testGuardEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -186,7 +194,7 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 	 */
 	@Override
 	public EReference getTestGuard_Headers() {
-		return (EReference)testGuardEClass.getEStructuralFeatures().get(4);
+		return (EReference)testGuardEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -324,6 +332,24 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getRequestBody() {
+		return requestBodyEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRequestBody_Value() {
+		return (EAttribute)requestBodyEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public EEnum getRequestMethod() {
 		return requestMethodEEnum;
@@ -361,9 +387,9 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 		testGuardEClass = createEClass(TEST_GUARD);
 		createEAttribute(testGuardEClass, TEST_GUARD__NAME);
 		createEAttribute(testGuardEClass, TEST_GUARD__URL);
-		createEAttribute(testGuardEClass, TEST_GUARD__REQUEST_BODY);
 		createEAttribute(testGuardEClass, TEST_GUARD__REQUEST_METHOD);
 		createEReference(testGuardEClass, TEST_GUARD__HEADERS);
+		createEReference(testGuardEClass, TEST_GUARD__REQUEST_BODY);
 
 		testGuardModuleEClass = createEClass(TEST_GUARD_MODULE);
 		createEReference(testGuardModuleEClass, TEST_GUARD_MODULE__UNIT);
@@ -381,6 +407,9 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 		headerEClass = createEClass(HEADER);
 		createEAttribute(headerEClass, HEADER__NAME);
 		createEAttribute(headerEClass, HEADER__VALUE);
+
+		requestBodyEClass = createEClass(REQUEST_BODY);
+		createEAttribute(requestBodyEClass, REQUEST_BODY__VALUE);
 
 		// Create enums
 		requestMethodEEnum = createEEnum(REQUEST_METHOD);
@@ -419,9 +448,9 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 		initEClass(testGuardEClass, TestGuard.class, "TestGuard", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTestGuard_Name(), ecorePackage.getEString(), "name", null, 0, 1, TestGuard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTestGuard_Url(), ecorePackage.getEString(), "url", null, 0, 1, TestGuard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getTestGuard_RequestBody(), ecorePackage.getEString(), "requestBody", null, 0, 1, TestGuard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTestGuard_RequestMethod(), this.getRequestMethod(), "requestMethod", null, 0, 1, TestGuard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTestGuard_Headers(), this.getHeaders(), null, "Headers", null, 0, 1, TestGuard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTestGuard_RequestBody(), this.getRequestBody(), null, "requestBody", null, 0, 1, TestGuard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(testGuardModuleEClass, TestGuardModule.class, "TestGuardModule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTestGuardModule_Unit(), this.getTestGuardUnit(), null, "Unit", null, 0, -1, TestGuardModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -439,6 +468,9 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 		initEClass(headerEClass, Header.class, "Header", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getHeader_Name(), ecorePackage.getEString(), "name", null, 0, 1, Header.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getHeader_Value(), ecorePackage.getEString(), "value", null, 0, 1, Header.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(requestBodyEClass, RequestBody.class, "RequestBody", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getRequestBody_Value(), ecorePackage.getEString(), "value", null, 0, 1, RequestBody.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(requestMethodEEnum, RequestMethod.class, "RequestMethod");

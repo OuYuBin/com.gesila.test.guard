@@ -38,16 +38,19 @@ public class GesilaTestGuardRequestBodyLableProvider implements ITableLabelProvi
 
 	@Override
 	public Image getColumnImage(Object element, int columnIndex) {
+		if(((GesilaJSONObject) element).getValue()==null||"".equals(((GesilaJSONObject) element).getValue())){
+			return null;
+		}
+		String image = "full/obj16/GenericValue";
 		switch (columnIndex) {
 		case 1:
-			String image = "full/obj16/GenericValue";
 			String name = ((GesilaJSONObject) element).getName();
 			if (name.equals("_ApplicationId") || name.equals("_ApplicationKey")) {
 				image = "full/obj16/IntegralValue.gif";
 			}
-			return ExtendedImageRegistry.getInstance().getImage(EMFEditPlugin.INSTANCE.getImage(image));
+			break;
 		}
-		return null;
+		return ExtendedImageRegistry.getInstance().getImage(EMFEditPlugin.INSTANCE.getImage(image));
 	}
 
 	@Override

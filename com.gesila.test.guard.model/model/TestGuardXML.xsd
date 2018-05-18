@@ -14,8 +14,8 @@
     </xsd:sequence>
     <xsd:attribute name="name" type="xsd:string"/>
     <xsd:attribute name="url" type="xsd:string"/>
-    <xsd:attribute name="requestBody" type="xsd:string"/>
     <xsd:attribute name="requestMethod" type="testGuard:RequestMethod"/>
+    <xsd:attribute name="requestBody" type="xsd:string"/>
   </xsd:complexType>
   <xsd:element name="TestGuard" type="testGuard:TestGuard"/>
   <xsd:complexType name="TestGuardModule">
@@ -43,4 +43,8 @@
     <xsd:attribute name="value" type="xsd:string"/>
   </xsd:complexType>
   <xsd:element name="Header" type="testGuard:Header"/>
+  <xsd:complexType name="RequestBody">
+    <xsd:attribute name="value" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:element name="RequestBody" type="testGuard:RequestBody"/>
 </xsd:schema>

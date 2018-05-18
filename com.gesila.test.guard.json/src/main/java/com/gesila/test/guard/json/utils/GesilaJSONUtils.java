@@ -50,7 +50,7 @@ public class GesilaJSONUtils {
 			while (iter.hasNext()) {
 				// --key
 				String key = iter.next();
-				GesilaJSONObject responseObject = new GesilaJSONObject();
+				GesilaJSONObject responseObject = new GesilaJSONObject("");
 				responseObject.setName(key);
 				String value = jsonObject.getString(key);
 				char fchar = 0;
@@ -64,14 +64,16 @@ public class GesilaJSONUtils {
 					JSONArray jsonArray = JSONObject.parseArray(value);
 					ListIterator<Object> listIter = jsonArray.listIterator();
 					List<GesilaJSONObject> currentList = new ArrayList<GesilaJSONObject>();
+					int i=0;
 					while (listIter.hasNext()) {
 						List<GesilaJSONObject> arrayList = new ArrayList<GesilaJSONObject>();
 						Object object = listIter.next();
 						// --创建虚拟节点对象
-						GesilaJSONObject parentReponseObject = new GesilaJSONObject();
+						GesilaJSONObject parentReponseObject = new GesilaJSONObject(i+"");
 						createGesilaJSONObject((JSONObject) object, arrayList);
 						parentReponseObject.setGesilaJSONObjects(arrayList);
 						currentList.add(parentReponseObject);
+						i++;
 					}
 					responseObject.setGesilaJSONObjects(currentList);
 					list.add(responseObject);

@@ -29,6 +29,8 @@ import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
@@ -76,6 +78,8 @@ import com.gesila.test.guard.ui.views.IGesilaTestGuardViewPart;
 public class GesilaTestGuardFormPage extends FormPage {
 
 	private TestGuard testGuard;
+	
+	private TreeViewer jsonTreeViewer;
 
 	public GesilaTestGuardFormPage(FormEditor editor, String id, String title) {
 		super(editor, id, title);
@@ -152,7 +156,7 @@ public class GesilaTestGuardFormPage extends FormPage {
 					IViewPart viewPart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 							.findView("com.gesila.test.guard.ui.views.GsilaTestGuardResponseViewPart");
 					if (viewPart instanceof IGesilaTestGuardViewPart) {
-						((IGesilaTestGuardViewPart) viewPart).refresh();
+						((IGesilaTestGuardViewPart) viewPart).refresh(new String(outStream.toByteArray()));
 					}
 
 					// responseText.setText(new String(outStream.toByteArray(),
@@ -196,7 +200,7 @@ public class GesilaTestGuardFormPage extends FormPage {
 		tabFolder.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
 		CTabItem tabItem = new CTabItem(tabFolder, SWT.BORDER);
-		tabItem.setText("Header");
+		tabItem.setText("Headers");
 		Composite headerComposite = createHeaderComposite(tabFolder);
 		tabItem.setControl(headerComposite);
 
@@ -214,6 +218,31 @@ public class GesilaTestGuardFormPage extends FormPage {
 
 		CTabFolder bodyCTabFolder = new CTabFolder(bodyComposite, SWT.NONE);
 		bodyCTabFolder.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		
+		bodyCTabFolder.addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void widgetSelected(SelectionEvent event) {
+				CTabFolder bodyCTabFolder = (CTabFolder) event.getSource();
+				CTabItem cTabItem = bodyCTabFolder.getSelection();
+				String itemText = cTabItem.getText();
+				if(itemText.equals("JSON")){
+					List<GesilaJSONObject> list = new ArrayList<GesilaJSONObject>();
+					String requestBody = testGuard.getRequestBody().getValue();
+					if (requestBody != null) {
+						JSONObject jsonObject = GesilaJSONUtils.createJSONObject(requestBody);
+						GesilaJSONUtils.createGesilaJSONObject(jsonObject, list);
+					}
+					jsonTreeViewer.setInput(list);
+				}
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent event) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 
 		createTextTab(bodyCTabFolder);
 
@@ -253,7 +282,7 @@ public class GesilaTestGuardFormPage extends FormPage {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				// TODO Auto-generated method stub
-
+				
 			}
 
 			@Override
@@ -360,9 +389,7 @@ public class GesilaTestGuardFormPage extends FormPage {
 		gridLayout.horizontalSpacing = 0;
 		jsonComposite.setLayout(gridLayout);
 
-		// Tree tree = new Tree(jsonComposite, SWT.NONE);
-
-		TreeViewer jsonTreeViewer = new TreeViewer(jsonComposite, SWT.FULL_SELECTION | SWT.BORDER);
+		jsonTreeViewer = new TreeViewer(jsonComposite, SWT.FULL_SELECTION | SWT.BORDER);
 		Tree tree = jsonTreeViewer.getTree();
 		tree.setHeaderVisible(true);
 		tree.setLinesVisible(true);
@@ -454,6 +481,14 @@ public class GesilaTestGuardFormPage extends FormPage {
 		gridData.widthHint = SWT.DEFAULT;
 		gridData.heightHint = SWT.DEFAULT;
 		text.setLayoutData(gridData);
+		text.addModifyListener(new ModifyListener() {
+			
+			@Override
+			public void modifyText(ModifyEvent event) {
+				Text text=(Text) event.getSource();
+				testGuard.getRequestBody().setValue(text.getText());
+			}
+		});
 
 		tabItem.setControl(textComposite);
 

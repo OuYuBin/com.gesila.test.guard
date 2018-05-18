@@ -67,6 +67,15 @@ public interface TestGuardFactory extends EFactory {
 	Header createHeader();
 
 	/**
+	 * Returns a new object of class '<em>Request Body</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Request Body</em>'.
+	 * @generated
+	 */
+	RequestBody createRequestBody();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

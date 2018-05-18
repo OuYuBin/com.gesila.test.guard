@@ -86,22 +86,13 @@ public interface TestGuardPackage extends EPackage {
 	int TEST_GUARD__URL = 1;
 
 	/**
-	 * The feature id for the '<em><b>Request Body</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEST_GUARD__REQUEST_BODY = 2;
-
-	/**
 	 * The feature id for the '<em><b>Request Method</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TEST_GUARD__REQUEST_METHOD = 3;
+	int TEST_GUARD__REQUEST_METHOD = 2;
 
 	/**
 	 * The feature id for the '<em><b>Headers</b></em>' containment reference.
@@ -110,7 +101,16 @@ public interface TestGuardPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TEST_GUARD__HEADERS = 4;
+	int TEST_GUARD__HEADERS = 3;
+
+	/**
+	 * The feature id for the '<em><b>Request Body</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEST_GUARD__REQUEST_BODY = 4;
 
 	/**
 	 * The number of structural features of the '<em>Test Guard</em>' class.
@@ -324,6 +324,43 @@ public interface TestGuardPackage extends EPackage {
 	int HEADER_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link com.gesila.test.guard.model.testGuard.impl.RequestBodyImpl <em>Request Body</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.gesila.test.guard.model.testGuard.impl.RequestBodyImpl
+	 * @see com.gesila.test.guard.model.testGuard.impl.TestGuardPackageImpl#getRequestBody()
+	 * @generated
+	 */
+	int REQUEST_BODY = 5;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REQUEST_BODY__VALUE = 0;
+
+	/**
+	 * The number of structural features of the '<em>Request Body</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REQUEST_BODY_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Request Body</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REQUEST_BODY_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link com.gesila.test.guard.model.testGuard.RequestMethod <em>Request Method</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -331,7 +368,7 @@ public interface TestGuardPackage extends EPackage {
 	 * @see com.gesila.test.guard.model.testGuard.impl.TestGuardPackageImpl#getRequestMethod()
 	 * @generated
 	 */
-	int REQUEST_METHOD = 5;
+	int REQUEST_METHOD = 6;
 
 	/**
 	 * Returns the meta object for class '{@link com.gesila.test.guard.model.testGuard.TestGuard <em>Test Guard</em>}'.
@@ -366,15 +403,15 @@ public interface TestGuardPackage extends EPackage {
 	EAttribute getTestGuard_Url();
 
 	/**
-	 * Returns the meta object for the attribute '{@link com.gesila.test.guard.model.testGuard.TestGuard#getRequestBody <em>Request Body</em>}'.
+	 * Returns the meta object for the reference '{@link com.gesila.test.guard.model.testGuard.TestGuard#getRequestBody <em>Request Body</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Request Body</em>'.
+	 * @return the meta object for the reference '<em>Request Body</em>'.
 	 * @see com.gesila.test.guard.model.testGuard.TestGuard#getRequestBody()
 	 * @see #getTestGuard()
 	 * @generated
 	 */
-	EAttribute getTestGuard_RequestBody();
+	EReference getTestGuard_RequestBody();
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.gesila.test.guard.model.testGuard.TestGuard#getRequestMethod <em>Request Method</em>}'.
@@ -538,6 +575,27 @@ public interface TestGuardPackage extends EPackage {
 	EAttribute getHeader_Value();
 
 	/**
+	 * Returns the meta object for class '{@link com.gesila.test.guard.model.testGuard.RequestBody <em>Request Body</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Request Body</em>'.
+	 * @see com.gesila.test.guard.model.testGuard.RequestBody
+	 * @generated
+	 */
+	EClass getRequestBody();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.gesila.test.guard.model.testGuard.RequestBody#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see com.gesila.test.guard.model.testGuard.RequestBody#getValue()
+	 * @see #getRequestBody()
+	 * @generated
+	 */
+	EAttribute getRequestBody_Value();
+
+	/**
 	 * Returns the meta object for enum '{@link com.gesila.test.guard.model.testGuard.RequestMethod <em>Request Method</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -597,12 +655,12 @@ public interface TestGuardPackage extends EPackage {
 		EAttribute TEST_GUARD__URL = eINSTANCE.getTestGuard_Url();
 
 		/**
-		 * The meta object literal for the '<em><b>Request Body</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Request Body</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute TEST_GUARD__REQUEST_BODY = eINSTANCE.getTestGuard_RequestBody();
+		EReference TEST_GUARD__REQUEST_BODY = eINSTANCE.getTestGuard_RequestBody();
 
 		/**
 		 * The meta object literal for the '<em><b>Request Method</b></em>' attribute feature.
@@ -731,6 +789,24 @@ public interface TestGuardPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute HEADER__VALUE = eINSTANCE.getHeader_Value();
+
+		/**
+		 * The meta object literal for the '{@link com.gesila.test.guard.model.testGuard.impl.RequestBodyImpl <em>Request Body</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.gesila.test.guard.model.testGuard.impl.RequestBodyImpl
+		 * @see com.gesila.test.guard.model.testGuard.impl.TestGuardPackageImpl#getRequestBody()
+		 * @generated
+		 */
+		EClass REQUEST_BODY = eINSTANCE.getRequestBody();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REQUEST_BODY__VALUE = eINSTANCE.getRequestBody_Value();
 
 		/**
 		 * The meta object literal for the '{@link com.gesila.test.guard.model.testGuard.RequestMethod <em>Request Method</em>}' enum.

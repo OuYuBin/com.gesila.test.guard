@@ -15,9 +15,9 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link com.gesila.test.guard.model.testGuard.TestGuard#getName <em>Name</em>}</li>
  *   <li>{@link com.gesila.test.guard.model.testGuard.TestGuard#getUrl <em>Url</em>}</li>
- *   <li>{@link com.gesila.test.guard.model.testGuard.TestGuard#getRequestBody <em>Request Body</em>}</li>
  *   <li>{@link com.gesila.test.guard.model.testGuard.TestGuard#getRequestMethod <em>Request Method</em>}</li>
  *   <li>{@link com.gesila.test.guard.model.testGuard.TestGuard#getHeaders <em>Headers</em>}</li>
+ *   <li>{@link com.gesila.test.guard.model.testGuard.TestGuard#getRequestBody <em>Request Body</em>}</li>
  * </ul>
  *
  * @see com.gesila.test.guard.model.testGuard.TestGuardPackage#getTestGuard()
@@ -78,30 +78,30 @@ public interface TestGuard extends EObject {
 	void setUrl(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Request Body</b></em>' attribute.
+	 * Returns the value of the '<em><b>Request Body</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Request Body</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Request Body</em>' attribute.
-	 * @see #setRequestBody(String)
+	 * @return the value of the '<em>Request Body</em>' reference.
+	 * @see #setRequestBody(RequestBody)
 	 * @see com.gesila.test.guard.model.testGuard.TestGuardPackage#getTestGuard_RequestBody()
 	 * @model
 	 * @generated
 	 */
-	String getRequestBody();
+	RequestBody getRequestBody();
 
 	/**
-	 * Sets the value of the '{@link com.gesila.test.guard.model.testGuard.TestGuard#getRequestBody <em>Request Body</em>}' attribute.
+	 * Sets the value of the '{@link com.gesila.test.guard.model.testGuard.TestGuard#getRequestBody <em>Request Body</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Request Body</em>' attribute.
+	 * @param value the new value of the '<em>Request Body</em>' reference.
 	 * @see #getRequestBody()
 	 * @generated
 	 */
-	void setRequestBody(String value);
+	void setRequestBody(RequestBody value);
 
 	/**
 	 * Returns the value of the '<em><b>Request Method</b></em>' attribute.
