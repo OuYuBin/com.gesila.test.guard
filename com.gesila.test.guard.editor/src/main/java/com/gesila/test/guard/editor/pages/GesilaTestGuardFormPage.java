@@ -19,10 +19,12 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.CellLabelProvider;
+import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.TreeViewerColumn;
 import org.eclipse.jface.viewers.ViewerCell;
@@ -78,7 +80,7 @@ import com.gesila.test.guard.ui.views.IGesilaTestGuardViewPart;
 public class GesilaTestGuardFormPage extends FormPage {
 
 	private TestGuard testGuard;
-	
+
 	private TreeViewer jsonTreeViewer;
 
 	public GesilaTestGuardFormPage(FormEditor editor, String id, String title) {
@@ -218,15 +220,15 @@ public class GesilaTestGuardFormPage extends FormPage {
 
 		CTabFolder bodyCTabFolder = new CTabFolder(bodyComposite, SWT.NONE);
 		bodyCTabFolder.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		
+
 		bodyCTabFolder.addSelectionListener(new SelectionListener() {
-			
+
 			@Override
 			public void widgetSelected(SelectionEvent event) {
 				CTabFolder bodyCTabFolder = (CTabFolder) event.getSource();
 				CTabItem cTabItem = bodyCTabFolder.getSelection();
 				String itemText = cTabItem.getText();
-				if(itemText.equals("JSON")){
+				if (itemText.equals("JSON")) {
 					List<GesilaJSONObject> list = new ArrayList<GesilaJSONObject>();
 					String requestBody = testGuard.getRequestBody().getValue();
 					if (requestBody != null) {
@@ -236,11 +238,11 @@ public class GesilaTestGuardFormPage extends FormPage {
 					jsonTreeViewer.setInput(list);
 				}
 			}
-			
+
 			@Override
 			public void widgetDefaultSelected(SelectionEvent event) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 
@@ -248,7 +250,11 @@ public class GesilaTestGuardFormPage extends FormPage {
 
 		createJSONTab(bodyCTabFolder);
 
-		createParamstab(bodyCTabFolder);
+		bodyCTabFolder.setSelection(0);
+
+		createParamstab(tabFolder);
+		tabItem.setControl(headerComposite);
+
 		tabFolder.setSelection(0);
 
 		// Text bodyText = new Text(requestBodyComposite, SWT.BORDER | SWT.WRAP
@@ -265,6 +271,8 @@ public class GesilaTestGuardFormPage extends FormPage {
 
 	private Composite createHeaderComposite(CTabFolder tabFolder) {
 
+		TableViewerColumn tableViewerColumn;
+		CellEditingSupport cellEditingSupport = null;
 		Composite headerComposite = new Composite(tabFolder, SWT.NONE);
 		GridLayout gridLayout = new GridLayout(1, false);
 		gridLayout.marginWidth = 0;
@@ -273,16 +281,24 @@ public class GesilaTestGuardFormPage extends FormPage {
 		gridLayout.horizontalSpacing = 0;
 		headerComposite.setLayout(gridLayout);
 
-		ToolBar toolbar = new ToolBar(headerComposite, SWT.BORDER);
+		ToolBar toolbar = new ToolBar(headerComposite, SWT.NONE);
 		GridData gridData = new GridData(SWT.RIGHT, SWT.FILL, true, false);
 		ToolItem addItem = new ToolItem(toolbar, SWT.NONE);
 		addItem.setImage(Activator.getDefault().getImageRegistry().get("add"));
+		
+		ToolItem removeItem = new ToolItem(toolbar, SWT.NONE);
+		removeItem.setImage(Activator.getDefault().getImageRegistry().get("remove"));
+
+		toolbar.setLayoutData(gridData);
+
+		TableViewer tableViewer = new TableViewer(headerComposite, SWT.BORDER);
+		
 		addItem.addSelectionListener(new SelectionListener() {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
-				
+				List list=(List) tableViewer.getInput();
+				tableViewer.editElement(list.get(0), 0);
 			}
 
 			@Override
@@ -291,16 +307,14 @@ public class GesilaTestGuardFormPage extends FormPage {
 
 			}
 		});
-		ToolItem removeItem = new ToolItem(toolbar, SWT.NONE);
-		removeItem.setImage(Activator.getDefault().getImageRegistry().get("remove"));
-
-		toolbar.setLayoutData(gridData);
-
-		TableViewer tableViewer = new TableViewer(headerComposite, SWT.BORDER);
+		
+		
+		
+		cellEditingSupport=new CellEditingSupport(tableViewer);
 		Table table = tableViewer.getTable();
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
-		TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer, SWT.NONE);
+		tableViewerColumn = new TableViewerColumn(tableViewer, SWT.NONE);
 		tableViewerColumn.getColumn().setWidth(200);
 		tableViewerColumn.getColumn().setText("Name");
 		tableViewerColumn.setLabelProvider(new CellLabelProvider() {
@@ -311,6 +325,10 @@ public class GesilaTestGuardFormPage extends FormPage {
 				cell.setText(header.getName());
 			}
 		});
+		
+		tableViewerColumn.setEditingSupport(cellEditingSupport);
+		CellEditor cellEditor=cellEditingSupport.getCellEditor(new Object());
+		cellEditor.activate();
 
 		tableViewerColumn = new TableViewerColumn(tableViewer, SWT.NONE);
 		tableViewerColumn.getColumn().setWidth(200);
@@ -348,8 +366,8 @@ public class GesilaTestGuardFormPage extends FormPage {
 
 	private void createParamstab(CTabFolder tabFolder) {
 		CTabItem tabItem = new CTabItem(tabFolder, SWT.BORDER);
-		tabItem.setImage(Activator.getDefault().getImageRegistry().get("params"));
-		tabItem.setText("Params");
+		// tabItem.setImage(Activator.getDefault().getImageRegistry().get("params"));
+		tabItem.setText("URL Params");
 		Composite paramsComposite = new Composite(tabFolder, SWT.NONE);
 		GridLayout gridLayout = new GridLayout(1, false);
 		gridLayout.marginWidth = 0;
@@ -357,12 +375,34 @@ public class GesilaTestGuardFormPage extends FormPage {
 		gridLayout.verticalSpacing = 0;
 		gridLayout.horizontalSpacing = 0;
 		paramsComposite.setLayout(gridLayout);
+		
+		ToolBar toolbar = new ToolBar(paramsComposite, SWT.NONE);
+		GridData gridData = new GridData(SWT.RIGHT, SWT.FILL, true, false);
+		ToolItem addItem = new ToolItem(toolbar, SWT.NONE);
+		addItem.setImage(Activator.getDefault().getImageRegistry().get("add"));
+		addItem.addSelectionListener(new SelectionListener() {
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				
+
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+		ToolItem removeItem = new ToolItem(toolbar, SWT.NONE);
+		removeItem.setImage(Activator.getDefault().getImageRegistry().get("remove"));
+		
 
 		TableViewer tableViewer = new TableViewer(paramsComposite, SWT.FULL_SELECTION | SWT.BORDER);
 		Table table = tableViewer.getTable();
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
-		GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
+		gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
 		gridData.widthHint = SWT.DEFAULT;
 		gridData.heightHint = SWT.DEFAULT;
 		table.setLayoutData(gridData);
@@ -389,11 +429,32 @@ public class GesilaTestGuardFormPage extends FormPage {
 		gridLayout.horizontalSpacing = 0;
 		jsonComposite.setLayout(gridLayout);
 
+		ToolBar toolbar = new ToolBar(jsonComposite, SWT.NONE);
+		GridData gridData = new GridData(SWT.RIGHT, SWT.FILL, true, false);
+		ToolItem addItem = new ToolItem(toolbar, SWT.NONE);
+		addItem.setImage(Activator.getDefault().getImageRegistry().get("add"));
+		addItem.addSelectionListener(new SelectionListener() {
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+		ToolItem removeItem = new ToolItem(toolbar, SWT.NONE);
+		removeItem.setImage(Activator.getDefault().getImageRegistry().get("remove"));
+
 		jsonTreeViewer = new TreeViewer(jsonComposite, SWT.FULL_SELECTION | SWT.BORDER);
 		Tree tree = jsonTreeViewer.getTree();
 		tree.setHeaderVisible(true);
 		tree.setLinesVisible(true);
-		GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
+		gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
 		gridData.widthHint = SWT.DEFAULT;
 		gridData.heightHint = SWT.DEFAULT;
 		tree.setLayoutData(gridData);
@@ -465,6 +526,7 @@ public class GesilaTestGuardFormPage extends FormPage {
 	}
 
 	private void createTextTab(CTabFolder tabFolder) {
+
 		CTabItem tabItem = new CTabItem(tabFolder, SWT.BORDER);
 		tabItem.setImage(Activator.getDefault().getImageRegistry().get("text"));
 		tabItem.setText("Text");
@@ -476,16 +538,37 @@ public class GesilaTestGuardFormPage extends FormPage {
 		gridLayout.horizontalSpacing = 0;
 		textComposite.setLayout(gridLayout);
 
+		ToolBar toolbar = new ToolBar(textComposite, SWT.NONE);
+		GridData gridData = new GridData(SWT.RIGHT, SWT.FILL, true, false);
+		ToolItem addItem = new ToolItem(toolbar, SWT.NONE);
+		addItem.setImage(Activator.getDefault().getImageRegistry().get("add"));
+		addItem.addSelectionListener(new SelectionListener() {
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+		ToolItem removeItem = new ToolItem(toolbar, SWT.NONE);
+		removeItem.setImage(Activator.getDefault().getImageRegistry().get("remove"));
+
 		Text text = new Text(textComposite, SWT.BORDER | SWT.MULTI | SWT.WRAP);
-		GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
+		gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
 		gridData.widthHint = SWT.DEFAULT;
 		gridData.heightHint = SWT.DEFAULT;
 		text.setLayoutData(gridData);
 		text.addModifyListener(new ModifyListener() {
-			
+
 			@Override
 			public void modifyText(ModifyEvent event) {
-				Text text=(Text) event.getSource();
+				Text text = (Text) event.getSource();
 				testGuard.getRequestBody().setValue(text.getText());
 			}
 		});
@@ -494,4 +577,36 @@ public class GesilaTestGuardFormPage extends FormPage {
 
 	}
 
+	class CellEditingSupport extends EditingSupport {
+	
+		
+		public CellEditingSupport(ColumnViewer viewer) {
+			super(viewer);
+		}
+		
+		@Override
+		protected void setValue(Object element, Object value) {
+			//setValue(element, value);
+			//if(element instanceof )
+		}
+		
+		@Override
+		protected Object getValue(Object element) {
+			if(element instanceof Header) {
+				return ((Header)element).getName();
+			}
+			return "";
+		}
+		
+		@Override
+		protected CellEditor getCellEditor(Object element) {
+			return new TextCellEditor((Composite) getViewer().getControl(),SWT.NONE);
+		}
+		
+		@Override
+		protected boolean canEdit(Object element) {
+			// TODO Auto-generated method stub
+			return true;
+		}
+	}
 }

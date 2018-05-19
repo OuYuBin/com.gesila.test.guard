@@ -199,5 +199,14 @@
          </enabledWhen>
       </handler>
    </extension>
+   <extension
+         point="org.eclipse.ui.navigator.linkHelper">
+      <linkHelper
+            class="com.gesila.test.guard.navigator.ui.views.linkHelper.GesialLinkTestGuardHelper"
+            id="com.gesila.test.guard.navigator.ui.views.linkHelper.GesialLinkTestGuardHelper">
+         <editorInputEnablement></editorInputEnablement>
+         <selectionEnablement></selectionEnablement>
+      </linkHelper>
+   </extension>
 
 </plugin>

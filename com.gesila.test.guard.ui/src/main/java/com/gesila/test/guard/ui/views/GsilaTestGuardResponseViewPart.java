@@ -14,11 +14,14 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.TreeViewerColumn;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.ui.forms.widgets.Form;
@@ -28,6 +31,7 @@ import org.eclipse.ui.part.ViewPart;
 import com.alibaba.fastjson.JSONObject;
 import com.gesila.test.guard.json.model.GesilaJSONObject;
 import com.gesila.test.guard.json.utils.GesilaJSONUtils;
+import com.gesila.test.guard.ui.Activator;
 
 /**
  * 
@@ -58,14 +62,30 @@ public class GsilaTestGuardResponseViewPart extends ViewPart implements IGesilaT
 		gridLayout.verticalSpacing = 1;
 		gridLayout.horizontalSpacing = 0;
 		body.setLayout(gridLayout);
-		// Text text=formToolkit.createText(body, null,
-		// SWT.BORDER|SWT.MULTI|SWT.WRAP);
-		// GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
-		// gridData.widthHint = SWT.DEFAULT;
-		// gridData.heightHint = SWT.DEFAULT;
-		// text.setLayoutData(gridData);
 
-		treeViewer = new TreeViewer(body, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION | SWT.V_SCROLL);
+		CTabFolder cTabFolder = new CTabFolder(body, SWT.NONE);
+		GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
+		gridData.widthHint = SWT.DEFAULT;
+		gridData.heightHint = SWT.DEFAULT;
+		cTabFolder.setLayoutData(gridData);
+		
+
+		CTabItem cTabItem = new CTabItem(cTabFolder, SWT.NONE);
+		cTabItem.setImage(Activator.getDefault().getImageRegistry().get("text"));
+		cTabItem.setText("Text");
+
+		Text text = formToolkit.createText(cTabFolder, null, SWT.BORDER | SWT.MULTI | SWT.WRAP);
+		gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
+		gridData.widthHint = SWT.DEFAULT;
+		gridData.heightHint = SWT.DEFAULT;
+		text.setLayoutData(gridData);
+		cTabItem.setControl(text);
+
+		CTabItem jsonCTabItem = new CTabItem(cTabFolder, SWT.NONE);
+		jsonCTabItem.setImage(Activator.getDefault().getImageRegistry().get("json"));
+		jsonCTabItem.setText("JSON");
+
+		treeViewer = new TreeViewer(cTabFolder, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION | SWT.V_SCROLL);
 		Tree tree = treeViewer.getTree();
 		tree.setHeaderVisible(true);
 		tree.setLinesVisible(true);
@@ -164,7 +184,8 @@ public class GsilaTestGuardResponseViewPart extends ViewPart implements IGesilaT
 
 			@Override
 			public Image getColumnImage(Object element, int columnIndex) {
-				if(((GesilaJSONObject) element).getValue()==null||"".equals(((GesilaJSONObject) element).getValue())){
+				if (((GesilaJSONObject) element).getValue() == null
+						|| "".equals(((GesilaJSONObject) element).getValue())) {
 					return null;
 				}
 				String image = "full/obj16/GenericValue";
@@ -192,7 +213,8 @@ public class GsilaTestGuardResponseViewPart extends ViewPart implements IGesilaT
 			}
 
 		});
-
+		jsonCTabItem.setControl(tree);
+		cTabFolder.setSelection(0);
 	}
 
 	@Override
