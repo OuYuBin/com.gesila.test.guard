@@ -63,6 +63,7 @@ import org.eclipse.ui.forms.widgets.Section;
 import com.alibaba.fastjson.JSONObject;
 import com.gesila.test.guard.common.editor.part.support.GesilaTextCellEditor;
 import com.gesila.test.guard.editor.Activator;
+import com.gesila.test.guard.editor.editingSupport.HeaderEditingSupport;
 import com.gesila.test.guard.editor.parts.providers.GesilaTestGuardRequestBodyContentProvider;
 import com.gesila.test.guard.editor.parts.providers.GesilaTestGuardRequestBodyLableProvider;
 import com.gesila.test.guard.json.model.GesilaJSONObject;
@@ -272,7 +273,7 @@ public class GesilaTestGuardFormPage extends FormPage {
 	private Composite createHeaderComposite(CTabFolder tabFolder) {
 
 		TableViewerColumn tableViewerColumn;
-		CellEditingSupport cellEditingSupport = null;
+		HeaderEditingSupport cellEditingSupport = null;
 		Composite headerComposite = new Composite(tabFolder, SWT.NONE);
 		GridLayout gridLayout = new GridLayout(1, false);
 		gridLayout.marginWidth = 0;
@@ -310,7 +311,7 @@ public class GesilaTestGuardFormPage extends FormPage {
 		
 		
 		
-		cellEditingSupport=new CellEditingSupport(tableViewer);
+		cellEditingSupport=new HeaderEditingSupport(tableViewer);
 		Table table = tableViewer.getTable();
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
