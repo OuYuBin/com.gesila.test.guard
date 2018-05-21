@@ -2,8 +2,12 @@
  */
 package com.gesila.test.guard.model.testGuard.impl;
 
+import com.gesila.test.guard.model.testGuard.EntityHeaderFields;
 import com.gesila.test.guard.model.testGuard.Header;
 import com.gesila.test.guard.model.testGuard.Headers;
+import com.gesila.test.guard.model.testGuard.Method;
+import com.gesila.test.guard.model.testGuard.Param;
+import com.gesila.test.guard.model.testGuard.Params;
 import com.gesila.test.guard.model.testGuard.RequestBody;
 import com.gesila.test.guard.model.testGuard.RequestMethod;
 import com.gesila.test.guard.model.testGuard.TestGuard;
@@ -12,12 +16,14 @@ import com.gesila.test.guard.model.testGuard.TestGuardModule;
 import com.gesila.test.guard.model.testGuard.TestGuardPackage;
 import com.gesila.test.guard.model.testGuard.TestGuardUnit;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 /**
@@ -74,7 +80,35 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass paramsEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass paramEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum requestMethodEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum entityHeaderFieldsEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum methodEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -174,7 +208,7 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 	 */
 	@Override
 	public EReference getTestGuard_RequestBody() {
-		return (EReference)testGuardEClass.getEStructuralFeatures().get(4);
+		return (EReference)testGuardEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -195,6 +229,16 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 	@Override
 	public EReference getTestGuard_Headers() {
 		return (EReference)testGuardEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getTestGuard_Params() {
+		return (EReference)testGuardEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -332,6 +376,7 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getRequestBody() {
 		return requestBodyEClass;
 	}
@@ -341,6 +386,7 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getRequestBody_Value() {
 		return (EAttribute)requestBodyEClass.getEStructuralFeatures().get(0);
 	}
@@ -351,8 +397,78 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 	 * @generated
 	 */
 	@Override
+	public EClass getParams() {
+		return paramsEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getParams_Param() {
+		return (EReference)paramsEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getParam() {
+		return paramEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getParam_Name() {
+		return (EAttribute)paramEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getParam_Value() {
+		return (EAttribute)paramEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EEnum getRequestMethod() {
 		return requestMethodEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EEnum getEntityHeaderFields() {
+		return entityHeaderFieldsEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EEnum getMethod() {
+		return methodEEnum;
 	}
 
 	/**
@@ -389,6 +505,7 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 		createEAttribute(testGuardEClass, TEST_GUARD__URL);
 		createEAttribute(testGuardEClass, TEST_GUARD__REQUEST_METHOD);
 		createEReference(testGuardEClass, TEST_GUARD__HEADERS);
+		createEReference(testGuardEClass, TEST_GUARD__PARAMS);
 		createEReference(testGuardEClass, TEST_GUARD__REQUEST_BODY);
 
 		testGuardModuleEClass = createEClass(TEST_GUARD_MODULE);
@@ -411,8 +528,17 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 		requestBodyEClass = createEClass(REQUEST_BODY);
 		createEAttribute(requestBodyEClass, REQUEST_BODY__VALUE);
 
+		paramsEClass = createEClass(PARAMS);
+		createEReference(paramsEClass, PARAMS__PARAM);
+
+		paramEClass = createEClass(PARAM);
+		createEAttribute(paramEClass, PARAM__NAME);
+		createEAttribute(paramEClass, PARAM__VALUE);
+
 		// Create enums
 		requestMethodEEnum = createEEnum(REQUEST_METHOD);
+		entityHeaderFieldsEEnum = createEEnum(ENTITY_HEADER_FIELDS);
+		methodEEnum = createEEnum(METHOD);
 	}
 
 	/**
@@ -450,6 +576,7 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 		initEAttribute(getTestGuard_Url(), ecorePackage.getEString(), "url", null, 0, 1, TestGuard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTestGuard_RequestMethod(), this.getRequestMethod(), "requestMethod", null, 0, 1, TestGuard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTestGuard_Headers(), this.getHeaders(), null, "Headers", null, 0, 1, TestGuard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTestGuard_Params(), this.getParams(), null, "Params", null, 0, 1, TestGuard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTestGuard_RequestBody(), this.getRequestBody(), null, "requestBody", null, 0, 1, TestGuard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(testGuardModuleEClass, TestGuardModule.class, "TestGuardModule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -472,6 +599,13 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 		initEClass(requestBodyEClass, RequestBody.class, "RequestBody", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getRequestBody_Value(), ecorePackage.getEString(), "value", null, 0, 1, RequestBody.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(paramsEClass, Params.class, "Params", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getParams_Param(), this.getParam(), null, "Param", null, 0, -1, Params.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(paramEClass, Param.class, "Param", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getParam_Name(), ecorePackage.getEString(), "name", null, 0, 1, Param.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getParam_Value(), ecorePackage.getEString(), "value", null, 0, 1, Param.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		// Initialize enums and add enum literals
 		initEEnum(requestMethodEEnum, RequestMethod.class, "RequestMethod");
 		addEEnumLiteral(requestMethodEEnum, RequestMethod.POST);
@@ -479,8 +613,48 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 		addEEnumLiteral(requestMethodEEnum, RequestMethod.GET);
 		addEEnumLiteral(requestMethodEEnum, RequestMethod.DELETE);
 
+		initEEnum(entityHeaderFieldsEEnum, EntityHeaderFields.class, "EntityHeaderFields");
+		addEEnumLiteral(entityHeaderFieldsEEnum, EntityHeaderFields.ALLOW);
+		addEEnumLiteral(entityHeaderFieldsEEnum, EntityHeaderFields.CONTENT_ENCODING);
+		addEEnumLiteral(entityHeaderFieldsEEnum, EntityHeaderFields.CONTENT_LANGUAGE);
+		addEEnumLiteral(entityHeaderFieldsEEnum, EntityHeaderFields.CONTENT_LENGTH);
+		addEEnumLiteral(entityHeaderFieldsEEnum, EntityHeaderFields.CONTENT_LOCATION);
+		addEEnumLiteral(entityHeaderFieldsEEnum, EntityHeaderFields.CONTENT_MD5);
+		addEEnumLiteral(entityHeaderFieldsEEnum, EntityHeaderFields.CONTENT_RANGE);
+		addEEnumLiteral(entityHeaderFieldsEEnum, EntityHeaderFields.CONTENT_TYPE);
+		addEEnumLiteral(entityHeaderFieldsEEnum, EntityHeaderFields.EXPIRES);
+		addEEnumLiteral(entityHeaderFieldsEEnum, EntityHeaderFields.LAST_MODIFIED);
+
+		initEEnum(methodEEnum, Method.class, "Method");
+		addEEnumLiteral(methodEEnum, Method.GET);
+		addEEnumLiteral(methodEEnum, Method.POST);
+		addEEnumLiteral(methodEEnum, Method.UPDATE);
+
 		// Create resource
 		createResource(eNS_URI);
+
+		// Create annotations
+		// ExtendedmetaData
+		createExtendedmetaDataAnnotations();
+	}
+
+	/**
+	 * Initializes the annotations for <b>ExtendedmetaData</b>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void createExtendedmetaDataAnnotations() {
+		String source = "ExtendedmetaData";	
+		addAnnotation
+		  (entityHeaderFieldsEEnum.getELiterals().get(7), 
+		   source, 
+		   new String[] {
+			 "desc", "\u5b9e\u4f53\u4e3b\u4f53\u5185\u5bf9\u8c61\u7684\u5a92\u4f53\u7c7b\u578b"
+		   },
+		   new URI[] {
+			 URI.createURI(EcorePackage.eNS_URI).appendFragment("//EString/%http:%2F%2F%2Forg%2Feclipse%2Femf%2Fecore%2Futil%2FExtendedMetaData%")
+		   });
 	}
 
 } //TestGuardPackageImpl

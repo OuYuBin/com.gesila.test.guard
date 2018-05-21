@@ -63,6 +63,8 @@ public class TestGuardFactoryImpl extends EFactoryImpl implements TestGuardFacto
 			case TestGuardPackage.HEADERS: return createHeaders();
 			case TestGuardPackage.HEADER: return createHeader();
 			case TestGuardPackage.REQUEST_BODY: return createRequestBody();
+			case TestGuardPackage.PARAMS: return createParams();
+			case TestGuardPackage.PARAM: return createParam();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -78,6 +80,10 @@ public class TestGuardFactoryImpl extends EFactoryImpl implements TestGuardFacto
 		switch (eDataType.getClassifierID()) {
 			case TestGuardPackage.REQUEST_METHOD:
 				return createRequestMethodFromString(eDataType, initialValue);
+			case TestGuardPackage.ENTITY_HEADER_FIELDS:
+				return createEntityHeaderFieldsFromString(eDataType, initialValue);
+			case TestGuardPackage.METHOD:
+				return createMethodFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -93,6 +99,10 @@ public class TestGuardFactoryImpl extends EFactoryImpl implements TestGuardFacto
 		switch (eDataType.getClassifierID()) {
 			case TestGuardPackage.REQUEST_METHOD:
 				return convertRequestMethodToString(eDataType, instanceValue);
+			case TestGuardPackage.ENTITY_HEADER_FIELDS:
+				return convertEntityHeaderFieldsToString(eDataType, instanceValue);
+			case TestGuardPackage.METHOD:
+				return convertMethodToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -158,9 +168,32 @@ public class TestGuardFactoryImpl extends EFactoryImpl implements TestGuardFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RequestBody createRequestBody() {
 		RequestBodyImpl requestBody = new RequestBodyImpl();
 		return requestBody;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Params createParams() {
+		ParamsImpl params = new ParamsImpl();
+		return params;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Param createParam() {
+		ParamImpl param = new ParamImpl();
+		return param;
 	}
 
 	/**
@@ -180,6 +213,46 @@ public class TestGuardFactoryImpl extends EFactoryImpl implements TestGuardFacto
 	 * @generated
 	 */
 	public String convertRequestMethodToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EntityHeaderFields createEntityHeaderFieldsFromString(EDataType eDataType, String initialValue) {
+		EntityHeaderFields result = EntityHeaderFields.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertEntityHeaderFieldsToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Method createMethodFromString(EDataType eDataType, String initialValue) {
+		Method result = Method.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertMethodToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

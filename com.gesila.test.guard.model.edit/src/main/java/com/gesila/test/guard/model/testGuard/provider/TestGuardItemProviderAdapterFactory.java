@@ -222,6 +222,52 @@ public class TestGuardItemProviderAdapterFactory extends TestGuardAdapterFactory
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link com.gesila.test.guard.model.testGuard.Params} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ParamsItemProvider paramsItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link com.gesila.test.guard.model.testGuard.Params}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createParamsAdapter() {
+		if (paramsItemProvider == null) {
+			paramsItemProvider = new ParamsItemProvider(this);
+		}
+
+		return paramsItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link com.gesila.test.guard.model.testGuard.Param} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ParamItemProvider paramItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link com.gesila.test.guard.model.testGuard.Param}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createParamAdapter() {
+		if (paramItemProvider == null) {
+			paramItemProvider = new ParamItemProvider(this);
+		}
+
+		return paramItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -326,6 +372,8 @@ public class TestGuardItemProviderAdapterFactory extends TestGuardAdapterFactory
 		if (headersItemProvider != null) headersItemProvider.dispose();
 		if (headerItemProvider != null) headerItemProvider.dispose();
 		if (requestBodyItemProvider != null) requestBodyItemProvider.dispose();
+		if (paramsItemProvider != null) paramsItemProvider.dispose();
+		if (paramItemProvider != null) paramItemProvider.dispose();
 	}
 
 }

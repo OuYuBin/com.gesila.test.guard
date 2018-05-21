@@ -7,16 +7,23 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.edit.EMFEditPlugin;
+import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.CellLabelProvider;
 import org.eclipse.jface.viewers.ColumnViewer;
@@ -29,12 +36,14 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.TreeViewerColumn;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -70,6 +79,8 @@ import com.gesila.test.guard.json.model.GesilaJSONObject;
 import com.gesila.test.guard.json.utils.GesilaJSONUtils;
 import com.gesila.test.guard.model.testGuard.Header;
 import com.gesila.test.guard.model.testGuard.TestGuard;
+import com.gesila.test.guard.model.testGuard.TestGuardFactory;
+import com.gesila.test.guard.model.testGuard.TestGuardPackage;
 import com.gesila.test.guard.model.testGuard.TestGuardUnit;
 import com.gesila.test.guard.ui.views.IGesilaTestGuardViewPart;
 
@@ -83,6 +94,8 @@ public class GesilaTestGuardFormPage extends FormPage {
 	private TestGuard testGuard;
 
 	private TreeViewer jsonTreeViewer;
+	
+	private CCombo methodsCombo;
 
 	public GesilaTestGuardFormPage(FormEditor editor, String id, String title) {
 		super(editor, id, title);
@@ -123,10 +136,21 @@ public class GesilaTestGuardFormPage extends FormPage {
 		Label methodLabel = formToolkit.createLabel(requestComposite, "Request Method", SWT.NONE);
 		methodLabel.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
 
-		Combo combo = new Combo(requestComposite, SWT.BORDER);
-		combo.setItems("GET", "POST", "PUT", "DELETE");
-		combo.select(0);
-		combo.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
+		methodsCombo = new CCombo(requestComposite, SWT.BORDER);
+		
+		EEnum methodEnum = TestGuardPackage.eINSTANCE.getMethod();
+		Object[] methods=methodEnum.getELiterals().toArray();
+		String[] items=new String[methods.length];
+		int i=0;
+		for(Object method:methods){
+			items[i]=method.toString();
+			i++;
+		}
+		methodsCombo.setItems(items);
+		
+		//combo.setItems("GET", "POST", "PUT", "DELETE");
+		methodsCombo.select(0);
+		methodsCombo.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
 
 		Label addressLabel = formToolkit.createLabel(requestComposite, "Address", SWT.NONE);
 		addressLabel.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
@@ -145,9 +169,26 @@ public class GesilaTestGuardFormPage extends FormPage {
 				try {
 					HttpClient httpClient = HttpClients.createDefault();
 					String url = urlText.getText();
-					HttpPost httpPost = new HttpPost(url);
-					httpPost.setEntity(new StringEntity("{\"_method\":\"GET\"}"));
-					HttpResponse response = httpClient.execute(httpPost);
+					//HttpPost httpPost = new HttpPost(url);
+					HttpUriRequest httpUriRequest=null;
+					int index=methodsCombo.getSelectionIndex();
+					EEnum methods=TestGuardPackage.eINSTANCE.getMethod();
+					EEnumLiteral methodLiteral=methods.getEEnumLiteral(index);
+					switch (index) {
+					case 0:
+						httpUriRequest=new HttpGet(url);
+						break;
+					case 1:
+						httpUriRequest=new HttpPost(url);
+						break;
+					default:
+						break;
+					}
+					//httpPost.setEntity(new StringEntity("{\"_method\":\"GET\"}"));
+					//if(combo.getSelectionIndex())
+					
+					
+					HttpResponse response = httpClient.execute(httpUriRequest);
 					HttpEntity entity = response.getEntity();
 					ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 					byte[] data = new byte[4096];
@@ -311,7 +352,7 @@ public class GesilaTestGuardFormPage extends FormPage {
 		
 		
 		
-		cellEditingSupport=new HeaderEditingSupport(tableViewer);
+		
 		Table table = tableViewer.getTable();
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
@@ -322,26 +363,47 @@ public class GesilaTestGuardFormPage extends FormPage {
 
 			@Override
 			public void update(ViewerCell cell) {
-				Header header = (Header) cell.getElement();
-				cell.setText(header.getName());
+				//Header header = (Header) cell.getElement();
+				//cell.setText(header.getName());
+				Object object=cell.getElement();
+				cell.setText(object.toString());
 			}
 		});
 		
-		tableViewerColumn.setEditingSupport(cellEditingSupport);
-		CellEditor cellEditor=cellEditingSupport.getCellEditor(new Object());
-		cellEditor.activate();
-
+		
+		cellEditingSupport=new HeaderEditingSupport(tableViewer);
 		tableViewerColumn = new TableViewerColumn(tableViewer, SWT.NONE);
-		tableViewerColumn.getColumn().setWidth(200);
+		tableViewerColumn.getColumn().setWidth(400);
 		tableViewerColumn.getColumn().setText("Value");
 		tableViewerColumn.setLabelProvider(new CellLabelProvider() {
 
 			@Override
 			public void update(ViewerCell cell) {
-				Header header = (Header) cell.getElement();
-				cell.setText(header.getValue());
+				//Header header = (Header) cell.getElement();
+				//cell.setText(header.getValue());
+				cell.setImage(getColumnImage());
+			}
+			
+			public Image getColumnImage() {
+//				if (((GesilaJSONObject) element).getValue() == null
+//						|| "".equals(((GesilaJSONObject) element).getValue())) {
+//					return null;
+//				}
+				String image = "full/obj16/GenericValue";
+//				switch (columnIndex) {
+//				case 1:
+//					String name = ((GesilaJSONObject) element).getName();
+//					if (name.equals("_ApplicationId") || name.equals("_ApplicationKey")) {
+//						image = "full/obj16/IntegralValue.gif";
+//					}
+//					break;
+				//}
+				return ExtendedImageRegistry.getInstance().getImage(EMFEditPlugin.INSTANCE.getImage(image));
 			}
 		});
+		tableViewerColumn.setEditingSupport(cellEditingSupport);
+		CellEditor cellEditor=cellEditingSupport.getCellEditor(new Object());
+		cellEditor.activate();
 
 		gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
 		table.setLayoutData(gridData);
@@ -350,17 +412,18 @@ public class GesilaTestGuardFormPage extends FormPage {
 		headerComposite.setLayoutData(gridData);
 
 		EList<Header> headers = testGuard.getHeaders().getHeader();
+		
+		EEnum entityHeaderFieldEnum=TestGuardPackage.eINSTANCE.getEntityHeaderFields();
+		Object[] entityHeaderFields=entityHeaderFieldEnum.getELiterals().toArray();
 
 		tableViewer.setContentProvider(new IStructuredContentProvider() {
 
 			@Override
 			public Object[] getElements(Object inputElement) {
-				if (inputElement instanceof List)
-					return ((List) inputElement).toArray(new Object[0]);
-				return Collections.EMPTY_LIST.toArray();
+				return (Object[]) inputElement;
 			}
 		});
-		tableViewer.setInput(headers);
+		tableViewer.setInput(entityHeaderFields);
 
 		return headerComposite;
 	}

@@ -8,9 +8,31 @@
       <xsd:enumeration value="DELETE"/>
     </xsd:restriction>
   </xsd:simpleType>
+  <xsd:simpleType name="EntityHeaderFields">
+    <xsd:restriction base="xsd:NCName">
+      <xsd:enumeration value="Allow"/>
+      <xsd:enumeration value="ContentEncoding"/>
+      <xsd:enumeration value="ContentLanguage"/>
+      <xsd:enumeration value="ContentLength"/>
+      <xsd:enumeration value="ContentLocation"/>
+      <xsd:enumeration value="ContentMD5"/>
+      <xsd:enumeration value="ContentRange"/>
+      <xsd:enumeration value="ContentType"/>
+      <xsd:enumeration value="Expires"/>
+      <xsd:enumeration value="LastModified"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="Method">
+    <xsd:restriction base="xsd:NCName">
+      <xsd:enumeration value="GET"/>
+      <xsd:enumeration value="POST"/>
+      <xsd:enumeration value="UPDATE"/>
+    </xsd:restriction>
+  </xsd:simpleType>
   <xsd:complexType name="TestGuard">
     <xsd:sequence>
       <xsd:element maxOccurs="1" minOccurs="0" name="Headers" type="testGuard:Headers"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Params" type="testGuard:Params"/>
     </xsd:sequence>
     <xsd:attribute name="name" type="xsd:string"/>
     <xsd:attribute name="url" type="xsd:string"/>
@@ -47,4 +69,15 @@
     <xsd:attribute name="value" type="xsd:string"/>
   </xsd:complexType>
   <xsd:element name="RequestBody" type="testGuard:RequestBody"/>
+  <xsd:complexType name="Params">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Param" type="testGuard:Param"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="Params" type="testGuard:Params"/>
+  <xsd:complexType name="Param">
+    <xsd:attribute name="name" type="xsd:string"/>
+    <xsd:attribute name="value" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:element name="Param" type="testGuard:Param"/>
 </xsd:schema>

@@ -3,6 +3,7 @@
 package com.gesila.test.guard.model.testGuard.impl;
 
 import com.gesila.test.guard.model.testGuard.Headers;
+import com.gesila.test.guard.model.testGuard.Params;
 import com.gesila.test.guard.model.testGuard.RequestBody;
 import com.gesila.test.guard.model.testGuard.RequestMethod;
 import com.gesila.test.guard.model.testGuard.TestGuard;
@@ -26,6 +27,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link com.gesila.test.guard.model.testGuard.impl.TestGuardImpl#getUrl <em>Url</em>}</li>
  *   <li>{@link com.gesila.test.guard.model.testGuard.impl.TestGuardImpl#getRequestMethod <em>Request Method</em>}</li>
  *   <li>{@link com.gesila.test.guard.model.testGuard.impl.TestGuardImpl#getHeaders <em>Headers</em>}</li>
+ *   <li>{@link com.gesila.test.guard.model.testGuard.impl.TestGuardImpl#getParams <em>Params</em>}</li>
  *   <li>{@link com.gesila.test.guard.model.testGuard.impl.TestGuardImpl#getRequestBody <em>Request Body</em>}</li>
  * </ul>
  *
@@ -95,6 +97,15 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 	 * @ordered
 	 */
 	protected Headers headers;
+	/**
+	 * The cached value of the '{@link #getParams() <em>Params</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getParams()
+	 * @generated
+	 * @ordered
+	 */
+	protected Params params;
 	/**
 	 * The cached value of the '{@link #getRequestBody() <em>Request Body</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -201,6 +212,7 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRequestBody(RequestBody newRequestBody) {
 		RequestBody oldRequestBody = requestBody;
 		requestBody = newRequestBody;
@@ -282,10 +294,57 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 	 * @generated
 	 */
 	@Override
+	public Params getParams() {
+		return params;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetParams(Params newParams, NotificationChain msgs) {
+		Params oldParams = params;
+		params = newParams;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TestGuardPackage.TEST_GUARD__PARAMS, oldParams, newParams);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setParams(Params newParams) {
+		if (newParams != params) {
+			NotificationChain msgs = null;
+			if (params != null)
+				msgs = ((InternalEObject)params).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TestGuardPackage.TEST_GUARD__PARAMS, null, msgs);
+			if (newParams != null)
+				msgs = ((InternalEObject)newParams).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TestGuardPackage.TEST_GUARD__PARAMS, null, msgs);
+			msgs = basicSetParams(newParams, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TestGuardPackage.TEST_GUARD__PARAMS, newParams, newParams));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case TestGuardPackage.TEST_GUARD__HEADERS:
 				return basicSetHeaders(null, msgs);
+			case TestGuardPackage.TEST_GUARD__PARAMS:
+				return basicSetParams(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -306,6 +365,8 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 				return getRequestMethod();
 			case TestGuardPackage.TEST_GUARD__HEADERS:
 				return getHeaders();
+			case TestGuardPackage.TEST_GUARD__PARAMS:
+				return getParams();
 			case TestGuardPackage.TEST_GUARD__REQUEST_BODY:
 				if (resolve) return getRequestBody();
 				return basicGetRequestBody();
@@ -334,6 +395,9 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 			case TestGuardPackage.TEST_GUARD__HEADERS:
 				setHeaders((Headers)newValue);
 				return;
+			case TestGuardPackage.TEST_GUARD__PARAMS:
+				setParams((Params)newValue);
+				return;
 			case TestGuardPackage.TEST_GUARD__REQUEST_BODY:
 				setRequestBody((RequestBody)newValue);
 				return;
@@ -361,6 +425,9 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 			case TestGuardPackage.TEST_GUARD__HEADERS:
 				setHeaders((Headers)null);
 				return;
+			case TestGuardPackage.TEST_GUARD__PARAMS:
+				setParams((Params)null);
+				return;
 			case TestGuardPackage.TEST_GUARD__REQUEST_BODY:
 				setRequestBody((RequestBody)null);
 				return;
@@ -384,6 +451,8 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 				return requestMethod != REQUEST_METHOD_EDEFAULT;
 			case TestGuardPackage.TEST_GUARD__HEADERS:
 				return headers != null;
+			case TestGuardPackage.TEST_GUARD__PARAMS:
+				return params != null;
 			case TestGuardPackage.TEST_GUARD__REQUEST_BODY:
 				return requestBody != null;
 		}

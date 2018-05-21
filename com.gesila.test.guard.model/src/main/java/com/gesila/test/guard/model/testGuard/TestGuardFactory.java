@@ -76,6 +76,24 @@ public interface TestGuardFactory extends EFactory {
 	RequestBody createRequestBody();
 
 	/**
+	 * Returns a new object of class '<em>Params</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Params</em>'.
+	 * @generated
+	 */
+	Params createParams();
+
+	/**
+	 * Returns a new object of class '<em>Param</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Param</em>'.
+	 * @generated
+	 */
+	Param createParam();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

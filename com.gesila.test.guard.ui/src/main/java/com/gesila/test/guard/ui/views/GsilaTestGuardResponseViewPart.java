@@ -43,6 +43,8 @@ public class GsilaTestGuardResponseViewPart extends ViewPart implements IGesilaT
 	public static final String ID = "com.gesila.test.guard.ui.views.GsilaTestGuardResponseViewPart";
 
 	private TreeViewer treeViewer;
+	
+	private Text text;
 
 	public GsilaTestGuardResponseViewPart() {
 		// TODO Auto-generated constructor stub
@@ -74,7 +76,7 @@ public class GsilaTestGuardResponseViewPart extends ViewPart implements IGesilaT
 		cTabItem.setImage(Activator.getDefault().getImageRegistry().get("text"));
 		cTabItem.setText("Text");
 
-		Text text = formToolkit.createText(cTabFolder, null, SWT.BORDER | SWT.MULTI | SWT.WRAP);
+		text = formToolkit.createText(cTabFolder, null, SWT.BORDER | SWT.MULTI | SWT.WRAP);
 		gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
 		gridData.widthHint = SWT.DEFAULT;
 		gridData.heightHint = SWT.DEFAULT;
@@ -232,8 +234,10 @@ public class GsilaTestGuardResponseViewPart extends ViewPart implements IGesilaT
 			treeViewer.setInput(list);
 			treeViewer.refresh(true);
 			treeViewer.expandToLevel(3);
-
 		}
+		text.setText((String) object);
+		
+		
 	}
 
 }

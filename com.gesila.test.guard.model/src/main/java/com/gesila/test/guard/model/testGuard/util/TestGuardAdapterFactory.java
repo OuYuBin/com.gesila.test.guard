@@ -92,6 +92,14 @@ public class TestGuardAdapterFactory extends AdapterFactoryImpl {
 				return createRequestBodyAdapter();
 			}
 			@Override
+			public Adapter caseParams(Params object) {
+				return createParamsAdapter();
+			}
+			@Override
+			public Adapter caseParam(Param object) {
+				return createParamAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -192,6 +200,34 @@ public class TestGuardAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createRequestBodyAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link com.gesila.test.guard.model.testGuard.Params <em>Params</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see com.gesila.test.guard.model.testGuard.Params
+	 * @generated
+	 */
+	public Adapter createParamsAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link com.gesila.test.guard.model.testGuard.Param <em>Param</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see com.gesila.test.guard.model.testGuard.Param
+	 * @generated
+	 */
+	public Adapter createParamAdapter() {
 		return null;
 	}
 
