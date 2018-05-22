@@ -37,6 +37,8 @@ import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 
 import com.gesila.test.guard.model.testGuard.Header;
 import com.gesila.test.guard.model.testGuard.Headers;
+import com.gesila.test.guard.model.testGuard.Param;
+import com.gesila.test.guard.model.testGuard.Params;
 import com.gesila.test.guard.model.testGuard.TestGuard;
 import com.gesila.test.guard.model.testGuard.TestGuardFactory;
 import com.gesila.test.guard.navigator.ui.wizards.GesilaTestGuardNewRequestWizard;
@@ -157,6 +159,8 @@ public class GesilaTestGuardNewRequestWizardPage extends WizardPage {
 		header.setValue("application/json");
 		headers.getHeader().add(header);
 		testGuard.setHeaders(headers);
+		Params params=TestGuardFactory.eINSTANCE.createParams();
+		testGuard.setParams(params);
 		return testGuard;
 	}
 

@@ -634,23 +634,24 @@ public class TestGuardPackageImpl extends EPackageImpl implements TestGuardPacka
 		createResource(eNS_URI);
 
 		// Create annotations
-		// ExtendedmetaData
-		createExtendedmetaDataAnnotations();
+		// ExtendedMetaData
+		createExtendedMetaDataAnnotations();
 	}
 
 	/**
-	 * Initializes the annotations for <b>ExtendedmetaData</b>.
+	 * Initializes the annotations for <b>ExtendedMetaData</b>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void createExtendedmetaDataAnnotations() {
-		String source = "ExtendedmetaData";	
+	protected void createExtendedMetaDataAnnotations() {
+		String source = "ExtendedMetaData";	
 		addAnnotation
 		  (entityHeaderFieldsEEnum.getELiterals().get(7), 
 		   source, 
 		   new String[] {
-			 "desc", "\u5b9e\u4f53\u4e3b\u4f53\u5185\u5bf9\u8c61\u7684\u5a92\u4f53\u7c7b\u578b"
+			 "desc", "\u5b9e\u4f53\u4e3b\u4f53\u5185\u5bf9\u8c61\u7684\u5a92\u4f53\u7c7b\u578b",
+			 "content", "application/json|application/xml"
 		   },
 		   new URI[] {
 			 URI.createURI(EcorePackage.eNS_URI).appendFragment("//EString/%http:%2F%2F%2Forg%2Feclipse%2Femf%2Fecore%2Futil%2FExtendedMetaData%")

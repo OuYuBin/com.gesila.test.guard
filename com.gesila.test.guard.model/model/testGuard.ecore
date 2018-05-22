@@ -56,8 +56,9 @@
     <eLiterals name="ContentMD5" value="5" literal="Content-MD5"/>
     <eLiterals name="ContentRange" value="6" literal="Content-Range"/>
     <eLiterals name="ContentType" value="7" literal="Content-Type">
-      <eAnnotations source="ExtendedmetaData" references="http://www.eclipse.org/emf/2002/Ecore#//EString/%http:%2F%2F%2Forg%2Feclipse%2Femf%2Fecore%2Futil%2FExtendedMetaData%">
+      <eAnnotations source="ExtendedMetaData" references="http://www.eclipse.org/emf/2002/Ecore#//EString/%http:%2F%2F%2Forg%2Feclipse%2Femf%2Fecore%2Futil%2FExtendedMetaData%">
         <details key="desc" value="实体主体内对象的媒体类型"/>
+        <details key="content" value="application/json|application/xml"/>
       </eAnnotations>
     </eLiterals>
     <eLiterals name="Expires" value="8"/>

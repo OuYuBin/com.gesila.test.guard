@@ -233,7 +233,7 @@ public enum EntityHeaderFields implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @see #CONTENT_TYPE
 	 * @model name="ContentType" literal="Content-Type"
-	 *        annotation="ExtendedmetaData desc='\u5b9e\u4f53\u4e3b\u4f53\u5185\u5bf9\u8c61\u7684\u5a92\u4f53\u7c7b\u578b'"
+	 *        annotation="ExtendedMetaData desc='\u5b9e\u4f53\u4e3b\u4f53\u5185\u5bf9\u8c61\u7684\u5a92\u4f53\u7c7b\u578b' content='application/json|application/xml'"
 	 * @generated
 	 * @ordered
 	 */

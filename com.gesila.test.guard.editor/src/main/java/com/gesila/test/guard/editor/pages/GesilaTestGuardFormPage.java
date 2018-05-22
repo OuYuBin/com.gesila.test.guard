@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpRequest;
@@ -24,11 +25,14 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.EMFEditPlugin;
 import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
+import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.CellLabelProvider;
 import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.EditingSupport;
+import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
+import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.TextCellEditor;
@@ -43,6 +47,8 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -73,11 +79,14 @@ import com.alibaba.fastjson.JSONObject;
 import com.gesila.test.guard.common.editor.part.support.GesilaTextCellEditor;
 import com.gesila.test.guard.editor.Activator;
 import com.gesila.test.guard.editor.editingSupport.HeaderEditingSupport;
+import com.gesila.test.guard.editor.editingSupport.ParamsEditingSupport;
 import com.gesila.test.guard.editor.parts.providers.GesilaTestGuardRequestBodyContentProvider;
 import com.gesila.test.guard.editor.parts.providers.GesilaTestGuardRequestBodyLableProvider;
 import com.gesila.test.guard.json.model.GesilaJSONObject;
 import com.gesila.test.guard.json.utils.GesilaJSONUtils;
 import com.gesila.test.guard.model.testGuard.Header;
+import com.gesila.test.guard.model.testGuard.Headers;
+import com.gesila.test.guard.model.testGuard.Param;
 import com.gesila.test.guard.model.testGuard.TestGuard;
 import com.gesila.test.guard.model.testGuard.TestGuardFactory;
 import com.gesila.test.guard.model.testGuard.TestGuardPackage;
@@ -94,7 +103,7 @@ public class GesilaTestGuardFormPage extends FormPage {
 	private TestGuard testGuard;
 
 	private TreeViewer jsonTreeViewer;
-	
+
 	private CCombo methodsCombo;
 
 	public GesilaTestGuardFormPage(FormEditor editor, String id, String title) {
@@ -122,7 +131,7 @@ public class GesilaTestGuardFormPage extends FormPage {
 
 		Section section = formToolkit.createSection(composite,
 				Section.TITLE_BAR | Section.EXPANDED | Section.CLIENT_INDENT | Section.COMPACT);
-		section.setText("Http Request");
+		section.setText("Request URL");
 		section.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 
 		Composite requestComposite = formToolkit.createComposite(section);
@@ -137,18 +146,17 @@ public class GesilaTestGuardFormPage extends FormPage {
 		methodLabel.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
 
 		methodsCombo = new CCombo(requestComposite, SWT.BORDER);
-		
+
 		EEnum methodEnum = TestGuardPackage.eINSTANCE.getMethod();
-		Object[] methods=methodEnum.getELiterals().toArray();
-		String[] items=new String[methods.length];
-		int i=0;
-		for(Object method:methods){
-			items[i]=method.toString();
+		Object[] methods = methodEnum.getELiterals().toArray();
+		String[] items = new String[methods.length];
+		int i = 0;
+		for (Object method : methods) {
+			items[i] = method.toString();
 			i++;
 		}
 		methodsCombo.setItems(items);
-		
-		//combo.setItems("GET", "POST", "PUT", "DELETE");
+
 		methodsCombo.select(0);
 		methodsCombo.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
 
@@ -169,25 +177,25 @@ public class GesilaTestGuardFormPage extends FormPage {
 				try {
 					HttpClient httpClient = HttpClients.createDefault();
 					String url = urlText.getText();
-					//HttpPost httpPost = new HttpPost(url);
-					HttpUriRequest httpUriRequest=null;
-					int index=methodsCombo.getSelectionIndex();
-					EEnum methods=TestGuardPackage.eINSTANCE.getMethod();
-					EEnumLiteral methodLiteral=methods.getEEnumLiteral(index);
+					// HttpPost httpPost = new HttpPost(url);
+					HttpUriRequest httpUriRequest = null;
+					int index = methodsCombo.getSelectionIndex();
+					EEnum methods = TestGuardPackage.eINSTANCE.getMethod();
+					EEnumLiteral methodLiteral = methods.getEEnumLiteral(index);
 					switch (index) {
 					case 0:
-						httpUriRequest=new HttpGet(url);
+						httpUriRequest = new HttpGet(url);
 						break;
 					case 1:
-						httpUriRequest=new HttpPost(url);
+						httpUriRequest = new HttpPost(url);
 						break;
 					default:
 						break;
 					}
-					//httpPost.setEntity(new StringEntity("{\"_method\":\"GET\"}"));
-					//if(combo.getSelectionIndex())
-					
-					
+					// httpPost.setEntity(new
+					// StringEntity("{\"_method\":\"GET\"}"));
+					// if(combo.getSelectionIndex())
+
 					HttpResponse response = httpClient.execute(httpUriRequest);
 					HttpEntity entity = response.getEntity();
 					ByteArrayOutputStream outStream = new ByteArrayOutputStream();
@@ -243,6 +251,7 @@ public class GesilaTestGuardFormPage extends FormPage {
 		CTabFolder tabFolder = new CTabFolder(requestBodyComposite, SWT.NONE);
 		tabFolder.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
+		// --Headers
 		CTabItem tabItem = new CTabItem(tabFolder, SWT.BORDER);
 		tabItem.setText("Headers");
 		Composite headerComposite = createHeaderComposite(tabFolder);
@@ -294,7 +303,8 @@ public class GesilaTestGuardFormPage extends FormPage {
 
 		bodyCTabFolder.setSelection(0);
 
-		createParamstab(tabFolder);
+		// --url参数
+		createParamsTab(tabFolder);
 		tabItem.setControl(headerComposite);
 
 		tabFolder.setSelection(0);
@@ -324,23 +334,23 @@ public class GesilaTestGuardFormPage extends FormPage {
 		headerComposite.setLayout(gridLayout);
 
 		ToolBar toolbar = new ToolBar(headerComposite, SWT.NONE);
-		GridData gridData = new GridData(SWT.RIGHT, SWT.FILL, true, false);
+		GridData gridData = new GridData(SWT.LEFT, SWT.FILL, true, false);
 		ToolItem addItem = new ToolItem(toolbar, SWT.NONE);
 		addItem.setImage(Activator.getDefault().getImageRegistry().get("add"));
-		
+
 		ToolItem removeItem = new ToolItem(toolbar, SWT.NONE);
 		removeItem.setImage(Activator.getDefault().getImageRegistry().get("remove"));
 
 		toolbar.setLayoutData(gridData);
 
 		TableViewer tableViewer = new TableViewer(headerComposite, SWT.BORDER);
-		
+
 		addItem.addSelectionListener(new SelectionListener() {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				List list=(List) tableViewer.getInput();
-				tableViewer.editElement(list.get(0), 0);
+				// List list = (List) tableViewer.getInput();
+				/// tableViewer.editElement(list.get(0), 0);
 			}
 
 			@Override
@@ -349,10 +359,7 @@ public class GesilaTestGuardFormPage extends FormPage {
 
 			}
 		});
-		
-		
-		
-		
+
 		Table table = tableViewer.getTable();
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
@@ -363,15 +370,16 @@ public class GesilaTestGuardFormPage extends FormPage {
 
 			@Override
 			public void update(ViewerCell cell) {
-				//Header header = (Header) cell.getElement();
-				//cell.setText(header.getName());
-				Object object=cell.getElement();
+				// Header header = (Header) cell.getElement();
+				// cell.setText(header.getName());
+				Object object = cell.getElement();
 				cell.setText(object.toString());
 			}
 		});
-		
-		
-		cellEditingSupport=new HeaderEditingSupport(tableViewer);
+
+		Headers headers = testGuard.getHeaders();
+
+		cellEditingSupport = new HeaderEditingSupport(tableViewer, headers);
 		tableViewerColumn = new TableViewerColumn(tableViewer, SWT.NONE);
 		tableViewerColumn.getColumn().setWidth(400);
 		tableViewerColumn.getColumn().setText("Value");
@@ -379,31 +387,47 @@ public class GesilaTestGuardFormPage extends FormPage {
 
 			@Override
 			public void update(ViewerCell cell) {
-				//Header header = (Header) cell.getElement();
-				//cell.setText(header.getValue());
+				EEnumLiteral element = (EEnumLiteral) cell.getElement();
+				// cell.setText(header.getValue());
+				String literal = ((EEnumLiteral) element).getLiteral();
+				List<Header> headerElements = headers.getHeader().stream()
+						.filter(header -> (header.getName()).equals(literal)).collect(Collectors.toList());
+				if (!headerElements.isEmpty()) {
+					cell.setText(headerElements.get(0).getValue());
+				}else{
+//					Font initialFont = cell.getFont();
+//					FontData[] fontData = initialFont.getFontData();
+//					for (int i = 0; i < fontData.length; i++) {
+//						fontData[i].setStyle(SWT.ITALIC);
+//					}
+//					Font newFont = new Font(cell.getControl().getDisplay(), fontData);
+//					cell.setFont(newFont);
+//					cell.setText("<empty>");
+				}
 				cell.setImage(getColumnImage());
 			}
-			
+
 			public Image getColumnImage() {
-//				if (((GesilaJSONObject) element).getValue() == null
-//						|| "".equals(((GesilaJSONObject) element).getValue())) {
-//					return null;
-//				}
+				// if (((GesilaJSONObject) element).getValue() == null
+				// || "".equals(((GesilaJSONObject) element).getValue())) {
+				// return null;
+				// }
 				String image = "full/obj16/GenericValue";
-//				switch (columnIndex) {
-//				case 1:
-//					String name = ((GesilaJSONObject) element).getName();
-//					if (name.equals("_ApplicationId") || name.equals("_ApplicationKey")) {
-//						image = "full/obj16/IntegralValue.gif";
-//					}
-//					break;
-				//}
+				// switch (columnIndex) {
+				// case 1:
+				// String name = ((GesilaJSONObject) element).getName();
+				// if (name.equals("_ApplicationId") ||
+				// name.equals("_ApplicationKey")) {
+				// image = "full/obj16/IntegralValue.gif";
+				// }
+				// break;
+				// }
 				return ExtendedImageRegistry.getInstance().getImage(EMFEditPlugin.INSTANCE.getImage(image));
 			}
 		});
 		tableViewerColumn.setEditingSupport(cellEditingSupport);
-		CellEditor cellEditor=cellEditingSupport.getCellEditor(new Object());
-		cellEditor.activate();
+		// CellEditor cellEditor=cellEditingSupport.getCellEditor(new Object());
+		// cellEditor.activate();
 
 		gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
 		table.setLayoutData(gridData);
@@ -411,10 +435,8 @@ public class GesilaTestGuardFormPage extends FormPage {
 		gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
 		headerComposite.setLayoutData(gridData);
 
-		EList<Header> headers = testGuard.getHeaders().getHeader();
-		
-		EEnum entityHeaderFieldEnum=TestGuardPackage.eINSTANCE.getEntityHeaderFields();
-		Object[] entityHeaderFields=entityHeaderFieldEnum.getELiterals().toArray();
+		EEnum entityHeaderFieldEnum = TestGuardPackage.eINSTANCE.getEntityHeaderFields();
+		Object[] entityHeaderFields = entityHeaderFieldEnum.getELiterals().toArray();
 
 		tableViewer.setContentProvider(new IStructuredContentProvider() {
 
@@ -428,7 +450,7 @@ public class GesilaTestGuardFormPage extends FormPage {
 		return headerComposite;
 	}
 
-	private void createParamstab(CTabFolder tabFolder) {
+	private void createParamsTab(CTabFolder tabFolder) {
 		CTabItem tabItem = new CTabItem(tabFolder, SWT.BORDER);
 		// tabItem.setImage(Activator.getDefault().getImageRegistry().get("params"));
 		tabItem.setText("URL Params");
@@ -439,17 +461,24 @@ public class GesilaTestGuardFormPage extends FormPage {
 		gridLayout.verticalSpacing = 0;
 		gridLayout.horizontalSpacing = 0;
 		paramsComposite.setLayout(gridLayout);
-		
+
 		ToolBar toolbar = new ToolBar(paramsComposite, SWT.NONE);
 		GridData gridData = new GridData(SWT.RIGHT, SWT.FILL, true, false);
 		ToolItem addItem = new ToolItem(toolbar, SWT.NONE);
 		addItem.setImage(Activator.getDefault().getImageRegistry().get("add"));
+		TableViewer tableViewer = new TableViewer(paramsComposite, SWT.FULL_SELECTION | SWT.BORDER);
 		addItem.addSelectionListener(new SelectionListener() {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				
-
+				Param param = TestGuardFactory.eINSTANCE.createParam();
+				// param.setName("param1");
+				// param.setValue("value1");
+				EList<Param> params = testGuard.getParams().getParam();
+				params.add(param);
+				// tableViewer.add(param);
+				tableViewer.refresh(true);
+				tableViewer.editElement(param, 0);
 			}
 
 			@Override
@@ -460,9 +489,7 @@ public class GesilaTestGuardFormPage extends FormPage {
 		});
 		ToolItem removeItem = new ToolItem(toolbar, SWT.NONE);
 		removeItem.setImage(Activator.getDefault().getImageRegistry().get("remove"));
-		
 
-		TableViewer tableViewer = new TableViewer(paramsComposite, SWT.FULL_SELECTION | SWT.BORDER);
 		Table table = tableViewer.getTable();
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
@@ -471,14 +498,92 @@ public class GesilaTestGuardFormPage extends FormPage {
 		gridData.heightHint = SWT.DEFAULT;
 		table.setLayoutData(gridData);
 
-		TableColumn tableColumn = new TableColumn(table, SWT.NONE);
-		tableColumn.setWidth(200);
-		tableColumn.setText("Name");
-
 		TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer, SWT.NONE);
 		tableViewerColumn.getColumn().setWidth(200);
+		tableViewerColumn.getColumn().setText("Name");
+		tableViewerColumn.setEditingSupport(new ParamsEditingSupport(tableViewer, "name"));
+		tableViewerColumn.setLabelProvider(new CellLabelProvider() {
+
+			@Override
+			public void update(ViewerCell cell) {
+				Object element = cell.getElement();
+				if (element instanceof Param) {
+					String name = ((Param) element).getName();
+					if (name == null) {
+						Font initialFont = cell.getFont();
+						FontData[] fontData = initialFont.getFontData();
+						for (int i = 0; i < fontData.length; i++) {
+							fontData[i].setStyle(SWT.ITALIC);
+						}
+						Font newFont = new Font(cell.getControl().getDisplay(), fontData);
+						cell.setFont(newFont);
+						cell.setText("<empty>");
+					} else {
+						Font initialFont = cell.getFont();
+						FontData[] fontData = initialFont.getFontData();
+						for (int i = 0; i < fontData.length; i++) {
+							fontData[i].setStyle(SWT.NORMAL);
+						}
+						Font newFont = new Font(cell.getControl().getDisplay(), fontData);
+						cell.setFont(newFont);
+						cell.setText(name);
+					}
+				} else {
+					cell.setText(element.toString());
+				}
+			}
+		});
+
+		tableViewerColumn = new TableViewerColumn(tableViewer, SWT.NONE);
+		tableViewerColumn.getColumn().setWidth(200);
 		tableViewerColumn.getColumn().setText("Value");
+		tableViewerColumn.setEditingSupport(new ParamsEditingSupport(tableViewer, "value"));
+		tableViewerColumn.setLabelProvider(new CellLabelProvider() {
+
+			@Override
+			public void update(ViewerCell cell) {
+				Object element = cell.getElement();
+				if (element instanceof Param) {
+					String value = ((Param) element).getValue();
+					if (value == null) {
+						Font initialFont = cell.getFont();
+						FontData[] fontData = initialFont.getFontData();
+						for (int i = 0; i < fontData.length; i++) {
+							fontData[i].setStyle(SWT.ITALIC);
+						}
+						Font newFont = new Font(cell.getControl().getDisplay(), fontData);
+						cell.setFont(newFont);
+						cell.setText("<empty>");
+					} else {
+						Font initialFont = cell.getFont();
+						FontData[] fontData = initialFont.getFontData();
+						for (int i = 0; i < fontData.length; i++) {
+							fontData[i].setStyle(SWT.NORMAL);
+						}
+						Font newFont = new Font(cell.getControl().getDisplay(), fontData);
+						cell.setFont(newFont);
+						cell.setText(value);
+					}
+				} else {
+					cell.setText(element.toString());
+				}
+			}
+		});
+
 		tabItem.setControl(paramsComposite);
+		tableViewer.setContentProvider(new IStructuredContentProvider() {
+
+			@Override
+			public Object[] getElements(Object inputElement) {
+				if (inputElement instanceof List) {
+					return ((List) inputElement).toArray(new Object[0]);
+				}
+				return Collections.EMPTY_LIST.toArray();
+			}
+		});
+
+		EList<Param> params = testGuard.getParams().getParam();
+		tableViewer.setInput(params);
 	}
 
 	private void createJSONTab(CTabFolder tabFolder) {
@@ -642,31 +747,30 @@ public class GesilaTestGuardFormPage extends FormPage {
 	}
 
 	class CellEditingSupport extends EditingSupport {
-	
-		
+
 		public CellEditingSupport(ColumnViewer viewer) {
 			super(viewer);
 		}
-		
+
 		@Override
 		protected void setValue(Object element, Object value) {
-			//setValue(element, value);
-			//if(element instanceof )
+			// setValue(element, value);
+			// if(element instanceof )
 		}
-		
+
 		@Override
 		protected Object getValue(Object element) {
-			if(element instanceof Header) {
-				return ((Header)element).getName();
+			if (element instanceof Header) {
+				return ((Header) element).getName();
 			}
 			return "";
 		}
-		
+
 		@Override
 		protected CellEditor getCellEditor(Object element) {
-			return new TextCellEditor((Composite) getViewer().getControl(),SWT.NONE);
+			return new TextCellEditor((Composite) getViewer().getControl(), SWT.NONE);
 		}
-		
+
 		@Override
 		protected boolean canEdit(Object element) {
 			// TODO Auto-generated method stub

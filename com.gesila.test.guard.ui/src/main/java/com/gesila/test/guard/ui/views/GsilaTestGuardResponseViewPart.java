@@ -76,7 +76,7 @@ public class GsilaTestGuardResponseViewPart extends ViewPart implements IGesilaT
 		cTabItem.setImage(Activator.getDefault().getImageRegistry().get("text"));
 		cTabItem.setText("Text");
 
-		text = formToolkit.createText(cTabFolder, null, SWT.BORDER | SWT.MULTI | SWT.WRAP);
+		text = formToolkit.createText(cTabFolder, null, SWT.BORDER | SWT.MULTI | SWT.WRAP|SWT.V_SCROLL);
 		gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
 		gridData.widthHint = SWT.DEFAULT;
 		gridData.heightHint = SWT.DEFAULT;
