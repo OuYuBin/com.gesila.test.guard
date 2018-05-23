@@ -74,6 +74,8 @@ import org.eclipse.ui.forms.widgets.Form;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSONObject;
 import com.gesila.test.guard.common.editor.part.support.GesilaTextCellEditor;
@@ -105,6 +107,9 @@ public class GesilaTestGuardFormPage extends FormPage {
 	private TreeViewer jsonTreeViewer;
 
 	private CCombo methodsCombo;
+	
+	
+	private Logger logger=LoggerFactory.getLogger(GesilaTestGuardFormPage.class);
 
 	public GesilaTestGuardFormPage(FormEditor editor, String id, String title) {
 		super(editor, id, title);
@@ -174,14 +179,28 @@ public class GesilaTestGuardFormPage extends FormPage {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				HttpUriRequest httpUriRequest = null;
 				try {
 					HttpClient httpClient = HttpClients.createDefault();
 					String url = urlText.getText();
-					// HttpPost httpPost = new HttpPost(url);
-					HttpUriRequest httpUriRequest = null;
+					EList<Param> params = testGuard.getParams().getParam();
+					if (!params.isEmpty()) {
+						StringBuffer sb = new StringBuffer();
+						// sb.append("?");
+						for (Param param : params) {
+							String paramName = param.getName();
+							String paramValue = param.getValue();
+							if (paramName != null && paramValue != null) {
+								sb.append(paramName);
+								sb.append("=");
+								sb.append(paramValue);
+							}
+							sb.append("&");
+						}
+						url += "?" + sb.toString().substring(0, sb.toString().length() - 1);
+					}
+					logger.info("Request URL is {}", url);
 					int index = methodsCombo.getSelectionIndex();
-					EEnum methods = TestGuardPackage.eINSTANCE.getMethod();
-					EEnumLiteral methodLiteral = methods.getEEnumLiteral(index);
 					switch (index) {
 					case 0:
 						httpUriRequest = new HttpGet(url);
@@ -394,15 +413,16 @@ public class GesilaTestGuardFormPage extends FormPage {
 						.filter(header -> (header.getName()).equals(literal)).collect(Collectors.toList());
 				if (!headerElements.isEmpty()) {
 					cell.setText(headerElements.get(0).getValue());
-				}else{
-//					Font initialFont = cell.getFont();
-//					FontData[] fontData = initialFont.getFontData();
-//					for (int i = 0; i < fontData.length; i++) {
-//						fontData[i].setStyle(SWT.ITALIC);
-//					}
-//					Font newFont = new Font(cell.getControl().getDisplay(), fontData);
-//					cell.setFont(newFont);
-//					cell.setText("<empty>");
+				} else {
+					// Font initialFont = cell.getFont();
+					// FontData[] fontData = initialFont.getFontData();
+					// for (int i = 0; i < fontData.length; i++) {
+					// fontData[i].setStyle(SWT.ITALIC);
+					// }
+					// Font newFont = new Font(cell.getControl().getDisplay(),
+					// fontData);
+					// cell.setFont(newFont);
+					// cell.setText("<empty>");
 				}
 				cell.setImage(getColumnImage());
 			}

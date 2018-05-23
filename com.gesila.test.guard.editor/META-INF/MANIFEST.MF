@@ -26,7 +26,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.forms;bundle-version="3.6.200",
  com.gesila.test.guard.common.editor;bundle-version="1.0.0",
  com.gesila.test.guard.json;bundle-version="1.0.0",
- com.gesila.test.guard.ui;bundle-version="1.0.0"
+ com.gesila.test.guard.ui;bundle-version="1.0.0",
+ com.gesila.test.guard.log;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Export-Package: com.gesila.test.guard.editor,
