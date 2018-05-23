@@ -33,7 +33,7 @@ public class Activator extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
-		//--log4j config
+		//--log4j configuration
 		URL url=this.getBundle().getEntry("/"+LOG4J_PROPETIES_FILE);
 		PropertyConfigurator.configure(url);
 	}
