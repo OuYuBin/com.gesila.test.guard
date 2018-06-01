@@ -6,11 +6,13 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -22,6 +24,7 @@ import org.eclipse.ui.internal.ide.DialogUtil;
 import org.eclipse.ui.internal.ide.IDEWorkbenchMessages;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 import org.eclipse.ui.internal.wizards.newresource.ResourceMessages;
+import org.eclipse.ui.part.FileEditorInput;
 
 import com.gesila.test.guard.navigator.ui.wizards.models.GesilaTestGuardRequest;
 import com.gesila.test.guard.navigator.ui.wizards.pages.GesilaTestGuardNewRequestWizardPage;
@@ -66,7 +69,16 @@ public class GesilaTestGuardNewRequestWizard extends Wizard implements IWizard {
 			if (workbenchWindow != null) {
 				IWorkbenchPage page = workbenchWindow.getActivePage();
 				if (page != null) {
-					IDE.openEditor(page, file, true);
+					IEditorDescriptor editorDesc;
+					try {
+						editorDesc = IDE.getEditorDescriptor(file, true, true);
+					} catch (OperationCanceledException ex) {
+						return false;
+					}
+					
+					page.openEditor(new FileEditorInput(file), editorDesc.getId(), true);
+
+					// IDE.openEditor(page, file, true);
 				}
 			}
 		} catch (PartInitException e) {

@@ -43,6 +43,9 @@
             <contentExtension
                   pattern="com.gesila.test.guard.navigator.ui.navigatorContent">
             </contentExtension>
+            <contentExtension
+                  pattern="com.gesila.test.guard.navigator.ui.views.linkHelper.GesialLinkTestGuardHelper">
+            </contentExtension>
          </includes>
       </viewerContentBinding>
    </extension>
@@ -204,8 +207,14 @@
       <linkHelper
             class="com.gesila.test.guard.navigator.ui.views.linkHelper.GesialLinkTestGuardHelper"
             id="com.gesila.test.guard.navigator.ui.views.linkHelper.GesialLinkTestGuardHelper">
-         <editorInputEnablement></editorInputEnablement>
-         <selectionEnablement></selectionEnablement>
+         <editorInputEnablement>
+            <instanceof
+                  value="org.eclipse.ui.IEditorInput">
+            </instanceof></editorInputEnablement>
+         <selectionEnablement>
+            <instanceof
+                  value="com.gesila.test.guard.project.models.IGesilaTestGuardProjectElement">
+            </instanceof></selectionEnablement>
       </linkHelper>
    </extension>
 

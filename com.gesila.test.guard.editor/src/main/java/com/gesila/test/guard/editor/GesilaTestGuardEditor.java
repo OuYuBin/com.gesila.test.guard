@@ -1,6 +1,11 @@
 package com.gesila.test.guard.editor;
 
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.EventObject;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.command.BasicCommandStack;
@@ -12,9 +17,12 @@ import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.ui.util.EditUIUtil;
+import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.forms.editor.FormEditor;
 
 import com.gesila.test.guard.editor.pages.GesilaTestGuardFormPage;
@@ -42,13 +50,40 @@ public class GesilaTestGuardEditor extends FormEditor {
 
 	@Override
 	public void doSave(IProgressMonitor monitor) {
-		// TODO Auto-generated method stub
+		WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
 
+			@Override
+			protected void execute(IProgressMonitor monitor)
+					throws org.eclipse.core.runtime.CoreException, InvocationTargetException, InterruptedException {
+				List<Resource> resources = editingDomain.getResourceSet().getResources();
+				Map<Object, Object> saveOptions = new HashMap<Object, Object>();
+				saveOptions.put(Resource.OPTION_SAVE_ONLY_IF_CHANGED,
+						Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
+				resources.stream().forEach(resource -> {
+					try {
+						resource.save(saveOptions);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				});
+			}
+		};
+		
+		try {
+			try {
+				new ProgressMonitorDialog(getSite().getShell()).run(true, false, operation);
+				((BasicCommandStack)editingDomain.getCommandStack()).saveIsDone();
+				firePropertyChange(IEditorPart.PROP_DIRTY);
+			} catch (InvocationTargetException | InterruptedException e) {
+				e.printStackTrace();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void doSaveAs() {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -69,7 +104,13 @@ public class GesilaTestGuardEditor extends FormEditor {
 
 			@Override
 			public void commandStackChanged(EventObject event) {
-				// TODO Auto-generated method stub
+				getContainer().getDisplay().asyncExec(new Runnable() {
+
+					@Override
+					public void run() {
+						firePropertyChange(IEditorPart.PROP_DIRTY);
+					}
+				});
 
 			}
 		});
@@ -79,16 +120,14 @@ public class GesilaTestGuardEditor extends FormEditor {
 	@Override
 	public boolean isDirty() {
 		// TODO Auto-generated method stub
-		return false;
+		return ((BasicCommandStack) editingDomain.getCommandStack()).isSaveNeeded();
+		// return false;
 	}
 
 	@Override
 	public boolean isSaveAsAllowed() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
-	
-	
 
 	// @Override
 	// public void createPartControl(Composite parent) {
@@ -116,14 +155,17 @@ public class GesilaTestGuardEditor extends FormEditor {
 	//
 	// Button sendButton = new Button(composite, SWT.BUTTON1);
 	// sendButton.setText("Send");
-	// sendButton.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
+	// sendButton.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false,
+	// false));
 	// Label reponseLabel = new Label(composite, SWT.NONE);
 	// reponseLabel.setText("Response:");
-	// reponseLabel.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, false, 5,
+	// reponseLabel.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true,
+	// false, 5,
 	// 1));
 	// Text responseText = new Text(composite, SWT.BORDER | SWT.MULTI |
 	// SWT.READ_ONLY|SWT.WRAP);
-	// responseText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 5,
+	// responseText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true,
+	// 5,
 	// 1));
 	//
 	// sendButton.addSelectionListener(new SelectionListener() {
@@ -191,8 +233,10 @@ public class GesilaTestGuardEditor extends FormEditor {
 	}
 
 	public <T> T getAdapter(Class<T> adapter) {
-		if (Resource.class==adapter) {
+		if (Resource.class == adapter) {
 			return (T) resource;
+		} else if (EditingDomain.class == adapter) {
+			return (T) editingDomain;
 		}
 		return super.getAdapter(adapter);
 	}

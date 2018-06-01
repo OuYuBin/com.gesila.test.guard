@@ -19,11 +19,16 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.EMFEditPlugin;
+import org.eclipse.emf.edit.command.AddCommand;
+import org.eclipse.emf.edit.command.SetCommand;
+import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.viewers.CellEditor;
@@ -89,6 +94,7 @@ import com.gesila.test.guard.json.utils.GesilaJSONUtils;
 import com.gesila.test.guard.model.testGuard.Header;
 import com.gesila.test.guard.model.testGuard.Headers;
 import com.gesila.test.guard.model.testGuard.Param;
+import com.gesila.test.guard.model.testGuard.Params;
 import com.gesila.test.guard.model.testGuard.TestGuard;
 import com.gesila.test.guard.model.testGuard.TestGuardFactory;
 import com.gesila.test.guard.model.testGuard.TestGuardPackage;
@@ -107,9 +113,8 @@ public class GesilaTestGuardFormPage extends FormPage {
 	private TreeViewer jsonTreeViewer;
 
 	private CCombo methodsCombo;
-	
-	
-	private Logger logger=LoggerFactory.getLogger(GesilaTestGuardFormPage.class);
+
+	private Logger logger = LoggerFactory.getLogger(GesilaTestGuardFormPage.class);
 
 	public GesilaTestGuardFormPage(FormEditor editor, String id, String title) {
 		super(editor, id, title);
@@ -171,6 +176,17 @@ public class GesilaTestGuardFormPage extends FormPage {
 		Text urlText = formToolkit.createText(requestComposite, null, SWT.BORDER);
 		urlText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 		urlText.setText(testGuard.getUrl());
+		urlText.addModifyListener(new ModifyListener() {
+
+			@Override
+			public void modifyText(ModifyEvent event) {
+				Text urlText = (Text) event.getSource();
+				EditingDomain editingDomain = getEditor().getAdapter(EditingDomain.class);
+				EAttribute urlAttribute = TestGuardPackage.eINSTANCE.getTestGuard_Url();
+				SetCommand setCommand = new SetCommand(editingDomain, testGuard, urlAttribute, urlText.getText());
+				editingDomain.getCommandStack().execute(setCommand);
+			}
+		});
 
 		Button button = formToolkit.createButton(requestComposite, "Send", SWT.BUTTON1);
 		button.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));
@@ -207,6 +223,8 @@ public class GesilaTestGuardFormPage extends FormPage {
 						break;
 					case 1:
 						httpUriRequest = new HttpPost(url);
+						HttpEntity httpEntity = new StringEntity(testGuard.getRequestBody().getValue());
+						((HttpPost) httpUriRequest).setEntity(httpEntity);
 						break;
 					default:
 						break;
@@ -491,11 +509,16 @@ public class GesilaTestGuardFormPage extends FormPage {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				EditingDomain editingDomain = getEditor().getAdapter(EditingDomain.class);
+				EReference paramEReference = TestGuardPackage.eINSTANCE.getParams_Param();
+				Params params = testGuard.getParams();
 				Param param = TestGuardFactory.eINSTANCE.createParam();
+				AddCommand addCommand = new AddCommand(editingDomain, params, paramEReference, param);
+				editingDomain.getCommandStack().execute(addCommand);
 				// param.setName("param1");
 				// param.setValue("value1");
-				EList<Param> params = testGuard.getParams().getParam();
-				params.add(param);
+				// EList<Param> params = testGuard.getParams().getParam();
+				// params.add(param);
 				// tableViewer.add(param);
 				tableViewer.refresh(true);
 				tableViewer.editElement(param, 0);
@@ -521,7 +544,7 @@ public class GesilaTestGuardFormPage extends FormPage {
 		TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer, SWT.NONE);
 		tableViewerColumn.getColumn().setWidth(200);
 		tableViewerColumn.getColumn().setText("Name");
-		tableViewerColumn.setEditingSupport(new ParamsEditingSupport(tableViewer, "name"));
+		tableViewerColumn.setEditingSupport(new ParamsEditingSupport(tableViewer, "name",getEditor()));
 		tableViewerColumn.setLabelProvider(new CellLabelProvider() {
 
 			@Override
@@ -557,7 +580,7 @@ public class GesilaTestGuardFormPage extends FormPage {
 		tableViewerColumn = new TableViewerColumn(tableViewer, SWT.NONE);
 		tableViewerColumn.getColumn().setWidth(200);
 		tableViewerColumn.getColumn().setText("Value");
-		tableViewerColumn.setEditingSupport(new ParamsEditingSupport(tableViewer, "value"));
+		tableViewerColumn.setEditingSupport(new ParamsEditingSupport(tableViewer, "value", getEditor()));
 		tableViewerColumn.setLabelProvider(new CellLabelProvider() {
 
 			@Override

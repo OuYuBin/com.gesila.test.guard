@@ -1,5 +1,9 @@
 package com.gesila.test.guard.editor.editingSupport;
 
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.edit.command.SetCommand;
+import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.EditingSupport;
@@ -19,11 +23,15 @@ public class ParamsEditingSupport extends EditingSupport {
 	private TextCellEditor textCellEditor;
 
 	private String featureName;
+	
+	private IAdaptable adaptable;
 
-	public ParamsEditingSupport(ColumnViewer viewer, String featureName) {
+	public ParamsEditingSupport(ColumnViewer viewer, String featureName,IAdaptable adaptable) {
 		super(viewer);
 		this.featureName = featureName;
-		textCellEditor = new TextCellEditor((Composite) viewer.getControl(), SWT.FLAT);
+		this.textCellEditor = new TextCellEditor((Composite) viewer.getControl(), SWT.FLAT);
+		this.adaptable=adaptable;
+		
 
 	}
 
@@ -52,10 +60,14 @@ public class ParamsEditingSupport extends EditingSupport {
 	protected void setValue(Object element, Object value) {
 		String oldValue = (String) getValue(element);
 		if (!oldValue.equals(value)&&!value.equals("")) {
-			if (featureName.equals("name"))
-				((Param) element).setName((String) value);
-			else if (featureName.equals("value"))
-				((Param) element).setValue((String) value);
+			EditingDomain editingDomain=adaptable.getAdapter(EditingDomain.class);
+			EStructuralFeature feature=((Param)element).eClass().getEStructuralFeature(featureName);
+			SetCommand setCommand=new SetCommand(editingDomain, (Param)element, feature, value);
+			editingDomain.getCommandStack().execute(setCommand);
+//			if (featureName.equals("name"))
+//				((Param) element).setName((String) value);
+//			else if (featureName.equals("value"))
+//				((Param) element).setValue((String) value);
 		}
 		getViewer().refresh(element, true);
 

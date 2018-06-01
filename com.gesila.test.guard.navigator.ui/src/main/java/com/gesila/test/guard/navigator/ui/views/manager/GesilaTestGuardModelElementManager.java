@@ -68,4 +68,8 @@ public class GesilaTestGuardModelElementManager implements IResourceChangeListen
 			IGesilaTestGuardModelElementChangeListener gesilaTestGuardModelElementChangeListener) {
 	}
 
+	public List<IGesilaTestGuardModelElementChangeListener> getGesilaTestGuardModelElementChangeListeners() {
+		return gesilaTestGuardModelElementChangeListeners;
+	}
+
 }
