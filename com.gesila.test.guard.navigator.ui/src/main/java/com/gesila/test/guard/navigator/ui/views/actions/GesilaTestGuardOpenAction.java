@@ -5,12 +5,17 @@ import org.eclipse.core.filesystem.IFileStore;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.SelectionListenerAction;
 import org.eclipse.ui.ide.FileStoreEditorInput;
+import org.eclipse.ui.ide.IDE;
+import org.eclipse.ui.part.FileEditorInput;
 
 import com.gesila.test.guard.project.models.impl.GesilaTestGuard;
 
@@ -38,10 +43,24 @@ public class GesilaTestGuardOpenAction extends SelectionListenerAction {
 				IPath path = ((GesilaTestGuard) object).getAdapter(IPath.class);
 				IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
 				if (file.exists()) {
-					IFileStore fileStore = EFS.getLocalFileSystem().getStore(file.getLocationURI());
-					IEditorInput editorInput = new FileStoreEditorInput(fileStore);
-					workbenchWindow.getActivePage().openEditor(editorInput,
-							"com.gesila.test.guard.editor.GesilaTestGuardEditor");
+					IWorkbenchPage page = workbenchWindow.getActivePage();
+					if (page != null) {
+						IEditorDescriptor editorDesc = null;
+						try {
+							editorDesc = IDE.getEditorDescriptor(file, true, true);
+						} catch (OperationCanceledException ex) {
+							ex.printStackTrace();
+						}
+
+						page.openEditor(new FileEditorInput(file), editorDesc.getId(), true);
+						// IDE.openEditor(page, file, true);
+					}
+					// IFileStore fileStore =
+					// EFS.getLocalFileSystem().getStore(file.getLocationURI());
+					// IEditorInput editorInput = new
+					// FileStoreEditorInput(fileStore);
+					// workbenchWindow.getActivePage().openEditor(editorInput,
+					// "com.gesila.test.guard.editor.GesilaTestGuardEditor");
 				}
 			}
 		} catch (PartInitException e) {

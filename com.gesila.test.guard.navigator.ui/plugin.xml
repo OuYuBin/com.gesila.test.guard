@@ -64,9 +64,14 @@
             </instanceof>
          </triggerPoints>
          <possibleChildren>
-            <instanceof
-                  value="org.eclipse.core.resources.IResource">
-            </instanceof>
+            <or>
+               <instanceof
+                     value="org.eclipse.core.resources.IResource">
+               </instanceof>
+               <instanceof
+                     value="com.gesila.test.guard.project.models.IGesilaTestGuardProjectElement">
+               </instanceof>
+            </or>
          </possibleChildren>
          <actionProvider
                class="com.gesila.test.guard.navigator.ui.views.providers.GesilaTestGuardCommonActionProvider"

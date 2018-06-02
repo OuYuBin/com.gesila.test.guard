@@ -27,27 +27,27 @@ public class GesilaTestGuardCommonNavigator extends CommonNavigator {
 
 	@Override
 	public void createPartControl(Composite parent) {
-		GridLayout gridLayout = new GridLayout(1, false);
-		gridLayout.marginWidth = 0;
-		gridLayout.marginHeight = 0;
-		gridLayout.verticalSpacing = 1;
-		gridLayout.horizontalSpacing = 0;
-		parent.setLayout(gridLayout);
+//		GridLayout gridLayout = new GridLayout(1, false);
+//		gridLayout.marginWidth = 0;
+//		gridLayout.marginHeight = 0;
+//		gridLayout.verticalSpacing = 1;
+//		gridLayout.horizontalSpacing = 0;
+//		parent.setLayout(gridLayout);
+//		
+//		
+//		FormToolkit formToolkit=new FormToolkit(Display.getCurrent());
+//		Form form=formToolkit.createForm(parent);
+//		form.setText("Gesila TestGuard Navigator");
+//		IToolBarManager toolBarManager=form.getToolBarManager();
+//		//toolBarManager.add
+//		formToolkit.decorateFormHeading(form);
+//		
+//		form.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+//		Composite body=form.getBody();
+//		body.setBackground(new Color(Display.getDefault(), 185, 214, 238));
+//		body.setLayout(new FillLayout());
 		
-		
-		FormToolkit formToolkit=new FormToolkit(Display.getCurrent());
-		Form form=formToolkit.createForm(parent);
-		form.setText("Gesila TestGuard Navigator");
-		IToolBarManager toolBarManager=form.getToolBarManager();
-		//toolBarManager.add
-		formToolkit.decorateFormHeading(form);
-		
-		form.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		Composite body=form.getBody();
-		body.setBackground(new Color(Display.getDefault(), 185, 214, 238));
-		body.setLayout(new FillLayout());
-		
-		super.createPartControl(body);
+		super.createPartControl(parent);
 	}
 
 	@Override

@@ -77,7 +77,6 @@ public class GesilaTestGuardNewRequestWizard extends Wizard implements IWizard {
 					}
 					
 					page.openEditor(new FileEditorInput(file), editorDesc.getId(), true);
-
 					// IDE.openEditor(page, file, true);
 				}
 			}

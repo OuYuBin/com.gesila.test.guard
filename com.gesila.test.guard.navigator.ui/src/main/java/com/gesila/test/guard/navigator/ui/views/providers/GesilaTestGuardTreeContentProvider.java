@@ -73,7 +73,7 @@ public class GesilaTestGuardTreeContentProvider
 					if (project.getNature(GesilaTestGuardProjectNature.ID) != null) {
 						gesilaTestGuardProject = new GesilaTestGuardProject(project);
 						gesilaTestGuardProjects.put(project.getName(), gesilaTestGuardProject);
-						objects.add(new GesilaTestGuardProject(project));
+						objects.add(gesilaTestGuardProject);
 					}
 				} catch (CoreException e) {
 					e.printStackTrace();
