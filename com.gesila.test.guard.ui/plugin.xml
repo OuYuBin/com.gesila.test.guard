@@ -17,6 +17,13 @@
             name="TestGuard Response"
             restorable="true">
       </view>
+      <view
+            class="com.gesila.test.guard.ui.views.TestGuardPropertyPageBookView"
+            icon="icons/direction--arrow.png"
+            id="com.gesila.test.guard.ui.views.TestGuardPropertyPageBookView"
+            name="TestGuard Property"
+            restorable="true">
+      </view>
    </extension>
 
 </plugin>

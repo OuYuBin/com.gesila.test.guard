@@ -2,6 +2,7 @@ package com.gesila.test.guard.application.e3;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.GroupMarker;
+import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.ICoolBarManager;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
@@ -14,8 +15,10 @@ import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
+import org.eclipse.ui.actions.ContributionItemFactory;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
+import org.eclipse.ui.internal.ide.IDEWorkbenchMessages;
 
 /**
  * An action bar advisor is responsible for creating, adding, and disposing of
@@ -66,11 +69,13 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	@Override
 	protected void fillMenuBar(IMenuManager menuBar) {
 		MenuManager fileMenu = new MenuManager("&File", IWorkbenchActionConstants.M_FILE);
+		MenuManager windowsMenu = new MenuManager(IDEWorkbenchMessages.Workbench_window, IWorkbenchActionConstants.M_WINDOW);
 		MenuManager helpMenu = new MenuManager("&Help", IWorkbenchActionConstants.M_HELP);
 
 		menuBar.add(fileMenu);
 		// Add a group marker indicating where action set menus will appear.
 		menuBar.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
+		menuBar.add(windowsMenu);
 		menuBar.add(helpMenu);
 
 		// File
@@ -81,6 +86,11 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		fileMenu.add(new Separator());
 		fileMenu.add(exitAction);
 
+		MenuManager showViewMenu = new MenuManager("Show View");
+		IContributionItem item = ContributionItemFactory.VIEWS_SHORTLIST
+				.create(getActionBarConfigurer().getWindowConfigurer().getWindow());
+		showViewMenu.add(item);
+		windowsMenu.add(showViewMenu);
 		// Help
 		helpMenu.add(aboutAction);
 	}

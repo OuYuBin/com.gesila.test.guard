@@ -24,8 +24,10 @@ import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.forms.editor.FormEditor;
+import org.eclipse.ui.part.PageBookView;
 
 import com.gesila.test.guard.editor.pages.GesilaTestGuardFormPage;
+import com.gesila.test.guard.ui.views.TestGuardPropertyPageBookView;
 
 /**
  * 
@@ -38,6 +40,7 @@ public class GesilaTestGuardEditor extends FormEditor {
 	private EditingDomain editingDomain;
 
 	private Resource resource;
+	
 
 	@Override
 	protected void createPages() {
@@ -90,8 +93,8 @@ public class GesilaTestGuardEditor extends FormEditor {
 	@Override
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
 		super.init(site, input);
-		setSite(site);
-		setInput(input);
+		//setSite(site);
+		//setInput(input);
 		setPartName(input.getName());
 		initializedEditingDomain();
 	}
@@ -232,11 +235,14 @@ public class GesilaTestGuardEditor extends FormEditor {
 		System.out.println(resource);
 	}
 
+	
 	public <T> T getAdapter(Class<T> adapter) {
 		if (Resource.class == adapter) {
 			return (T) resource;
 		} else if (EditingDomain.class == adapter) {
 			return (T) editingDomain;
+		}else if(PageBookView.class==adapter){
+			return (T) new TestGuardPropertyPageBookView(); 
 		}
 		return super.getAdapter(adapter);
 	}

@@ -24,6 +24,7 @@ public class Perspective implements IPerspectiveFactory {
 				0.70f, editorArea);
 
 		IFolderLayout bottom= layout.createFolder("left", IPageLayout.BOTTOM, 0.70F, editorArea);
+		bottom.addView("com.gesila.test.guard.ui.views.TestGuardPropertyPageBookView");
 		bottom.addView(IConsoleConstants.ID_CONSOLE_VIEW);
 		// IFolderLayout folder = layout.createFolder("messages",
 		// IPageLayout.TOP, 0.5f, editorArea);
