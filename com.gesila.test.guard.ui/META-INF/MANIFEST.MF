@@ -19,4 +19,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Export-Package: com.gesila.test.guard.ui,
  com.gesila.test.guard.ui.handlers,
- com.gesila.test.guard.ui.views
+ com.gesila.test.guard.ui.models,
+ com.gesila.test.guard.ui.providers,
+ com.gesila.test.guard.ui.views,
+ com.gesila.test.guard.ui.views.viewPage

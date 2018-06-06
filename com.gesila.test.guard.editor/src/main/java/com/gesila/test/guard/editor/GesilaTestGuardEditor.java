@@ -28,6 +28,8 @@ import org.eclipse.ui.part.PageBookView;
 
 import com.gesila.test.guard.editor.pages.GesilaTestGuardFormPage;
 import com.gesila.test.guard.ui.views.TestGuardPropertyPageBookView;
+import com.gesila.test.guard.ui.views.viewPage.GesilaTestGuardPage;
+import com.gesila.test.guard.ui.views.viewPage.IGesilaTestGuardPage;
 
 /**
  * 
@@ -40,7 +42,6 @@ public class GesilaTestGuardEditor extends FormEditor {
 	private EditingDomain editingDomain;
 
 	private Resource resource;
-	
 
 	@Override
 	protected void createPages() {
@@ -71,11 +72,11 @@ public class GesilaTestGuardEditor extends FormEditor {
 				});
 			}
 		};
-		
+
 		try {
 			try {
 				new ProgressMonitorDialog(getSite().getShell()).run(true, false, operation);
-				((BasicCommandStack)editingDomain.getCommandStack()).saveIsDone();
+				((BasicCommandStack) editingDomain.getCommandStack()).saveIsDone();
 				firePropertyChange(IEditorPart.PROP_DIRTY);
 			} catch (InvocationTargetException | InterruptedException e) {
 				e.printStackTrace();
@@ -93,8 +94,8 @@ public class GesilaTestGuardEditor extends FormEditor {
 	@Override
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
 		super.init(site, input);
-		//setSite(site);
-		//setInput(input);
+		// setSite(site);
+		// setInput(input);
 		setPartName(input.getName());
 		initializedEditingDomain();
 	}
@@ -112,6 +113,9 @@ public class GesilaTestGuardEditor extends FormEditor {
 					@Override
 					public void run() {
 						firePropertyChange(IEditorPart.PROP_DIRTY);
+						// --同时对监视视图进行刷新
+						if (gesilaTestGuardPage != null)
+							gesilaTestGuardPage.refresh();
 					}
 				});
 
@@ -235,14 +239,21 @@ public class GesilaTestGuardEditor extends FormEditor {
 		System.out.println(resource);
 	}
 
-	
+	private IGesilaTestGuardPage gesilaTestGuardPage;
+
+	public IGesilaTestGuardPage getTestGuardPage() {
+		if (gesilaTestGuardPage == null)
+			gesilaTestGuardPage = new GesilaTestGuardPage();
+		return gesilaTestGuardPage;
+	}
+
 	public <T> T getAdapter(Class<T> adapter) {
 		if (Resource.class == adapter) {
 			return (T) resource;
 		} else if (EditingDomain.class == adapter) {
 			return (T) editingDomain;
-		}else if(PageBookView.class==adapter){
-			return (T) new TestGuardPropertyPageBookView(); 
+		} else if (IGesilaTestGuardPage.class == adapter) {
+			return (T) getTestGuardPage();
 		}
 		return super.getAdapter(adapter);
 	}
