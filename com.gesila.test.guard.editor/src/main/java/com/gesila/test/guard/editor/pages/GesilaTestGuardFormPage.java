@@ -95,6 +95,7 @@ import com.gesila.test.guard.model.testGuard.Header;
 import com.gesila.test.guard.model.testGuard.Headers;
 import com.gesila.test.guard.model.testGuard.Param;
 import com.gesila.test.guard.model.testGuard.Params;
+import com.gesila.test.guard.model.testGuard.RequestBody;
 import com.gesila.test.guard.model.testGuard.TestGuard;
 import com.gesila.test.guard.model.testGuard.TestGuardFactory;
 import com.gesila.test.guard.model.testGuard.TestGuardPackage;
@@ -113,6 +114,8 @@ public class GesilaTestGuardFormPage extends FormPage {
 	private TreeViewer jsonTreeViewer;
 
 	private CCombo methodsCombo;
+
+	private Text bodyText;
 
 	private Logger logger = LoggerFactory.getLogger(GesilaTestGuardFormPage.class);
 
@@ -174,7 +177,9 @@ public class GesilaTestGuardFormPage extends FormPage {
 		addressLabel.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
 
 		Text urlText = formToolkit.createText(requestComposite, null, SWT.BORDER);
-		urlText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		GridData gridData=new GridData(SWT.FILL, SWT.CENTER, true, false);
+		gridData.widthHint=100;
+		urlText.setLayoutData(gridData);
 		urlText.setText(testGuard.getUrl());
 		urlText.addModifyListener(new ModifyListener() {
 
@@ -544,7 +549,7 @@ public class GesilaTestGuardFormPage extends FormPage {
 		TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer, SWT.NONE);
 		tableViewerColumn.getColumn().setWidth(200);
 		tableViewerColumn.getColumn().setText("Name");
-		tableViewerColumn.setEditingSupport(new ParamsEditingSupport(tableViewer, "name",getEditor()));
+		tableViewerColumn.setEditingSupport(new ParamsEditingSupport(tableViewer, "name", getEditor()));
 		tableViewerColumn.setLabelProvider(new CellLabelProvider() {
 
 			@Override
@@ -724,13 +729,12 @@ public class GesilaTestGuardFormPage extends FormPage {
 		jsonTreeViewer.setLabelProvider(new GesilaTestGuardRequestBodyLableProvider());
 
 		List<GesilaJSONObject> list = new ArrayList<GesilaJSONObject>();
-		// if (eOwner != null) {
-		// String requestBody = ((TestGuardUnit) eOwner).getRequestBody();
-		// JSONObject jsonObject =
-		// GesilaJSONUtils.createJSONObject(requestBody);
-		// GesilaJSONUtils.createGesilaJSONObject(jsonObject, list);
-		// jsonTreeViewer.setInput(list);
-		// }
+		RequestBody requestBody = testGuard.getRequestBody();
+		if (requestBody != null) {
+			String requestBodyValue = testGuard.getRequestBody().getValue();
+			JSONObject jsonObject = GesilaJSONUtils.createJSONObject(requestBodyValue);
+			GesilaJSONUtils.createGesilaJSONObject(jsonObject, list);
+		}
 		jsonTreeViewer.setInput(list);
 
 		tabItem.setControl(jsonComposite);
@@ -771,16 +775,21 @@ public class GesilaTestGuardFormPage extends FormPage {
 		ToolItem removeItem = new ToolItem(toolbar, SWT.NONE);
 		removeItem.setImage(Activator.getDefault().getImageRegistry().get("remove"));
 
-		Text text = new Text(textComposite, SWT.BORDER | SWT.MULTI | SWT.WRAP);
+		bodyText = new Text(textComposite, SWT.BORDER | SWT.MULTI | SWT.WRAP);
 		gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
 		gridData.widthHint = SWT.DEFAULT;
 		gridData.heightHint = SWT.DEFAULT;
-		text.setLayoutData(gridData);
-		text.addModifyListener(new ModifyListener() {
+		bodyText.setLayoutData(gridData);
+		bodyText.addModifyListener(new ModifyListener() {
 
 			@Override
 			public void modifyText(ModifyEvent event) {
 				Text text = (Text) event.getSource();
+				RequestBody requestBody = testGuard.getRequestBody();
+				if (requestBody == null){
+					requestBody = TestGuardFactory.eINSTANCE.createRequestBody();
+					testGuard.setRequestBody(requestBody);
+				}
 				testGuard.getRequestBody().setValue(text.getText());
 			}
 		});
