@@ -9,7 +9,8 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="Params" eType="#//Params"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="requestBody" eType="#//RequestBody"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="requestBody" eType="#//RequestBody"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TestGuardModule">
     <eStructuralFeatures xsi:type="ecore:EReference" name="Unit" upperBound="-1" eType="#//TestGuardUnit"

@@ -113,7 +113,7 @@ public interface TestGuardPackage extends EPackage {
 	int TEST_GUARD__PARAMS = 4;
 
 	/**
-	 * The feature id for the '<em><b>Request Body</b></em>' reference.
+	 * The feature id for the '<em><b>Request Body</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -515,10 +515,10 @@ public interface TestGuardPackage extends EPackage {
 	EAttribute getTestGuard_Url();
 
 	/**
-	 * Returns the meta object for the reference '{@link com.gesila.test.guard.model.testGuard.TestGuard#getRequestBody <em>Request Body</em>}'.
+	 * Returns the meta object for the containment reference '{@link com.gesila.test.guard.model.testGuard.TestGuard#getRequestBody <em>Request Body</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Request Body</em>'.
+	 * @return the meta object for the containment reference '<em>Request Body</em>'.
 	 * @see com.gesila.test.guard.model.testGuard.TestGuard#getRequestBody()
 	 * @see #getTestGuard()
 	 * @generated
@@ -851,7 +851,7 @@ public interface TestGuardPackage extends EPackage {
 		EAttribute TEST_GUARD__URL = eINSTANCE.getTestGuard_Url();
 
 		/**
-		 * The meta object literal for the '<em><b>Request Body</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Request Body</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

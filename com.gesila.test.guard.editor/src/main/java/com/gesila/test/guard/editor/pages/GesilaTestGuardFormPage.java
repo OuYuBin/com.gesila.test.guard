@@ -180,7 +180,7 @@ public class GesilaTestGuardFormPage extends FormPage {
 		GridData gridData=new GridData(SWT.FILL, SWT.CENTER, true, false);
 		gridData.widthHint=100;
 		urlText.setLayoutData(gridData);
-		urlText.setText(testGuard.getUrl());
+		urlText.setText(testGuard.getUrl()==null?"":testGuard.getUrl());
 		urlText.addModifyListener(new ModifyListener() {
 
 			@Override
@@ -779,18 +779,23 @@ public class GesilaTestGuardFormPage extends FormPage {
 		gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
 		gridData.widthHint = SWT.DEFAULT;
 		gridData.heightHint = SWT.DEFAULT;
+		bodyText.setText(testGuard.getRequestBody().getValue());
 		bodyText.setLayoutData(gridData);
 		bodyText.addModifyListener(new ModifyListener() {
 
 			@Override
 			public void modifyText(ModifyEvent event) {
 				Text text = (Text) event.getSource();
-				RequestBody requestBody = testGuard.getRequestBody();
-				if (requestBody == null){
-					requestBody = TestGuardFactory.eINSTANCE.createRequestBody();
-					testGuard.setRequestBody(requestBody);
-				}
-				testGuard.getRequestBody().setValue(text.getText());
+				//RequestBody requestBody = testGuard.getRequestBody();
+//				if (requestBody == null){
+//					requestBody = TestGuardFactory.eINSTANCE.createRequestBody();
+//					testGuard.setRequestBody(requestBody);
+//				}
+				EditingDomain editingDomain = getEditor().getAdapter(EditingDomain.class);
+				RequestBody requestBody=testGuard.getRequestBody();
+				EAttribute valueAttribute = TestGuardPackage.eINSTANCE.getRequestBody_Value();
+				SetCommand setCommand = new SetCommand(editingDomain, requestBody, valueAttribute, text.getText());
+				editingDomain.getCommandStack().execute(setCommand);
 			}
 		});
 

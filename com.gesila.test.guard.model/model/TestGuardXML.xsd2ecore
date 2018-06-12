@@ -8,8 +8,30 @@
       <nested inputs="testGuard.ecore#//RequestMethod/GET" outputs="TestGuardXML.xsd#//RequestMethod;XSDSimpleTypeDefinition/XSDEnumerationFacet=2"/>
       <nested inputs="testGuard.ecore#//RequestMethod/DELETE" outputs="TestGuardXML.xsd#//RequestMethod;XSDSimpleTypeDefinition/XSDEnumerationFacet=3"/>
     </nested>
+    <nested inputs="testGuard.ecore#//EntityHeaderFields" outputs="TestGuardXML.xsd#//EntityHeaderFields;XSDSimpleTypeDefinition=1">
+      <nested inputs="testGuard.ecore#//EntityHeaderFields/Allow" outputs="TestGuardXML.xsd#//EntityHeaderFields;XSDSimpleTypeDefinition=1/XSDEnumerationFacet"/>
+      <nested inputs="testGuard.ecore#//EntityHeaderFields/ContentEncoding" outputs="TestGuardXML.xsd#//EntityHeaderFields;XSDSimpleTypeDefinition=1/XSDEnumerationFacet=1"/>
+      <nested inputs="testGuard.ecore#//EntityHeaderFields/ContentLanguage" outputs="TestGuardXML.xsd#//EntityHeaderFields;XSDSimpleTypeDefinition=1/XSDEnumerationFacet=2"/>
+      <nested inputs="testGuard.ecore#//EntityHeaderFields/ContentLength" outputs="TestGuardXML.xsd#//EntityHeaderFields;XSDSimpleTypeDefinition=1/XSDEnumerationFacet=3"/>
+      <nested inputs="testGuard.ecore#//EntityHeaderFields/ContentLocation" outputs="TestGuardXML.xsd#//EntityHeaderFields;XSDSimpleTypeDefinition=1/XSDEnumerationFacet=4"/>
+      <nested inputs="testGuard.ecore#//EntityHeaderFields/ContentMD5" outputs="TestGuardXML.xsd#//EntityHeaderFields;XSDSimpleTypeDefinition=1/XSDEnumerationFacet=5"/>
+      <nested inputs="testGuard.ecore#//EntityHeaderFields/ContentRange" outputs="TestGuardXML.xsd#//EntityHeaderFields;XSDSimpleTypeDefinition=1/XSDEnumerationFacet=6"/>
+      <nested inputs="testGuard.ecore#//EntityHeaderFields/ContentType" outputs="TestGuardXML.xsd#//EntityHeaderFields;XSDSimpleTypeDefinition=1/XSDEnumerationFacet=7"/>
+      <nested inputs="testGuard.ecore#//EntityHeaderFields/Expires" outputs="TestGuardXML.xsd#//EntityHeaderFields;XSDSimpleTypeDefinition=1/XSDEnumerationFacet=8"/>
+      <nested inputs="testGuard.ecore#//EntityHeaderFields/LastModified" outputs="TestGuardXML.xsd#//EntityHeaderFields;XSDSimpleTypeDefinition=1/XSDEnumerationFacet=9"/>
+    </nested>
+    <nested inputs="testGuard.ecore#//Method" outputs="TestGuardXML.xsd#//Method;XSDSimpleTypeDefinition=2">
+      <nested inputs="testGuard.ecore#//Method/GET" outputs="TestGuardXML.xsd#//Method;XSDSimpleTypeDefinition=2/XSDEnumerationFacet"/>
+      <nested inputs="testGuard.ecore#//Method/POST" outputs="TestGuardXML.xsd#//Method;XSDSimpleTypeDefinition=2/XSDEnumerationFacet=1"/>
+      <nested inputs="testGuard.ecore#//Method/UPDATE" outputs="TestGuardXML.xsd#//Method;XSDSimpleTypeDefinition=2/XSDEnumerationFacet=2"/>
+    </nested>
     <nested inputs="testGuard.ecore#//TestGuard" outputs="TestGuardXML.xsd#//TestGuard;XSDComplexTypeDefinition">
-      <nested inputs="testGuard.ecore#//TestGuard/Module" outputs="TestGuardXML.xsd#//TestGuard;XSDComplexTypeDefinition/XSDParticle/XSDModelGroup/XSDParticle"/>
+      <nested inputs="testGuard.ecore#//TestGuard/name" outputs="TestGuardXML.xsd#//TestGuard;XSDComplexTypeDefinition/XSDAttributeUse"/>
+      <nested inputs="testGuard.ecore#//TestGuard/url" outputs="TestGuardXML.xsd#//TestGuard;XSDComplexTypeDefinition/XSDAttributeUse=1"/>
+      <nested inputs="testGuard.ecore#//TestGuard/requestMethod" outputs="TestGuardXML.xsd#//TestGuard;XSDComplexTypeDefinition/XSDAttributeUse=2"/>
+      <nested inputs="testGuard.ecore#//TestGuard/Headers" outputs="TestGuardXML.xsd#//TestGuard;XSDComplexTypeDefinition/XSDParticle/XSDModelGroup/XSDParticle"/>
+      <nested inputs="testGuard.ecore#//TestGuard/Params" outputs="TestGuardXML.xsd#//TestGuard;XSDComplexTypeDefinition/XSDParticle/XSDModelGroup/XSDParticle=1"/>
+      <nested inputs="testGuard.ecore#//TestGuard/requestBody" outputs="TestGuardXML.xsd#//TestGuard;XSDComplexTypeDefinition/XSDParticle/XSDModelGroup/XSDParticle=2"/>
     </nested>
     <nested inputs="testGuard.ecore#//TestGuard" outputs="TestGuardXML.xsd#//TestGuard;XSDElementDeclaration"/>
     <nested inputs="testGuard.ecore#//TestGuardModule" outputs="TestGuardXML.xsd#//TestGuardModule;XSDComplexTypeDefinition=1">
@@ -24,5 +46,27 @@
       <nested inputs="testGuard.ecore#//TestGuardUnit/requestMethod" outputs="TestGuardXML.xsd#//TestGuardUnit;XSDComplexTypeDefinition=2/XSDAttributeUse=3"/>
     </nested>
     <nested inputs="testGuard.ecore#//TestGuardUnit" outputs="TestGuardXML.xsd#//TestGuardUnit;XSDElementDeclaration=2"/>
+    <nested inputs="testGuard.ecore#//Headers" outputs="TestGuardXML.xsd#//Headers;XSDComplexTypeDefinition=3">
+      <nested inputs="testGuard.ecore#//Headers/Header" outputs="TestGuardXML.xsd#//Headers;XSDComplexTypeDefinition=3/XSDParticle/XSDModelGroup/XSDParticle"/>
+    </nested>
+    <nested inputs="testGuard.ecore#//Headers" outputs="TestGuardXML.xsd#//Headers;XSDElementDeclaration=3"/>
+    <nested inputs="testGuard.ecore#//Header" outputs="TestGuardXML.xsd#//Header;XSDComplexTypeDefinition=4">
+      <nested inputs="testGuard.ecore#//Header/name" outputs="TestGuardXML.xsd#//Header;XSDComplexTypeDefinition=4/XSDAttributeUse"/>
+      <nested inputs="testGuard.ecore#//Header/value" outputs="TestGuardXML.xsd#//Header;XSDComplexTypeDefinition=4/XSDAttributeUse=1"/>
+    </nested>
+    <nested inputs="testGuard.ecore#//Header" outputs="TestGuardXML.xsd#//Header;XSDElementDeclaration=4"/>
+    <nested inputs="testGuard.ecore#//RequestBody" outputs="TestGuardXML.xsd#//RequestBody;XSDComplexTypeDefinition=5">
+      <nested inputs="testGuard.ecore#//RequestBody/value" outputs="TestGuardXML.xsd#//RequestBody;XSDComplexTypeDefinition=5/XSDAttributeUse"/>
+    </nested>
+    <nested inputs="testGuard.ecore#//RequestBody" outputs="TestGuardXML.xsd#//RequestBody;XSDElementDeclaration=5"/>
+    <nested inputs="testGuard.ecore#//Params" outputs="TestGuardXML.xsd#//Params;XSDComplexTypeDefinition=6">
+      <nested inputs="testGuard.ecore#//Params/Param" outputs="TestGuardXML.xsd#//Params;XSDComplexTypeDefinition=6/XSDParticle/XSDModelGroup/XSDParticle"/>
+    </nested>
+    <nested inputs="testGuard.ecore#//Params" outputs="TestGuardXML.xsd#//Params;XSDElementDeclaration=6"/>
+    <nested inputs="testGuard.ecore#//Param" outputs="TestGuardXML.xsd#//Param;XSDComplexTypeDefinition=7">
+      <nested inputs="testGuard.ecore#//Param/name" outputs="TestGuardXML.xsd#//Param;XSDComplexTypeDefinition=7/XSDAttributeUse"/>
+      <nested inputs="testGuard.ecore#//Param/value" outputs="TestGuardXML.xsd#//Param;XSDComplexTypeDefinition=7/XSDAttributeUse=1"/>
+    </nested>
+    <nested inputs="testGuard.ecore#//Param" outputs="TestGuardXML.xsd#//Param;XSDElementDeclaration=7"/>
   </nested>
 </xsd2ecore:XSD2EcoreMappingRoot>

@@ -45,6 +45,8 @@ public class GsilaTestGuardResponseViewPart extends ViewPart implements IGesilaT
 	private TreeViewer treeViewer;
 	
 	private Text text;
+	
+	private Form form;
 
 	public GsilaTestGuardResponseViewPart() {
 		// TODO Auto-generated constructor stub
@@ -54,7 +56,7 @@ public class GsilaTestGuardResponseViewPart extends ViewPart implements IGesilaT
 	public void createPartControl(Composite parent) {
 
 		FormToolkit formToolkit = new FormToolkit(Display.getCurrent());
-		Form form = formToolkit.createForm(parent);
+		form = formToolkit.createForm(parent);
 		form.setText("Response");
 		formToolkit.decorateFormHeading(form);
 		Composite body = form.getBody();
@@ -231,6 +233,7 @@ public class GsilaTestGuardResponseViewPart extends ViewPart implements IGesilaT
 		JSONObject jsonObject = GesilaJSONUtils.createJSONObject((String) object);
 		GesilaJSONUtils.createGesilaJSONObject(jsonObject, list);
 		if (!list.isEmpty()) {
+			form.setText("Response 200 OK");
 			treeViewer.setInput(list);
 			treeViewer.refresh(true);
 			treeViewer.expandToLevel(3);

@@ -107,7 +107,7 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 	 */
 	protected Params params;
 	/**
-	 * The cached value of the '{@link #getRequestBody() <em>Request Body</em>}' reference.
+	 * The cached value of the '{@link #getRequestBody() <em>Request Body</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getRequestBody()
@@ -187,14 +187,6 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 	 */
 	@Override
 	public RequestBody getRequestBody() {
-		if (requestBody != null && requestBody.eIsProxy()) {
-			InternalEObject oldRequestBody = (InternalEObject)requestBody;
-			requestBody = (RequestBody)eResolveProxy(oldRequestBody);
-			if (requestBody != oldRequestBody) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TestGuardPackage.TEST_GUARD__REQUEST_BODY, oldRequestBody, requestBody));
-			}
-		}
 		return requestBody;
 	}
 
@@ -203,8 +195,14 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public RequestBody basicGetRequestBody() {
-		return requestBody;
+	public NotificationChain basicSetRequestBody(RequestBody newRequestBody, NotificationChain msgs) {
+		RequestBody oldRequestBody = requestBody;
+		requestBody = newRequestBody;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TestGuardPackage.TEST_GUARD__REQUEST_BODY, oldRequestBody, newRequestBody);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -214,10 +212,17 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 	 */
 	@Override
 	public void setRequestBody(RequestBody newRequestBody) {
-		RequestBody oldRequestBody = requestBody;
-		requestBody = newRequestBody;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, TestGuardPackage.TEST_GUARD__REQUEST_BODY, oldRequestBody, requestBody));
+		if (newRequestBody != requestBody) {
+			NotificationChain msgs = null;
+			if (requestBody != null)
+				msgs = ((InternalEObject)requestBody).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TestGuardPackage.TEST_GUARD__REQUEST_BODY, null, msgs);
+			if (newRequestBody != null)
+				msgs = ((InternalEObject)newRequestBody).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TestGuardPackage.TEST_GUARD__REQUEST_BODY, null, msgs);
+			msgs = basicSetRequestBody(newRequestBody, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TestGuardPackage.TEST_GUARD__REQUEST_BODY, newRequestBody, newRequestBody));
 	}
 
 	/**
@@ -345,6 +350,8 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 				return basicSetHeaders(null, msgs);
 			case TestGuardPackage.TEST_GUARD__PARAMS:
 				return basicSetParams(null, msgs);
+			case TestGuardPackage.TEST_GUARD__REQUEST_BODY:
+				return basicSetRequestBody(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -368,8 +375,7 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 			case TestGuardPackage.TEST_GUARD__PARAMS:
 				return getParams();
 			case TestGuardPackage.TEST_GUARD__REQUEST_BODY:
-				if (resolve) return getRequestBody();
-				return basicGetRequestBody();
+				return getRequestBody();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}

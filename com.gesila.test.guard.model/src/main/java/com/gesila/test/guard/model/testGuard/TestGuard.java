@@ -79,26 +79,26 @@ public interface TestGuard extends EObject {
 	void setUrl(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Request Body</b></em>' reference.
+	 * Returns the value of the '<em><b>Request Body</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Request Body</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Request Body</em>' reference.
+	 * @return the value of the '<em>Request Body</em>' containment reference.
 	 * @see #setRequestBody(RequestBody)
 	 * @see com.gesila.test.guard.model.testGuard.TestGuardPackage#getTestGuard_RequestBody()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	RequestBody getRequestBody();
 
 	/**
-	 * Sets the value of the '{@link com.gesila.test.guard.model.testGuard.TestGuard#getRequestBody <em>Request Body</em>}' reference.
+	 * Sets the value of the '{@link com.gesila.test.guard.model.testGuard.TestGuard#getRequestBody <em>Request Body</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Request Body</em>' reference.
+	 * @param value the new value of the '<em>Request Body</em>' containment reference.
 	 * @see #getRequestBody()
 	 * @generated
 	 */
