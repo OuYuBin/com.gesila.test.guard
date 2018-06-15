@@ -779,7 +779,7 @@ public class GesilaTestGuardFormPage extends FormPage {
 		gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
 		gridData.widthHint = SWT.DEFAULT;
 		gridData.heightHint = SWT.DEFAULT;
-		bodyText.setText(testGuard.getRequestBody().getValue());
+		bodyText.setText(testGuard.getRequestBody().getValue()==null?"":testGuard.getRequestBody().getValue());
 		bodyText.setLayoutData(gridData);
 		bodyText.addModifyListener(new ModifyListener() {
 
