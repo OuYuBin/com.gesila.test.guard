@@ -1,5 +1,9 @@
 package com.gesila.test.guard.ui.views.viewPage;
 
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
@@ -8,9 +12,13 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.Page;
+
+import com.gesila.test.guard.common.editor.IGesilaTestGuardEditor;
+import com.gesila.test.guard.ui.views.property.GesilaTestGuardProperty;
 
 /**
  * 
@@ -20,19 +28,19 @@ import org.eclipse.ui.part.Page;
 public class GesilaTestGuardPage extends Page implements IGesilaTestGuardPage {
 
 	private Composite composite;
-	
+
 	private Text text;
 
 	private IWorkbenchPart part;
-	
+
 	@Override
 	public void createControl(Composite parent) {
 		composite = new Composite(parent, SWT.NONE);
-		GridLayout gridLayout=new GridLayout();
-		gridLayout.marginHeight=0;
-		gridLayout.marginWidth=0;
+		GridLayout gridLayout = new GridLayout();
+		gridLayout.marginHeight = 0;
+		gridLayout.marginWidth = 0;
 		composite.setLayout(gridLayout);
-		text=new Text(composite,SWT.BORDER|SWT.READ_ONLY|SWT.WRAP);
+		text = new Text(composite, SWT.BORDER | SWT.READ_ONLY | SWT.WRAP);
 		text.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 	}
 
@@ -49,8 +57,8 @@ public class GesilaTestGuardPage extends Page implements IGesilaTestGuardPage {
 	@Override
 	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
 		System.out.println(selection);
-		this.part=part;
-		if(part!=null){
+		this.part = part;
+		if (part != null) {
 			refresh();
 		}
 	}
@@ -59,8 +67,12 @@ public class GesilaTestGuardPage extends Page implements IGesilaTestGuardPage {
 	public void refresh() {
 		// TODO Auto-generated method stub
 		System.out.println(part);
-		if(part!=null)
-		text.setText(part.toString());
+		if (part != null)
+			if (part instanceof IAdaptable) {
+				GesilaTestGuardProperty gesilaTestGuardProperty = ((IAdaptable) part)
+						.getAdapter(GesilaTestGuardProperty.class);
+				text.setText(gesilaTestGuardProperty.getProperties());
+			}
 	}
 
 }

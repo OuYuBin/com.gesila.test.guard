@@ -42,6 +42,7 @@ import com.gesila.test.guard.model.testGuard.Params;
 import com.gesila.test.guard.model.testGuard.RequestBody;
 import com.gesila.test.guard.model.testGuard.TestGuard;
 import com.gesila.test.guard.model.testGuard.TestGuardFactory;
+import com.gesila.test.guard.model.testGuard.TestGuardPackage;
 import com.gesila.test.guard.navigator.ui.wizards.GesilaTestGuardNewRequestWizard;
 import com.gesila.test.guard.navigator.ui.wizards.models.GesilaTestGuardRequest;
 
@@ -154,6 +155,8 @@ public class GesilaTestGuardNewRequestWizardPage extends WizardPage {
 		TestGuard testGuard = TestGuardFactory.eINSTANCE.createTestGuard();
 		testGuard.setName(gesilaTestGuardRequest.getName());
 		testGuard.setUrl(gesilaTestGuardRequest.getUrl());
+		TestGuardPackage.eINSTANCE.getRequestMethod().getEEnumLiteral(0).getName();
+		//testGuard.setRequestMethod(testGuard);
 		Headers headers=TestGuardFactory.eINSTANCE.createHeaders();
 		Header header=TestGuardFactory.eINSTANCE.createHeader();
 		header.setName("Content-Type");

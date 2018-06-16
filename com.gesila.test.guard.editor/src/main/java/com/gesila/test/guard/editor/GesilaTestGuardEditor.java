@@ -24,10 +24,11 @@ import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.forms.editor.FormEditor;
-import org.eclipse.ui.part.PageBookView;
 
+import com.gesila.test.guard.common.editor.IGesilaTestGuardEditor;
 import com.gesila.test.guard.editor.pages.GesilaTestGuardFormPage;
-import com.gesila.test.guard.ui.views.TestGuardPropertyPageBookView;
+import com.gesila.test.guard.model.testGuard.TestGuard;
+import com.gesila.test.guard.ui.views.property.GesilaTestGuardProperty;
 import com.gesila.test.guard.ui.views.viewPage.GesilaTestGuardPage;
 import com.gesila.test.guard.ui.views.viewPage.IGesilaTestGuardPage;
 
@@ -37,7 +38,7 @@ import com.gesila.test.guard.ui.views.viewPage.IGesilaTestGuardPage;
  * @author robin
  *
  */
-public class GesilaTestGuardEditor extends FormEditor {
+public class GesilaTestGuardEditor extends FormEditor implements IGesilaTestGuardEditor {
 
 	private EditingDomain editingDomain;
 
@@ -254,7 +255,21 @@ public class GesilaTestGuardEditor extends FormEditor {
 			return (T) editingDomain;
 		} else if (IGesilaTestGuardPage.class == adapter) {
 			return (T) getTestGuardPage();
+		} else if (GesilaTestGuardProperty.class == adapter) {
+			return (T) getGesilaTestGuardProperty();
 		}
 		return super.getAdapter(adapter);
+	}
+
+	private <T> T getGesilaTestGuardProperty() {
+		TestGuard testGuard = (TestGuard) this.resource.getContents().get(0);
+		String methodName = testGuard.getRequestMethod().getName();
+		StringBuffer stringBuffer = new StringBuffer();
+		stringBuffer.append(methodName);
+		stringBuffer.append("\n");
+		stringBuffer.append(testGuard.getUrl());
+		GesilaTestGuardProperty gesilaTestGuardProperty = new GesilaTestGuardProperty();
+		gesilaTestGuardProperty.setProperties(stringBuffer.toString());
+		return (T) gesilaTestGuardProperty;
 	}
 }

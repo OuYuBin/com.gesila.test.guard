@@ -172,6 +172,17 @@ public class GesilaTestGuardFormPage extends FormPage {
 
 		methodsCombo.select(0);
 		methodsCombo.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
+		methodsCombo.addModifyListener(new ModifyListener() {
+			
+			@Override
+			public void modifyText(ModifyEvent event) {
+				CCombo methodsCombo = (CCombo) event.getSource();
+				EditingDomain editingDomain = getEditor().getAdapter(EditingDomain.class);
+				EAttribute urlAttribute = TestGuardPackage.eINSTANCE.getTestGuard_Url();
+				SetCommand setCommand = new SetCommand(editingDomain, testGuard, urlAttribute, urlText.getText());
+				editingDomain.getCommandStack().execute(setCommand);
+			}
+		});
 
 		Label addressLabel = formToolkit.createLabel(requestComposite, "Address", SWT.NONE);
 		addressLabel.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
