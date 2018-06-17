@@ -266,8 +266,10 @@ public class GesilaTestGuardEditor extends FormEditor implements IGesilaTestGuar
 		String methodName = testGuard.getRequestMethod().getName();
 		StringBuffer stringBuffer = new StringBuffer();
 		stringBuffer.append(methodName);
+		stringBuffer.append(" /");
+		stringBuffer.append(" HTTP/1.1");
 		stringBuffer.append("\n");
-		stringBuffer.append(testGuard.getUrl());
+		stringBuffer.append("Host: "+testGuard.getUrl());
 		GesilaTestGuardProperty gesilaTestGuardProperty = new GesilaTestGuardProperty();
 		gesilaTestGuardProperty.setProperties(stringBuffer.toString());
 		return (T) gesilaTestGuardProperty;

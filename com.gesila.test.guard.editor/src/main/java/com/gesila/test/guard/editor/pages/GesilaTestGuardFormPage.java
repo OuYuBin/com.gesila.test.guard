@@ -179,8 +179,8 @@ public class GesilaTestGuardFormPage extends FormPage {
 				CCombo methodsCombo = (CCombo) event.getSource();
 				EditingDomain editingDomain = getEditor().getAdapter(EditingDomain.class);
 				EAttribute urlAttribute = TestGuardPackage.eINSTANCE.getTestGuard_Url();
-				SetCommand setCommand = new SetCommand(editingDomain, testGuard, urlAttribute, urlText.getText());
-				editingDomain.getCommandStack().execute(setCommand);
+//				SetCommand setCommand = new SetCommand(editingDomain, testGuard, urlAttribute, urlText.getText());
+//				editingDomain.getCommandStack().execute(setCommand);
 			}
 		});
 
