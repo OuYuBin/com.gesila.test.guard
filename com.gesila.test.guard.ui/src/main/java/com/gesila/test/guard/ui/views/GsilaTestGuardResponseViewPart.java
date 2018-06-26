@@ -5,6 +5,10 @@ import java.util.List;
 
 import org.eclipse.emf.edit.EMFEditPlugin;
 import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
+import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.jface.text.Document;
+import org.eclipse.jface.text.source.CompositeRuler;
+import org.eclipse.jface.text.source.LineNumberRulerColumn;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.ILabelProviderListener;
@@ -16,6 +20,8 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -29,6 +35,8 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.part.ViewPart;
 
 import com.alibaba.fastjson.JSONObject;
+import com.aptana.editor.common.viewer.CommonProjectionViewer;
+import com.aptana.editor.html.HTMLSourceViewerConfiguration;
 import com.gesila.test.guard.json.model.GesilaJSONObject;
 import com.gesila.test.guard.json.utils.GesilaJSONUtils;
 import com.gesila.test.guard.ui.Activator;
@@ -43,9 +51,13 @@ public class GsilaTestGuardResponseViewPart extends ViewPart implements IGesilaT
 	public static final String ID = "com.gesila.test.guard.ui.views.GsilaTestGuardResponseViewPart";
 
 	private TreeViewer treeViewer;
-	
+
+	private CommonProjectionViewer commonProjectionViewer;
+
+	private StyledText styledText;
+
 	private Text text;
-	
+
 	private Form form;
 
 	public GsilaTestGuardResponseViewPart() {
@@ -72,18 +84,34 @@ public class GsilaTestGuardResponseViewPart extends ViewPart implements IGesilaT
 		gridData.widthHint = SWT.DEFAULT;
 		gridData.heightHint = SWT.DEFAULT;
 		cTabFolder.setLayoutData(gridData);
-		
 
 		CTabItem cTabItem = new CTabItem(cTabFolder, SWT.NONE);
 		cTabItem.setImage(Activator.getDefault().getImageRegistry().get("text"));
 		cTabItem.setText("Text");
 
-		text = formToolkit.createText(cTabFolder, null, SWT.BORDER | SWT.MULTI | SWT.WRAP|SWT.V_SCROLL);
+		CompositeRuler ruler = new CompositeRuler();
+		LineNumberRulerColumn lineCol = new LineNumberRulerColumn();
+		lineCol.setBackground(new Color(Display.getCurrent(), 147, 224, 255));
+		ruler.addDecorator(0, lineCol);
+
+		Document document = new Document();
+		commonProjectionViewer = new CommonProjectionViewer(cTabFolder, ruler, null, false,
+				SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
+		commonProjectionViewer.configure(new HTMLSourceViewerConfiguration(null, null));
+		commonProjectionViewer.setDocument(document);
+		styledText = commonProjectionViewer.getTextWidget();
+
+		// 设置自动换行
+		styledText.setWordWrap(true);
+		styledText.setFont(JFaceResources.getTextFont());
+
+		// text = formToolkit.createText(cTabFolder, null, SWT.BORDER |
+		// SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 		gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
 		gridData.widthHint = SWT.DEFAULT;
 		gridData.heightHint = SWT.DEFAULT;
-		text.setLayoutData(gridData);
-		cTabItem.setControl(text);
+		styledText.setLayoutData(gridData);
+		cTabItem.setControl(commonProjectionViewer.getControl());
 
 		CTabItem jsonCTabItem = new CTabItem(cTabFolder, SWT.NONE);
 		jsonCTabItem.setImage(Activator.getDefault().getImageRegistry().get("json"));
@@ -238,9 +266,10 @@ public class GsilaTestGuardResponseViewPart extends ViewPart implements IGesilaT
 			treeViewer.refresh(true);
 			treeViewer.expandToLevel(3);
 		}
-		text.setText((String) object);
-		
-		
+		commonProjectionViewer.getDocument().set((String) object);
+		commonProjectionViewer.refresh();
+		// styledText.setText((String) object);
+
 	}
 
 }
