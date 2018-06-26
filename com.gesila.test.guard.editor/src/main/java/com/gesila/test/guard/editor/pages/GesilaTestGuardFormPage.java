@@ -31,6 +31,10 @@ import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
 import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.jface.text.Document;
+import org.eclipse.jface.text.source.CompositeRuler;
+import org.eclipse.jface.text.source.LineNumberRulerColumn;
+import org.eclipse.jface.text.source.projection.ProjectionViewer;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.CellLabelProvider;
 import org.eclipse.jface.viewers.ColumnViewer;
@@ -48,18 +52,22 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
@@ -173,14 +181,15 @@ public class GesilaTestGuardFormPage extends FormPage {
 		methodsCombo.select(0);
 		methodsCombo.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
 		methodsCombo.addModifyListener(new ModifyListener() {
-			
+
 			@Override
 			public void modifyText(ModifyEvent event) {
 				CCombo methodsCombo = (CCombo) event.getSource();
 				EditingDomain editingDomain = getEditor().getAdapter(EditingDomain.class);
 				EAttribute urlAttribute = TestGuardPackage.eINSTANCE.getTestGuard_Url();
-//				SetCommand setCommand = new SetCommand(editingDomain, testGuard, urlAttribute, urlText.getText());
-//				editingDomain.getCommandStack().execute(setCommand);
+				// SetCommand setCommand = new SetCommand(editingDomain,
+				// testGuard, urlAttribute, urlText.getText());
+				// editingDomain.getCommandStack().execute(setCommand);
 			}
 		});
 
@@ -188,10 +197,10 @@ public class GesilaTestGuardFormPage extends FormPage {
 		addressLabel.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
 
 		Text urlText = formToolkit.createText(requestComposite, null, SWT.BORDER);
-		GridData gridData=new GridData(SWT.FILL, SWT.CENTER, true, false);
-		gridData.widthHint=100;
+		GridData gridData = new GridData(SWT.FILL, SWT.CENTER, true, false);
+		gridData.widthHint = 100;
 		urlText.setLayoutData(gridData);
-		urlText.setText(testGuard.getUrl()==null?"":testGuard.getUrl());
+		urlText.setText(testGuard.getUrl() == null ? "" : testGuard.getUrl());
 		urlText.addModifyListener(new ModifyListener() {
 
 			@Override
@@ -758,57 +767,79 @@ public class GesilaTestGuardFormPage extends FormPage {
 		tabItem.setImage(Activator.getDefault().getImageRegistry().get("text"));
 		tabItem.setText("Text");
 		Composite textComposite = new Composite(tabFolder, SWT.NONE);
-		GridLayout gridLayout = new GridLayout(1, false);
-		gridLayout.marginWidth = 0;
-		gridLayout.marginHeight = 0;
-		gridLayout.verticalSpacing = 0;
-		gridLayout.horizontalSpacing = 0;
-		textComposite.setLayout(gridLayout);
+//		GridLayout gridLayout = new GridLayout(1, false);
+//		gridLayout.marginWidth = 0;
+//		gridLayout.marginHeight = 0;
+//		gridLayout.verticalSpacing = 0;
+//		gridLayout.horizontalSpacing = 0;
+		FillLayout fillLayout=new FillLayout();
+		textComposite.setLayout(fillLayout);
 
-		ToolBar toolbar = new ToolBar(textComposite, SWT.NONE);
-		GridData gridData = new GridData(SWT.RIGHT, SWT.FILL, true, false);
-		ToolItem addItem = new ToolItem(toolbar, SWT.NONE);
-		addItem.setImage(Activator.getDefault().getImageRegistry().get("add"));
-		addItem.addSelectionListener(new SelectionListener() {
+//		ToolBar toolbar = new ToolBar(textComposite, SWT.NONE);
+//		GridData gridData = new GridData(SWT.RIGHT, SWT.FILL, true, false);
+//		ToolItem addItem = new ToolItem(toolbar, SWT.NONE);
+//		addItem.setImage(Activator.getDefault().getImageRegistry().get("add"));
+//		addItem.addSelectionListener(new SelectionListener() {
+//
+//			@Override
+//			public void widgetSelected(SelectionEvent e) {
+//				// TODO Auto-generated method stub
+//
+//			}
+//
+//			@Override
+//			public void widgetDefaultSelected(SelectionEvent e) {
+//				// TODO Auto-generated method stub
+//
+//			}
+//		});
+//		ToolItem removeItem = new ToolItem(toolbar, SWT.NONE);
+//		removeItem.setImage(Activator.getDefault().getImageRegistry().get("remove"));
 
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
+		Document document = new Document();
+		CompositeRuler ruler = new CompositeRuler();
 
-			}
+		LineNumberRulerColumn lineCol = new LineNumberRulerColumn();
+		lineCol.setBackground(new Color(Display.getCurrent(), 147, 224, 255));
+		ruler.addDecorator(0, lineCol);
 
-			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
+		ProjectionViewer sourceViewer = new ProjectionViewer(textComposite, ruler, null, false,
+				SWT.BORDER | SWT.H_SCROLL);
+		sourceViewer.setDocument(document);
+		StyledText styledText = sourceViewer.getTextWidget();
 
-			}
-		});
-		ToolItem removeItem = new ToolItem(toolbar, SWT.NONE);
-		removeItem.setImage(Activator.getDefault().getImageRegistry().get("remove"));
+		// 设置自动换行
+		styledText.setWordWrap(true);
+		styledText.setFont(JFaceResources.getTextFont());
+		styledText.setText(testGuard.getRequestBody().getValue() == null ? "" : testGuard.getRequestBody().getValue());
 
-		bodyText = new Text(textComposite, SWT.BORDER | SWT.MULTI | SWT.WRAP);
-		gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
-		gridData.widthHint = SWT.DEFAULT;
-		gridData.heightHint = SWT.DEFAULT;
-		bodyText.setText(testGuard.getRequestBody().getValue()==null?"":testGuard.getRequestBody().getValue());
-		bodyText.setLayoutData(gridData);
-		bodyText.addModifyListener(new ModifyListener() {
-
-			@Override
-			public void modifyText(ModifyEvent event) {
-				Text text = (Text) event.getSource();
-				//RequestBody requestBody = testGuard.getRequestBody();
-//				if (requestBody == null){
-//					requestBody = TestGuardFactory.eINSTANCE.createRequestBody();
-//					testGuard.setRequestBody(requestBody);
-//				}
-				EditingDomain editingDomain = getEditor().getAdapter(EditingDomain.class);
-				RequestBody requestBody=testGuard.getRequestBody();
-				EAttribute valueAttribute = TestGuardPackage.eINSTANCE.getRequestBody_Value();
-				SetCommand setCommand = new SetCommand(editingDomain, requestBody, valueAttribute, text.getText());
-				editingDomain.getCommandStack().execute(setCommand);
-			}
-		});
+		// bodyText = new Text(textComposite, SWT.BORDER | SWT.MULTI |
+		// SWT.WRAP);
+		//GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
+		//gridData.widthHint = SWT.DEFAULT;
+		//gridData.heightHint = SWT.DEFAULT;
+		// bodyText.setText(testGuard.getRequestBody().getValue()==null?"":testGuard.getRequestBody().getValue());
+		//styledText.setLayoutData(gridData);
+		// bodyText.addModifyListener(new ModifyListener() {
+		//
+		// @Override
+		// public void modifyText(ModifyEvent event) {
+		// Text text = (Text) event.getSource();
+		// //RequestBody requestBody = testGuard.getRequestBody();
+		//// if (requestBody == null){
+		//// requestBody = TestGuardFactory.eINSTANCE.createRequestBody();
+		//// testGuard.setRequestBody(requestBody);
+		//// }
+		// EditingDomain editingDomain =
+		// getEditor().getAdapter(EditingDomain.class);
+		// RequestBody requestBody=testGuard.getRequestBody();
+		// EAttribute valueAttribute =
+		// TestGuardPackage.eINSTANCE.getRequestBody_Value();
+		// SetCommand setCommand = new SetCommand(editingDomain, requestBody,
+		// valueAttribute, text.getText());
+		// editingDomain.getCommandStack().execute(setCommand);
+		// }
+		// });
 
 		tabItem.setControl(textComposite);
 
