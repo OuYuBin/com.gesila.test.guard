@@ -68,6 +68,7 @@ public class Activator extends AbstractUIPlugin {
 		map.put("params", "icons/params.png");
 		map.put("add", "icons/add.png");
 		map.put("remove", "icons/remove.png");
+		map.put("format", "icons/format.png");
 		
 		for(Iterator<Entry<String,String>> iter=map.entrySet().iterator();iter.hasNext();) {
 			Map.Entry<String, String> entry=iter.next();

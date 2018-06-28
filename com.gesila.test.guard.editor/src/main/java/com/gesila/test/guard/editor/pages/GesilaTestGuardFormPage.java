@@ -89,6 +89,7 @@ import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sweetlemonade.eclipse.json.editor.JsonConfiguration;
 
 import com.alibaba.fastjson.JSONObject;
 import com.gesila.test.guard.common.editor.part.support.GesilaTextCellEditor;
@@ -767,34 +768,35 @@ public class GesilaTestGuardFormPage extends FormPage {
 		tabItem.setImage(Activator.getDefault().getImageRegistry().get("text"));
 		tabItem.setText("Text");
 		Composite textComposite = new Composite(tabFolder, SWT.NONE);
-//		GridLayout gridLayout = new GridLayout(1, false);
-//		gridLayout.marginWidth = 0;
-//		gridLayout.marginHeight = 0;
-//		gridLayout.verticalSpacing = 0;
-//		gridLayout.horizontalSpacing = 0;
-		FillLayout fillLayout=new FillLayout();
-		textComposite.setLayout(fillLayout);
+		GridLayout gridLayout = new GridLayout(1, false);
+		gridLayout.marginWidth = 0;
+		gridLayout.marginHeight = 0;
+		gridLayout.verticalSpacing = 0;
+		gridLayout.horizontalSpacing = 0;
+		// FillLayout fillLayout = new FillLayout();
+		textComposite.setLayout(gridLayout);
 
-//		ToolBar toolbar = new ToolBar(textComposite, SWT.NONE);
-//		GridData gridData = new GridData(SWT.RIGHT, SWT.FILL, true, false);
-//		ToolItem addItem = new ToolItem(toolbar, SWT.NONE);
-//		addItem.setImage(Activator.getDefault().getImageRegistry().get("add"));
-//		addItem.addSelectionListener(new SelectionListener() {
-//
-//			@Override
-//			public void widgetSelected(SelectionEvent e) {
-//				// TODO Auto-generated method stub
-//
-//			}
-//
-//			@Override
-//			public void widgetDefaultSelected(SelectionEvent e) {
-//				// TODO Auto-generated method stub
-//
-//			}
-//		});
-//		ToolItem removeItem = new ToolItem(toolbar, SWT.NONE);
-//		removeItem.setImage(Activator.getDefault().getImageRegistry().get("remove"));
+		ToolBar toolbar = new ToolBar(textComposite, SWT.NONE);
+		GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, false);
+		ToolItem addItem = new ToolItem(toolbar, SWT.NONE);
+		addItem.setImage(Activator.getDefault().getImageRegistry().get("format"));
+		addItem.addSelectionListener(new SelectionListener() {
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+		toolbar.setLayoutData(gridData);
+		// ToolItem removeItem = new ToolItem(toolbar, SWT.NONE);
+		// removeItem.setImage(Activator.getDefault().getImageRegistry().get("remove"));
 
 		Document document = new Document();
 		CompositeRuler ruler = new CompositeRuler();
@@ -806,6 +808,7 @@ public class GesilaTestGuardFormPage extends FormPage {
 		ProjectionViewer sourceViewer = new ProjectionViewer(textComposite, ruler, null, false,
 				SWT.BORDER | SWT.H_SCROLL);
 		sourceViewer.setDocument(document);
+		sourceViewer.configure(new JsonConfiguration(null));
 		StyledText styledText = sourceViewer.getTextWidget();
 
 		// 设置自动换行
@@ -815,11 +818,11 @@ public class GesilaTestGuardFormPage extends FormPage {
 
 		// bodyText = new Text(textComposite, SWT.BORDER | SWT.MULTI |
 		// SWT.WRAP);
-		//GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
+		gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
 		//gridData.widthHint = SWT.DEFAULT;
 		//gridData.heightHint = SWT.DEFAULT;
 		// bodyText.setText(testGuard.getRequestBody().getValue()==null?"":testGuard.getRequestBody().getValue());
-		//styledText.setLayoutData(gridData);
+		sourceViewer.getControl().setLayoutData(gridData);
 		// bodyText.addModifyListener(new ModifyListener() {
 		//
 		// @Override

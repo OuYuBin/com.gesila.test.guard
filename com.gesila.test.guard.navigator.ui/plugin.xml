@@ -7,7 +7,7 @@
             class="com.gesila.test.guard.navigator.ui.views.GesilaTestGuardCommonNavigator"
             icon="icons/testguardexplorer.png"
             id="com.gesila.test.guard.navigator.ui.views.GesilaTestGuardCommonNavigator"
-            name="Gesila TestGuard Explorer"
+            name="TestGuard Explorer"
             restorable="true">
       </view>
    </extension>

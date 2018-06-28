@@ -5,8 +5,13 @@ import java.util.List;
 
 import org.eclipse.emf.edit.EMFEditPlugin;
 import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.text.Document;
+import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.IDocumentExtension3;
+import org.eclipse.jface.text.IDocumentPartitioner;
+import org.eclipse.jface.text.rules.FastPartitioner;
 import org.eclipse.jface.text.source.CompositeRuler;
 import org.eclipse.jface.text.source.LineNumberRulerColumn;
 import org.eclipse.jface.viewers.CellEditor;
@@ -32,10 +37,20 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.ui.forms.widgets.Form;
 import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.internal.editors.text.EditorsPlugin;
 import org.eclipse.ui.part.ViewPart;
+import org.eclipse.ui.texteditor.ChainedPreferenceStore;
 
 import com.alibaba.fastjson.JSONObject;
+import com.aptana.editor.common.CommonEditorPlugin;
+import com.aptana.editor.common.ExtendedFastPartitioner;
+import com.aptana.editor.common.IExtendedPartitioner;
+import com.aptana.editor.common.NullPartitionerSwitchStrategy;
+import com.aptana.editor.common.text.rules.CompositePartitionScanner;
+import com.aptana.editor.common.text.rules.NullSubPartitionScanner;
 import com.aptana.editor.common.viewer.CommonProjectionViewer;
+import com.aptana.editor.html.HTMLPlugin;
+import com.aptana.editor.html.HTMLSourceConfiguration;
 import com.aptana.editor.html.HTMLSourceViewerConfiguration;
 import com.gesila.test.guard.json.model.GesilaJSONObject;
 import com.gesila.test.guard.json.utils.GesilaJSONUtils;
@@ -97,7 +112,17 @@ public class GsilaTestGuardResponseViewPart extends ViewPart implements IGesilaT
 		Document document = new Document();
 		commonProjectionViewer = new CommonProjectionViewer(cTabFolder, ruler, null, false,
 				SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
-		commonProjectionViewer.configure(new HTMLSourceViewerConfiguration(null, null));
+		commonProjectionViewer.configure(new HTMLSourceViewerConfiguration(getChainedPreferenceStore(), null));
+		CompositePartitionScanner partitionScanner = new CompositePartitionScanner(HTMLSourceConfiguration
+				.getDefault().createSubPartitionScanner(), new NullSubPartitionScanner(),
+				new NullPartitionerSwitchStrategy());
+		IDocumentPartitioner partitioner = new ExtendedFastPartitioner(partitionScanner, HTMLSourceConfiguration
+				.getDefault().getContentTypes());
+		partitionScanner.setPartitioner((IExtendedPartitioner) partitioner);
+		partitioner.connect(document);
+		document.setDocumentPartitioner(partitioner);
+		CommonEditorPlugin.getDefault().getDocumentScopeManager().registerConfiguration(document,
+				HTMLSourceConfiguration.getDefault());
 		commonProjectionViewer.setDocument(document);
 		styledText = commonProjectionViewer.getTextWidget();
 
@@ -271,5 +296,12 @@ public class GsilaTestGuardResponseViewPart extends ViewPart implements IGesilaT
 		// styledText.setText((String) object);
 
 	}
+
+	public static IPreferenceStore getChainedPreferenceStore() {
+		return new ChainedPreferenceStore(new IPreferenceStore[] { HTMLPlugin.getDefault().getPreferenceStore(),
+				CommonEditorPlugin.getDefault().getPreferenceStore(),
+				EditorsPlugin.getDefault().getPreferenceStore() });
+	}
+	
 
 }
