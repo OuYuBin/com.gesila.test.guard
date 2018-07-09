@@ -37,7 +37,7 @@ public class GesilaTestGuardCommonNavigator extends CommonNavigator {
 		
 		FormToolkit formToolkit=new FormToolkit(Display.getCurrent());
 		Form form=formToolkit.createForm(parent);
-		form.setText("Gesila TestGuard Navigator");
+		form.setText("Navigator");
 		IToolBarManager toolBarManager=form.getToolBarManager();
 		//toolBarManager.add
 		formToolkit.decorateFormHeading(form);

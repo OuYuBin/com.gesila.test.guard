@@ -292,7 +292,7 @@ public class GsilaTestGuardResponseViewPart extends ViewPart implements IGesilaT
 			treeViewer.expandToLevel(3);
 		}
 		commonProjectionViewer.getDocument().set((String) object);
-		commonProjectionViewer.refresh();
+		//commonProjectionViewer.refresh();
 		// styledText.setText((String) object);
 
 	}

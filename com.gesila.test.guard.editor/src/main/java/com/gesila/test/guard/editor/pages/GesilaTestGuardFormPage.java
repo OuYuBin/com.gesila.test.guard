@@ -89,7 +89,11 @@ import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sweetlemonade.eclipse.json.JsonPlugin;
 import org.sweetlemonade.eclipse.json.editor.JsonConfiguration;
+import org.sweetlemonade.eclipse.json.editor.JsonFormatter;
+import org.sweetlemonade.eclipse.json.model.JsonElement;
+import org.sweetlemonade.eclipse.json.model.JsonParserMy;
 
 import com.alibaba.fastjson.JSONObject;
 import com.gesila.test.guard.common.editor.part.support.GesilaTextCellEditor;
@@ -125,6 +129,8 @@ public class GesilaTestGuardFormPage extends FormPage {
 	private CCombo methodsCombo;
 
 	private Text bodyText;
+	
+	private ProjectionViewer sourceViewer;
 
 	private Logger logger = LoggerFactory.getLogger(GesilaTestGuardFormPage.class);
 
@@ -776,16 +782,25 @@ public class GesilaTestGuardFormPage extends FormPage {
 		// FillLayout fillLayout = new FillLayout();
 		textComposite.setLayout(gridLayout);
 
+		Document document = new Document();
 		ToolBar toolbar = new ToolBar(textComposite, SWT.NONE);
 		GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, false);
-		ToolItem addItem = new ToolItem(toolbar, SWT.NONE);
-		addItem.setImage(Activator.getDefault().getImageRegistry().get("format"));
-		addItem.addSelectionListener(new SelectionListener() {
+		ToolItem formatItem = new ToolItem(toolbar, SWT.NONE);
+		formatItem.setImage(Activator.getDefault().getImageRegistry().get("format"));
+		formatItem.addSelectionListener(new SelectionListener() {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
-
+				JsonElement mElement = new JsonParserMy(document).parse();
+				JsonFormatter mFormatter = new JsonFormatter(mElement, JsonPlugin.getDefault().getPreferenceStore());
+				String format = mFormatter.format(document.getLength());
+				sourceViewer.getDocument().set(format);
+				EditingDomain editingDomain = getEditor().getAdapter(EditingDomain.class);
+				EAttribute value = TestGuardPackage.eINSTANCE.getRequestBody_Value();
+				RequestBody requestBody = testGuard.getRequestBody();
+				//Param param = TestGuardFactory.eINSTANCE.createParam();
+				SetCommand setCommand = new SetCommand(editingDomain, requestBody, value, format);
+				editingDomain.getCommandStack().execute(setCommand);
 			}
 
 			@Override
@@ -798,14 +813,14 @@ public class GesilaTestGuardFormPage extends FormPage {
 		// ToolItem removeItem = new ToolItem(toolbar, SWT.NONE);
 		// removeItem.setImage(Activator.getDefault().getImageRegistry().get("remove"));
 
-		Document document = new Document();
+		
 		CompositeRuler ruler = new CompositeRuler();
 
 		LineNumberRulerColumn lineCol = new LineNumberRulerColumn();
 		lineCol.setBackground(new Color(Display.getCurrent(), 147, 224, 255));
 		ruler.addDecorator(0, lineCol);
 
-		ProjectionViewer sourceViewer = new ProjectionViewer(textComposite, ruler, null, false,
+		sourceViewer = new ProjectionViewer(textComposite, ruler, null, false,
 				SWT.BORDER | SWT.H_SCROLL);
 		sourceViewer.setDocument(document);
 		sourceViewer.configure(new JsonConfiguration(null));
