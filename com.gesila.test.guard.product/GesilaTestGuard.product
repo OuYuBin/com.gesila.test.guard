@@ -14,6 +14,7 @@
    <windowImages/>
 
    <launcher>
+      <solaris/>
       <win useIco="false">
          <bmp/>
       </win>
@@ -30,6 +31,8 @@
       <feature id="org.eclipse.e4.rcp"/>
       <feature id="org.eclipse.emf.ecore"/>
       <feature id="org.eclipse.emf.common"/>
+      <feature id="com.aptana.feature" version="5.2.0.qualifier"/>
+      <feature id="com.aptana.ide.feature.libraries.subscription"/>
    </features>
 
    <configurations>

@@ -7,6 +7,5 @@
   	<groupId>com.gesila</groupId>
   	<artifactId>com.gesila.test.guard</artifactId>
   	<version>0.0.1-SNAPSHOT</version>
-  	<relativePath>../com.gesila.test.guard/pom.xml</relativePath>
   </parent>
 </project>

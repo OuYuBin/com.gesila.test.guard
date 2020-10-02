@@ -36,17 +36,25 @@
       <import plugin="org.apache.httpcomponents.httpcore" version="4.3.3" match="greaterOrEqual"/>
       <import plugin="org.eclipse.e4.ui.services" version="1.2.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui.forms" version="3.6.200" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui.workbench" version="3.107.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui.ide" version="3.12.3" match="greaterOrEqual"/>
       <import plugin="com.gesila.test.guard.model" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.emf.ecore.xmi"/>
-      <import plugin="org.eclipse.ui.workbench" version="3.107.0" match="greaterOrEqual"/>
-      <import plugin="com.gesila.test.guard.editor"/>
       <import plugin="org.eclipse.e4.ui.workbench.addons.swt" version="1.2.101" match="greaterOrEqual"/>
       <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.eclipse.ui.navigator"/>
-      <import plugin="org.eclipse.ui.ide" version="3.12.3" match="greaterOrEqual"/>
       <import plugin="com.gesila.test.guard.project" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui.navigator.resources"/>
-      <import plugin="org.eclipse.ui.themes"/>
+      <import plugin="com.gesila.test.guard.log" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.filesystem"/>
+      <import plugin="org.eclipse.text"/>
+      <import plugin="org.eclipse.jface.text"/>
+      <import plugin="org.sweetlemonade.eclipse.json" version="1.1.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui.editors" version="3.10.1" match="greaterOrEqual"/>
+      <import plugin="com.gesila.test.guard.common.editor"/>
+      <import plugin="com.aptana.editor.common" version="3.0.3" match="greaterOrEqual"/>
+      <import plugin="com.aptana.editor.html"/>
+      <import plugin="org.eclipse.ui.console"/>
    </requires>
 
    <plugin
