@@ -65,6 +65,7 @@ public class Activator extends AbstractUIPlugin {
 		Map<String,String> map=new HashMap<String,String>();
 		map.put("project", "icons/project.png");
 		map.put("testGuard", "icons/testguard.gif");
+		map.put("testGuard", "icons/test_guard_group.gif");
 		
 		for(Iterator<Entry<String,String>> iter=map.entrySet().iterator();iter.hasNext();) {
 			Map.Entry<String, String> entry=iter.next();

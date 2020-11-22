@@ -9,6 +9,7 @@ import org.eclipse.swt.graphics.Image;
 
 import com.gesila.test.guard.navigator.ui.Activator;
 import com.gesila.test.guard.project.models.impl.GesilaTestGuard;
+import com.gesila.test.guard.project.models.impl.GesilaTestGuardGroup;
 import com.gesila.test.guard.project.models.impl.GesilaTestGuardProject;
 
 /**
@@ -47,6 +48,8 @@ public class GesilaTestGuardTreeLabelProvider implements ILabelProvider {
 		if (element instanceof GesilaTestGuardProject) {
 			return Activator.getDefault().getImageRegistry().get("project");
 		} else if (element instanceof GesilaTestGuard) {
+			return Activator.getDefault().getImageRegistry().get("testGuard");
+		}else if(element instanceof GesilaTestGuardGroup){
 			return Activator.getDefault().getImageRegistry().get("testGuard");
 		}
 		return null;
