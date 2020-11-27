@@ -3,15 +3,15 @@ package com.gesila.test.guard.project.models.impl;
 import org.eclipse.core.runtime.IPath;
 
 import com.gesila.test.guard.project.models.IGesilaTestGuardProject;
-import com.gesila.test.guard.project.models.IGesilaTestGuardProjectContainerElement;
-import com.gesila.test.guard.project.models.IGesilaTestGuardProjectElement;
+import com.gesila.test.guard.project.models.IPostGuardProjectContainerElement;
+import com.gesila.test.guard.project.models.IPostGuardProjectElement;
 
 /**
  * 
  * @author robin
  *
  */
-public abstract class AbstractGesilaTestGuardProjectElement implements IGesilaTestGuardProjectElement{
+public abstract class AbstractGesilaTestGuardProjectElement implements IPostGuardProjectElement{
 
 	@Override
 	public <T> T getAdapter(Class<T> adapter) {
@@ -25,8 +25,8 @@ public abstract class AbstractGesilaTestGuardProjectElement implements IGesilaTe
 		Object object=null;
 		if(this instanceof IGesilaTestGuardProject){
 			object=((IGesilaTestGuardProject)this).getProject().getFullPath();
-		}else if(this instanceof IGesilaTestGuardProjectElement){
-			object=((IGesilaTestGuardProjectElement)this).getParent().getAdapter(IPath.class);
+		}else if(this instanceof IPostGuardProjectElement){
+			object=((IPostGuardProjectElement)this).getParent().getAdapter(IPath.class);
 			if(object!=null){
 				object=((IPath)object).append(getName());
 			}
@@ -34,5 +34,5 @@ public abstract class AbstractGesilaTestGuardProjectElement implements IGesilaTe
 		return object;
 	}
 
-	public abstract IGesilaTestGuardProjectContainerElement getParent();
+	public abstract IPostGuardProjectContainerElement getParent();
 }

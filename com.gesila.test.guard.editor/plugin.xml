@@ -6,10 +6,10 @@
       <editor
             class="com.gesila.test.guard.editor.GesilaTestGuardEditor"
             default="false"
-            extensions="gtg"
-            icon="icons/testguard.gif"
+            extensions="ptg"
+            icon="icons/interface.png"
             id="com.gesila.test.guard.editor.GesilaTestGuardEditor"
-            name="TestGuard">
+            name="PostGuard">
       </editor>
    </extension>
 

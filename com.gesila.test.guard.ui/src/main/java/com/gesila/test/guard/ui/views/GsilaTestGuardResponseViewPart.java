@@ -8,10 +8,7 @@ import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.text.Document;
-import org.eclipse.jface.text.IDocument;
-import org.eclipse.jface.text.IDocumentExtension3;
 import org.eclipse.jface.text.IDocumentPartitioner;
-import org.eclipse.jface.text.rules.FastPartitioner;
 import org.eclipse.jface.text.source.CompositeRuler;
 import org.eclipse.jface.text.source.LineNumberRulerColumn;
 import org.eclipse.jface.viewers.CellEditor;
@@ -35,6 +32,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
+import org.eclipse.ui.forms.FormColors;
 import org.eclipse.ui.forms.widgets.Form;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.internal.editors.text.EditorsPlugin;
@@ -52,6 +50,7 @@ import com.aptana.editor.common.viewer.CommonProjectionViewer;
 import com.aptana.editor.html.HTMLPlugin;
 import com.aptana.editor.html.HTMLSourceConfiguration;
 import com.aptana.editor.html.HTMLSourceViewerConfiguration;
+import com.gesila.test.guard.http.models.PostResponseInfo;
 import com.gesila.test.guard.json.model.GesilaJSONObject;
 import com.gesila.test.guard.json.utils.GesilaJSONUtils;
 import com.gesila.test.guard.ui.Activator;
@@ -84,7 +83,7 @@ public class GsilaTestGuardResponseViewPart extends ViewPart implements IGesilaT
 
 		FormToolkit formToolkit = new FormToolkit(Display.getCurrent());
 		form = formToolkit.createForm(parent);
-		form.setText("Response");
+		form.setText("响应");
 		formToolkit.decorateFormHeading(form);
 		Composite body = form.getBody();
 		GridLayout gridLayout = new GridLayout(1, false);
@@ -102,7 +101,7 @@ public class GsilaTestGuardResponseViewPart extends ViewPart implements IGesilaT
 
 		CTabItem cTabItem = new CTabItem(cTabFolder, SWT.NONE);
 		cTabItem.setImage(Activator.getDefault().getImageRegistry().get("text"));
-		cTabItem.setText("Text");
+		cTabItem.setText("文本");
 
 		CompositeRuler ruler = new CompositeRuler();
 		LineNumberRulerColumn lineCol = new LineNumberRulerColumn();
@@ -113,11 +112,11 @@ public class GsilaTestGuardResponseViewPart extends ViewPart implements IGesilaT
 		commonProjectionViewer = new CommonProjectionViewer(cTabFolder, ruler, null, false,
 				SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
 		commonProjectionViewer.configure(new HTMLSourceViewerConfiguration(getChainedPreferenceStore(), null));
-		CompositePartitionScanner partitionScanner = new CompositePartitionScanner(HTMLSourceConfiguration
-				.getDefault().createSubPartitionScanner(), new NullSubPartitionScanner(),
+		CompositePartitionScanner partitionScanner = new CompositePartitionScanner(
+				HTMLSourceConfiguration.getDefault().createSubPartitionScanner(), new NullSubPartitionScanner(),
 				new NullPartitionerSwitchStrategy());
-		IDocumentPartitioner partitioner = new ExtendedFastPartitioner(partitionScanner, HTMLSourceConfiguration
-				.getDefault().getContentTypes());
+		IDocumentPartitioner partitioner = new ExtendedFastPartitioner(partitionScanner,
+				HTMLSourceConfiguration.getDefault().getContentTypes());
 		partitionScanner.setPartitioner((IExtendedPartitioner) partitioner);
 		partitioner.connect(document);
 		document.setDocumentPartitioner(partitioner);
@@ -149,11 +148,11 @@ public class GsilaTestGuardResponseViewPart extends ViewPart implements IGesilaT
 		tree.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		TreeColumn column = new TreeColumn(treeViewer.getTree(), SWT.NONE);
 		column.setWidth(100);
-		column.setText("Name");
+		column.setText("名称");
 
 		TreeViewerColumn valueColumn = new TreeViewerColumn(treeViewer, SWT.NONE);
 		valueColumn.getColumn().setWidth(80);
-		valueColumn.getColumn().setText("Value");
+		valueColumn.getColumn().setText("值");
 
 		valueColumn.setEditingSupport(new EditingSupport(treeViewer) {
 
@@ -283,16 +282,25 @@ public class GsilaTestGuardResponseViewPart extends ViewPart implements IGesilaT
 	@Override
 	public void refresh(Object object) {
 		List list = new ArrayList();
-		JSONObject jsonObject = GesilaJSONUtils.createJSONObject((String) object);
-		GesilaJSONUtils.createGesilaJSONObject(jsonObject, list);
-		if (!list.isEmpty()) {
-			form.setText("Response 200 OK");
-			treeViewer.setInput(list);
-			treeViewer.refresh(true);
-			treeViewer.expandToLevel(3);
+		if (object instanceof PostResponseInfo) {
+			JSONObject jsonObject = GesilaJSONUtils.createJSONObject(((PostResponseInfo) object).getResponseInfo());
+			GesilaJSONUtils.createGesilaJSONObject(jsonObject, list);
+			if (!list.isEmpty()) {
+				Display display = Display.getCurrent();
+				if (((PostResponseInfo) object).getStatusCode() != 200) {
+					form.setForeground(new Color(null, 225, 37, 27));
+				} else {
+					form.setForeground(new Color(null, 38, 168, 114));
+				}
+				form.setText("响应 " + ((PostResponseInfo) object).getStatusCode());
+				treeViewer.setInput(list);
+				treeViewer.refresh(true);
+				treeViewer.expandToLevel(3);
+			}
+			commonProjectionViewer.getDocument().set(((PostResponseInfo) object).getResponseInfo());
 		}
-		commonProjectionViewer.getDocument().set((String) object);
-		//commonProjectionViewer.refresh();
+
+		// commonProjectionViewer.refresh();
 		// styledText.setText((String) object);
 
 	}
@@ -302,6 +310,5 @@ public class GsilaTestGuardResponseViewPart extends ViewPart implements IGesilaT
 				CommonEditorPlugin.getDefault().getPreferenceStore(),
 				EditorsPlugin.getDefault().getPreferenceStore() });
 	}
-	
 
 }

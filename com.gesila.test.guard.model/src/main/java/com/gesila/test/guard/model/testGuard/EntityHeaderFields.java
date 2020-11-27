@@ -116,7 +116,15 @@ public enum EntityHeaderFields implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	LAST_MODIFIED(9, "LastModified", "Last-Modified");
+	LAST_MODIFIED(9, "LastModified", "Last-Modified"), /**
+	 * The '<em><b>Accept</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ACCEPT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	ACCEPT(10, "Accept", "Accept");
 
 	/**
 	 * The '<em><b>Allow</b></em>' literal value.
@@ -233,7 +241,7 @@ public enum EntityHeaderFields implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @see #CONTENT_TYPE
 	 * @model name="ContentType" literal="Content-Type"
-	 *        annotation="ExtendedMetaData desc='\u5b9e\u4f53\u4e3b\u4f53\u5185\u5bf9\u8c61\u7684\u5a92\u4f53\u7c7b\u578b' content='application/json|application/xml'"
+	 *        annotation="ExtendedMetaData desc='\u5b9e\u4f53\u4e3b\u4f53\u5185\u5bf9\u8c61\u7684\u5a92\u4f53\u7c7b\u578b' content='application/json|application/xml|application/x-www-form-urlencoded'"
 	 * @generated
 	 * @ordered
 	 */
@@ -270,6 +278,22 @@ public enum EntityHeaderFields implements Enumerator {
 	public static final int LAST_MODIFIED_VALUE = 9;
 
 	/**
+	 * The '<em><b>Accept</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Accept</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #ACCEPT
+	 * @model name="Accept"
+	 *        annotation="ExtendedMetaData desc='\u6307\u5b9a\u5ba2\u6237\u7aef\u80fd\u591f\u63a5\u6536\u7684\u5185\u5bb9\u7c7b\u578b' content='application/json|text/plain'"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int ACCEPT_VALUE = 10;
+
+	/**
 	 * An array of all the '<em><b>Entity Header Fields</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -287,6 +311,7 @@ public enum EntityHeaderFields implements Enumerator {
 			CONTENT_TYPE,
 			EXPIRES,
 			LAST_MODIFIED,
+			ACCEPT,
 		};
 
 	/**
@@ -353,6 +378,7 @@ public enum EntityHeaderFields implements Enumerator {
 			case CONTENT_TYPE_VALUE: return CONTENT_TYPE;
 			case EXPIRES_VALUE: return EXPIRES;
 			case LAST_MODIFIED_VALUE: return LAST_MODIFIED;
+			case ACCEPT_VALUE: return ACCEPT;
 		}
 		return null;
 	}

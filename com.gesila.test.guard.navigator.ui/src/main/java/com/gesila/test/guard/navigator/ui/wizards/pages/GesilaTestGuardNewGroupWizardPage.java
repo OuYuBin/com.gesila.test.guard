@@ -45,9 +45,10 @@ import com.gesila.test.guard.model.testGuard.RequestBody;
 import com.gesila.test.guard.model.testGuard.TestGuard;
 import com.gesila.test.guard.model.testGuard.TestGuardFactory;
 import com.gesila.test.guard.model.testGuard.TestGuardPackage;
-import com.gesila.test.guard.navigator.ui.wizards.GesilaTestGuardNewRequestWizard;
+import com.gesila.test.guard.navigator.ui.Activator;
+import com.gesila.test.guard.navigator.ui.wizards.PostGuardNewRequestWizard;
 import com.gesila.test.guard.navigator.ui.wizards.models.GesilaTestGuardGroup;
-import com.gesila.test.guard.navigator.ui.wizards.models.GesilaTestGuardRequest;
+import com.gesila.test.guard.navigator.ui.wizards.models.PostGuardRequest;
 
 /**
  * 
@@ -62,6 +63,9 @@ public class GesilaTestGuardNewGroupWizardPage extends WizardPage {
 
 	public GesilaTestGuardNewGroupWizardPage(String pageName, ISelection selection) {
 		super(pageName);
+		this.setTitle("模块");
+		this.setDescription("创建一个新的模块");
+		this.setImageDescriptor(Activator.getDefault().getImageRegistry().getDescriptor("moduleWizard"));
 		this.selection = selection;
 		gesilaTestGuardGroup=new GesilaTestGuardGroup();
 	}
@@ -76,7 +80,7 @@ public class GesilaTestGuardNewGroupWizardPage extends WizardPage {
 		gridLayout.horizontalSpacing = 5;
 		composite.setLayout(gridLayout);
 		Label nameLabel = new Label(composite, SWT.NONE);
-		nameLabel.setText("组别名称:");
+		nameLabel.setText("模块名称:");
 		nameLabel.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, false, false));
 		Text nameText = new Text(composite, SWT.BORDER);
 		nameText.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
@@ -87,7 +91,6 @@ public class GesilaTestGuardNewGroupWizardPage extends WizardPage {
 				gesilaTestGuardGroup.setName(nameText.getText());
 			}
 		});
-
 		setControl(parent);
 	}
 	

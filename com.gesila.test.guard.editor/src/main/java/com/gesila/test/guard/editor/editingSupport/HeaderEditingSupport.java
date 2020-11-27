@@ -3,15 +3,18 @@ package com.gesila.test.guard.editor.editingSupport;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EEnumLiteral;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.edit.command.SetCommand;
+import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.fieldassist.AutoCompleteField;
-import org.eclipse.jface.fieldassist.ComboContentAdapter;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
-import org.eclipse.jface.viewers.ComboBoxViewerCellEditor;
 import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
@@ -20,7 +23,6 @@ import org.eclipse.swt.widgets.Table;
 import com.gesila.test.guard.model.testGuard.Header;
 import com.gesila.test.guard.model.testGuard.Headers;
 import com.gesila.test.guard.model.testGuard.TestGuardFactory;
-import com.gesila.test.guard.model.testGuard.TestGuardPackage;
 
 /**
  * 
@@ -34,15 +36,12 @@ public class HeaderEditingSupport extends EditingSupport {
 
 	private Headers headers;
 
-	public HeaderEditingSupport(ColumnViewer viewer, Headers headers) {
+	private IAdaptable adaptable;
+
+	public HeaderEditingSupport(ColumnViewer viewer, Headers headers, IAdaptable adaptable) {
 		super(viewer);
 		this.headers = headers;
-		// String[] values= {"test1","test2","test3","test4","test5","test6"};
-		// comboBoxViewerCellEditor=new
-		// ComboBoxCellEditor(((Table)viewer.getControl()),values, SWT.NONE);
-		// comboBoxViewerCellEditor.setInput(values);
-		// new AutoCompleteField(comboBoxViewerCellEditor.getControl(),new
-		// CComboContentAdapter(),values);
+		this.adaptable = adaptable;
 	}
 
 	@Override
@@ -87,7 +86,35 @@ public class HeaderEditingSupport extends EditingSupport {
 				}
 			}
 		} else if (cellEditor instanceof ComboBoxCellEditor) {
-			return 0;
+			if (element instanceof EEnumLiteral) {
+				String literal = ((EEnumLiteral) element).getLiteral();
+				List<Header> headerElements = headers.getHeader().stream()
+						.filter(header -> header.getName().equals(literal)).collect(Collectors.toList());
+				if (!headerElements.isEmpty()) {
+					EAnnotation annotation = ((EEnumLiteral) element).getEAnnotation("ExtendedMetaData");
+					if (annotation != null) {
+						EMap<String, String> details = annotation.getDetails();
+						String content = details.get("content");
+						if (content != null) {
+							String[] values = content.split("\\|");
+							int i = 0;
+							for (String value : values) {
+								Header header = headerElements.get(0);
+								if (StringUtils.equals(header.getValue(), value)) {
+									return i;
+								}
+								i++;
+							}
+//							EditingDomain editingDomain = adaptable.getAdapter(EditingDomain.class);
+//							EStructuralFeature feature = (headerElements.get(0)).eClass().getEStructuralFeature("value");
+//							SetCommand setCommand = new SetCommand(editingDomain, headerElements.get(0), feature,
+//									values[(int) value]);
+//							editingDomain.getCommandStack().execute(setCommand);
+
+						}
+					}
+				}
+			}
 		}
 		return "";
 	}
@@ -113,10 +140,34 @@ public class HeaderEditingSupport extends EditingSupport {
 				}
 			}
 		} else if (cellEditor instanceof ComboBoxCellEditor) {
-			// return 0;
+			if (element instanceof EEnumLiteral) {
+				String literal = ((EEnumLiteral) element).getLiteral();
+				List<Header> headerElements = headers.getHeader().stream()
+						.filter(header -> header.getName().equals(literal)).collect(Collectors.toList());
+				if (!headerElements.isEmpty()) {
+					EAnnotation annotation = ((EEnumLiteral) element).getEAnnotation("ExtendedMetaData");
+					if (annotation != null) {
+						EMap<String, String> details = annotation.getDetails();
+						String content = details.get("content");
+						if (content != null) {
+							String[] values = content.split("\\|");
+							EditingDomain editingDomain = adaptable.getAdapter(EditingDomain.class);
+							EStructuralFeature feature = (headerElements.get(0)).eClass()
+									.getEStructuralFeature("value");
+							SetCommand setCommand = new SetCommand(editingDomain, headerElements.get(0), feature,
+									values[(int) value]);
+							editingDomain.getCommandStack().execute(setCommand);
+						}
+					}
+				} else {
+					Header header = TestGuardFactory.eINSTANCE.createHeader();
+					header.setName(literal);
+					header.setValue((String) value);
+					headers.getHeader().add(header);
+				}
+				getViewer().refresh(element, true);
+			}
 		}
-
-		// return "";
 	}
 
 }

@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResourceStatus;
@@ -14,15 +15,12 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
-import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
-import org.eclipse.ui.ide.undo.CreateProjectOperation;
-import org.eclipse.ui.ide.undo.WorkspaceUndoUtil;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 import org.eclipse.ui.internal.ide.StatusUtil;
 import org.eclipse.ui.internal.wizards.newresource.ResourceMessages;
@@ -44,7 +42,7 @@ public class GesilaTestGuardNewProjectWizard extends Wizard implements INewWizar
 	private IProject newProject;
 
 	public GesilaTestGuardNewProjectWizard() {
-		
+
 	}
 
 	@Override
@@ -97,7 +95,15 @@ public class GesilaTestGuardNewProjectWizard extends Wizard implements INewWizar
 				newProjectHandle.create(description, null);
 				newProjectHandle.open(new SubProgressMonitor(monitor, 1000));
 				addProjectNature(newProjectHandle, monitor);
+				createProjectDependence(newProjectHandle, monitor);
 
+			}
+
+			private void createProjectDependence(IProject project, IProgressMonitor monitor) throws CoreException {
+				IFolder folder = project.getFolder("dependence");
+				if (!folder.exists()) {
+					folder.create(true, true, monitor);
+				}
 			}
 		};
 

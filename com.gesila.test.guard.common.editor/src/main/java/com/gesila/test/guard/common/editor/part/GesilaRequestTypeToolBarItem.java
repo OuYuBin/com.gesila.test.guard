@@ -81,14 +81,15 @@ public class GesilaRequestTypeToolBarItem extends GesilaPartToolBarItem {
 
 			@Override
 			public Menu getMenu(Control parent) {
-				Menu menu = new Menu(parent);
-				EEnum eEnum = TestGuardPackage.eINSTANCE.getRequestMethod();
-				EList<EEnumLiteral> eList = eEnum.getELiterals();
-				for (EEnumLiteral literal : eList) {
-					MenuItem menuItem = new MenuItem(menu, SWT.RADIO);
-					menuItem.setText(literal.getLiteral());
-				}
-				return menu;
+//				Menu menu = new Menu(parent);
+//				EEnum eEnum = TestGuardPackage.eINSTANCE.getRequestMethod();
+//				EList<EEnumLiteral> eList = eEnum.getELiterals();
+//				for (EEnumLiteral literal : eList) {
+//					MenuItem menuItem = new MenuItem(menu, SWT.RADIO);
+//					menuItem.setText(literal.getLiteral());
+//				}
+//				return menu;
+				return null;
 			}
 
 			@Override

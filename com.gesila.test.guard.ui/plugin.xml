@@ -14,14 +14,14 @@
             class="com.gesila.test.guard.ui.views.GsilaTestGuardResponseViewPart"
             icon="icons/response.png"
             id="com.gesila.test.guard.ui.views.GsilaTestGuardResponseViewPart"
-            name="TestGuard Response"
+            name="PostGuard响应"
             restorable="true">
       </view>
       <view
             class="com.gesila.test.guard.ui.views.TestGuardPropertyPageBookView"
             icon="icons/direction--arrow.png"
             id="com.gesila.test.guard.ui.views.TestGuardPropertyPageBookView"
-            name="TestGuard Property"
+            name="PostGuard属性"
             restorable="true">
       </view>
    </extension>

@@ -15,10 +15,11 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link com.gesila.test.guard.model.testGuard.TestGuard#getName <em>Name</em>}</li>
  *   <li>{@link com.gesila.test.guard.model.testGuard.TestGuard#getUrl <em>Url</em>}</li>
- *   <li>{@link com.gesila.test.guard.model.testGuard.TestGuard#getRequestMethod <em>Request Method</em>}</li>
+ *   <li>{@link com.gesila.test.guard.model.testGuard.TestGuard#getMethod <em>Method</em>}</li>
  *   <li>{@link com.gesila.test.guard.model.testGuard.TestGuard#getHeaders <em>Headers</em>}</li>
  *   <li>{@link com.gesila.test.guard.model.testGuard.TestGuard#getParams <em>Params</em>}</li>
  *   <li>{@link com.gesila.test.guard.model.testGuard.TestGuard#getRequestBody <em>Request Body</em>}</li>
+ *   <li>{@link com.gesila.test.guard.model.testGuard.TestGuard#getDesc <em>Desc</em>}</li>
  * </ul>
  *
  * @see com.gesila.test.guard.model.testGuard.TestGuardPackage#getTestGuard()
@@ -79,6 +80,32 @@ public interface TestGuard extends EObject {
 	void setUrl(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Method</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Method</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Method</em>' attribute.
+	 * @see #setMethod(String)
+	 * @see com.gesila.test.guard.model.testGuard.TestGuardPackage#getTestGuard_Method()
+	 * @model
+	 * @generated
+	 */
+	String getMethod();
+
+	/**
+	 * Sets the value of the '{@link com.gesila.test.guard.model.testGuard.TestGuard#getMethod <em>Method</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Method</em>' attribute.
+	 * @see #getMethod()
+	 * @generated
+	 */
+	void setMethod(String value);
+
+	/**
 	 * Returns the value of the '<em><b>Request Body</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -105,33 +132,30 @@ public interface TestGuard extends EObject {
 	void setRequestBody(RequestBody value);
 
 	/**
-	 * Returns the value of the '<em><b>Request Method</b></em>' attribute.
-	 * The literals are from the enumeration {@link com.gesila.test.guard.model.testGuard.RequestMethod}.
+	 * Returns the value of the '<em><b>Desc</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Request Method</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Desc</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Request Method</em>' attribute.
-	 * @see com.gesila.test.guard.model.testGuard.RequestMethod
-	 * @see #setRequestMethod(RequestMethod)
-	 * @see com.gesila.test.guard.model.testGuard.TestGuardPackage#getTestGuard_RequestMethod()
+	 * @return the value of the '<em>Desc</em>' attribute.
+	 * @see #setDesc(String)
+	 * @see com.gesila.test.guard.model.testGuard.TestGuardPackage#getTestGuard_Desc()
 	 * @model
 	 * @generated
 	 */
-	RequestMethod getRequestMethod();
+	String getDesc();
 
 	/**
-	 * Sets the value of the '{@link com.gesila.test.guard.model.testGuard.TestGuard#getRequestMethod <em>Request Method</em>}' attribute.
+	 * Sets the value of the '{@link com.gesila.test.guard.model.testGuard.TestGuard#getDesc <em>Desc</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Request Method</em>' attribute.
-	 * @see com.gesila.test.guard.model.testGuard.RequestMethod
-	 * @see #getRequestMethod()
+	 * @param value the new value of the '<em>Desc</em>' attribute.
+	 * @see #getDesc()
 	 * @generated
 	 */
-	void setRequestMethod(RequestMethod value);
+	void setDesc(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Headers</b></em>' containment reference.

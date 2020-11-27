@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <xsd:schema xmlns:testGuard="http://www.igesila.com/testGuard/0.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.igesila.com/testGuard/0.1">
-  <xsd:simpleType name="RequestMethod">
-    <xsd:restriction base="xsd:NCName">
-      <xsd:enumeration value="POST"/>
-      <xsd:enumeration value="PUT"/>
-      <xsd:enumeration value="GET"/>
-      <xsd:enumeration value="DELETE"/>
-    </xsd:restriction>
-  </xsd:simpleType>
   <xsd:simpleType name="EntityHeaderFields">
     <xsd:restriction base="xsd:NCName">
       <xsd:enumeration value="Allow"/>
@@ -20,6 +12,7 @@
       <xsd:enumeration value="ContentType"/>
       <xsd:enumeration value="Expires"/>
       <xsd:enumeration value="LastModified"/>
+      <xsd:enumeration value="Accept"/>
     </xsd:restriction>
   </xsd:simpleType>
   <xsd:simpleType name="Method">
@@ -27,6 +20,7 @@
       <xsd:enumeration value="GET"/>
       <xsd:enumeration value="POST"/>
       <xsd:enumeration value="UPDATE"/>
+      <xsd:enumeration value="PUT"/>
     </xsd:restriction>
   </xsd:simpleType>
   <xsd:complexType name="TestGuard">
@@ -37,7 +31,8 @@
     </xsd:sequence>
     <xsd:attribute name="name" type="xsd:string"/>
     <xsd:attribute name="url" type="xsd:string"/>
-    <xsd:attribute name="requestMethod" type="testGuard:RequestMethod"/>
+    <xsd:attribute name="method" type="xsd:string"/>
+    <xsd:attribute name="desc" type="xsd:string"/>
   </xsd:complexType>
   <xsd:element name="TestGuard" type="testGuard:TestGuard"/>
   <xsd:complexType name="TestGuardModule">
@@ -51,7 +46,6 @@
     <xsd:attribute name="name" type="xsd:string"/>
     <xsd:attribute name="url" type="xsd:string"/>
     <xsd:attribute name="requestBody" type="xsd:string"/>
-    <xsd:attribute name="requestMethod" type="testGuard:RequestMethod"/>
   </xsd:complexType>
   <xsd:element name="TestGuardUnit" type="testGuard:TestGuardUnit"/>
   <xsd:complexType name="Headers">

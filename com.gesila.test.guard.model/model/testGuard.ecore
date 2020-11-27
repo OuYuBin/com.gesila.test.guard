@@ -4,13 +4,14 @@
   <eClassifiers xsi:type="ecore:EClass" name="TestGuard">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="url" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="requestMethod" eType="#//RequestMethod"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="method" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="Headers" eType="#//Headers"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="Params" eType="#//Params"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="requestBody" eType="#//RequestBody"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="desc" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TestGuardModule">
     <eStructuralFeatures xsi:type="ecore:EReference" name="Unit" upperBound="-1" eType="#//TestGuardUnit"
@@ -21,13 +22,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="url" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="requestBody" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="requestMethod" eType="#//RequestMethod"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="RequestMethod">
-    <eLiterals name="POST" literal="POST"/>
-    <eLiterals name="PUT" value="1" literal="PUT"/>
-    <eLiterals name="GET" value="2" literal="GET"/>
-    <eLiterals name="DELETE" value="3" literal="DELETE"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Headers">
     <eStructuralFeatures xsi:type="ecore:EReference" name="Header" upperBound="-1"
@@ -59,15 +53,22 @@
     <eLiterals name="ContentType" value="7" literal="Content-Type">
       <eAnnotations source="ExtendedMetaData" references="http://www.eclipse.org/emf/2002/Ecore#//EString/%http:%2F%2F%2Forg%2Feclipse%2Femf%2Fecore%2Futil%2FExtendedMetaData%">
         <details key="desc" value="实体主体内对象的媒体类型"/>
-        <details key="content" value="application/json|application/xml"/>
+        <details key="content" value="application/json|application/xml|application/x-www-form-urlencoded"/>
       </eAnnotations>
     </eLiterals>
     <eLiterals name="Expires" value="8"/>
     <eLiterals name="LastModified" value="9" literal="Last-Modified"/>
+    <eLiterals name="Accept" value="10" literal="Accept">
+      <eAnnotations source="ExtendedMetaData" references="http://www.eclipse.org/emf/2002/Ecore#//EString/%http:%2F%2F%2Forg%2Feclipse%2Femf%2Fecore%2Futil%2FExtendedMetaData%">
+        <details key="desc" value="指定客户端能够接收的内容类型"/>
+        <details key="content" value="application/json|text/plain"/>
+      </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="Method">
     <eLiterals name="GET"/>
     <eLiterals name="POST" value="1"/>
     <eLiterals name="UPDATE" value="2"/>
+    <eLiterals name="PUT" value="3" literal="PUT"/>
   </eClassifiers>
 </ecore:EPackage>

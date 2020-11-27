@@ -18,7 +18,7 @@
           </children>
           <children xsi:type="basic:PartSashContainer" xmi:id="_9ZKO4HV-EeWj5dz7GVvoMg" elementId="com.gesila.test.guard.application.partsashcontainer.2" containerData="7800">
             <children xsi:type="basic:PartStack" xmi:id="_9-MOkHV-EeWj5dz7GVvoMg" elementId="com.gesila.test.guard.application.partstack.reponse">
-              <children xsi:type="basic:Part" xmi:id="_AxFM8HV_EeWj5dz7GVvoMg" elementId="com.gesila.test.guard.application.part.reponse" contributionURI="bundleclass://com.gesila.test.guard.editor/com.gesila.test.guard.editor.parts.GesilaTestGuardResponsePart" label="Response">
+              <children xsi:type="basic:Part" xmi:id="_AxFM8HV_EeWj5dz7GVvoMg" elementId="com.gesila.test.guard.application.part.reponse" contributionURI="bundleclass://com.gesila.test.guard.editor/com.gesila.test.guard.editor.parts.PostGuardResponsePartl="Response">
                 <toolbar xmi:id="_RcuhAH4pEeWlfsEiH1VoiQ" elementId="com.gesila.test.guard.application.toolbar.0"/>
               </children>
             </children>

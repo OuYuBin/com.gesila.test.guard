@@ -1,6 +1,6 @@
 package com.gesila.test.guard.project.models.impl;
 
-import com.gesila.test.guard.project.models.IGesilaTestGuardProjectContainerElement;
+import com.gesila.test.guard.project.models.IPostGuardProjectContainerElement;
 
 /**
  * 
@@ -12,8 +12,8 @@ public class GesilaTestGuard extends GesilaTestGuardProjectElementImpl {
 	private String name;
 
 	private String url;
-
-	public GesilaTestGuard(IGesilaTestGuardProjectContainerElement parent) {
+	
+	public GesilaTestGuard(IPostGuardProjectContainerElement parent) {
 		super(parent);
 	}
 

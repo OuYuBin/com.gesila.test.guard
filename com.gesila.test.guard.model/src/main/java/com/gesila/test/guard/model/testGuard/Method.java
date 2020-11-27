@@ -46,7 +46,15 @@ public enum Method implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	UPDATE(2, "UPDATE", "UPDATE");
+	UPDATE(2, "UPDATE", "UPDATE"), /**
+	 * The '<em><b>PUT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #PUT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	PUT(3, "PUT", "PUT");
 
 	/**
 	 * The '<em><b>GET</b></em>' literal value.
@@ -94,6 +102,21 @@ public enum Method implements Enumerator {
 	public static final int UPDATE_VALUE = 2;
 
 	/**
+	 * The '<em><b>PUT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>PUT</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #PUT
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int PUT_VALUE = 3;
+
+	/**
 	 * An array of all the '<em><b>Method</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -104,6 +127,7 @@ public enum Method implements Enumerator {
 			GET,
 			POST,
 			UPDATE,
+			PUT,
 		};
 
 	/**
@@ -163,6 +187,7 @@ public enum Method implements Enumerator {
 			case GET_VALUE: return GET;
 			case POST_VALUE: return POST;
 			case UPDATE_VALUE: return UPDATE;
+			case PUT_VALUE: return PUT;
 		}
 		return null;
 	}

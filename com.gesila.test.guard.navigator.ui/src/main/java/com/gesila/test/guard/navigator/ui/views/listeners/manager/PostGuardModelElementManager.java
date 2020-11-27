@@ -1,4 +1,4 @@
-package com.gesila.test.guard.navigator.ui.views.manager;
+package com.gesila.test.guard.navigator.ui.views.listeners.manager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,25 +9,27 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.ISafeRunnable;
 import org.eclipse.core.runtime.SafeRunner;
 
+import com.gesila.test.guard.navigator.ui.views.listeners.IGesilaTestGuardModelElementChangeListener;
+
 /**
  * 
  * @author robin
  *
  */
-public class GesilaTestGuardModelElementManager implements IResourceChangeListener {
+public class PostGuardModelElementManager implements IResourceChangeListener {
 
-	private static GesilaTestGuardModelElementManager gesilaTestGuardModelElementManager;
+	private static PostGuardModelElementManager gesilaTestGuardModelElementManager;
 
 	protected List<IGesilaTestGuardModelElementChangeListener> gesilaTestGuardModelElementChangeListeners = new ArrayList<IGesilaTestGuardModelElementChangeListener>();
 
-	private GesilaTestGuardModelElementManager() {
+	private PostGuardModelElementManager() {
 
 	}
 
-	public static GesilaTestGuardModelElementManager getInstance() {
+	public static PostGuardModelElementManager getInstance() {
 		if (gesilaTestGuardModelElementManager == null) {
-			synchronized (GesilaTestGuardModelElementManager.class) {
-				gesilaTestGuardModelElementManager = new GesilaTestGuardModelElementManager();
+			synchronized (PostGuardModelElementManager.class) {
+				gesilaTestGuardModelElementManager = new PostGuardModelElementManager();
 				ResourcesPlugin.getWorkspace().addResourceChangeListener(gesilaTestGuardModelElementManager,
 						IResourceChangeEvent.POST_CHANGE);
 			}
@@ -43,8 +45,7 @@ public class GesilaTestGuardModelElementManager implements IResourceChangeListen
 				@Override
 				public void run() throws Exception {
 					gesilaTestGuardModelElementChangeListeners.stream()
-							.forEach(IGesilaTestGuardModelElementChangeListener::testGuardModelElementChange);
-
+							.forEach(listener -> listener.resourceChanged(event));
 				}
 
 				@Override
@@ -63,7 +64,7 @@ public class GesilaTestGuardModelElementManager implements IResourceChangeListen
 				gesilaTestGuardModelElementChangeListeners.add(gesilaTestGuardModelElementChangeListener);
 		}
 	}
-	
+
 	public void removeGesilaTestGuardModelElementListener(
 			IGesilaTestGuardModelElementChangeListener gesilaTestGuardModelElementChangeListener) {
 	}

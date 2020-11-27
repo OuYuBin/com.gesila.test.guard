@@ -7,7 +7,7 @@
             class="com.gesila.test.guard.navigator.ui.views.GesilaTestGuardCommonNavigator"
             icon="icons/testguardexplorer.png"
             id="com.gesila.test.guard.navigator.ui.views.GesilaTestGuardCommonNavigator"
-            name="TestGuard Explorer"
+            name="PostGuard导航"
             restorable="true">
       </view>
    </extension>
@@ -53,10 +53,10 @@
          point="org.eclipse.ui.navigator.navigatorContent">
       <navigatorContent
             contentProvider="com.gesila.test.guard.navigator.ui.views.providers.GesilaTestGuardTreeContentProvider"
-            icon="icons/testguard.png"
+            icon="icons/project.png"
             id="com.gesila.test.guard.navigator.ui.navigatorContent"
             labelProvider="com.gesila.test.guard.navigator.ui.views.providers.GesilaTestGuardTreeLabelProvider"
-            name="TestGuard Navigator Content"
+            name="PostGuard Navigator Content"
             priority="higher">
          <triggerPoints>
             <instanceof
@@ -87,6 +87,9 @@
                   <instanceof
                         value="com.gesila.test.guard.project.models.IGesilaTestGuardProject">
                   </instanceof>
+                  <instanceof
+                        value="com.gesila.test.guard.project.models.impl.PostGuardGroup">
+                  </instanceof>
                </or>
             </enablement>
          </actionProvider>
@@ -106,8 +109,25 @@
                <instanceof
                      value="com.gesila.test.guard.project.models.impl.GesilaTestGuard">
                </instanceof>
+               <not>
+                  <instanceof
+                        value="com.gesila.test.guard.project.models.IPostGuardProjectContainerElement">
+                  </instanceof>
+               </not>
             </enablement>
          </actionProvider>
+         <actionProvider
+               class="com.gesila.test.guard.navigator.ui.views.providers.PostGuardEditCommonActionProvider"
+               id="com.gesila.test.guard.navigator.ui.views.providers.PostGuardEditCommonActionProvider">
+            <enablement>
+               <instanceof
+                     value="com.gesila.test.guard.project.models.impl.GesilaTestGuard">
+               </instanceof>
+            </enablement>
+         </actionProvider>
+         <commonSorter
+               class="com.gesila.test.guard.navigator.ui.views.comparator.PostGuardViewerComparator">
+         </commonSorter>
       </navigatorContent>
    </extension>
    <extension
@@ -116,7 +136,7 @@
             class="com.gesila.test.guard.navigator.ui.wizards.GesilaTestGuardNewProjectWizard"
             icon="icons/project.png"
             id="com.gesila.test.guard.navigator.ui.wizards.GesilaTestGuardNewProjectWizard"
-            name="TestGuard Project"
+            name=" PostGuard项目"
             project="true">
       </wizard>
    </extension>
@@ -127,7 +147,7 @@
             locationURI="popup:test.guard.new.menu?after=additions">
          <command
                commandId="com.gesila.test.guard.navigator.ui.views.handlers.GesilaTestGuardNewGroupHandler"
-               icon="icons/test_guard_group.gif"
+               icon="icons/interface_group.png"
                style="push">
             <visibleWhen
                   checkEnabled="true">
@@ -135,7 +155,7 @@
          </command>
          <command
                commandId="com.gesila.test.guard.navigator.ui.views.handlers.GesilaTestGuardNewRequestHandler"
-               icon="icons/testguard.gif"
+               icon="icons/interface.png"
                style="push">
             <visibleWhen
                   checkEnabled="true">
@@ -147,11 +167,11 @@
          point="org.eclipse.ui.commands">
       <command
             id="com.gesila.test.guard.navigator.ui.views.handlers.GesilaTestGuardNewGroupHandler"
-            name="TestGuard Group">
+            name="模块">
       </command>
       <command
             id="com.gesila.test.guard.navigator.ui.views.handlers.GesilaTestGuardNewRequestHandler"
-            name="TestGuard Request">
+            name="接口">
       </command>
    </extension>
    <extension
@@ -199,7 +219,7 @@
                   <iterate
                         ifEmpty="true">
                      <instanceof
-                           value="com.gesila.test.guard.project.models.IGesilaTestGuardProject">
+                           value="com.gesila.test.guard.project.models.impl.PostGuardGroup">
                      </instanceof>
                   </iterate>
                </with>

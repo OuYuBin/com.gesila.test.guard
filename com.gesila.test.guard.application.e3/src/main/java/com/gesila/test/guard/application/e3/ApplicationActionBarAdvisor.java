@@ -59,11 +59,11 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		newWindowAction = ActionFactory.OPEN_NEW_WINDOW.create(window);
 		register(newWindowAction);
 
-		openViewAction = new OpenViewAction(window, "Open Another Message View", View.ID);
-		register(openViewAction);
-
-		messagePopupAction = new MessagePopupAction("Open Message", window);
-		register(messagePopupAction);
+//		openViewAction = new OpenViewAction(window, "Open Another Message View", View.ID);
+//		register(openViewAction);
+//
+//		messagePopupAction = new MessagePopupAction("Open Message", window);
+//		register(messagePopupAction);
 	}
 
 	@Override
@@ -81,9 +81,9 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		// File
 		fileMenu.add(newWindowAction);
 		fileMenu.add(new Separator());
-		fileMenu.add(messagePopupAction);
-		fileMenu.add(openViewAction);
-		fileMenu.add(new Separator());
+		//fileMenu.add(messagePopupAction);
+		//fileMenu.add(openViewAction);
+		//fileMenu.add(new Separator());
 		fileMenu.add(exitAction);
 
 		MenuManager showViewMenu = new MenuManager("Show View");
@@ -104,8 +104,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		toolbar.add(getAction(ActionFactory.NEW_WIZARD_DROP_DOWN.getId()));
 
 		coolBar.add(new ToolBarContributionItem(toolbar, "main"));
-		toolbar.add(openViewAction);
-		toolbar.add(messagePopupAction);
+		//toolbar.add(openViewAction);
+		//toolbar.add(messagePopupAction);
 		coolBar.add(toolbar);
 	}
 }

@@ -78,8 +78,8 @@ public class TestGuardItemProvider
 
 			addNamePropertyDescriptor(object);
 			addUrlPropertyDescriptor(object);
-			addRequestMethodPropertyDescriptor(object);
-			addRequestBodyPropertyDescriptor(object);
+			addMethodPropertyDescriptor(object);
+			addDescPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -129,41 +129,41 @@ public class TestGuardItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Request Body feature.
+	 * This adds a property descriptor for the Method feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addRequestBodyPropertyDescriptor(Object object) {
+	protected void addMethodPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_TestGuard_requestBody_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TestGuard_requestBody_feature", "_UI_TestGuard_type"),
-				 TestGuardPackage.Literals.TEST_GUARD__REQUEST_BODY,
+				 getString("_UI_TestGuard_method_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_TestGuard_method_feature", "_UI_TestGuard_type"),
+				 TestGuardPackage.Literals.TEST_GUARD__METHOD,
 				 true,
 				 false,
-				 true,
-				 null,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
 
 	/**
-	 * This adds a property descriptor for the Request Method feature.
+	 * This adds a property descriptor for the Desc feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addRequestMethodPropertyDescriptor(Object object) {
+	protected void addDescPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_TestGuard_requestMethod_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TestGuard_requestMethod_feature", "_UI_TestGuard_type"),
-				 TestGuardPackage.Literals.TEST_GUARD__REQUEST_METHOD,
+				 getString("_UI_TestGuard_desc_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_TestGuard_desc_feature", "_UI_TestGuard_type"),
+				 TestGuardPackage.Literals.TEST_GUARD__DESC,
 				 true,
 				 false,
 				 false,
@@ -186,6 +186,7 @@ public class TestGuardItemProvider
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(TestGuardPackage.Literals.TEST_GUARD__HEADERS);
 			childrenFeatures.add(TestGuardPackage.Literals.TEST_GUARD__PARAMS);
+			childrenFeatures.add(TestGuardPackage.Literals.TEST_GUARD__REQUEST_BODY);
 		}
 		return childrenFeatures;
 	}
@@ -225,6 +226,21 @@ public class TestGuardItemProvider
 	}
 
 	/**
+	 * This returns <code>getImage(object)</code> for the column index <code>0</code> or <code>super.getImage(object)</code> otherwise.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getText(Object)
+	 * @see #getColumnText(Object, int)
+	 * @generated
+	 */
+	@Override
+	public Object getColumnImage(Object object, int columnIndex) {
+		// TODO: implement this method to return appropriate information for each column.
+		// Ensure that you remove @generated or mark it @generated NOT
+		return columnIndex == 0 ? getImage(object) : super.getImage(object);
+	}
+
+	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -235,6 +251,21 @@ public class TestGuardItemProvider
 		return ((StyledString)getStyledText(object)).getString();
 	}
 	
+	/**
+	 * This returns <code>getText(object)</code> for the column index <code>0</code> or <code>super.getText(object)</code> otherwise.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getImage(Object)
+	 * @see #getColumnImage(Object, int)
+	 * @generated
+	 */
+	@Override
+	public String getColumnText(Object object, int columnIndex) {
+		// TODO: implement this method to return appropriate information for each column.
+		// Ensure that you remove @generated or mark it @generated NOT
+		return columnIndex == 0 ? getText(object) : super.getText(object);
+	}
+
 	/**
 	 * This returns the label styled text for the adapted class.
 	 * <!-- begin-user-doc -->
@@ -267,11 +298,13 @@ public class TestGuardItemProvider
 		switch (notification.getFeatureID(TestGuard.class)) {
 			case TestGuardPackage.TEST_GUARD__NAME:
 			case TestGuardPackage.TEST_GUARD__URL:
-			case TestGuardPackage.TEST_GUARD__REQUEST_METHOD:
+			case TestGuardPackage.TEST_GUARD__METHOD:
+			case TestGuardPackage.TEST_GUARD__DESC:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case TestGuardPackage.TEST_GUARD__HEADERS:
 			case TestGuardPackage.TEST_GUARD__PARAMS:
+			case TestGuardPackage.TEST_GUARD__REQUEST_BODY:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -298,6 +331,11 @@ public class TestGuardItemProvider
 			(createChildParameter
 				(TestGuardPackage.Literals.TEST_GUARD__PARAMS,
 				 TestGuardFactory.eINSTANCE.createParams()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(TestGuardPackage.Literals.TEST_GUARD__REQUEST_BODY,
+				 TestGuardFactory.eINSTANCE.createRequestBody()));
 	}
 
 	/**

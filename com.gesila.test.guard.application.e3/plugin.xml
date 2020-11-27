@@ -14,46 +14,11 @@
    <extension
          point="org.eclipse.ui.perspectives">
       <perspective
-            name="Gesila TestGuard"
             class="com.gesila.test.guard.application.e3.Perspective"
-            id="com.gesila.test.guard.application.e3.perspective">
+            icon="icons/postGuard.png"
+            id="com.gesila.test.guard.application.e3.perspective"
+            name="Joy PostGuard">
       </perspective>
-   </extension>
-   <extension
-         point="org.eclipse.ui.views">
-      <view
-            name="Message"
-            allowMultiple="true"
-            icon="icons/sample2.gif"
-            class="com.gesila.test.guard.application.e3.View"
-            id="com.gesila.test.guard.application.e3.view">
-      </view>
-      <view
-            name="Mailboxes"
-            allowMultiple="true"
-            icon="icons/sample3.gif"
-            class="com.gesila.test.guard.application.e3.NavigationView"
-            id="com.gesila.test.guard.application.e3.navigationView">
-      </view>
-   </extension>
-   <extension
-         point="org.eclipse.ui.commands">
-      <category
-            name="Mail"
-            id="com.gesila.test.guard.application.e3.category">
-      </category>
-      <command
-            name="Open Mailbox"
-            description="Opens a mailbox"
-            categoryId="com.gesila.test.guard.application.e3.category"
-            id="com.gesila.test.guard.application.e3.open">
-      </command>
-      <command
-            name="Open Message Dialog"
-            description="Open a message dialog"
-            categoryId="com.gesila.test.guard.application.e3.category"
-            id="com.gesila.test.guard.application.e3.openMessage">
-      </command>
    </extension>
    <extension
          point="org.eclipse.ui.bindings">
@@ -61,11 +26,6 @@
             commandId="com.gesila.test.guard.application.e3.open"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="CTRL+SHIFT+O">
-      </key>
-      <key
-            commandId="com.gesila.test.guard.application.e3.openMessage"
-            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="CTRL+SHIFT+M">
       </key>
       <key
             commandId="org.eclipse.ui.file.exit"

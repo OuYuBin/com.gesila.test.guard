@@ -2,9 +2,7 @@
  */
 package com.gesila.test.guard.model.testGuard.provider;
 
-import com.gesila.test.guard.common.font.GesilaTestGuardFont;
 import com.gesila.test.guard.model.edit.TestGuardEditPlugin;
-import com.gesila.test.guard.model.testGuard.RequestMethod;
 import com.gesila.test.guard.model.testGuard.TestGuardPackage;
 import com.gesila.test.guard.model.testGuard.TestGuardUnit;
 
@@ -33,8 +31,6 @@ import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.StyledString;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.eclipse.jface.viewers.StyledString.Styler;
-import org.eclipse.swt.graphics.Image;
 
 /**
  * This is the item provider adapter for a
@@ -71,7 +67,6 @@ public class TestGuardUnitItemProvider extends ItemProviderAdapter
 			addNamePropertyDescriptor(object);
 			addUrlPropertyDescriptor(object);
 			addRequestBodyPropertyDescriptor(object);
-			addRequestMethodPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -143,28 +138,6 @@ public class TestGuardUnitItemProvider extends ItemProviderAdapter
 	}
 
 	/**
-	 * This adds a property descriptor for the Request Method feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addRequestMethodPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_TestGuardUnit_requestMethod_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TestGuardUnit_requestMethod_feature", "_UI_TestGuardUnit_type"),
-				 TestGuardPackage.Literals.TEST_GUARD_UNIT__REQUEST_METHOD,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -177,23 +150,26 @@ public class TestGuardUnitItemProvider extends ItemProviderAdapter
 	 * This returns TestGuardUnit.gif. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
 	 * 
-	 * @generated NOT
+	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		RequestMethod requestMethod = ((TestGuardUnit) object).getRequestMethod();
-		Image image = null;
-		switch (requestMethod) {
-		case POST:
-			image = com.gesila.test.guard.common.Activator.getDefault().getImageRegistry().get("postUrl");
-			break;
-		case PUT:
-			image = com.gesila.test.guard.common.Activator.getDefault().getImageRegistry().get("putUrl");
-			break;
-		}
-		if (image != null)
-			return image;
 		return overlayImage(object, getResourceLocator().getImage("full/obj16/TestGuardUnit"));
+	}
+
+	/**
+	 * This returns <code>getImage(object)</code> for the column index <code>0</code> or <code>super.getImage(object)</code> otherwise.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getText(Object)
+	 * @see #getColumnText(Object, int)
+	 * @generated
+	 */
+	@Override
+	public Object getColumnImage(Object object, int columnIndex) {
+		// TODO: implement this method to return appropriate information for each column.
+		// Ensure that you remove @generated or mark it @generated NOT
+		return columnIndex == 0 ? getImage(object) : super.getImage(object);
 	}
 
 	/**
@@ -208,31 +184,36 @@ public class TestGuardUnitItemProvider extends ItemProviderAdapter
 	}
 
 	/**
+	 * This returns <code>getText(object)</code> for the column index <code>0</code> or <code>super.getText(object)</code> otherwise.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getImage(Object)
+	 * @see #getColumnImage(Object, int)
+	 * @generated
+	 */
+	@Override
+	public String getColumnText(Object object, int columnIndex) {
+		// TODO: implement this method to return appropriate information for each column.
+		// Ensure that you remove @generated or mark it @generated NOT
+		return columnIndex == 0 ? getText(object) : super.getText(object);
+	}
+
+	/**
 	 * This returns the label styled text for the adapted class. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @generated NOT
+	 * @generated
 	 */
 	@Override
 	public Object getStyledText(Object object) {
-		RequestMethod requestMethod = ((TestGuardUnit) object).getRequestMethod();
-		String name = ((TestGuardUnit) object).getName();
-		org.eclipse.jface.viewers.StyledString styledString = new org.eclipse.jface.viewers.StyledString();
-		Styler style = null;
-		switch (requestMethod) {
-		case POST:
-			style = GesilaTestGuardFont.getInstance().getRequestPostMethodDecorationStyler();
-			break;
-		case PUT:
-			style = GesilaTestGuardFont.getInstance().getRequestPutMethodDecorationStyler();
-			break;
-		case GET:
-			style=GesilaTestGuardFont.getInstance().getRequestGetMethodDecorationStyler();
+		String label = ((TestGuardUnit)object).getName();
+    	StyledString styledLabel = new StyledString();
+		if (label == null || label.length() == 0) {
+			styledLabel.append(getString("_UI_TestGuardUnit_type"), StyledString.Style.QUALIFIER_STYLER); 
+		} else {
+			styledLabel.append(getString("_UI_TestGuardUnit_type"), StyledString.Style.QUALIFIER_STYLER).append(" " + label);
 		}
-		styledString.append(requestMethod.getLiteral(),
-				style != null ? style : org.eclipse.jface.viewers.StyledString.COUNTER_STYLER);
-		styledString.append(" " + name, org.eclipse.jface.viewers.StyledString.DECORATIONS_STYLER);
-		return styledString;
+		return styledLabel;
 	}
 
 	/**
@@ -250,7 +231,6 @@ public class TestGuardUnitItemProvider extends ItemProviderAdapter
 			case TestGuardPackage.TEST_GUARD_UNIT__NAME:
 			case TestGuardPackage.TEST_GUARD_UNIT__URL:
 			case TestGuardPackage.TEST_GUARD_UNIT__REQUEST_BODY:
-			case TestGuardPackage.TEST_GUARD_UNIT__REQUEST_METHOD:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

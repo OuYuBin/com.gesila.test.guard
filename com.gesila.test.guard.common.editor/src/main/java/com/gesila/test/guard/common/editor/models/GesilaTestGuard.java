@@ -17,7 +17,7 @@ public class GesilaTestGuard {
 	
 	public GesilaTestGuard(TestGuard testGuard) {
 		super();
-		this.method=testGuard.getRequestMethod().getName();
+		this.method=testGuard.getMethod();
 		this.url=testGuard.getUrl();
 	}
 

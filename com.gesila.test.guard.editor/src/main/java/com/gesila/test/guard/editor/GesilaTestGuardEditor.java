@@ -25,8 +25,9 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.forms.editor.FormEditor;
 
-import com.gesila.test.guard.common.editor.IGesilaTestGuardEditor;
-import com.gesila.test.guard.editor.pages.GesilaTestGuardFormPage;
+import com.gesila.test.guard.common.editor.IPostGuardEditor;
+import com.gesila.test.guard.editor.pages.PostGuardDescFormPage;
+import com.gesila.test.guard.editor.pages.PostGuardFormPage;
 import com.gesila.test.guard.model.testGuard.TestGuard;
 import com.gesila.test.guard.ui.views.property.GesilaTestGuardProperty;
 import com.gesila.test.guard.ui.views.viewPage.GesilaTestGuardPage;
@@ -38,7 +39,7 @@ import com.gesila.test.guard.ui.views.viewPage.IGesilaTestGuardPage;
  * @author robin
  *
  */
-public class GesilaTestGuardEditor extends FormEditor implements IGesilaTestGuardEditor {
+public class GesilaTestGuardEditor extends FormEditor implements IPostGuardEditor {
 
 	private EditingDomain editingDomain;
 
@@ -225,10 +226,11 @@ public class GesilaTestGuardEditor extends FormEditor implements IGesilaTestGuar
 	@Override
 	protected void addPages() {
 		createModel();
-		GesilaTestGuardFormPage gesilaTestGuardFormPage = new GesilaTestGuardFormPage(this, "GesilaTestGuardPage",
-				"Gesila TestGuard");
+		PostGuardFormPage gesilaTestGuardFormPage = new PostGuardFormPage(this, "GesilaTestGuardPage", "概览");
+		PostGuardDescFormPage postGuardDescFormPage = new PostGuardDescFormPage(this, "PostGuardDescFormPage", "简介");
 		try {
 			addPage(gesilaTestGuardFormPage);
+			addPage(postGuardDescFormPage);
 		} catch (PartInitException e) {
 			e.printStackTrace();
 		}
@@ -263,13 +265,13 @@ public class GesilaTestGuardEditor extends FormEditor implements IGesilaTestGuar
 
 	private <T> T getGesilaTestGuardProperty() {
 		TestGuard testGuard = (TestGuard) this.resource.getContents().get(0);
-		String methodName = testGuard.getRequestMethod().getName();
+		String methodName = testGuard.getMethod();
 		StringBuffer stringBuffer = new StringBuffer();
 		stringBuffer.append(methodName);
 		stringBuffer.append(" /");
 		stringBuffer.append(" HTTP/1.1");
 		stringBuffer.append("\n");
-		stringBuffer.append("Host: "+testGuard.getUrl());
+		stringBuffer.append("Host: " + testGuard.getUrl());
 		GesilaTestGuardProperty gesilaTestGuardProperty = new GesilaTestGuardProperty();
 		gesilaTestGuardProperty.setProperties(stringBuffer.toString());
 		return (T) gesilaTestGuardProperty;

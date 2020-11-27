@@ -19,7 +19,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.text,
  org.eclipse.jface.text,
  com.aptana.editor.common;bundle-version="3.0.3",
- com.aptana.editor.html
+ com.aptana.editor.html,
+ com.gesila.test.guard.http
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Export-Package: com.gesila.test.guard.ui,

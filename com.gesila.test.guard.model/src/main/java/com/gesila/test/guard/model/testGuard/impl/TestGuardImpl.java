@@ -5,7 +5,6 @@ package com.gesila.test.guard.model.testGuard.impl;
 import com.gesila.test.guard.model.testGuard.Headers;
 import com.gesila.test.guard.model.testGuard.Params;
 import com.gesila.test.guard.model.testGuard.RequestBody;
-import com.gesila.test.guard.model.testGuard.RequestMethod;
 import com.gesila.test.guard.model.testGuard.TestGuard;
 import com.gesila.test.guard.model.testGuard.TestGuardPackage;
 import org.eclipse.emf.common.notify.Notification;
@@ -25,10 +24,11 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <ul>
  *   <li>{@link com.gesila.test.guard.model.testGuard.impl.TestGuardImpl#getName <em>Name</em>}</li>
  *   <li>{@link com.gesila.test.guard.model.testGuard.impl.TestGuardImpl#getUrl <em>Url</em>}</li>
- *   <li>{@link com.gesila.test.guard.model.testGuard.impl.TestGuardImpl#getRequestMethod <em>Request Method</em>}</li>
+ *   <li>{@link com.gesila.test.guard.model.testGuard.impl.TestGuardImpl#getMethod <em>Method</em>}</li>
  *   <li>{@link com.gesila.test.guard.model.testGuard.impl.TestGuardImpl#getHeaders <em>Headers</em>}</li>
  *   <li>{@link com.gesila.test.guard.model.testGuard.impl.TestGuardImpl#getParams <em>Params</em>}</li>
  *   <li>{@link com.gesila.test.guard.model.testGuard.impl.TestGuardImpl#getRequestBody <em>Request Body</em>}</li>
+ *   <li>{@link com.gesila.test.guard.model.testGuard.impl.TestGuardImpl#getDesc <em>Desc</em>}</li>
  * </ul>
  *
  * @generated
@@ -71,23 +71,23 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 	 */
 	protected String url = URL_EDEFAULT;
 	/**
-	 * The default value of the '{@link #getRequestMethod() <em>Request Method</em>}' attribute.
+	 * The default value of the '{@link #getMethod() <em>Method</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getRequestMethod()
+	 * @see #getMethod()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final RequestMethod REQUEST_METHOD_EDEFAULT = RequestMethod.POST;
+	protected static final String METHOD_EDEFAULT = null;
 	/**
-	 * The cached value of the '{@link #getRequestMethod() <em>Request Method</em>}' attribute.
+	 * The cached value of the '{@link #getMethod() <em>Method</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getRequestMethod()
+	 * @see #getMethod()
 	 * @generated
 	 * @ordered
 	 */
-	protected RequestMethod requestMethod = REQUEST_METHOD_EDEFAULT;
+	protected String method = METHOD_EDEFAULT;
 	/**
 	 * The cached value of the '{@link #getHeaders() <em>Headers</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -115,6 +115,24 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 	 * @ordered
 	 */
 	protected RequestBody requestBody;
+	/**
+	 * The default value of the '{@link #getDesc() <em>Desc</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDesc()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DESC_EDEFAULT = null;
+	/**
+	 * The cached value of the '{@link #getDesc() <em>Desc</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDesc()
+	 * @generated
+	 * @ordered
+	 */
+	protected String desc = DESC_EDEFAULT;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -186,6 +204,29 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 	 * @generated
 	 */
 	@Override
+	public String getMethod() {
+		return method;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setMethod(String newMethod) {
+		String oldMethod = method;
+		method = newMethod;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TestGuardPackage.TEST_GUARD__METHOD, oldMethod, method));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public RequestBody getRequestBody() {
 		return requestBody;
 	}
@@ -231,8 +272,8 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 	 * @generated
 	 */
 	@Override
-	public RequestMethod getRequestMethod() {
-		return requestMethod;
+	public String getDesc() {
+		return desc;
 	}
 
 	/**
@@ -241,11 +282,11 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 	 * @generated
 	 */
 	@Override
-	public void setRequestMethod(RequestMethod newRequestMethod) {
-		RequestMethod oldRequestMethod = requestMethod;
-		requestMethod = newRequestMethod == null ? REQUEST_METHOD_EDEFAULT : newRequestMethod;
+	public void setDesc(String newDesc) {
+		String oldDesc = desc;
+		desc = newDesc;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, TestGuardPackage.TEST_GUARD__REQUEST_METHOD, oldRequestMethod, requestMethod));
+			eNotify(new ENotificationImpl(this, Notification.SET, TestGuardPackage.TEST_GUARD__DESC, oldDesc, desc));
 	}
 
 	/**
@@ -368,14 +409,16 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 				return getName();
 			case TestGuardPackage.TEST_GUARD__URL:
 				return getUrl();
-			case TestGuardPackage.TEST_GUARD__REQUEST_METHOD:
-				return getRequestMethod();
+			case TestGuardPackage.TEST_GUARD__METHOD:
+				return getMethod();
 			case TestGuardPackage.TEST_GUARD__HEADERS:
 				return getHeaders();
 			case TestGuardPackage.TEST_GUARD__PARAMS:
 				return getParams();
 			case TestGuardPackage.TEST_GUARD__REQUEST_BODY:
 				return getRequestBody();
+			case TestGuardPackage.TEST_GUARD__DESC:
+				return getDesc();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -395,8 +438,8 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 			case TestGuardPackage.TEST_GUARD__URL:
 				setUrl((String)newValue);
 				return;
-			case TestGuardPackage.TEST_GUARD__REQUEST_METHOD:
-				setRequestMethod((RequestMethod)newValue);
+			case TestGuardPackage.TEST_GUARD__METHOD:
+				setMethod((String)newValue);
 				return;
 			case TestGuardPackage.TEST_GUARD__HEADERS:
 				setHeaders((Headers)newValue);
@@ -406,6 +449,9 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 				return;
 			case TestGuardPackage.TEST_GUARD__REQUEST_BODY:
 				setRequestBody((RequestBody)newValue);
+				return;
+			case TestGuardPackage.TEST_GUARD__DESC:
+				setDesc((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -425,8 +471,8 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 			case TestGuardPackage.TEST_GUARD__URL:
 				setUrl(URL_EDEFAULT);
 				return;
-			case TestGuardPackage.TEST_GUARD__REQUEST_METHOD:
-				setRequestMethod(REQUEST_METHOD_EDEFAULT);
+			case TestGuardPackage.TEST_GUARD__METHOD:
+				setMethod(METHOD_EDEFAULT);
 				return;
 			case TestGuardPackage.TEST_GUARD__HEADERS:
 				setHeaders((Headers)null);
@@ -436,6 +482,9 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 				return;
 			case TestGuardPackage.TEST_GUARD__REQUEST_BODY:
 				setRequestBody((RequestBody)null);
+				return;
+			case TestGuardPackage.TEST_GUARD__DESC:
+				setDesc(DESC_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -453,14 +502,16 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case TestGuardPackage.TEST_GUARD__URL:
 				return URL_EDEFAULT == null ? url != null : !URL_EDEFAULT.equals(url);
-			case TestGuardPackage.TEST_GUARD__REQUEST_METHOD:
-				return requestMethod != REQUEST_METHOD_EDEFAULT;
+			case TestGuardPackage.TEST_GUARD__METHOD:
+				return METHOD_EDEFAULT == null ? method != null : !METHOD_EDEFAULT.equals(method);
 			case TestGuardPackage.TEST_GUARD__HEADERS:
 				return headers != null;
 			case TestGuardPackage.TEST_GUARD__PARAMS:
 				return params != null;
 			case TestGuardPackage.TEST_GUARD__REQUEST_BODY:
 				return requestBody != null;
+			case TestGuardPackage.TEST_GUARD__DESC:
+				return DESC_EDEFAULT == null ? desc != null : !DESC_EDEFAULT.equals(desc);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -474,13 +525,15 @@ public class TestGuardImpl extends MinimalEObjectImpl.Container implements TestG
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (name: ");
 		result.append(name);
 		result.append(", url: ");
 		result.append(url);
-		result.append(", requestMethod: ");
-		result.append(requestMethod);
+		result.append(", method: ");
+		result.append(method);
+		result.append(", desc: ");
+		result.append(desc);
 		result.append(')');
 		return result.toString();
 	}

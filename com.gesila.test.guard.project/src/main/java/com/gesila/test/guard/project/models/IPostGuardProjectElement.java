@@ -7,9 +7,9 @@ import org.eclipse.core.runtime.IAdaptable;
  * @author robin
  *
  */
-public interface IGesilaTestGuardProjectElement extends IAdaptable{
+public interface IPostGuardProjectElement extends IAdaptable{
 
-	public IGesilaTestGuardProjectContainerElement getParent();
+	public IPostGuardProjectContainerElement getParent();
 	
 	public String getName();
 	

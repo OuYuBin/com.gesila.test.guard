@@ -2,27 +2,29 @@ package com.gesila.test.guard.editor.pages;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpRequest;
-import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClients;
-import org.eclipse.core.runtime.Platform;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.message.BasicNameValuePair;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.SubMonitor;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.EMFEditPlugin;
@@ -39,9 +41,7 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.CellLabelProvider;
 import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.EditingSupport;
-import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
-import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.TextCellEditor;
@@ -49,7 +49,6 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.TreeViewerColumn;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.StyledText;
@@ -61,7 +60,6 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -69,10 +67,8 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.TabFolder;
-import org.eclipse.swt.widgets.TabItem;
+import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
@@ -102,6 +98,9 @@ import com.gesila.test.guard.editor.editingSupport.HeaderEditingSupport;
 import com.gesila.test.guard.editor.editingSupport.ParamsEditingSupport;
 import com.gesila.test.guard.editor.parts.providers.GesilaTestGuardRequestBodyContentProvider;
 import com.gesila.test.guard.editor.parts.providers.GesilaTestGuardRequestBodyLableProvider;
+import com.gesila.test.guard.http.PostGuardHttpClient;
+import com.gesila.test.guard.http.PostGuardHttpClientUtil;
+import com.gesila.test.guard.http.models.PostResponseInfo;
 import com.gesila.test.guard.json.model.GesilaJSONObject;
 import com.gesila.test.guard.json.utils.GesilaJSONUtils;
 import com.gesila.test.guard.model.testGuard.Header;
@@ -112,7 +111,6 @@ import com.gesila.test.guard.model.testGuard.RequestBody;
 import com.gesila.test.guard.model.testGuard.TestGuard;
 import com.gesila.test.guard.model.testGuard.TestGuardFactory;
 import com.gesila.test.guard.model.testGuard.TestGuardPackage;
-import com.gesila.test.guard.model.testGuard.TestGuardUnit;
 import com.gesila.test.guard.ui.views.IGesilaTestGuardViewPart;
 
 /**
@@ -120,21 +118,25 @@ import com.gesila.test.guard.ui.views.IGesilaTestGuardViewPart;
  * @author robin
  *
  */
-public class GesilaTestGuardFormPage extends FormPage {
+public class PostGuardFormPage extends FormPage {
 
 	private TestGuard testGuard;
 
 	private TreeViewer jsonTreeViewer;
 
-	private CCombo methodsCombo;
+	private Combo methodsCombo;
 
 	private Text bodyText;
-	
+
 	private ProjectionViewer sourceViewer;
 
-	private Logger logger = LoggerFactory.getLogger(GesilaTestGuardFormPage.class);
+	private Logger logger = LoggerFactory.getLogger(PostGuardFormPage.class);
 
-	public GesilaTestGuardFormPage(FormEditor editor, String id, String title) {
+	private ProgressBar progressBar;
+
+	Form form;
+
+	public PostGuardFormPage(FormEditor editor, String id, String title) {
 		super(editor, id, title);
 		Resource resource = getEditor().getAdapter(Resource.class);
 		testGuard = (TestGuard) resource.getContents().get(0);
@@ -145,8 +147,8 @@ public class GesilaTestGuardFormPage extends FormPage {
 		super.createFormContent(managedForm);
 		FormToolkit formToolkit = managedForm.getToolkit();
 		ScrolledForm scrolledForm = managedForm.getForm();
-		scrolledForm.setText("Request");
-		Form form = scrolledForm.getForm();
+		scrolledForm.setText("请求");
+		form = scrolledForm.getForm();
 		formToolkit.decorateFormHeading(form);
 
 		Composite composite = form.getBody();
@@ -159,7 +161,7 @@ public class GesilaTestGuardFormPage extends FormPage {
 
 		Section section = formToolkit.createSection(composite,
 				Section.TITLE_BAR | Section.EXPANDED | Section.CLIENT_INDENT | Section.COMPACT);
-		section.setText("Request URL");
+		section.setText("请求地址");
 		section.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 
 		Composite requestComposite = formToolkit.createComposite(section);
@@ -170,37 +172,46 @@ public class GesilaTestGuardFormPage extends FormPage {
 		gridLayout.horizontalSpacing = 5;
 		requestComposite.setLayout(gridLayout);
 
-		Label methodLabel = formToolkit.createLabel(requestComposite, "Request Method", SWT.NONE);
+		Label methodLabel = formToolkit.createLabel(requestComposite, "请求方法", SWT.NONE);
 		methodLabel.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
-
-		methodsCombo = new CCombo(requestComposite, SWT.BORDER);
-
+		methodsCombo = new Combo(requestComposite, SWT.READ_ONLY);
+		String currentMethod = testGuard.getMethod();
 		EEnum methodEnum = TestGuardPackage.eINSTANCE.getMethod();
 		Object[] methods = methodEnum.getELiterals().toArray();
 		String[] items = new String[methods.length];
 		int i = 0;
+		int selectIndex = 0;
 		for (Object method : methods) {
 			items[i] = method.toString();
+			if (StringUtils.equals(items[i], currentMethod)) {
+				selectIndex = i;
+			}
 			i++;
 		}
 		methodsCombo.setItems(items);
 
-		methodsCombo.select(0);
+		methodsCombo.select(selectIndex);
 		methodsCombo.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
-		methodsCombo.addModifyListener(new ModifyListener() {
+		methodsCombo.addSelectionListener(new SelectionListener() {
 
 			@Override
-			public void modifyText(ModifyEvent event) {
-				CCombo methodsCombo = (CCombo) event.getSource();
+			public void widgetSelected(SelectionEvent event) {
+				Combo methodsCombo = (Combo) event.getSource();
 				EditingDomain editingDomain = getEditor().getAdapter(EditingDomain.class);
-				EAttribute urlAttribute = TestGuardPackage.eINSTANCE.getTestGuard_Url();
-				// SetCommand setCommand = new SetCommand(editingDomain,
-				// testGuard, urlAttribute, urlText.getText());
-				// editingDomain.getCommandStack().execute(setCommand);
+				EAttribute methodAttribute = TestGuardPackage.eINSTANCE.getTestGuard_Method();
+				String method = methodsCombo.getText();
+				SetCommand setCommand = new SetCommand(editingDomain, testGuard, methodAttribute, method);
+				editingDomain.getCommandStack().execute(setCommand);
 			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+
+			}
+
 		});
 
-		Label addressLabel = formToolkit.createLabel(requestComposite, "Address", SWT.NONE);
+		Label addressLabel = formToolkit.createLabel(requestComposite, "地址", SWT.NONE);
 		addressLabel.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
 
 		Text urlText = formToolkit.createText(requestComposite, null, SWT.BORDER);
@@ -220,87 +231,131 @@ public class GesilaTestGuardFormPage extends FormPage {
 			}
 		});
 
-		Button button = formToolkit.createButton(requestComposite, "Send", SWT.BUTTON1);
+		Button button = formToolkit.createButton(requestComposite, "发送", SWT.BUTTON1);
 		button.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));
 
 		button.addSelectionListener(new SelectionListener() {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				HttpUriRequest httpUriRequest = null;
-				try {
-					HttpClient httpClient = HttpClients.createDefault();
-					String url = urlText.getText();
-					EList<Param> params = testGuard.getParams().getParam();
-					if (!params.isEmpty()) {
-						StringBuffer sb = new StringBuffer();
-						// sb.append("?");
-						for (Param param : params) {
-							String paramName = param.getName();
-							String paramValue = param.getValue();
-							if (paramName != null && paramValue != null) {
-								sb.append(paramName);
-								sb.append("=");
-								sb.append(paramValue);
+				Job sendJob = new Job("发送服务请求") {
+
+					@Override
+					protected IStatus run(IProgressMonitor monitor) {
+						try {
+							SubMonitor subMonitor = SubMonitor.convert(monitor, 100);
+							startSend();
+							
+							subMonitor.setTaskName("组织请求链接信息...");
+							String url = testGuard.getUrl();
+							logger.info("Request URL is {}", url);
+							subMonitor.worked(10);
+
+							String method = testGuard.getMethod();
+							PostGuardHttpClient httpClient = new PostGuardHttpClient(url);
+							httpClient.setRequestMethod(method);
+
+							subMonitor.setTaskName("组织消息头信息...");
+							// --设置消息头信息
+							Headers headers = testGuard.getHeaders();
+							Map<String, String> headMap = httpClient.getHeaderMap();
+							for (Header header : headers.getHeader()) {
+								if (header.getValue() != null) {
+									headMap.put(header.getName(), header.getValue());
+								}
 							}
-							sb.append("&");
+							subMonitor.worked(10);
+							
+							subMonitor.setTaskName("组织参数信息...");
+							// --设置请求参数
+							EList<Param> params = testGuard.getParams().getParam();
+							List<org.apache.http.NameValuePair> paramList = new ArrayList<>();
+							if (!params.isEmpty()) {
+								for (Param param : params) {
+									if (StringUtils.isNotBlank(param.getName())
+											&& StringUtils.isNotBlank(param.getValue())) {
+										paramList.add(new BasicNameValuePair(param.getName(), param.getValue()));
+									}
+								}
+								UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(paramList);
+								httpClient.setHttpEntity(formEntity);
+							}
+							subMonitor.worked(10);
+
+							subMonitor.setTaskName("正在发送请求...");
+							// --请求链接
+							CloseableHttpResponse response = (CloseableHttpResponse) PostGuardHttpClientUtil
+									.execute(httpClient);
+							subMonitor.worked(70);
+							endSend(response);
+						} catch (ClientProtocolException e1) {
+							e1.printStackTrace();
+						} catch (IOException e1) {
+							e1.printStackTrace();
 						}
-						url += "?" + sb.toString().substring(0, sb.toString().length() - 1);
-					}
-					logger.info("Request URL is {}", url);
-					int index = methodsCombo.getSelectionIndex();
-					switch (index) {
-					case 0:
-						httpUriRequest = new HttpGet(url);
-						break;
-					case 1:
-						httpUriRequest = new HttpPost(url);
-						HttpEntity httpEntity = new StringEntity(testGuard.getRequestBody().getValue());
-						((HttpPost) httpUriRequest).setEntity(httpEntity);
-						break;
-					default:
-						break;
-					}
-					// httpPost.setEntity(new
-					// StringEntity("{\"_method\":\"GET\"}"));
-					// if(combo.getSelectionIndex())
-
-					HttpResponse response = httpClient.execute(httpUriRequest);
-					HttpEntity entity = response.getEntity();
-					ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-					byte[] data = new byte[4096];
-					int count = -1;
-					while ((count = entity.getContent().read(data, 0, 4096)) != -1)
-						outStream.write(data, 0, count);
-
-					data = null;
-					IViewPart viewPart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
-							.findView("com.gesila.test.guard.ui.views.GsilaTestGuardResponseViewPart");
-					if (viewPart instanceof IGesilaTestGuardViewPart) {
-						((IGesilaTestGuardViewPart) viewPart).refresh(new String(outStream.toByteArray()));
+						return Status.OK_STATUS;
 					}
 
-					// responseText.setText(new String(outStream.toByteArray(),
-					// "UTF-8"));
-				} catch (ClientProtocolException e1) {
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-
+				};
+				sendJob.setUser(true);
+				sendJob.schedule();
 			}
 
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
 
 			}
+
+			public void startSend() {
+				Display.getDefault().asyncExec(new Runnable() {
+
+					@Override
+					public void run() {
+						form.setBusy(true);
+					}
+				});
+
+			}
+
+			private void endSend(CloseableHttpResponse response) {
+				Display.getDefault().asyncExec(() -> {
+					try {
+						form.setBusy(false);
+						String responseInfo = "";
+						if (response.getStatusLine().getStatusCode() == HttpStatus.SC_MOVED_TEMPORARILY) {
+							responseInfo = response.toString();
+						} else {
+							HttpEntity entity = response.getEntity();
+							InputStream inputStream = entity.getContent();
+							ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+							byte[] data = new byte[4096];
+							int count = -1;
+							while ((count = inputStream.read(data, 0, 4096)) != -1) {
+								outStream.write(data, 0, count);
+							}
+							responseInfo = new String(outStream.toByteArray());
+						}
+						PostResponseInfo postRepsoseInfo = new PostResponseInfo();
+						postRepsoseInfo.setStatusCode(response.getStatusLine().getStatusCode());
+						postRepsoseInfo.setResponseInfo(responseInfo);
+
+						IViewPart viewPart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+								.findView("com.gesila.test.guard.ui.views.GsilaTestGuardResponseViewPart");
+						if (viewPart instanceof IGesilaTestGuardViewPart) {
+							((IGesilaTestGuardViewPart) viewPart).refresh(postRepsoseInfo);
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				});
+			}
 		});
+
 		section.setClient(requestComposite);
 
 		Section bodySection = formToolkit.createSection(composite,
 				Section.TITLE_BAR | Section.EXPANDED | Section.CLIENT_INDENT | Section.COMPACT);
-		bodySection.setText("Request Context");
+		bodySection.setText("请求上下文");
 		gridLayout = new GridLayout();
 		gridLayout.marginWidth = 0;
 		gridLayout.marginHeight = 0;
@@ -322,12 +377,12 @@ public class GesilaTestGuardFormPage extends FormPage {
 
 		// --Headers
 		CTabItem tabItem = new CTabItem(tabFolder, SWT.BORDER);
-		tabItem.setText("Headers");
+		tabItem.setText("消息头");
 		Composite headerComposite = createHeaderComposite(tabFolder);
 		tabItem.setControl(headerComposite);
 
 		CTabItem bodytabItem = new CTabItem(tabFolder, SWT.BORDER);
-		bodytabItem.setText("Body");
+		bodytabItem.setText("请求体");
 
 		Composite bodyComposite = new Composite(tabFolder, SWT.NONE);
 		bodytabItem.setControl(bodyComposite);
@@ -434,7 +489,7 @@ public class GesilaTestGuardFormPage extends FormPage {
 		table.setLinesVisible(true);
 		tableViewerColumn = new TableViewerColumn(tableViewer, SWT.NONE);
 		tableViewerColumn.getColumn().setWidth(200);
-		tableViewerColumn.getColumn().setText("Name");
+		tableViewerColumn.getColumn().setText("名称");
 		tableViewerColumn.setLabelProvider(new CellLabelProvider() {
 
 			@Override
@@ -448,10 +503,10 @@ public class GesilaTestGuardFormPage extends FormPage {
 
 		Headers headers = testGuard.getHeaders();
 
-		cellEditingSupport = new HeaderEditingSupport(tableViewer, headers);
+		cellEditingSupport = new HeaderEditingSupport(tableViewer, headers, getEditor());
 		tableViewerColumn = new TableViewerColumn(tableViewer, SWT.NONE);
 		tableViewerColumn.getColumn().setWidth(400);
-		tableViewerColumn.getColumn().setText("Value");
+		tableViewerColumn.getColumn().setText("值");
 		tableViewerColumn.setLabelProvider(new CellLabelProvider() {
 
 			@Override
@@ -523,7 +578,7 @@ public class GesilaTestGuardFormPage extends FormPage {
 	private void createParamsTab(CTabFolder tabFolder) {
 		CTabItem tabItem = new CTabItem(tabFolder, SWT.BORDER);
 		// tabItem.setImage(Activator.getDefault().getImageRegistry().get("params"));
-		tabItem.setText("URL Params");
+		tabItem.setText("URL重组参数");
 		Composite paramsComposite = new Composite(tabFolder, SWT.NONE);
 		GridLayout gridLayout = new GridLayout(1, false);
 		gridLayout.marginWidth = 0;
@@ -575,7 +630,7 @@ public class GesilaTestGuardFormPage extends FormPage {
 
 		TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer, SWT.NONE);
 		tableViewerColumn.getColumn().setWidth(200);
-		tableViewerColumn.getColumn().setText("Name");
+		tableViewerColumn.getColumn().setText("名称");
 		tableViewerColumn.setEditingSupport(new ParamsEditingSupport(tableViewer, "name", getEditor()));
 		tableViewerColumn.setLabelProvider(new CellLabelProvider() {
 
@@ -611,7 +666,7 @@ public class GesilaTestGuardFormPage extends FormPage {
 
 		tableViewerColumn = new TableViewerColumn(tableViewer, SWT.NONE);
 		tableViewerColumn.getColumn().setWidth(200);
-		tableViewerColumn.getColumn().setText("Value");
+		tableViewerColumn.getColumn().setText("值");
 		tableViewerColumn.setEditingSupport(new ParamsEditingSupport(tableViewer, "value", getEditor()));
 		tableViewerColumn.setLabelProvider(new CellLabelProvider() {
 
@@ -704,11 +759,11 @@ public class GesilaTestGuardFormPage extends FormPage {
 		tree.setLayoutData(gridData);
 		TreeColumn column = new TreeColumn(tree, SWT.NONE);
 		column.setWidth(200);
-		column.setText("Name");
+		column.setText("名称");
 
 		TreeViewerColumn valueColumn = new TreeViewerColumn(jsonTreeViewer, SWT.NONE);
 		valueColumn.getColumn().setWidth(200);
-		valueColumn.getColumn().setText("Value");
+		valueColumn.getColumn().setText("值");
 
 		valueColumn.setEditingSupport(new EditingSupport(jsonTreeViewer) {
 
@@ -772,7 +827,7 @@ public class GesilaTestGuardFormPage extends FormPage {
 
 		CTabItem tabItem = new CTabItem(tabFolder, SWT.BORDER);
 		tabItem.setImage(Activator.getDefault().getImageRegistry().get("text"));
-		tabItem.setText("Text");
+		tabItem.setText("文本");
 		Composite textComposite = new Composite(tabFolder, SWT.NONE);
 		GridLayout gridLayout = new GridLayout(1, false);
 		gridLayout.marginWidth = 0;
@@ -798,7 +853,7 @@ public class GesilaTestGuardFormPage extends FormPage {
 				EditingDomain editingDomain = getEditor().getAdapter(EditingDomain.class);
 				EAttribute value = TestGuardPackage.eINSTANCE.getRequestBody_Value();
 				RequestBody requestBody = testGuard.getRequestBody();
-				//Param param = TestGuardFactory.eINSTANCE.createParam();
+				// Param param = TestGuardFactory.eINSTANCE.createParam();
 				SetCommand setCommand = new SetCommand(editingDomain, requestBody, value, format);
 				editingDomain.getCommandStack().execute(setCommand);
 			}
@@ -813,15 +868,13 @@ public class GesilaTestGuardFormPage extends FormPage {
 		// ToolItem removeItem = new ToolItem(toolbar, SWT.NONE);
 		// removeItem.setImage(Activator.getDefault().getImageRegistry().get("remove"));
 
-		
 		CompositeRuler ruler = new CompositeRuler();
 
 		LineNumberRulerColumn lineCol = new LineNumberRulerColumn();
 		lineCol.setBackground(new Color(Display.getCurrent(), 147, 224, 255));
 		ruler.addDecorator(0, lineCol);
 
-		sourceViewer = new ProjectionViewer(textComposite, ruler, null, false,
-				SWT.BORDER | SWT.H_SCROLL);
+		sourceViewer = new ProjectionViewer(textComposite, ruler, null, false, SWT.BORDER | SWT.H_SCROLL);
 		sourceViewer.setDocument(document);
 		sourceViewer.configure(new JsonConfiguration(null));
 		StyledText styledText = sourceViewer.getTextWidget();
@@ -834,8 +887,8 @@ public class GesilaTestGuardFormPage extends FormPage {
 		// bodyText = new Text(textComposite, SWT.BORDER | SWT.MULTI |
 		// SWT.WRAP);
 		gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
-		//gridData.widthHint = SWT.DEFAULT;
-		//gridData.heightHint = SWT.DEFAULT;
+		// gridData.widthHint = SWT.DEFAULT;
+		// gridData.heightHint = SWT.DEFAULT;
 		// bodyText.setText(testGuard.getRequestBody().getValue()==null?"":testGuard.getRequestBody().getValue());
 		sourceViewer.getControl().setLayoutData(gridData);
 		// bodyText.addModifyListener(new ModifyListener() {

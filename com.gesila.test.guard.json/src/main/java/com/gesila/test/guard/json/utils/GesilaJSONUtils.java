@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.gesila.test.guard.json.model.GesilaJSONObject;
@@ -54,7 +56,7 @@ public class GesilaJSONUtils {
 				responseObject.setName(key);
 				String value = jsonObject.getString(key);
 				char fchar = 0;
-				if (!"".equals(value)) {
+				if (!"".equals(value)&&StringUtils.isNotEmpty(value)) {
 					char[] chars = value.toCharArray();
 					fchar = chars[0];
 				}

@@ -30,7 +30,7 @@ import org.eclipse.ui.forms.widgets.Form;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.part.Page;
 
-import com.gesila.test.guard.common.editor.IGesilaTestGuardEditor;
+import com.gesila.test.guard.common.editor.IPostGuardEditor;
 import com.gesila.test.guard.ui.views.property.GesilaTestGuardProperty;
 
 /**
@@ -63,7 +63,7 @@ public class GesilaTestGuardPage extends Page implements IGesilaTestGuardPage {
 		composite.setLayout(fillLayout);
 		FormToolkit formToolkit=new FormToolkit(Display.getCurrent());
 		Form form=formToolkit.createForm(composite);
-		form.setText("Property");
+		form.setText("属性");
 		IToolBarManager toolBarManager=form.getToolBarManager();
 		//toolBarManager.add
 		formToolkit.decorateFormHeading(form);

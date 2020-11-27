@@ -2,6 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: com.gesila.test.guard.model.edit;singleton:=true
+Automatic-Module-Name: com.gesila.test.guard.model.edit
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: com.gesila.test.guard.model.edit.TestGuardEditPlugin$Implementation

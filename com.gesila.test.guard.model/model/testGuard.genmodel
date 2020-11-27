@@ -10,12 +10,33 @@
   <foreignModel>testGuard.ecore</foreignModel>
   <genPackages prefix="TestGuard" basePackage="com.gesila.test.guard.model" resource="XML"
       disposableProviderFactory="true" fileExtensions="gtg" ecorePackage="testGuard.ecore#/">
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="testGuard.ecore#//RequestMethod">
-      <genEnumLiterals ecoreEnumLiteral="testGuard.ecore#//RequestMethod/POST"/>
-      <genEnumLiterals ecoreEnumLiteral="testGuard.ecore#//RequestMethod/PUT"/>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="testGuard.ecore#//EntityHeaderFields">
+      <genEnumLiterals ecoreEnumLiteral="testGuard.ecore#//EntityHeaderFields/Allow"/>
+      <genEnumLiterals ecoreEnumLiteral="testGuard.ecore#//EntityHeaderFields/ContentEncoding"/>
+      <genEnumLiterals ecoreEnumLiteral="testGuard.ecore#//EntityHeaderFields/ContentLanguage"/>
+      <genEnumLiterals ecoreEnumLiteral="testGuard.ecore#//EntityHeaderFields/ContentLength"/>
+      <genEnumLiterals ecoreEnumLiteral="testGuard.ecore#//EntityHeaderFields/ContentLocation"/>
+      <genEnumLiterals ecoreEnumLiteral="testGuard.ecore#//EntityHeaderFields/ContentMD5"/>
+      <genEnumLiterals ecoreEnumLiteral="testGuard.ecore#//EntityHeaderFields/ContentRange"/>
+      <genEnumLiterals ecoreEnumLiteral="testGuard.ecore#//EntityHeaderFields/ContentType"/>
+      <genEnumLiterals ecoreEnumLiteral="testGuard.ecore#//EntityHeaderFields/Expires"/>
+      <genEnumLiterals ecoreEnumLiteral="testGuard.ecore#//EntityHeaderFields/LastModified"/>
+      <genEnumLiterals ecoreEnumLiteral="testGuard.ecore#//EntityHeaderFields/Accept"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="testGuard.ecore#//Method">
+      <genEnumLiterals ecoreEnumLiteral="testGuard.ecore#//Method/GET"/>
+      <genEnumLiterals ecoreEnumLiteral="testGuard.ecore#//Method/POST"/>
+      <genEnumLiterals ecoreEnumLiteral="testGuard.ecore#//Method/UPDATE"/>
+      <genEnumLiterals ecoreEnumLiteral="testGuard.ecore#//Method/PUT"/>
     </genEnums>
     <genClasses ecoreClass="testGuard.ecore#//TestGuard">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference testGuard.ecore#//TestGuard/Module"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testGuard.ecore#//TestGuard/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testGuard.ecore#//TestGuard/url"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testGuard.ecore#//TestGuard/method"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference testGuard.ecore#//TestGuard/Headers"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference testGuard.ecore#//TestGuard/Params"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference testGuard.ecore#//TestGuard/requestBody"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testGuard.ecore#//TestGuard/desc"/>
     </genClasses>
     <genClasses ecoreClass="testGuard.ecore#//TestGuardModule">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference testGuard.ecore#//TestGuardModule/Unit"/>
@@ -25,7 +46,23 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testGuard.ecore#//TestGuardUnit/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testGuard.ecore#//TestGuardUnit/url"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testGuard.ecore#//TestGuardUnit/requestBody"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testGuard.ecore#//TestGuardUnit/requestMethod"/>
+    </genClasses>
+    <genClasses ecoreClass="testGuard.ecore#//Headers">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference testGuard.ecore#//Headers/Header"/>
+    </genClasses>
+    <genClasses ecoreClass="testGuard.ecore#//Header">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testGuard.ecore#//Header/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testGuard.ecore#//Header/value"/>
+    </genClasses>
+    <genClasses ecoreClass="testGuard.ecore#//RequestBody">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testGuard.ecore#//RequestBody/value"/>
+    </genClasses>
+    <genClasses ecoreClass="testGuard.ecore#//Params">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference testGuard.ecore#//Params/Param"/>
+    </genClasses>
+    <genClasses ecoreClass="testGuard.ecore#//Param">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testGuard.ecore#//Param/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testGuard.ecore#//Param/value"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

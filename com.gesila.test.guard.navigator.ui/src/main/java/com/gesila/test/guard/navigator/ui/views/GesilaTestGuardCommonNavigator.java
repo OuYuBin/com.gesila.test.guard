@@ -2,6 +2,7 @@ package com.gesila.test.guard.navigator.ui.views;
 
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -10,7 +11,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.forms.widgets.Form;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.navigator.CommonNavigator;
-import org.eclipse.swt.graphics.Color;
 
 /**
  * 
@@ -37,7 +37,7 @@ public class GesilaTestGuardCommonNavigator extends CommonNavigator {
 		
 		FormToolkit formToolkit=new FormToolkit(Display.getCurrent());
 		Form form=formToolkit.createForm(parent);
-		form.setText("Navigator");
+		form.setText("导航");
 		IToolBarManager toolBarManager=form.getToolBarManager();
 		//toolBarManager.add
 		formToolkit.decorateFormHeading(form);

@@ -6,18 +6,24 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.TreePath;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.progress.WorkbenchJob;
 
-import com.gesila.test.guard.navigator.ui.views.manager.GesilaTestGuardModelElementManager;
-import com.gesila.test.guard.navigator.ui.views.manager.IGesilaTestGuardModelElementChangeListener;
-import com.gesila.test.guard.project.models.IGesilaTestGuardProjectContainerElement;
-import com.gesila.test.guard.project.models.IGesilaTestGuardProjectElement;
+import com.gesila.test.guard.navigator.ui.views.listeners.IGesilaTestGuardModelElementChangeListener;
+import com.gesila.test.guard.navigator.ui.views.listeners.manager.PostGuardModelElementManager;
+import com.gesila.test.guard.project.models.IPostGuardProjectContainerElement;
+import com.gesila.test.guard.project.models.IPostGuardProjectElement;
 import com.gesila.test.guard.project.models.impl.GesilaTestGuard;
 import com.gesila.test.guard.project.models.impl.GesilaTestGuardProject;
 import com.gesila.test.guard.project.nature.GesilaTestGuardProjectNature;
@@ -35,15 +41,17 @@ public class GesilaTestGuardTreeContentProvider
 	// private List<GesilaTestGuardProject> gesilaTestGuardProjects = new
 	// ArrayList<GesilaTestGuardProject>();
 
+	private WorkbenchJob updateJob;
+	
 	private Map<String, GesilaTestGuardProject> gesilaTestGuardProjects = new HashMap<String, GesilaTestGuardProject>();
 
 	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 		this.viewer = viewer;
 		if (oldInput == null && newInput != null) {
-			GesilaTestGuardModelElementManager.getInstance().addGesilaTestGuardModelElementListener(this);
+			PostGuardModelElementManager.getInstance().addGesilaTestGuardModelElementListener(this);
 		} else if (oldInput != null && newInput == null) {
-			GesilaTestGuardModelElementManager.getInstance().removeGesilaTestGuardModelElementListener(this);
+			PostGuardModelElementManager.getInstance().removeGesilaTestGuardModelElementListener(this);
 		}
 
 	}
@@ -57,8 +65,8 @@ public class GesilaTestGuardTreeContentProvider
 	public Object[] getChildren(Object parentElement) {
 		if (parentElement instanceof IWorkspaceRoot) {
 			return createGesilaTestGuardProjects(parentElement).toArray();
-		} else if (parentElement instanceof IGesilaTestGuardProjectContainerElement) {
-			return ((IGesilaTestGuardProjectContainerElement) parentElement).getElements().toArray();
+		} else if (parentElement instanceof IPostGuardProjectContainerElement) {
+			return ((IPostGuardProjectContainerElement) parentElement).getElements().toArray();
 		}
 		return new Object[0];
 	}
@@ -88,7 +96,7 @@ public class GesilaTestGuardTreeContentProvider
 	@Override
 	public Object getParent(Object element) {
 		if (element instanceof GesilaTestGuard) {
-			return ((IGesilaTestGuardProjectElement) element).getParent();
+			return ((IPostGuardProjectElement) element).getParent();
 		} else if (element instanceof GesilaTestGuardProject) {
 			return ((GesilaTestGuardProject) element).getProject().getWorkspace().getRoot();
 		}
@@ -112,6 +120,36 @@ public class GesilaTestGuardTreeContentProvider
 			}
 		});
 
+	}
+
+	@Override
+	public void resourceChanged(IResourceChangeEvent event) {
+		if (event.getType() == IResourceChangeEvent.POST_CHANGE) {
+			if(updateJob == null) {
+				updateJob = new WorkbenchJob(PlatformUI.getWorkbench().getDisplay(), "Refreshing navigator") {
+					
+					@Override
+					public IStatus runInUIThread(IProgressMonitor monitor) {
+						TreePath[] treePaths = ((TreeViewer) viewer).getExpandedTreePaths();
+						viewer.refresh();
+						((TreeViewer) viewer).setExpandedTreePaths(treePaths);
+//						if (CommonViewer.class.isInstance(viewer)) {
+//							CommonNavigator commonNavigator = ((CommonViewer) viewer).getCommonNavigator();
+//							if (IEDICommonNavigator.class.isInstance(commonNavigator)) {
+//								if (((CommonViewer) viewer).getTree().getItemCount() == 0)
+//									((IEDICommonNavigator) commonNavigator).togglePage();
+//							}
+//						}
+						return Status.OK_STATUS;
+					}
+				};
+			}else {
+				updateJob.cancel();
+			}
+			updateJob.setPriority(WorkbenchJob.DECORATE);
+			updateJob.schedule(100);
+		}
+		
 	}
 
 }

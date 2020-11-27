@@ -16,6 +16,20 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.workbench,
  org.eclipse.core.filesystem,
  org.eclipse.emf.ecore,
- com.gesila.test.guard.model;bundle-version="1.0.0"
+ com.gesila.test.guard.model;bundle-version="1.0.0",
+ org.apache.commons.lang3
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
+Export-Package: com.gesila.test.guard.navigator.ui,
+ com.gesila.test.guard.navigator.ui.views,
+ com.gesila.test.guard.navigator.ui.views.actions,
+ com.gesila.test.guard.navigator.ui.views.actions.groups,
+ com.gesila.test.guard.navigator.ui.views.actions.utils,
+ com.gesila.test.guard.navigator.ui.views.handlers,
+ com.gesila.test.guard.navigator.ui.views.linkHelper,
+ com.gesila.test.guard.navigator.ui.views.listeners,
+ com.gesila.test.guard.navigator.ui.views.listeners.manager,
+ com.gesila.test.guard.navigator.ui.views.providers,
+ com.gesila.test.guard.navigator.ui.wizards,
+ com.gesila.test.guard.navigator.ui.wizards.models,
+ com.gesila.test.guard.navigator.ui.wizards.pages

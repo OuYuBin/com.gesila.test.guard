@@ -19,11 +19,11 @@ import org.eclipse.ui.ide.FileStoreEditorInput;
 import org.eclipse.ui.navigator.ILinkHelper;
 import org.eclipse.ui.part.FileEditorInput;
 
-import com.gesila.test.guard.navigator.ui.views.manager.GesilaTestGuardModelElementManager;
-import com.gesila.test.guard.navigator.ui.views.manager.IGesilaTestGuardModelElementChangeListener;
+import com.gesila.test.guard.navigator.ui.views.listeners.IGesilaTestGuardModelElementChangeListener;
+import com.gesila.test.guard.navigator.ui.views.listeners.manager.PostGuardModelElementManager;
 import com.gesila.test.guard.navigator.ui.views.providers.GesilaTestGuardTreeContentProvider;
 import com.gesila.test.guard.project.models.IGesilaTestGuardProject;
-import com.gesila.test.guard.project.models.IGesilaTestGuardProjectElement;
+import com.gesila.test.guard.project.models.IPostGuardProjectElement;
 
 /**
  * 
@@ -42,7 +42,7 @@ public class GesialLinkTestGuardHelper implements ILinkHelper {
 		IFile file = workspaceRoot.getFileForLocation(path);
 		IProject project = file.getProject();
 
-		List<IGesilaTestGuardModelElementChangeListener> listeners = GesilaTestGuardModelElementManager.getInstance()
+		List<IGesilaTestGuardModelElementChangeListener> listeners = PostGuardModelElementManager.getInstance()
 				.getGesilaTestGuardModelElementChangeListeners().stream()
 				.filter(listener -> listener instanceof GesilaTestGuardTreeContentProvider)
 				.collect(Collectors.toList());
@@ -66,8 +66,8 @@ public class GesialLinkTestGuardHelper implements ILinkHelper {
 			IFile file) {
 		Object[] objects = listener.getElements(object);
 		for (Object currObject : objects) {
-			if (currObject instanceof IGesilaTestGuardProjectElement) {
-				IPath path = ((IGesilaTestGuardProjectElement) currObject).getAdapter(IPath.class);
+			if (currObject instanceof IPostGuardProjectElement) {
+				IPath path = ((IPostGuardProjectElement) currObject).getAdapter(IPath.class);
 				if (file.getLocation().toFile().getAbsolutePath().equals(ResourcesPlugin.getWorkspace().getRoot().getFile(path).getLocation().toFile().getAbsolutePath())) {
 					selection= new StructuredSelection(currObject);
 					break;

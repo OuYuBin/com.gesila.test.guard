@@ -8,7 +8,7 @@ import org.eclipse.core.runtime.IAdaptable;
  * @author robin
  *
  */
-public interface IGesilaTestGuardProject extends IGesilaTestGuardProjectContainerElement{
+public interface IGesilaTestGuardProject extends IPostGuardProjectContainerElement{
 
 	public IProject getProject();
 }

@@ -86,13 +86,13 @@ public interface TestGuardPackage extends EPackage {
 	int TEST_GUARD__URL = 1;
 
 	/**
-	 * The feature id for the '<em><b>Request Method</b></em>' attribute.
+	 * The feature id for the '<em><b>Method</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TEST_GUARD__REQUEST_METHOD = 2;
+	int TEST_GUARD__METHOD = 2;
 
 	/**
 	 * The feature id for the '<em><b>Headers</b></em>' containment reference.
@@ -122,13 +122,22 @@ public interface TestGuardPackage extends EPackage {
 	int TEST_GUARD__REQUEST_BODY = 5;
 
 	/**
+	 * The feature id for the '<em><b>Desc</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEST_GUARD__DESC = 6;
+
+	/**
 	 * The number of structural features of the '<em>Test Guard</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TEST_GUARD_FEATURE_COUNT = 6;
+	int TEST_GUARD_FEATURE_COUNT = 7;
 
 	/**
 	 * The number of operations of the '<em>Test Guard</em>' class.
@@ -223,22 +232,13 @@ public interface TestGuardPackage extends EPackage {
 	int TEST_GUARD_UNIT__REQUEST_BODY = 2;
 
 	/**
-	 * The feature id for the '<em><b>Request Method</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEST_GUARD_UNIT__REQUEST_METHOD = 3;
-
-	/**
 	 * The number of structural features of the '<em>Unit</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TEST_GUARD_UNIT_FEATURE_COUNT = 4;
+	int TEST_GUARD_UNIT_FEATURE_COUNT = 3;
 
 	/**
 	 * The number of operations of the '<em>Unit</em>' class.
@@ -453,16 +453,6 @@ public interface TestGuardPackage extends EPackage {
 	int PARAM_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link com.gesila.test.guard.model.testGuard.RequestMethod <em>Request Method</em>}' enum.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see com.gesila.test.guard.model.testGuard.RequestMethod
-	 * @see com.gesila.test.guard.model.testGuard.impl.TestGuardPackageImpl#getRequestMethod()
-	 * @generated
-	 */
-	int REQUEST_METHOD = 8;
-
-	/**
 	 * The meta object id for the '{@link com.gesila.test.guard.model.testGuard.EntityHeaderFields <em>Entity Header Fields</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -470,7 +460,7 @@ public interface TestGuardPackage extends EPackage {
 	 * @see com.gesila.test.guard.model.testGuard.impl.TestGuardPackageImpl#getEntityHeaderFields()
 	 * @generated
 	 */
-	int ENTITY_HEADER_FIELDS = 9;
+	int ENTITY_HEADER_FIELDS = 8;
 
 	/**
 	 * The meta object id for the '{@link com.gesila.test.guard.model.testGuard.Method <em>Method</em>}' enum.
@@ -480,7 +470,7 @@ public interface TestGuardPackage extends EPackage {
 	 * @see com.gesila.test.guard.model.testGuard.impl.TestGuardPackageImpl#getMethod()
 	 * @generated
 	 */
-	int METHOD = 10;
+	int METHOD = 9;
 
 	/**
 	 * Returns the meta object for class '{@link com.gesila.test.guard.model.testGuard.TestGuard <em>Test Guard</em>}'.
@@ -515,6 +505,17 @@ public interface TestGuardPackage extends EPackage {
 	EAttribute getTestGuard_Url();
 
 	/**
+	 * Returns the meta object for the attribute '{@link com.gesila.test.guard.model.testGuard.TestGuard#getMethod <em>Method</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Method</em>'.
+	 * @see com.gesila.test.guard.model.testGuard.TestGuard#getMethod()
+	 * @see #getTestGuard()
+	 * @generated
+	 */
+	EAttribute getTestGuard_Method();
+
+	/**
 	 * Returns the meta object for the containment reference '{@link com.gesila.test.guard.model.testGuard.TestGuard#getRequestBody <em>Request Body</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -526,15 +527,15 @@ public interface TestGuardPackage extends EPackage {
 	EReference getTestGuard_RequestBody();
 
 	/**
-	 * Returns the meta object for the attribute '{@link com.gesila.test.guard.model.testGuard.TestGuard#getRequestMethod <em>Request Method</em>}'.
+	 * Returns the meta object for the attribute '{@link com.gesila.test.guard.model.testGuard.TestGuard#getDesc <em>Desc</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Request Method</em>'.
-	 * @see com.gesila.test.guard.model.testGuard.TestGuard#getRequestMethod()
+	 * @return the meta object for the attribute '<em>Desc</em>'.
+	 * @see com.gesila.test.guard.model.testGuard.TestGuard#getDesc()
 	 * @see #getTestGuard()
 	 * @generated
 	 */
-	EAttribute getTestGuard_RequestMethod();
+	EAttribute getTestGuard_Desc();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link com.gesila.test.guard.model.testGuard.TestGuard#getHeaders <em>Headers</em>}'.
@@ -632,17 +633,6 @@ public interface TestGuardPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getTestGuardUnit_RequestBody();
-
-	/**
-	 * Returns the meta object for the attribute '{@link com.gesila.test.guard.model.testGuard.TestGuardUnit#getRequestMethod <em>Request Method</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Request Method</em>'.
-	 * @see com.gesila.test.guard.model.testGuard.TestGuardUnit#getRequestMethod()
-	 * @see #getTestGuardUnit()
-	 * @generated
-	 */
-	EAttribute getTestGuardUnit_RequestMethod();
 
 	/**
 	 * Returns the meta object for class '{@link com.gesila.test.guard.model.testGuard.Headers <em>Headers</em>}'.
@@ -772,16 +762,6 @@ public interface TestGuardPackage extends EPackage {
 	EAttribute getParam_Value();
 
 	/**
-	 * Returns the meta object for enum '{@link com.gesila.test.guard.model.testGuard.RequestMethod <em>Request Method</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for enum '<em>Request Method</em>'.
-	 * @see com.gesila.test.guard.model.testGuard.RequestMethod
-	 * @generated
-	 */
-	EEnum getRequestMethod();
-
-	/**
 	 * Returns the meta object for enum '{@link com.gesila.test.guard.model.testGuard.EntityHeaderFields <em>Entity Header Fields</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -851,6 +831,14 @@ public interface TestGuardPackage extends EPackage {
 		EAttribute TEST_GUARD__URL = eINSTANCE.getTestGuard_Url();
 
 		/**
+		 * The meta object literal for the '<em><b>Method</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TEST_GUARD__METHOD = eINSTANCE.getTestGuard_Method();
+
+		/**
 		 * The meta object literal for the '<em><b>Request Body</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -859,12 +847,12 @@ public interface TestGuardPackage extends EPackage {
 		EReference TEST_GUARD__REQUEST_BODY = eINSTANCE.getTestGuard_RequestBody();
 
 		/**
-		 * The meta object literal for the '<em><b>Request Method</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Desc</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute TEST_GUARD__REQUEST_METHOD = eINSTANCE.getTestGuard_RequestMethod();
+		EAttribute TEST_GUARD__DESC = eINSTANCE.getTestGuard_Desc();
 
 		/**
 		 * The meta object literal for the '<em><b>Headers</b></em>' containment reference feature.
@@ -941,14 +929,6 @@ public interface TestGuardPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute TEST_GUARD_UNIT__REQUEST_BODY = eINSTANCE.getTestGuardUnit_RequestBody();
-
-		/**
-		 * The meta object literal for the '<em><b>Request Method</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute TEST_GUARD_UNIT__REQUEST_METHOD = eINSTANCE.getTestGuardUnit_RequestMethod();
 
 		/**
 		 * The meta object literal for the '{@link com.gesila.test.guard.model.testGuard.impl.HeadersImpl <em>Headers</em>}' class.
@@ -1055,16 +1035,6 @@ public interface TestGuardPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute PARAM__VALUE = eINSTANCE.getParam_Value();
-
-		/**
-		 * The meta object literal for the '{@link com.gesila.test.guard.model.testGuard.RequestMethod <em>Request Method</em>}' enum.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see com.gesila.test.guard.model.testGuard.RequestMethod
-		 * @see com.gesila.test.guard.model.testGuard.impl.TestGuardPackageImpl#getRequestMethod()
-		 * @generated
-		 */
-		EEnum REQUEST_METHOD = eINSTANCE.getRequestMethod();
 
 		/**
 		 * The meta object literal for the '{@link com.gesila.test.guard.model.testGuard.EntityHeaderFields <em>Entity Header Fields</em>}' enum.

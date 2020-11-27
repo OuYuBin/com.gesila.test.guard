@@ -78,8 +78,6 @@ public class TestGuardFactoryImpl extends EFactoryImpl implements TestGuardFacto
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-			case TestGuardPackage.REQUEST_METHOD:
-				return createRequestMethodFromString(eDataType, initialValue);
 			case TestGuardPackage.ENTITY_HEADER_FIELDS:
 				return createEntityHeaderFieldsFromString(eDataType, initialValue);
 			case TestGuardPackage.METHOD:
@@ -97,8 +95,6 @@ public class TestGuardFactoryImpl extends EFactoryImpl implements TestGuardFacto
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
-			case TestGuardPackage.REQUEST_METHOD:
-				return convertRequestMethodToString(eDataType, instanceValue);
 			case TestGuardPackage.ENTITY_HEADER_FIELDS:
 				return convertEntityHeaderFieldsToString(eDataType, instanceValue);
 			case TestGuardPackage.METHOD:
@@ -194,26 +190,6 @@ public class TestGuardFactoryImpl extends EFactoryImpl implements TestGuardFacto
 	public Param createParam() {
 		ParamImpl param = new ParamImpl();
 		return param;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public RequestMethod createRequestMethodFromString(EDataType eDataType, String initialValue) {
-		RequestMethod result = RequestMethod.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertRequestMethodToString(EDataType eDataType, Object instanceValue) {
-		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

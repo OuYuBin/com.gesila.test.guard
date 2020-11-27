@@ -49,7 +49,7 @@ import com.gesila.test.guard.json.utils.GesilaJSONUtils;
  * @author robin
  *
  */
-public class GesilaTestGuardResponsePart {
+public class PostGuardResponsePart {
 
 	private TreeViewer treeViewer;
 
