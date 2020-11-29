@@ -46,9 +46,9 @@ public class GesilaTestGuardCommonActionProvider extends CommonActionProvider {
 		IMenuManager subMenu = new MenuManager("New", NEW_MENU_NAME);
 		newWizardActionGroup.setContext(getContext());
 		newWizardActionGroup.fillContextMenu(subMenu);
-		subMenu.add(new Separator(ICommonMenuConstants.GROUP_ADDITIONS));
+		//subMenu.add(new Separator(ICommonMenuConstants.GROUP_ADDITIONS));
 		subMenu.add(new Separator());
-		subMenu.add(showDlgAction);
+		//subMenu.add(showDlgAction);
 		menu.insertAfter(ICommonMenuConstants.GROUP_NEW, subMenu);
 	}
 

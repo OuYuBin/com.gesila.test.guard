@@ -114,7 +114,6 @@ public class PostGuardNewRequestWizardPage extends WizardPage {
 		}
 		methodsCombo.setItems(items);
 
-		methodsCombo.select(0);
 		methodsCombo.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
 		methodsCombo.addModifyListener(new ModifyListener() {
 
@@ -125,6 +124,7 @@ public class PostGuardNewRequestWizardPage extends WizardPage {
 				postGuardRequest.setMethod(method);
 			}
 		});
+		methodsCombo.select(0);
 
 		Label descLabel = new Label(composite, SWT.NONE);
 		descLabel.setText("简要描述:");

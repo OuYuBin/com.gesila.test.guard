@@ -23,10 +23,12 @@ import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.swt.graphics.Image;
 
 import com.gesila.test.guard.navigator.ui.Activator;
+import com.gesila.test.guard.project.models.IPostGuardProjectElement;
 import com.gesila.test.guard.project.models.impl.GesilaTestGuard;
 import com.gesila.test.guard.project.models.impl.GesilaTestGuardProject;
 import com.gesila.test.guard.project.models.impl.PostGuardDependence;
 import com.gesila.test.guard.project.models.impl.PostGuardGroup;
+import com.gesila.test.guard.project.models.impl.PostGuardLibrary;
 
 /**
  * 
@@ -85,6 +87,8 @@ public class GesilaTestGuardTreeLabelProvider extends LabelProvider implements I
 			return Activator.getDefault().getImageRegistry().get("interface");
 		} else if (element instanceof PostGuardDependence) {
 			return Activator.getDefault().getImageRegistry().get("dependence");
+		} else if (element instanceof PostGuardLibrary) {
+			return Activator.getDefault().getImageRegistry().get("library");
 		}
 		return null;
 	}
@@ -99,7 +103,11 @@ public class GesilaTestGuardTreeLabelProvider extends LabelProvider implements I
 			int i = ((GesilaTestGuard) element).getName().lastIndexOf('.');
 			return ((GesilaTestGuard) element).getName().substring(0, i);
 		} else if (PostGuardDependence.class.isInstance(element)) {
-			return ((PostGuardDependence) element).getName();
+			return ((PostGuardDependence) element).getLabelName();
+		} else if (PostGuardLibrary.class.isInstance(element)) {
+			// return ((PostGuardLibrary) element).getName();
+			int i = ((PostGuardLibrary) element).getName().lastIndexOf('.');
+			return ((PostGuardLibrary) element).getName().substring(0, i);
 		}
 		return element.toString();
 	}
@@ -117,8 +125,8 @@ public class GesilaTestGuardTreeLabelProvider extends LabelProvider implements I
 			return styledString;
 		}
 
-		if (element instanceof GesilaTestGuard) {
-			IPath path = ((GesilaTestGuard) element).getAdapter(IPath.class);
+		if (element instanceof GesilaTestGuard || element instanceof PostGuardLibrary) {
+			IPath path = ((IPostGuardProjectElement) element).getAdapter(IPath.class);
 			IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 			IFile file = root.getFile(path);
 			XMIResourceImpl xmiResource = new XMIResourceImpl();
@@ -141,68 +149,73 @@ public class GesilaTestGuardTreeLabelProvider extends LabelProvider implements I
 			}
 
 			// Object object = GesilaTestGuard).getObject();
-//			if (object != null) {
-//				if (EObject.class.isInstance(object)) {
-//					Resource resource = ((EObject) object).eResource();
-//					if (resource == null)
-//						return null;
-//					EClass eClass = (((EObject) object).eClass());
-//					EAttribute attribute = EDIECoreUtil.getAttribute(eClass, "cnName");
-//					if (attribute != null) {
-//						String cnName = (String) ((EObject) object).eGet(attribute);
-//						if (!StringUtils.isEmpty(cnName))
-//							styledString.append(" [" + cnName + "]", commentStyler);
-//					}
+			// if (object != null) {
+			// if (EObject.class.isInstance(object)) {
+			// Resource resource = ((EObject) object).eResource();
+			// if (resource == null)
+			// return null;
+			// EClass eClass = (((EObject) object).eClass());
+			// EAttribute attribute = EDIECoreUtil.getAttribute(eClass,
+			// "cnName");
+			// if (attribute != null) {
+			// String cnName = (String) ((EObject) object).eGet(attribute);
+			// if (!StringUtils.isEmpty(cnName))
+			// styledString.append(" [" + cnName + "]", commentStyler);
+			// }
 
 		}
 
-//		if (EDIPartnerProject.class.isInstance(element)) {
-//			Object object = ((EDIPartnerProject) element).getObject();
-//			if (Server.class.isInstance(object)) {
-//				styledString.append("@" + ((Server) object).getHost(), qualifierStyler);
-//				int partnerSize = ((Server) object).getPartner().size();
-//				styledString.append(" (" + partnerSize + ") ", counterStyler);
-//			}
-//		} else if (IEDIProjectElement.class.isInstance(element)) {
-//			Object object = ((IEDIProjectElement) element).getObject();
-//			if (object != null) {
-//				if (EObject.class.isInstance(object)) {
-//					Resource resource = ((EObject) object).eResource();
-//					if (resource == null)
-//						return null;
-//					EClass eClass = (((EObject) object).eClass());
-//					EAttribute attribute = EDIECoreUtil.getAttribute(eClass, "cnName");
-//					if (attribute != null) {
-//						String cnName = (String) ((EObject) object).eGet(attribute);
-//						if (!StringUtils.isEmpty(cnName))
-//							styledString.append(" [" + cnName + "]", commentStyler);
-//					}
-//					if (eClass.getName().equals(IEDIPartnerConfigContstant.INTERFACE)) {
-//						EAttribute nameAttribute = EDIECoreUtil.getAttribute(eClass, "name");
-//						String name = (String) ((EObject) object).eGet(nameAttribute);
-//						String cnName = null;
-//						List<EObject> eObjects = EDIModelQueryUtil
-//								.queryReEObjectByUniqueNameWithSameClassName(
-//										((EObject) object).eContainer().eResource().getContents().get(0), eClass, name)
-//								.stream().collect(Collectors.toList());
-//						if (!eObjects.isEmpty()) {
-//							EObject eObject = eObjects.get(0);
-//							EAttribute cnNameEAttribute = EDIECoreUtil.getAttribute(eObject.eClass(), "cnName");
-//							if (cnNameEAttribute != null) {
-//								cnName = (String) eObject.eGet(cnNameEAttribute);
-//								if (!StringUtils.isEmpty(cnName)) {
-//									styledString.append(" [" + cnName + "]", commentStyler);
-//								}
-//							}
-//						}
-//
-//					} else if (eClass.getName().equals(IEDIPartnerConfigContstant.CATEGORY)) {
-//						int interfaceSize = (((EObject) object).eContents()).size();
-//						styledString.append(" (" + interfaceSize + ") ", counterStyler);
-//					}
-//
-//				}
-//			}
+		// if (EDIPartnerProject.class.isInstance(element)) {
+		// Object object = ((EDIPartnerProject) element).getObject();
+		// if (Server.class.isInstance(object)) {
+		// styledString.append("@" + ((Server) object).getHost(),
+		// qualifierStyler);
+		// int partnerSize = ((Server) object).getPartner().size();
+		// styledString.append(" (" + partnerSize + ") ", counterStyler);
+		// }
+		// } else if (IEDIProjectElement.class.isInstance(element)) {
+		// Object object = ((IEDIProjectElement) element).getObject();
+		// if (object != null) {
+		// if (EObject.class.isInstance(object)) {
+		// Resource resource = ((EObject) object).eResource();
+		// if (resource == null)
+		// return null;
+		// EClass eClass = (((EObject) object).eClass());
+		// EAttribute attribute = EDIECoreUtil.getAttribute(eClass, "cnName");
+		// if (attribute != null) {
+		// String cnName = (String) ((EObject) object).eGet(attribute);
+		// if (!StringUtils.isEmpty(cnName))
+		// styledString.append(" [" + cnName + "]", commentStyler);
+		// }
+		// if (eClass.getName().equals(IEDIPartnerConfigContstant.INTERFACE)) {
+		// EAttribute nameAttribute = EDIECoreUtil.getAttribute(eClass, "name");
+		// String name = (String) ((EObject) object).eGet(nameAttribute);
+		// String cnName = null;
+		// List<EObject> eObjects = EDIModelQueryUtil
+		// .queryReEObjectByUniqueNameWithSameClassName(
+		// ((EObject) object).eContainer().eResource().getContents().get(0),
+		// eClass, name)
+		// .stream().collect(Collectors.toList());
+		// if (!eObjects.isEmpty()) {
+		// EObject eObject = eObjects.get(0);
+		// EAttribute cnNameEAttribute =
+		// EDIECoreUtil.getAttribute(eObject.eClass(), "cnName");
+		// if (cnNameEAttribute != null) {
+		// cnName = (String) eObject.eGet(cnNameEAttribute);
+		// if (!StringUtils.isEmpty(cnName)) {
+		// styledString.append(" [" + cnName + "]", commentStyler);
+		// }
+		// }
+		// }
+		//
+		// } else if
+		// (eClass.getName().equals(IEDIPartnerConfigContstant.CATEGORY)) {
+		// int interfaceSize = (((EObject) object).eContents()).size();
+		// styledString.append(" (" + interfaceSize + ") ", counterStyler);
+		// }
+		//
+		// }
+		// }
 		// }
 		return styledString;
 	}

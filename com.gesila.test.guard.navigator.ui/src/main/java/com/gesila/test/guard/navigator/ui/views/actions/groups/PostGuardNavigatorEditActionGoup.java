@@ -40,10 +40,10 @@ public class PostGuardNavigatorEditActionGoup extends ActionGroup {
 	private Shell shell;
 
 	/**
-	 * @param aShell
+	 * @param shell
 	 */
-	public PostGuardNavigatorEditActionGoup(Shell aShell) {
-		shell = aShell; 
+	public PostGuardNavigatorEditActionGoup(Shell shell) {
+		this.shell = shell; 
 		makeActions();
 	}
 

@@ -1,23 +1,21 @@
 package com.gesila.test.guard.navigator.ui.views.actions;
 
-import org.eclipse.core.filesystem.EFS;
-import org.eclipse.core.filesystem.IFileStore;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IEditorDescriptor;
-import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.SelectionListenerAction;
-import org.eclipse.ui.ide.FileStoreEditorInput;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.part.FileEditorInput;
 
+import com.gesila.test.guard.project.models.IPostGuardProjectElement;
 import com.gesila.test.guard.project.models.impl.GesilaTestGuard;
+import com.gesila.test.guard.project.models.impl.PostGuardLibrary;
 
 /**
  * 
@@ -39,8 +37,8 @@ public class GesilaTestGuardOpenAction extends SelectionListenerAction {
 		try {
 			IStructuredSelection selection = getStructuredSelection();
 			Object object = selection.getFirstElement();
-			if (object instanceof GesilaTestGuard) {
-				IPath path = ((GesilaTestGuard) object).getAdapter(IPath.class);
+			if (object instanceof GesilaTestGuard || object instanceof PostGuardLibrary) {
+				IPath path = ((IPostGuardProjectElement)object).getAdapter(IPath.class);
 				IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
 				if (file.exists()) {
 					IWorkbenchPage page = workbenchWindow.getActivePage();

@@ -166,7 +166,7 @@ public class PostGuardFormPage extends FormPage {
 
 		Composite requestComposite = formToolkit.createComposite(section);
 		gridLayout = new GridLayout(5, false);
-		gridLayout.marginWidth = 5;
+		gridLayout.marginWidth = 0;
 		gridLayout.marginHeight = 5;
 		gridLayout.verticalSpacing = 0;
 		gridLayout.horizontalSpacing = 5;

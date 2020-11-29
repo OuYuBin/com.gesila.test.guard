@@ -20,12 +20,12 @@ public class PostGuardViewerComparator extends ViewerComparator implements Compa
 	public PostGuardViewerComparator(Comparator<? super String> comparator) {
 		super(comparator);
 	}
-	
+
 	@Override
 	public int compare(Viewer viewer, Object e1, Object e2) {
 		return compare(e1, e2);
 	}
-	
+
 	@Override
 	public int compare(Object o1, Object o2) {
 		if (o1 instanceof PostGuardDependence)

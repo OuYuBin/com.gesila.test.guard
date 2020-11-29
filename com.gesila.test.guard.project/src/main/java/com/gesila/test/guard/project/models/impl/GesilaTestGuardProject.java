@@ -115,7 +115,6 @@ public class GesilaTestGuardProject extends AbstractGesilaTestGuardProjectElemen
 						PostGuardGroup gesilaTestGuardGroup = new PostGuardGroup(this);
 						IPath path = new Path(file.getCanonicalPath());
 						IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-						// IFile file=root.getFile(path);
 						gesilaTestGuardGroup.setName(name);
 						addElements.add(gesilaTestGuardGroup);
 					}
@@ -147,7 +146,8 @@ public class GesilaTestGuardProject extends AbstractGesilaTestGuardProjectElemen
 			} else if (file.isDirectory()) {
 				if (StringUtils.equals(file.getName(), "dependence")) {
 					PostGuardDependence postGuardDependence = new PostGuardDependence(this);
-					postGuardDependence.setName("依赖项");
+					postGuardDependence.setName(name);
+					postGuardDependence.setLabelName("依赖项");
 					elements.add(postGuardDependence);
 				} else {
 					PostGuardGroup gesilaTestGuardGroup = new PostGuardGroup(this);

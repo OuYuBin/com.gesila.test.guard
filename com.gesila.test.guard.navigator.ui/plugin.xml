@@ -90,6 +90,9 @@
                   <instanceof
                         value="com.gesila.test.guard.project.models.impl.PostGuardGroup">
                   </instanceof>
+                  <instanceof
+                        value="com.gesila.test.guard.project.models.impl.PostGuardDependence">
+                  </instanceof>
                </or>
             </enablement>
          </actionProvider>
@@ -106,23 +109,33 @@
                class="com.gesila.test.guard.navigator.ui.views.providers.GesilaTestGuardOpenActionProvider"
                id="com.gesila.test.guard.navigator.ui.views.providers.GesilaTestGuardOpenActionProvider">
             <enablement>
-               <instanceof
-                     value="com.gesila.test.guard.project.models.impl.GesilaTestGuard">
-               </instanceof>
                <not>
                   <instanceof
                         value="com.gesila.test.guard.project.models.IPostGuardProjectContainerElement">
                   </instanceof>
                </not>
+               <or>
+                  <instanceof
+                        value="com.gesila.test.guard.project.models.impl.GesilaTestGuard">
+                  </instanceof>
+                  <instanceof
+                        value="com.gesila.test.guard.project.models.impl.PostGuardLibrary">
+                  </instanceof>
+               </or>
             </enablement>
          </actionProvider>
          <actionProvider
                class="com.gesila.test.guard.navigator.ui.views.providers.PostGuardEditCommonActionProvider"
                id="com.gesila.test.guard.navigator.ui.views.providers.PostGuardEditCommonActionProvider">
             <enablement>
-               <instanceof
-                     value="com.gesila.test.guard.project.models.impl.GesilaTestGuard">
-               </instanceof>
+               <or>
+                  <instanceof
+                        value="com.gesila.test.guard.project.models.impl.PostGuardLibrary">
+                  </instanceof>
+                  <instanceof
+                        value="com.gesila.test.guard.project.models.impl.GesilaTestGuard">
+                  </instanceof>
+               </or>
             </enablement>
          </actionProvider>
          <commonSorter
@@ -161,6 +174,14 @@
                   checkEnabled="true">
             </visibleWhen>
          </command>
+         <command
+               commandId="com.gesila.test.guard.navigator.ui.views.handlers.PostGuardNewLibHandler"
+               icon="icons/library.png"
+               style="push">
+            <visibleWhen
+                  checkEnabled="true">
+            </visibleWhen>
+         </command>
       </menuContribution>
    </extension>
    <extension
@@ -168,6 +189,10 @@
       <command
             id="com.gesila.test.guard.navigator.ui.views.handlers.GesilaTestGuardNewGroupHandler"
             name="模块">
+      </command>
+      <command
+            id="com.gesila.test.guard.navigator.ui.views.handlers.PostGuardNewLibHandler"
+            name="依赖">
       </command>
       <command
             id="com.gesila.test.guard.navigator.ui.views.handlers.GesilaTestGuardNewRequestHandler"
@@ -220,6 +245,38 @@
                         ifEmpty="true">
                      <instanceof
                            value="com.gesila.test.guard.project.models.impl.PostGuardGroup">
+        
+      <handler
+            class="com.gesila.test.guard.navigator.ui.views.handlers.PostGuardNewLibHandler"
+            commandId="com.gesila.test.guard.navigator.ui.views.handlers.PostGuardNewLibHandler">
+      </handler>
+      <handler
+            commandId="com.gesila.test.guard.navigator.ui.handler1">
+      </handler>             </instanceof>
+                  </iterate>
+               </with>
+            </and>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="com.gesila.test.guard.navigator.ui.views.handlers.PostGuardNewLibHandler"
+            commandId="com.gesila.test.guard.navigator.ui.views.handlers.PostGuardNewLibHandler">
+         <enabledWhen>
+            <and>
+               <not>
+                  <adapt
+                        type="java.util.Collection">
+                     <count
+                           value="0">
+                     </count>
+                  </adapt>
+               </not>
+               <with
+                     variable="selection">
+                  <iterate
+                        ifEmpty="true">
+                     <instanceof
+                           value="com.gesila.test.guard.project.models.impl.PostGuardDependence">
                      </instanceof>
                   </iterate>
                </with>
